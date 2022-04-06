@@ -1,0 +1,20 @@
+{
+  "name": "password-generator",
+  "version": "1.0.0",
+  "homepage": "https://password-generator.pro",
+  "author": "Sebastien Rousseau (https://github.com/sebastienrousseau/password-generator)",
+  "description": "",
+  "main": "bin/index.js",
+  "keywords": [
+      "",
+      ""
+  ],
+  "license": "MIT",
+  "ignore": [
+      "**/.*",
+      "!dist/*",
+      "node_modules",
+      "bower_components",
+      "images"
+  ]
+}
