@@ -4,7 +4,7 @@
   "homepage": "https://password-generator.pro",
   "author": "Sebastien Rousseau (https://github.com/sebastienrousseau/password-generator)",
   "description": "",
-  "main": "bin/index.js",
+  "main": "bin/password-generator.js",
   "keywords": [
       "",
       ""
