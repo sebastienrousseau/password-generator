@@ -1,7 +1,9 @@
 /*jshint esversion: 8 */
-import { passwordGenerator } from '../lib/password-generator.js';
+import { memorablePassword } from '../lib/memorable-password.js';
+// import { passwordGenerator } from '../lib/password-generator.js';
 
 (async () => {
-  passwordGenerator();
+  // passwordGenerator();
+  memorablePassword();
 })();
 
