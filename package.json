@@ -6,24 +6,27 @@
     "main": "bin/password-generator.js",
     "repository": "sebastienrousseau/password-generator",
     "author": {
-      "name": "Sebastien Rousseau",
-      "email": "hello@password-generator.pro",
-      "url": "https://github.com/sebastienrousseau/password-generator"
+        "name": "Sebastien Rousseau",
+        "email": "hello@password-generator.pro",
+        "url": "https://github.com/sebastienrousseau/password-generator"
     },
     "engines": {
-      "node": ">=14.17.3"
+        "node": ">=14.17.3"
     },
     "scripts": {
-      "test": "mocha"
+        "test": "mocha"
     },
     "files": [
-      "app"
+        "app"
     ],
     "type": "module",
     "keywords": [
-      "password-generator"
+        "password-generator"
     ],
     "dependencies": {
-      "chalk": "^5.0.1",
-      "openssl-nodejs": "^1.0.5"    }
-  }
+        "chalk": "^5.0.1",
+        "commander": "^9.1.0",
+        "jshint": "^2.13.4",
+        "openssl-nodejs": "^1.0.5"
+    }
+}
