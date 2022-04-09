@@ -1,8 +1,16 @@
 /*jshint esversion: 8 */
-import { Command as c } from 'commander';
-import { memorablePassword } from '../lib/memorable-password.js';
-import { complexPassword } from '../lib/complex-password.js';
-import { base64Password } from '../lib/base64-password.js';
+import {
+  Command as c
+} from 'commander';
+import {
+  memorablePassword
+} from '../lib/memorable-password.js';
+import {
+  complexPassword
+} from '../lib/complex-password.js';
+import {
+  base64Password
+} from '../lib/base64-password.js';
 
 // Global Variables
 global.log = (arg) => console.log(arg);
