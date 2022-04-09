@@ -1,13 +1,8 @@
 /*jshint esversion: 8 */
-import {
-  Command as c
-} from 'commander';
-import {
-  memorablePassword
-} from '../lib/memorable-password.js';
-import {
-  passwordGenerator
-} from '../lib/password-generator.js';
+import { Command as c } from 'commander';
+import { memorablePassword } from '../lib/memorable-password.js';
+import { complexPassword } from '../lib/complex-password.js';
+import { base64Password } from '../lib/base64-password.js';
 
 // Global Variables
 global.log = (arg) => console.log(arg);
@@ -20,8 +15,8 @@ const program = new c();
     program
       .version("1.0.0")
       .option('-t, --type <type>', 'Add type either memorable or complex')
-      .option('-l, --length', 'Add length')
-      .option('-d, --delimiter', 'Add delimiter')
+      .option('-i, --iteration', 'Add iteration')
+      .option('-s, --separator <char>', 'Add separator')
       .parse(process.argv);
 
     if (args.length === 0) {
@@ -29,7 +24,9 @@ const program = new c();
     } else if (args[1] == "memorable") {
       memorablePassword();
     } else if (args[1] === "complex") {
-      passwordGenerator();
+      complexPassword();
+    } else if (args[1] === "base64") {
+      base64Password();
     }
 
 

@@ -4,7 +4,7 @@
   "curly": true,
   "eqeqeq": true,
   "esnext": true,
-  "esversion": 9,
+  "esversion": 8,
   "immed": true,
   "indent": 2,
   "latedef": true,
