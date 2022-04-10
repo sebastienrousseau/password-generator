@@ -13,6 +13,33 @@
     "engines": {
         "node": ">=12.22.0"
     },
+    "eslintConfig": {
+      "parserOptions": {
+      "sourceType": "module"
+    },
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended",
+        "plugin:node/recommended"
+      ]
+    },
+    "settings": {
+      "node": {
+        "tryExtensions": [
+          ".js",
+          ".json",
+          ".ts"
+        ],
+        "convertPath": {
+          "src/**/*.ts": [
+            "^src/(.+?)\\.ts$",
+            "dist/$1.js"
+          ]
+        }
+      }
+    },
     "rules": {
         "node/no-unsupported-features/es-syntax": [
             "error",
@@ -36,5 +63,14 @@
         "chalk": "^5.0.1",
         "commander": "^9.1.0",
         "jshint": "^2.13.4"
+    },
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^5.18.0",
+        "@typescript-eslint/parser": "^5.18.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-node": "^11.1.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "eslint": "^8.13.0",
+        "typescript": "^4.6.3"
     }
 }
