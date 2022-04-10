@@ -22,10 +22,15 @@ A fast, simple and powerful utility library for generating unique passwords to s
     - [From NPM or YARN](#from-npm-or-yarn)
     - [From GitHub](#from-github)
   - [What's included](#whats-included)
-  - [base64 password](#base64-password)
-  - [Complex password](#complex-password)
-  - [Memorable password](#memorable-password)
-    - [Versioning](#versioning)
+  - [Usage](#usage)
+    - [From the CLI](#from-the-cli)
+    - [From Node.js](#from-nodejs)
+    - [From the Browser](#from-the-browser)
+  - [Password options](#password-options)
+    - [Generating a random base64 password](#generating-a-random-base64-password)
+    - [Generating a strong password](#generating-a-strong-password)
+    - [Generating a memorable password](#generating-a-memorable-password)
+  - [Versioning](#versioning)
   - [Contributing](#contributing)
     - [Code of Conduct](#code-of-conduct)
     - [Our Values](#our-values)
@@ -100,25 +105,57 @@ You'll see something like this:
 5 directories, 37 files
 ```
 
-## base64 password
+## Usage
+
+### From the CLI
+
+```shell
+node ./bin/password-generator.js
+```
+
+Displays the following help menu
+
+```shell
+Usage: password-generator [options]
+
+Options:
+  \-V, --version              output the version number
+  \-t, --type <type>          Specify a type (base64, complex, memorable)
+  \-l, --length <numbers>     Specify a length for each iteration
+  \-i, --iteration <numbers>  Specify a number of iteration
+  \-s, --separator <char>     Specify a character for the separator
+  \-h, --help                 display help for command
+```
+
+### From Node.js
+
+    var generatePassword = require('password-generator');
+
+### From the Browser
+
+    <script src="<https://raw.githubusercontent.com/sebastienrousseau/password-generator/master/bin/password-generator.js>" type="text/javascript"></script>
+
+## Password options
+
+### Generating a random base64 password
 
 ```shell
 node ./bin/password-generator.js -t base64 -l 8 -i 4 -s - 
 ```
 
-## Complex password
+### Generating a strong password
 
 ```shell
 node ./bin/password-generator.js -t complex -l 8 -i 4 -s -
 ```
 
-## Memorable password
+### Generating a memorable password
 
 ```shell
 node ./bin/password-generator.js -t memorable -i 4 -s -
 ```
 
-### Versioning
+## Versioning
 
 For transparency into our release cycle and in striving to maintain backward compatibility, Password Generator is maintained under the [Semantic Versioning](https://semver.org/) guidelines.
 
