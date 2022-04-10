@@ -1,11 +1,11 @@
 # Password Generator Library
 
-![Banner representing the Password Generator Library](./images/password-generator-logo.svg)
+![Banner representing the Password Generator Library](https://raw.githubusercontent.com/sebastienrousseau/password-generator/master/images/password-generator-logo.svg)
 
 A fast, simple and powerful utility library for generating unique passwords to streamline your digital and mobile web development needs.
 
-[![Getting Started](./images/button-primary.svg)](#installation)
-[![Download the Password Generator Library v1.0.2](./images/button-secondary.svg)](https://github.com/sebastienrousseau/password-generator/archive/refs/tags/1.0.2.zip)
+[![Getting Started](https://raw.githubusercontent.com/sebastienrousseau/password-generator/master/images/button-primary.svg)](#installation)
+[![Download the Password Generator Library v1.0.3](https://raw.githubusercontent.com/sebastienrousseau/password-generator/master/images/button-secondary.svg)](https://github.com/sebastienrousseau/password-generator/archive/refs/tags/1.0.3.zip)
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/0acb169c95e443729551979e0fd86eaf)](https://www.codacy.com?utm_source=github.com&utm_medium=referral&utm_content=sebastienrousseau/password-generator&utm_campaign=Badge_Grade)
 [![npm](https://img.shields.io/npm/v/@sebastienrousseau/password-generator.svg?style=flat&color=success)](https://www.npmjs.com/package/@sebastienrousseau/password-generator)
@@ -16,27 +16,27 @@ A fast, simple and powerful utility library for generating unique passwords to s
 
 ## Table of Contents
 
-- [Password Generator Library](#password-generator-library)
-  - [Table of Contents](#table-of-contents)
-  - [Installation](#installation)
-    - [From NPM or YARN](#from-npm-or-yarn)
-    - [From GitHub](#from-github)
-  - [What's included](#whats-included)
-  - [Usage](#usage)
-    - [From the CLI](#from-the-cli)
-    - [From Node.js](#from-nodejs)
-    - [From the Browser](#from-the-browser)
-  - [Password options](#password-options)
-    - [Generating a random base64 password](#generating-a-random-base64-password)
-    - [Generating a strong password](#generating-a-strong-password)
-    - [Generating a memorable password](#generating-a-memorable-password)
-  - [Versioning](#versioning)
-  - [Contributing](#contributing)
-    - [Code of Conduct](#code-of-conduct)
-    - [Our Values](#our-values)
-    - [Releases](#releases)
-    - [License](#license)
-    - [Acknowledgements](#acknowledgements)
+-   [Password Generator Library](#password-generator-library)
+    -   [Table of Contents](#table-of-contents)
+    -   [Installation](#installation)
+        -   [From NPM or YARN](#from-npm-or-yarn)
+        -   [From GitHub](#from-github)
+    -   [What's included](#whats-included)
+    -   [Usage](#usage)
+        -   [From the CLI](#from-the-cli)
+        -   [From Node.js](#from-nodejs)
+        -   [From the Browser](#from-the-browser)
+    -   [Password options](#password-options)
+        -   [Generating a random base64 password](#generating-a-random-base64-password)
+        -   [Generating a strong password](#generating-a-strong-password)
+        -   [Generating a memorable password](#generating-a-memorable-password)
+    -   [Versioning](#versioning)
+    -   [Contributing](#contributing)
+        -   [Code of Conduct](#code-of-conduct)
+        -   [Our Values](#our-values)
+        -   [Releases](#releases)
+        -   [License](#license)
+        -   [Acknowledgements](#acknowledgements)
 
 ## Installation
 
