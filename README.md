@@ -8,11 +8,11 @@ A fast, simple and powerful utility library for generating unique passwords to s
 [![Download the Password Generator Library v1.0.1](./images/button-secondary.svg)](https://github.com/sebastienrousseau/password-generator/archive/v1.0.1.zip)
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/0acb169c95e443729551979e0fd86eaf)](https://www.codacy.com?utm_source=github.com&utm_medium=referral&utm_content=sebastienrousseau/password-generator&utm_campaign=Badge_Grade)
-[![npm](https://img.shields.io/npm/v/password-generator.svg?style=flat&color=success)](https://www.npmjs.com/package/password-generator)
+[![npm](https://img.shields.io/npm/v/password-generator.svg?style=flat&color=success)](https://www.npmjs.com/package/@sebastienrousseau/password-generator)
 [![Release Notes](https://img.shields.io/badge/release-notes-success.svg)](https://github.com/sebastienrousseau/password-generator/releases/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-success.svg?style=flat)](https://opensource.org/licenses/MIT)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fsebastienrousseau%2Fpassword-generator.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fsebastienrousseau%2Fpassword-generator?ref=badge_shield)
-[![npm](https://img.shields.io/npm/dm/password-generator.svg?style=flat)](https://www.npmjs.com/package/password-generator)
+[![npm](https://img.shields.io/npm/dm/password-generator.svg?style=flat)](https://www.npmjs.com/package/@sebastienrousseau/password-generator)
 
 ## Table of Contents
 
