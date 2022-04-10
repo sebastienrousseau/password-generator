@@ -5,7 +5,7 @@
 A fast, simple and powerful utility library for generating unique passwords to streamline your digital and mobile web development needs.
 
 [![Getting Started](./images/button-primary.svg)](#installation)
-[![Download the Password Generator Library v1.0.0](./images/button-secondary.svg)](https://github.com/sebastienrousseau/password-generator/archive/v1.0.0.zip)
+[![Download the Password Generator Library v1.0.1](./images/button-secondary.svg)](https://github.com/sebastienrousseau/password-generator/archive/v1.0.1.zip)
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/0acb169c95e443729551979e0fd86eaf)](https://www.codacy.com?utm_source=github.com&utm_medium=referral&utm_content=sebastienrousseau/password-generator&utm_campaign=Badge_Grade)
 [![npm](https://img.shields.io/npm/v/password-generator.svg?style=flat&color=success)](https://www.npmjs.com/package/password-generator)

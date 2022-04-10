@@ -1,6 +1,6 @@
 {
   "name": "@sebastienrousseau/password-generator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A fast, simple and powerful utility library for generating unique passwords to streamline your digital and mobile web development needs.",
   "keywords": [
     "base64",
