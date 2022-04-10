@@ -14,38 +14,37 @@
         "node": ">=12.22.0"
     },
     "eslintConfig": {
-      "parserOptions": {
-      "sourceType": "module"
-    },
-      "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:prettier/recommended",
-        "plugin:node/recommended"
-      ]
+        "parserOptions": {
+            "sourceType": "module"
+        },
+        "extends": [
+            "eslint:recommended",
+            "plugin:@typescript-eslint/eslint-recommended",
+            "plugin:@typescript-eslint/recommended",
+            "plugin:prettier/recommended",
+            "plugin:node/recommended"
+        ]
     },
     "settings": {
-      "node": {
-        "tryExtensions": [
-          ".js",
-          ".json",
-          ".ts"
-        ],
-        "convertPath": {
-          "src/**/*.ts": [
-            "^src/(.+?)\\.ts$",
-            "dist/$1.js"
-          ]
+        "node": {
+            "tryExtensions": [
+                ".js",
+                ".json",
+                ".ts"
+            ],
+            "convertPath": {
+                "src/**/*.ts": [
+                    "^src/(.+?)\\.ts$",
+                    "dist/$1.js"
+                ]
+            }
         }
-      }
     },
     "rules": {
         "node/no-unsupported-features/es-syntax": [
             "error",
             {
-                "version": ">=12.22.0",
-                "ignores": []
+                "allowModules": ["import", "async"]
             }
         ]
     },
@@ -56,6 +55,9 @@
         "app"
     ],
     "type": "module",
+    "bugs": {
+        "url": "https://github.com/sebastienrousseau/password-generator/issues"
+    },
     "keywords": [
         "password-generator"
     ],
