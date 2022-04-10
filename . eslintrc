@@ -6,8 +6,7 @@
 		"node": true
   },
   "parserOptions": {
-    "ecmaVersion": 2020,
-    "sourceType": "module"
+    "ecmaVersion": 2020
   },
   "rules": {
     "camelcase": [1, {"properties": "always"}],
