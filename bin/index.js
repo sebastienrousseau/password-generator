@@ -12,9 +12,9 @@ import {
   base64Password
 } from "../lib/base64-password.js";
 
-// Global Variables
-global.log = (arg) => console.log(arg);
-global.args = process.argv.slice(2);
+// Initializing Variables
+const log = (arg) => console.log(arg);
+const args = process.argv.slice(2);
 const program = new c();
 
 (async () => {
