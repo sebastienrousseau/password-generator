@@ -2,7 +2,9 @@
 import { titleCase } from "../lib/title-case.js";
 import * as chai from "chai";
 let expect = chai.expect;
-describe("Mocha test", function(){
+
+// mocha() test
+describe("mocha()", function(){
   it("should load mocha", function(){
     expect(true);
   });
