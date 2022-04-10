@@ -29,7 +29,6 @@
     "no-unexpected-multiline": 2,
     "no-unused-vars": 2,
     "no-use-before-define": [2, "nofunc"],
-    "node/no-unsupported-features/es-syntax": ["error",{"ignores": ["modules"]}],
     "operator-linebreak": [2, "after"],
     "quotes": [2, "single"],
     "semi": [2, "always"],
