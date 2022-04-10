@@ -6,9 +6,12 @@
 		"node": true
   },
   "parserOptions": {
-    "ecmaVersion": 8,
+    "ecmaVersion": 2020,
     "sourceType": "module"
   },
+  "extends": [
+    "plugin:node/recommended"
+  ],
   "rules": {
     "camelcase": [1, {"properties": "always"}],
     "comma-dangle": 0,
@@ -21,6 +24,7 @@
     "key-spacing": [2, {"beforeColon": false, "afterColon": true}],
     "keyword-spacing": 2,
     "linebreak-style": 0,
+    "node/file-extension-in-import": ["error", "never"],
     "no-console": 0,
     "no-irregular-whitespace": 2,
     "no-multi-str": 2,
@@ -30,13 +34,6 @@
     "no-unexpected-multiline": 2,
     "no-unused-vars": 2,
     "no-use-before-define": [2, "nofunc"],
-    "node/no-unsupported-features/es-syntax": [
-      "error",
-      {
-          "version": ">=12.22.0",
-          "ignores": []
-      }
-    ],
     "operator-linebreak": [2, "after"],
     "quotes": [2, "single"],
     "semi": [2, "always"],

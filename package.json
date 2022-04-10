@@ -45,5 +45,8 @@
         "chalk": "^5.0.1",
         "commander": "^9.1.0",
         "jshint": "^2.13.4"
-    }
+    },
+    "devDependencies": {
+      "eslint-plugin-node": "^11.1.0"
+  }
 }
