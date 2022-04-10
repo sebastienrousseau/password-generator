@@ -1,19 +1,10 @@
 /*jshint esversion: 8 */
-import {
-  Command as c
-} from "commander";
-import {
-  memorablePassword
-} from "../lib/memorable-password.js";
-import {
-  complexPassword
-} from "../lib/complex-password.js";
-import {
-  base64Password
-} from "../lib/base64-password.js";
+import {base64Password} from "../lib/base64-password.js";
+import {Command as c} from "commander";
+import {complexPassword} from "../lib/complex-password.js";
+import {memorablePassword} from "../lib/memorable-password.js";
 
 // Initializing Variables
-const log = (arg) => console.log(arg);
 const args = process.argv.slice(2);
 const program = new c();
 
