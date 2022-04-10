@@ -18,6 +18,7 @@ const program = new c();
   program
     .version("1.0.0")
     .option("-t, --type <type>", "Specify a type (base64, complex, memorable)")
+    .option("-l, --length <numbers>", "Specify a length for each iteration")
     .option("-i, --iteration <numbers>", "Specify a number of iteration")
     .option("-s, --separator <char>", "Specify a character for the separator")
     .parse(process.argv);
