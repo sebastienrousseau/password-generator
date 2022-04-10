@@ -12,10 +12,10 @@ describe("mocha () ", function () {
 
 // titleCase() test
 describe("titleCase (string) ", function () {
-   it("should return a string", function () {
+  it("should return a string", function () {
     let str = "HELLO";
     expect(titleCase(str)).to.be.a("string");
-   });
+  });
   it("should return a titleized string for one lowercase word", function () {
     let str = "hello";
     expect(titleCase(str)).equal("Hello");
