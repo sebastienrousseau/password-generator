@@ -6,12 +6,12 @@ import { memorablePassword } from "../lib/memorable-password.js";
 
 // Initializing Variables
 const actions = {
-  base64:()=> base64Password(),
-  complex:()=> complexPassword(),
-  memorable:()=> memorablePassword()
+  base64: () => base64Password(),
+  complex: () => complexPassword(),
+  memorable: () => memorablePassword()
 };
 const args = process.argv.slice(2);
-const bool = Object.prototype.hasOwnProperty.call(actions,args[1]);
+const bool = Object.prototype.hasOwnProperty.call(actions, args[1]);
 const program = new c();
 (async () => {
   program
