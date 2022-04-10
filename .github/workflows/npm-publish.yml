@@ -11,45 +11,42 @@
 # Licensed under the MIT license
 #
 
-name: NPM Publish
+name: Node.js Package
 
-on: [push]
+on:
+  release:
+    types: [created]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16.x]
     steps:
-      - run: echo ${{github.ref}}
       - uses: actions/checkout@v2
-      - name: Build on Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+      - uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: npm install, build and test
-        run: |
-          npm ci
-          npm run build
-          npm test
-        env:
-          CI: true
+          node-version: 16
+      - run: npm i
+      - run: npm run rescript:build
 
-  publish:
+  publish-npm:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: "16.x"
+          node-version: 16
           registry-url: "https://registry.npmjs.org"
           scope: sebastienrousseau
-      - name: Set package registry
-        run: npm config set registry https://npm.pkg.github.com
-      - name: Github package registry authentication
-        run: npm set //npm.pkg.github.com/:_authToken ${{ secrets.GITHUB_TOKEN }}
-      - name: Npm registry authentication
-        run: npm set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
-      - name: Publish the package to Github and Npm package registries
-        run: npm publish --access=public
+      - run: npm ci
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+#      - name: Set package registry
+#        run: npm config set registry https://npm.pkg.github.com
+#      - name: Github package registry authentication
+#        run: npm set //npm.pkg.github.com/:_authToken ${{ secrets.GITHUB_TOKEN }}
+#      - name: Npm registry authentication
+#        run: npm set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
+#      - name: Publish the package to Github and Npm package registries
+#        run: npm publish --access=public

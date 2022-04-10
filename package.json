@@ -38,6 +38,7 @@
   },
   "homepage": "https://password-generator.pro",
   "publishConfig": {
+    "access": "public",
     "registry": "https://npm.pkg.github.com"
   },
   "autoupdate": {
