@@ -2,17 +2,17 @@
 import { titleCase } from "../lib/title-case.js";
 import * as chai from "chai";
 let expect = chai.expect;
-describe('Mocha test', function(){
-  it('should load mocha', function(){
+describe("Mocha test", function(){
+  it("should load mocha", function(){
     expect(true);
   });
 });
 
 // titleCase() test
 describe("titleCase(string)", function () {
-   it('should return a string', function(){
+   it("should return a string", function(){
     let str = "HELLO";
-    expect(titleCase(str)).to.be.a('string');
+    expect(titleCase(str)).to.be.a("string");
    });
 
   it("should return a titleized string for one lowercase word", function () {
