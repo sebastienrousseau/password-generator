@@ -1,4 +1,4 @@
-/* eslint-disable node/no-unpublished-import: ["error", "always", { ".js": "never" }]*/
+/* eslint-disable node/no-unpublished-import */
 /*jshint esversion: 8 */
 import { base64Password } from "../lib/base64-password.js";
 import { Command as c } from "commander";
