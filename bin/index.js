@@ -16,13 +16,16 @@ const program = new c();
     .option("-s, --separator <char>", "Specify a character for the separator")
     .parse(process.argv);
 
-  if (args.length === 0) {
+  const actions = {
+    "base64": _ => base64Password(),
+    "complex": _ => complexPassword(),
+    "memorable": _ => memorablePassword()
+  };
+
+  if (actions.hasOwnProperty(args[1])) {
+    actions[args[1]]();
+  } else {
     program.help();
-  } else if (args[1] == "memorable") {
-    memorablePassword();
-  } else if (args[1] === "complex") {
-    complexPassword();
-  } else if (args[1] === "base64") {
-    base64Password();
   }
+
 })();
