@@ -8,7 +8,7 @@ import { memorablePassword } from "../lib/memorable-password.js";
 const actions = {
   base64: () => base64Password(),
   complex: () => complexPassword(),
-  memorable: () => memorablePassword()
+  memorable: () => memorablePassword(),
 };
 const args = process.argv.slice(2);
 const bool = Object.prototype.hasOwnProperty.call(actions, args[1]);

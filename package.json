@@ -1,31 +1,31 @@
 {
-  "name": "password-generator",
-  "version": "1.0.0",
-  "description": "Password Generator - A fast, simple and powerful Yeoman Static Site, Blog and GitHub Pages generator designed for Jekyll",
-  "license": "MIT",
-  "main": "bin/password-generator.js",
-  "repository": "sebastienrousseau/password-generator",
-  "author": {
-    "name": "Sebastien Rousseau",
-    "email": "hello@password-generator.pro",
-    "url": "https://github.com/sebastienrousseau/password-generator"
-  },
-  "engines": {
-    "node": ">=14.17.3"
-  },
-  "scripts": {
-    "test": "mocha"
-  },
-  "files": [
-    "app"
-  ],
-  "type": "module",
-  "keywords": [
-    "password-generator"
-  ],
-  "dependencies": {
-    "chalk": "^5.0.1",
-    "commander": "^9.1.0",
-    "jshint": "^2.13.4"
-  }
+    "name": "password-generator",
+    "version": "1.0.0",
+    "description": "Password Generator - A fast, simple and powerful Yeoman Static Site, Blog and GitHub Pages generator designed for Jekyll",
+    "license": "MIT",
+    "main": "bin/password-generator.js",
+    "repository": "sebastienrousseau/password-generator",
+    "author": {
+        "name": "Sebastien Rousseau",
+        "email": "hello@password-generator.pro",
+        "url": "https://github.com/sebastienrousseau/password-generator"
+    },
+    "engines": {
+        "node": ">=8.0.0"
+    },
+    "scripts": {
+        "test": "mocha"
+    },
+    "files": [
+        "app"
+    ],
+    "type": "module",
+    "keywords": [
+        "password-generator"
+    ],
+    "dependencies": {
+        "chalk": "^5.0.1",
+        "commander": "^9.1.0",
+        "jshint": "^2.13.4"
+    }
 }
