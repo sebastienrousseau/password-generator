@@ -1,6 +1,6 @@
 {
   "description": "A list of fruits.",
-    "fruits": [
+    "entries": [
         "apple",
         "apricot",
         "avocado",
