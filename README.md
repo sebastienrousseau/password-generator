@@ -18,7 +18,7 @@ A fast, simple and powerful utility library for generating unique passwords to s
 
 - [Password Generator](#password-generator)
   - [Table of Contents](#table-of-contents)
-  - [Installation 2](#installation-2)
+  - [Installation](#installation)
     - [From NPM or YARN](#from-npm-or-yarn)
     - [From GitHub](#from-github)
   - [What's included](#whats-included)
@@ -38,7 +38,7 @@ A fast, simple and powerful utility library for generating unique passwords to s
     - [License](#license)
     - [Acknowledgements](#acknowledgements)
 
-## Installation 2
+## Installation
 
 ### From NPM or YARN
 
@@ -161,11 +161,11 @@ For transparency into our release cycle and in striving to maintain backward com
 
 ## Contributing
 
-Please read carefully through our [Contributing Guidelines](https://github.com/sebastienrousseau/password-generator/blob/main/.github/CONTRIBUTING.md) for further details on the process for submitting pull requests to us.
+Please read carefully through our [Contributing Guidelines](https://github.com/sebastienrousseau/password-generator/blob/master/.github/CONTRIBUTING.md) for further details on the process for submitting pull requests to us.
 
 ### Code of Conduct
 
-We are committed to preserving and fostering a diverse, welcoming community. Please read our [Code of Conduct](https://github.com/sebastienrousseau/password-generator/blob/main/.github/CODE_OF_CONDUCT.md).
+We are committed to preserving and fostering a diverse, welcoming community. Please read our [Code of Conduct](https://github.com/sebastienrousseau/password-generator/blob/master/.github/CODE-OF-CONDUCT.md).
 
 ### Our Values
 
@@ -179,7 +179,7 @@ We are committed to preserving and fostering a diverse, welcoming community. Ple
 
 ### License
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/sebastienrousseau/password-generator/blob/main/LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/sebastienrousseau/password-generator/blob/master/LICENSE) file for details
 
 ### Acknowledgements
 
@@ -190,4 +190,4 @@ This project is licensed under the MIT License - see the [LICENSE](https://githu
 | [![Sebastien Rousseau](https://avatars0.githubusercontent.com/u/1394998?s=117)](https://sebastienrousseau.co.uk) |
 | [Sebastien Rousseau](https://github.com/sebastienrousseau)                                                       |
 
-Made with ❤ in London. 
+Made with ❤ in London.
