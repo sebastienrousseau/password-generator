@@ -1,0 +1,5 @@
+.github/
+*.log
+node_module/
+README.md
+tests
