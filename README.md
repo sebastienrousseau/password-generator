@@ -44,8 +44,8 @@ A fast, simple and powerful utility library for generating unique passwords to s
 
 To install the Password Generator, use either npm or yarn as follows:
 
--   `npm i @sebastienrousseau/password-generator`
--   `yarn add @sebastienrousseau/password-generator`
+- `npm i @sebastienrousseau/password-generator`
+- `yarn add @sebastienrousseau/password-generator`
 
 ### From GitHub
 
@@ -169,13 +169,13 @@ We are committed to preserving and fostering a diverse, welcoming community. Ple
 
 ### Our Values
 
--   We believe perfection must consider everything.
--   We take our passion beyond code into our daily practices.
--   We are just obsessed about creating and delivering exceptional solutions.
+- We believe perfection must consider everything.
+- We take our passion beyond code into our daily practices.
+- We are just obsessed about creating and delivering exceptional solutions.
 
 ### Releases
 
--   See [Password Generator Release](https://github.com/sebastienrousseau/password-generator/releases) list.
+- See [Password Generator Release](https://github.com/sebastienrousseau/password-generator/releases) list.
 
 ### License
 

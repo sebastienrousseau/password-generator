@@ -3,5 +3,5 @@
   "ul-style": {
     "style": "dash"
   },
-  "list-marker-space": "ul_single"
+  "list-marker-space": true
 }
