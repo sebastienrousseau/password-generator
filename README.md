@@ -129,11 +129,15 @@ Options:
 
 ### From Node.js
 
-    var generatePassword = require('password-generator');
+```shell
+var generatePassword = require('password-generator');
+```
 
 ### From the Browser
 
-    <script src="<https://raw.githubusercontent.com/sebastienrousseau/password-generator/master/bin/password-generator.js>" type="text/javascript"></script>
+```shell
+<script src="<https://raw.githubusercontent.com/sebastienrousseau/password-generator/master/bin/password-generator.js>" type="text/javascript"></script>
+```
 
 ## Password options
 
