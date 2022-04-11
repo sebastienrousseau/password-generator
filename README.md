@@ -16,27 +16,27 @@ A fast, simple and powerful utility library for generating unique passwords to s
 
 ## Table of Contents
 
-- [Password Generator](#password-generator)
-  - [Table of Contents](#table-of-contents)
-  - [Installation](#installation)
-    - [From NPM or YARN](#from-npm-or-yarn)
-    - [From GitHub](#from-github)
-  - [What's included](#whats-included)
-  - [Usage](#usage)
-    - [From the CLI](#from-the-cli)
-    - [From Node.js](#from-nodejs)
-    - [From the Browser](#from-the-browser)
-  - [Password options](#password-options)
-    - [Generating a random base64 password](#generating-a-random-base64-password)
-    - [Generating a strong password](#generating-a-strong-password)
-    - [Generating a memorable password](#generating-a-memorable-password)
-  - [Versioning](#versioning)
-  - [Contributing](#contributing)
-    - [Code of Conduct](#code-of-conduct)
-    - [Our Values](#our-values)
-    - [Releases](#releases)
-    - [License](#license)
-    - [Acknowledgements](#acknowledgements)
+-   [Password Generator](#password-generator)
+    -   [Table of Contents](#table-of-contents)
+    -   [Installation](#installation)
+        -   [From NPM or YARN](#from-npm-or-yarn)
+        -   [From GitHub](#from-github)
+    -   [What's included](#whats-included)
+    -   [Usage](#usage)
+        -   [From the CLI](#from-the-cli)
+        -   [From Node.js](#from-nodejs)
+        -   [From the Browser](#from-the-browser)
+    -   [Password options](#password-options)
+        -   [Generating a random base64 password](#generating-a-random-base64-password)
+        -   [Generating a strong password](#generating-a-strong-password)
+        -   [Generating a memorable password](#generating-a-memorable-password)
+    -   [Versioning](#versioning)
+    -   [Contributing](#contributing)
+        -   [Code of Conduct](#code-of-conduct)
+        -   [Our Values](#our-values)
+        -   [Releases](#releases)
+        -   [License](#license)
+        -   [Acknowledgements](#acknowledgements)
 
 ## Installation
 
@@ -44,8 +44,8 @@ A fast, simple and powerful utility library for generating unique passwords to s
 
 To install the Password Generator, use either npm or yarn as follows:
 
-- `npm i @sebastienrousseau/password-generator`
-- `yarn add @sebastienrousseau/password-generator`
+-   `npm i @sebastienrousseau/password-generator`
+-   `yarn add @sebastienrousseau/password-generator`
 
 ### From GitHub
 
@@ -173,13 +173,13 @@ We are committed to preserving and fostering a diverse, welcoming community. Ple
 
 ### Our Values
 
-- We believe perfection must consider everything.
-- We take our passion beyond code into our daily practices.
-- We are just obsessed about creating and delivering exceptional solutions.
+-   We believe perfection must consider everything.
+-   We take our passion beyond code into our daily practices.
+-   We are just obsessed about creating and delivering exceptional solutions.
 
 ### Releases
 
-- See [Password Generator Release](https://github.com/sebastienrousseau/password-generator/releases) list.
+-   See [Password Generator Release](https://github.com/sebastienrousseau/password-generator/releases) list.
 
 ### License
 
