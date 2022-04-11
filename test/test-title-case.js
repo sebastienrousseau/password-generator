@@ -1,5 +1,5 @@
 /*jshint esversion: 8 */
-import { titleCase } from "../lib/title-case.js";
+import { toTitleCase } from "../lib/title-case.js";
 import * as chai from "chai";
 let expect = chai.expect;
 
@@ -10,22 +10,22 @@ describe("mocha () ", function () {
   });
 });
 
-// titleCase() test
-describe("titleCase (string) ", function () {
+// toTitleCase() test
+describe("toTitleCase (string) ", function () {
   it("should return a string", function () {
     let str = "HELLO";
-    expect(titleCase(str)).to.be.a("string");
+    expect(toTitleCase(str)).to.be.a("string");
   });
   it("should return a titleized string for one lowercase word", function () {
     let str = "hello";
-    expect(titleCase(str)).equal("Hello");
+    expect(toTitleCase(str)).equal("Hello");
   });
   it("should return a titleized string for one uppercase word", function () {
     let str = "HELLO";
-    expect(titleCase(str)).equal("Hello");
+    expect(toTitleCase(str)).equal("Hello");
   });
   it("should return a titleized string for a sentence of words", function () {
     let str = "hello world";
-    expect(titleCase(str)).equal("Hello world");
+    expect(toTitleCase(str)).equal("Hello world");
   });
 });

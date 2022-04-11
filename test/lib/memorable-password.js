@@ -2,7 +2,7 @@
 /*jshint esversion: 8 */
 
 import { promises as fs } from "fs";
-import { titleCase } from "./title-case.js";
+import { toTitleCase } from "./title-case.js";
 
 // Initializing Variables
 const args = process.argv.slice(2);
@@ -19,7 +19,7 @@ export async function memorablePassword() {
   // Picking random words from the JSON dictionary
   data.entries.forEach(() => {
     random = data.entries[Math.floor(Math.random() * data.entries.length)];
-    memorable.push(titleCase(random));
+    memorable.push(toTitleCase(random));
     return memorable;
   });
 
