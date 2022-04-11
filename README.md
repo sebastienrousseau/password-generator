@@ -1,4 +1,4 @@
-# Password Generator Library
+# Password Generator
 
 ![Banner representing the Password Generator Library](https://raw.githubusercontent.com/sebastienrousseau/password-generator/master/images/password-generator-logo.svg)
 
@@ -16,29 +16,29 @@ A fast, simple and powerful utility library for generating unique passwords to s
 
 ## Table of Contents
 
--   [Password Generator Library](#password-generator-library)
-    -   [Table of Contents](#table-of-contents)
-    -   [Installation](#installation)
-        -   [From NPM or YARN](#from-npm-or-yarn)
-        -   [From GitHub](#from-github)
-    -   [What's included](#whats-included)
-    -   [Usage](#usage)
-        -   [From the CLI](#from-the-cli)
-        -   [From Node.js](#from-nodejs)
-        -   [From the Browser](#from-the-browser)
-    -   [Password options](#password-options)
-        -   [Generating a random base64 password](#generating-a-random-base64-password)
-        -   [Generating a strong password](#generating-a-strong-password)
-        -   [Generating a memorable password](#generating-a-memorable-password)
-    -   [Versioning](#versioning)
-    -   [Contributing](#contributing)
-        -   [Code of Conduct](#code-of-conduct)
-        -   [Our Values](#our-values)
-        -   [Releases](#releases)
-        -   [License](#license)
-        -   [Acknowledgements](#acknowledgements)
+- [Password Generator](#password-generator)
+  - [Table of Contents](#table-of-contents)
+  - [Installation 2](#installation-2)
+    - [From NPM or YARN](#from-npm-or-yarn)
+    - [From GitHub](#from-github)
+  - [What's included](#whats-included)
+  - [Usage](#usage)
+    - [From the CLI](#from-the-cli)
+    - [From Node.js](#from-nodejs)
+    - [From the Browser](#from-the-browser)
+  - [Password options](#password-options)
+    - [Generating a random base64 password](#generating-a-random-base64-password)
+    - [Generating a strong password](#generating-a-strong-password)
+    - [Generating a memorable password](#generating-a-memorable-password)
+  - [Versioning](#versioning)
+  - [Contributing](#contributing)
+    - [Code of Conduct](#code-of-conduct)
+    - [Our Values](#our-values)
+    - [Releases](#releases)
+    - [License](#license)
+    - [Acknowledgements](#acknowledgements)
 
-## Installation
+## Installation 2
 
 ### From NPM or YARN
 

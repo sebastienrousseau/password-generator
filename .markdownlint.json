@@ -1,37 +1,7 @@
 {
-    "default": false,
-    "MD001": true,
-    "MD003": {
-      "style": "atx"
-    },
-    "MD004": true,
-    "MD005": false,
-    "MD006": true,
-    "MD007": false,
-    "MD009": true,
-    "MD010": true,
-    "MD012": true,
-    "MD018": true,
-    "MD019": true,
-    "MD023": true,
-    "MD024": {
-      "allow_different_nesting": true
-    },
-    "MD025": true,
-    "MD029": true,
-    "MD030": {
-      "ol_single": 2,
-      "ol_multi": 2,
-      "ul_single": 3,
-      "ul_multi": 3
-    },
-    "MD032": true,
-    "MD035": true,
-    "MD036": true,
-    "MD037": true,
-    "MD038": false,
-    "MD040": true,
-    "MD046": {
-      "style": "fenced"
-    }
-  }
+  "line-length": false,
+  "ul-style": {
+    "style": "dash"
+  },
+  "list-marker-space": "ul_single"
+}
