@@ -1,38 +1,31 @@
----
-name: Bug report
-about: Create a report to help us improve
-title: ''
-labels: ''
-assignees: ''
+# Password Generator Bug Report
+<!--- Provide a general summary of your changes in the Title above -->
+## Description
+<!--- Provide a general summary of the issue -->
+## Are you looking for help?
 
----
+This is an issue tracker, used to manage and track the development of the [Password Generator](https://github.com/sebastienrousseau/password-generator) project. 
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+Please,keep in mind that this issue tracker is for specific problems of this project.
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+<!--- Provide a general summary of your changes in the Title above -->
+## Who is the bug affecting?
+<!-- Please be specific as possible. Use dashes (-) or numbers (1) to create a list of steps -->
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+## What is affected by this bug?
+<!-- Please be specific as possible. Use dashes (-) or numbers (1) to create a list of steps -->
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+## When does this occur?
+<!-- Please be specific as possible. Use dashes (-) or numbers (1) to create a list of steps -->
 
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+## Where does it happen?
+<!-- Please be specific as possible. Use dashes (-) or numbers (1) to create a list of steps -->
 
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
+## How do we replicate this bug?
+<!-- Please be specific as possible. Use dashes (-) or numbers (1) to create a list of steps -->
 
-**Additional context**
-Add any other context about the problem here.
+## Expected behavior (i.e. solution)
+<!-- Please be specific as possible. Use dashes (-) or numbers (1) to create a list of steps -->
+
+## Other Comments
+<!-- Please be specific as possible. Use dashes (-) or numbers (1) to create a list of steps -->
