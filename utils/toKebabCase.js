@@ -6,8 +6,8 @@
  */
 export const toKebabCase = (str) =>
   str
-    .match(/[A-Z]{2,}(?=[A-Z][a-z]+|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|\d+/g)
-    .map(x => x.toLowerCase())
+    .match(/[A-Z]{2,}(?=[A-Z]+|\b)|[A-Z]?[a-z]+\d*|[A-Z]|\d+/g)
+    .map((x) => x.toLowerCase())
     .join("-");
 
 // console.log(toKebabCase("passwordGenerator"));      // ✔ should convert a camel case string to kebab case
