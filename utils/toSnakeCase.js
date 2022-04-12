@@ -8,7 +8,7 @@ export const toSnakeCase = (str) =>
   str
     .replace(/^[^A-Za-z\d]*|[^A-Za-z\d]*$/g, "")
     .replace(/([a-z])([A-Z])/g, (_, a, b) => a + "_" + b.toLowerCase())
-    .replace(/[^A-Za-z\d]+|_+/g, "_")
+    .replace(/[^A-Za-z\d]+/g, "_")
     .toLowerCase();
 
 // console.log(toSnakeCase("passwordGenerator"));      // ✔ should convert a camel case string to snake case
