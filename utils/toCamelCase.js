@@ -5,18 +5,17 @@
  * @param {String} str The text to be converted to camel case.
  */
 export const toCamelCase = (str) => {
+  const r = /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+|[A-Z]|\d+/g;
   const s =
     str &&
     str
-      .match(
-        /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+|[A-Z]|\d+/g
-      )
+      .match(r)
       .map((x) => x.slice(0, 1).toUpperCase() + x.slice(1).toLowerCase())
       .join("");
   return s.slice(0, 1).toLowerCase() + s.slice(1);
 };
 
-// console.log(toCamelCase("passwordGenerator")); //
+// console.log(toCamelCase("passwordGenerator"));
 // console.log(toCamelCase("password.generator"));
 // console.log(toCamelCase("--PASSWORD-GENERATOR--"));
 // console.log(toCamelCase("password-generator"));
