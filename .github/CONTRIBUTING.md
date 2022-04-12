@@ -1,3 +1,4 @@
+
 # Contributing
 
 Thank you so much for wanting to contribute to the Password Generator! There are a couple ways to help out.

@@ -1,3 +1,4 @@
+
 # Password Generator
 
 ![Banner representing the Password Generator Library](https://raw.githubusercontent.com/sebastienrousseau/password-generator/master/images/password-generator-logo.svg)
