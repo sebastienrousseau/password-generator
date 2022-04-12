@@ -8,7 +8,7 @@ export const toTitleCase = (str) =>
   str
     .toLowerCase()
     .match(/[A-Z]{2,}(?=[A-Z][a-z]+|\b)|[A-Z]?[a-z]+|[A-Z]|\d+/g)
-    .map(x => x.charAt(0).toUpperCase() + x.slice(1))
+    .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
     .join(" ");
 
 // console.log(toTitleCase("passwordGenerator"));      // ✔ should convert a camel case string to title case
