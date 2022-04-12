@@ -10,13 +10,13 @@ export const toKebabCase = (str) =>
     .map((x) => x.toLowerCase())
     .join("-");
 
-  // console.log(toKebabCase("passwordGenerator"));      // ✔ should convert a camel case string to kebab case
-  // console.log(toKebabCase("password.generator"));     // ✔ should convert a dot case string to kebab case
-  // console.log(toKebabCase("--PASSWORD-GENERATOR--")); // ✔ should convert a junk case string to kebab case
-  // console.log(toKebabCase("password-generator"));     // ✔ should convert a kebab case string to kebab case
-  // console.log(toKebabCase("PasswordGenerator"));      // ✔ should convert a pascal case string to kebab case
-  // console.log(toKebabCase("Password generator"));     // ✔ should convert a sentence case string to kebab case
-  // console.log(toKebabCase("password_generator"));     // ✔ should convert a snake case string to kebab case
-  // console.log(toKebabCase("password generator"));     // ✔ should convert a space case string to kebab case
-  // console.log(toKebabCase("Password Generator"));     // ✔ should convert a title case string to kebab case
-  // console.log(toKebabCase("PASSWORD GENERATOR"));     // ✔ should convert a uppercase case string to kebab case
+// console.log(toKebabCase("passwordGenerator"));      // ✔ should convert a camel case string to kebab case
+// console.log(toKebabCase("password.generator"));     // ✔ should convert a dot case string to kebab case
+// console.log(toKebabCase("--PASSWORD-GENERATOR--")); // ✔ should convert a junk case string to kebab case
+// console.log(toKebabCase("password-generator"));     // ✔ should convert a kebab case string to kebab case
+// console.log(toKebabCase("PasswordGenerator"));      // ✔ should convert a pascal case string to kebab case
+// console.log(toKebabCase("Password generator"));     // ✔ should convert a sentence case string to kebab case
+// console.log(toKebabCase("password_generator"));     // ✔ should convert a snake case string to kebab case
+// console.log(toKebabCase("password generator"));     // ✔ should convert a space case string to kebab case
+// console.log(toKebabCase("Password Generator"));     // ✔ should convert a title case string to kebab case
+// console.log(toKebabCase("PASSWORD GENERATOR"));     // ✔ should convert a uppercase case string to kebab case
