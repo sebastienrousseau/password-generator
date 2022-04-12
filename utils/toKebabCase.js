@@ -6,7 +6,7 @@
  */
 export const toKebabCase = (str) =>
   str
-    .match(/[A-Z]{2,}(?=|\b)|[A-Z]?[a-z]+\d*|[A-Z]|\d+/g)
+    .match(/[A-Z]{2,}|[A-Z]?[a-z]+\d*|[A-Z]|\d+/g)
     .map((x) => x.toLowerCase())
     .join("-");
 
