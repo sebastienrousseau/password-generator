@@ -5,7 +5,8 @@
  * @param {String} str The text to be converted to camel case.
  */
 export const toCamelCase = (str) => {
-  const r = /[A-Z]{2,}(?=|\b)|[A-Z]?[a-z]+/g;
+  // Any of ((literally "/", uppercase, at least 2 times), (uppercase, optional, letter, once or more, literally "/g"))
+  const r = /[A-Z]{2,}|[A-Z]?[a-z]+/g;
   const s =
     str &&
     str
