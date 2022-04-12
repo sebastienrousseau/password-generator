@@ -7,5 +7,5 @@ import { randomNumber } from "./randomNumber.js";
 let vowels = "aeiou";
 
 export function randomVowel() {
-  return (vowels[randomNumber(vowels.length)]);
+  return vowels[randomNumber(vowels.length)];
 }

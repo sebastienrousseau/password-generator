@@ -7,5 +7,5 @@ import { randomNumber } from "./randomNumber.js";
 let consonants = "bcdfhgjklmnpqrstvwxyz";
 
 export function randomConsonant() {
-  return (consonants[randomNumber(consonants.length)]);
+  return consonants[randomNumber(consonants.length)];
 }

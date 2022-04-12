@@ -26,7 +26,7 @@ describe("Running toTitleCase (string) \n", function () {
   });
 
   it("should convert all the alphabetic characters in a string to title case.", function () {
-    for (var i = 0; i < toTitleCaseArray.length; i++) {
+    for (let i = 0; i < toTitleCaseArray.length; i++) {
       //console.log(`  →  Test #${[i]} where string = "${toTitleCaseArray[i]}"\n`);
       expect(toTitleCase(toTitleCaseArray[i])).equal("Password Generator");
     }

@@ -31,7 +31,7 @@ describe("Running toSnakeCase (string) \n", function () {
     expect(toSnakeCase(str)).to.be.a("string");
   });
   it("should convert all the alphabetic characters in a snake case string.", function () {
-    for (var i = 0; i < snakeCaseArray.length; i++) {
+    for (let i = 0; i < snakeCaseArray.length; i++) {
       // console.log(`  →  Test #${[i]} where string = "${snakeCaseArray[i]}"\n`);
       expect(toSnakeCase(snakeCaseArray[i])).equal("password_generator");
     }
