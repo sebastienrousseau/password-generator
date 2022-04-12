@@ -8,7 +8,7 @@ let toTitleCaseArray = [
   "password generator",
   "Password Generator",
   "PASSWORD GENERATOR",
-  "Password Generator"
+  "Password Generator",
 ];
 
 // mocha() test

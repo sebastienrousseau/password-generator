@@ -14,7 +14,7 @@ let snakeCaseArray = [
   "password generator",
   "Password Generator",
   "password.generator",
-  "--PASSWORD-GENERATOR--"
+  "--PASSWORD-GENERATOR--",
 ];
 
 // mocha() test
