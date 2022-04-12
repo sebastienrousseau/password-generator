@@ -4,7 +4,7 @@
  * Converts all the alphabetic characters in a string to camel case.
  * @param {String} str The text to be converted to camel case.
  */
-export const toCamelCase = str => {
+export const toCamelCase = (str) => {
   const s =
     str &&
     str
