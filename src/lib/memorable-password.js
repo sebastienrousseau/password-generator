@@ -7,23 +7,20 @@ import { toTitleCase } from "../utils/toTitleCase.js";
 
 // Initializing Variables
 const args = process.argv.slice(2);
-let data,
-  items,
-  memorable = [];
+const __dirname = process.cwd();
+let data, memorable = [];
 
 export async function memorablePassword() {
   // Initializing variables
-  data = await fs.readFile("./dictionaries/common.json", "utf8");
+  data = await fs.readFile(`${__dirname}/src/dictionaries/common.json`, "utf8");
 
   // Read the JSON dictionary and store it as an array
   data = JSON.parse(data);
 
   // Picking random words from the JSON dictionary based on the data length
-  data.entries.forEach((item) => {
-    item = toTitleCase(data.entries[randomNumber(data.entries.length)]);
-    memorable.push(item);
-
-    return JSON.stringify(items);
+  data.entries.forEach(() => {
+    memorable.push(toTitleCase(data.entries[randomNumber(data.entries.length)]));
+    return memorable;
   });
 
   // Initializing a memorable password

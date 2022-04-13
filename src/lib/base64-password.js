@@ -2,6 +2,7 @@
 /*jshint esversion: 8 */
 
 import crypto from "crypto";
+import { exit } from "process";
 
 // Initializing Variables
 const args = process.argv.slice(2);

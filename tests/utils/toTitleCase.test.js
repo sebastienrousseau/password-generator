@@ -1,5 +1,5 @@
 /*jshint esversion: 8 */
-import { toTitleCase } from "../../utils/toTitleCase.js";
+import { toTitleCase } from "../../src/utils/toTitleCase.js";
 import * as chai from "chai";
 let expect = chai.expect;
 

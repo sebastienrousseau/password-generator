@@ -143,19 +143,19 @@ var generatePassword = require('password-generator');
 ### Generating a random base64 password
 
 ```shell
-node ./bin/password-generator.js -t base64 -l 8 -i 4 -s - 
+node src/bin/index.js -t base64 -l 8 -i 4 -s -
 ```
 
 ### Generating a strong password
 
 ```shell
-node ./bin/password-generator.js -t complex -l 8 -i 4 -s -
+node src/bin/index.js -t complex -l 8 -i 4 -s -
 ```
 
 ### Generating a memorable password
 
 ```shell
-node ./bin/password-generator.js -t memorable -i 4 -s -
+node src/bin/index.js -t memorable -i 4 -s -
 ```
 
 ## Versioning

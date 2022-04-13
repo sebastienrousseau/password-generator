@@ -17,6 +17,7 @@ export async function complexPassword() {
         console.debug(err);
         console.debug(stderr);
       }
+
       // Initializing a complex password
       let complex = stdout.toString().match(new RegExp(`.{0,${args[3]}}`, "g"));
       complex = complex.slice(0, args[5]).join(args[7]).toString();
