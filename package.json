@@ -13,7 +13,7 @@
         "target": "git://github.com/sebastienrousseau/password-generator.git"
     },
     "bin": {
-        "password-generator": "./src/bin/index.js"
+        "password-generator": "bin/index.js"
     },
     "bugs": {
         "url": "https://github.com/sebastienrousseau/password-generator/issues"
@@ -69,7 +69,7 @@
     ],
     "license": "MIT",
     "license_URI": "http://www.opensource.org/licenses/mit-license.php",
-    "main": "dist/src/bin/password-generator.js",
+    "main": "src/bin/index.js",
     "name": "@sebastienrousseau/password-generator",
     "publishConfig": {
         "access": "public",
@@ -78,6 +78,13 @@
     "repository": {
         "type": "git",
         "url": "git+https://github.com/sebastienrousseau/password-generator.git"
+    },
+    "rules": {
+        "node/no-unpublished-bin": ["error", {
+            "convertPath": {
+                "src/bin/**/*.js": ["^src/(.+)$", "$1"]
+            }
+        }]
     },
     "scripts": {
         "build": "npm run build:password:generator && cat ./package.json | grep -v '\"private\":' > dist/package.json && npm pack ./dist",
