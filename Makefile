@@ -17,7 +17,7 @@ test:
 	npm test
 
 test-coverage:
-	npm test -- --coverage
+	nyc npm run test
 
 lint:
 	npx eslint .

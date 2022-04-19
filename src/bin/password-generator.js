@@ -29,7 +29,7 @@ export function passwordGenerator() {
       "-t, --type <type>",
       "specify a password type",
       "base64, complex or memorable"
-      )
+    )
     .option("-l, --length <numbers>", "specify a length for each iteration")
     .option("-i, --iteration <numbers>", "specify a number of iteration")
     .option("-s, --separator <char>", "specify a character for the separator")
