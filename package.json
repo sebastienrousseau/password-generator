@@ -90,27 +90,6 @@
         "type": "git",
         "url": "git+https://github.com/sebastienrousseau/password-generator.git"
     },
-    "rules": {
-        "node/no-unpublished-bin": [
-            "error",
-            {
-                "convertPath": [
-                    {
-                        "exclude": [
-                            "**/*.spec.js"
-                        ],
-                        "include": [
-                            "src/bin/**/*.js"
-                        ],
-                        "replace": [
-                            "^src/(.+)$",
-                            "$1"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
     "scripts": {
         "build": "npm run build:password:generator && cat ./package.json | grep -v '\"private\":' > dist/package.json && npm pack ./dist",
         "build:password:generator": "npm run clean:directory && npm run create:directory && npm run copy:src && npm run copy:test && npm run copy:readme && npm run copy:license && npm run copy:copyright && npm run filesize:distribution",
