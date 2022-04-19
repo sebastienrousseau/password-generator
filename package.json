@@ -81,9 +81,13 @@
     },
     "rules": {
         "node/no-unpublished-bin": ["error", {
-            "convertPath": {
-                "src/bin/**/*.js": ["^src/(.+)$", "$1"]
-            }
+            "convertPath": [
+                {
+                    "include": ["src/bin/**/*.js"],
+                    "exclude": ["**/*.spec.js"],
+                    "replace": ["^src/(.+)$", "$1"]
+                }
+            ]
         }]
     },
     "scripts": {
