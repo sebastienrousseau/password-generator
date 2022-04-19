@@ -20,17 +20,13 @@
     },
     "description": "A fast, simple and powerful utility library for generating unique passwords to streamline your digital and mobile web development needs.",
     "devDependencies": {
-        "@babel/node": "^7.16.8",
-        "@babel/preset-env": "^7.16.11",
-        "babel-jest": "^28.0.0-alpha.8",
-        "chai": "^4.3.6",
+        "@babel/cli": "^7.17.6",
+        "babel-preset-es2015": "^7.0.0-beta.3",
         "commander": "^9.1.0",
         "filesizes": "^0.1.2",
-        "jest": "^28.0.0-alpha.8",
         "jshint": "^2.13.4",
         "mkdirp": "^1.0.4",
         "mocha": "^9.2.2",
-        "nodemon": "^2.0.15",
         "rimraf": "^3.0.2"
     },
     "directories": {
