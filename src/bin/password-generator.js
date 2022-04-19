@@ -20,11 +20,11 @@ const pkg = JSON.parse(
 const program = new Command();
 export function passwordGenerator() {
   program
-    .name('password-generator')
+    .name("password-generator")
     .version(pkg.version, "-v, --version", "output the current version")
     .description(
       "A fast, simple and powerful open-source utility tool for generating strong, unique and random passwords"
-      )
+    )
     .option(
       "-t, --type <type>",
       "specify a password type",
