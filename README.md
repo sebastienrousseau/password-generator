@@ -2,7 +2,7 @@
 
 ![Banner representing the Password Generator Library](https://raw.githubusercontent.com/sebastienrousseau/password-generator/master/images/password-generator-logo.svg)
 
-A fast, simple and powerful utility library for generating unique passwords to streamline your digital and mobile web development needs.
+A fast, simple and powerful open-source utility library for generating strong, unique and random passwords. Password Generator is free to use as a secure password generator on any computer, phone, or tablet. 
 
 [![Getting Started](https://raw.githubusercontent.com/sebastienrousseau/password-generator/master/images/button-primary.svg)](#installation)
 [![Download the Password Generator Library v1.0.3](https://raw.githubusercontent.com/sebastienrousseau/password-generator/master/images/button-secondary.svg)](https://github.com/sebastienrousseau/password-generator/archive/refs/tags/1.0.4.zip)
