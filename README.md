@@ -7,7 +7,6 @@ A fast, simple and powerful open-source utility tool for generating strong, uniq
 [![Getting Started](https://raw.githubusercontent.com/sebastienrousseau/password-generator/master/images/button-primary.svg)](#installation)
 [![Download the Password Generator Tool v1.0.5](https://raw.githubusercontent.com/sebastienrousseau/password-generator/master/images/button-secondary.svg)](https://github.com/sebastienrousseau/password-generator/archive/refs/tags/1.0.5.zip)
 
-
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/0acb169c95e443729551979e0fd86eaf)](https://www.codacy.com?utm_source=github.com&utm_medium=referral&utm_content=sebastienrousseau/password-generator&utm_campaign=Badge_Grade)
 [![npm](https://img.shields.io/npm/v/@sebastienrousseau/password-generator.svg?style=flat&color=success)](https://www.npmjs.com/package/@sebastienrousseau/password-generator)
 [![Release Notes](https://img.shields.io/badge/release-notes-success.svg)](https://github.com/sebastienrousseau/password-generator/releases/)
@@ -15,31 +14,7 @@ A fast, simple and powerful open-source utility tool for generating strong, uniq
 [![License: MIT](https://img.shields.io/badge/License-MIT-success.svg?style=flat)](https://opensource.org/licenses/MIT)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsebastienrousseau%2Fpassword-generator.svg?type=small)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsebastienrousseau%2Fpassword-generator?ref=badge_small)
 
-## Table of Contents
-
--   [Password Generator Tool](#password-generator-tool)
-    -   [Table of Contents](#table-of-contents)
-    -   [Installation](#installation)
-        -   [From NPM or YARN](#from-npm-or-yarn)
-        -   [From GitHub](#from-github)
-    -   [What's included](#whats-included)
-    -   [Usage](#usage)
-        -   [From the CLI](#from-the-cli)
-        -   [From Node.js](#from-nodejs)
-        -   [From the Browser](#from-the-browser)
-    -   [Password options](#password-options)
-        -   [Generating a random base64 password](#generating-a-random-base64-password)
-        -   [Generating a strong password](#generating-a-strong-password)
-        -   [Generating a memorable password](#generating-a-memorable-password)
-    -   [Versioning](#versioning)
-    -   [Contributing](#contributing)
-        -   [Code of Conduct](#code-of-conduct)
-        -   [Our Values](#our-values)
-        -   [Releases](#releases)
-        -   [License](#license)
-        -   [Acknowledgements](#acknowledgements)
-
-## Installation
+## 🔧  Installation
 
 ### From NPM or YARN
 
@@ -52,7 +27,7 @@ To install the Password Generator Tool, use either npm or yarn as follows:
 
 Clone the main repository to get all source files including build scripts: `git clone https://github.com/sebastienrousseau/password-generator.git`
 
-## What's included
+## ✒️  What's included
 
 Within the download you'll find all the password generator source files grouped into the _dist_ folder.
 
@@ -120,7 +95,7 @@ You'll see something like this:
 6 directories, 50 files
 ```
 
-## Usage
+## 💿  Usage
 
 ### From the CLI
 
@@ -174,27 +149,34 @@ node src/bin/index.js -t complex -l 8 -i 4 -s -
 node src/bin/index.js -t memorable -i 4 -s -
 ```
 
-## Versioning
+## 🚥  Semantic Versioning Policy
 
-For transparency into our release cycle and in striving to maintain backward compatibility, Password Generator is maintained under the [Semantic Versioning](https://semver.org/) guidelines.
+For transparency into our release cycle and in striving to maintain backward compatibility, `password-generator` follows [semantic versioning](http://semver.org/) and [ESLint's Semantic Versioning Policy](https://github.com/eslint/eslint#semantic-versioning-policy).
 
-## Contributing
+## 📰  Changelog
+
+- [GitHub Releases](https://github.com/sebastienrousseau/password-generator/releases)
+
+
+## ❤️  Contributing
 
 Please read carefully through our [Contributing Guidelines](https://github.com/sebastienrousseau/password-generator/blob/master/.github/CONTRIBUTING.md) for further details on the process for submitting pull requests to us.
 
-### Code of Conduct
+Development Tools
+
+-   npm test runs tests and measures coverage.
+-   npm run coverage shows the coverage result of npm test command.
+-   npm run clean removes the coverage result of npm test command.
+
+## 📖  Rules
 
 We are committed to preserving and fostering a diverse, welcoming community. Please read our [Code of Conduct](https://github.com/sebastienrousseau/password-generator/blob/master/.github/CODE-OF-CONDUCT.md).
 
-### Our Values
+## ⭐️  Our Values
 
 -   We believe perfection must consider everything.
 -   We take our passion beyond code into our daily practices.
 -   We are just obsessed about creating and delivering exceptional solutions.
-
-### Releases
-
--   See [Password Generator Tool Release](https://github.com/sebastienrousseau/password-generator/releases) list.
 
 ### License
 
