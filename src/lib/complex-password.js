@@ -5,7 +5,7 @@ import childProcess from "child_process";
 // Initializing Variables
 const args = process.argv.slice(2);
 
-export async function complexPassword () {
+export async function complexPassword() {
   // Runs a command in a shell and buffers the output.
   childProcess.exec(
     // Generating a 256-bit cipher
