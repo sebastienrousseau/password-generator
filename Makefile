@@ -22,6 +22,9 @@ test-coverage:
 lint:
 	npx eslint .
 
+package:
+  npm pack
+
 publish:
 	npm publish
 
