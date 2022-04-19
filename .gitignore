@@ -44,6 +44,16 @@ coverage
 # Bower dependency directory (https://bower.io/)
 bower_components
 
+# Mocha-specific
+mocha.js
+mocha.js.map
+.karma/
+!bin/mocha.js
+!lib/mocha.js
+
+# Bundle debugging
+stats.html
+
 # node-waf configuration
 .lock-wscript
 

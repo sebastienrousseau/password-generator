@@ -1,17 +1,15 @@
 {
   "env": {
-		"browser": true,
-    "commonjs": true,
-		"es8": true,
+		"es6": true,
 		"node": true
   },
+  "extends": ["plugin:import/recommended"],
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
-    "ecmaVersion": 2020,
+    "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "extends": [
-    "plugin:node/recommended"
-  ],
+  "plugins": ["import"],
   "rules": {
     "camelcase": [1, {"properties": "always"}],
     "comma-dangle": 0,
@@ -24,7 +22,6 @@
     "key-spacing": [2, {"beforeColon": false, "afterColon": true}],
     "keyword-spacing": 2,
     "linebreak-style": 0,
-    "node/file-extension-in-import": ["error", "never"],
     "no-console": 0,
     "no-irregular-whitespace": 2,
     "no-multi-str": 2,
@@ -35,10 +32,10 @@
     "no-unused-vars": 2,
     "no-use-before-define": [2, "nofunc"],
     "operator-linebreak": [2, "after"],
-    "quotes": [2, "single"],
+    "quotes": [2, "double"],
     "semi": [2, "always"],
     "space-before-blocks": [2, "always"],
-    "space-before-function-paren": [2, "always"],
+    "space-before-function-paren": [2, "never"],
     "space-infix-ops": 2,
     "strict": [2, "global"],
     "wrap-iife": [2, "inside"]

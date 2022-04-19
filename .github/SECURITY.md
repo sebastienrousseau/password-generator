@@ -3,7 +3,6 @@
 We take the security of our software products and services seriously, which includes all source code repositories managed through our GitHub repositories.
 
 If you believe you have found a security vulnerability in any of our repository, please report it to us as described below.
-
 ## Reporting Security Issues
 
 Please include the requested information listed below (as much as you can provide) to help us better understand the nature and scope of the possible issue:

@@ -1,25 +1,27 @@
-/* eslint-disable node/no-unpublished-import */
 /*jshint esversion: 8 */
 
 import { promises as fs } from "fs";
-import { titleCase } from "./title-case.js";
+import { randomNumber } from "../utils/randomNumber.js";
+import { toTitleCase } from "../utils/toTitleCase.js";
 
 // Initializing Variables
 const args = process.argv.slice(2);
+const __dirname = process.cwd();
+let data,
+  memorable = [];
 
 export async function memorablePassword() {
   // Initializing variables
-  let data = await fs.readFile("./dictionaries/common.json", "utf8");
-  let memorable = [];
-  let random;
+  data = await fs.readFile(`${__dirname}/src/dictionaries/common.json`, "utf8");
 
   // Read the JSON dictionary and store it as an array
-  data = JSON.parse([data]);
+  data = JSON.parse(data);
 
-  // Picking random words from the JSON dictionary
+  // Picking random words from the JSON dictionary based on the data length
   data.entries.forEach(() => {
-    random = data.entries[Math.floor(Math.random() * data.entries.length)];
-    memorable.push(titleCase(random));
+    memorable.push(
+      toTitleCase(data.entries[randomNumber(data.entries.length)])
+    );
     return memorable;
   });
 

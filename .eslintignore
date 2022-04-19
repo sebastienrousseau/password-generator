@@ -1,0 +1,8 @@
+!.*
+
+/build/**
+/coverage/**
+/dist/**
+/test/**
+/node_modules/**
+!.eslintrc.json

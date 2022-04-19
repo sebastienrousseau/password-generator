@@ -1,4 +1,3 @@
-/* eslint-disable node/no-unpublished-import */
 /*jshint esversion: 8 */
 
 import crypto from "crypto";

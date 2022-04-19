@@ -1,99 +1,125 @@
 {
-  "name": "@sebastienrousseau/password-generator",
-  "version": "1.0.4",
-  "description": "A fast, simple and powerful utility library for generating unique passwords to streamline your digital and mobile web development needs.",
-  "keywords": [
-    "base64",
-    "complex",
-    "crypto",
-    "cryptography",
-    "dictionary",
-    "entropy",
-    "encryption",
-    "memorable",
-    "mit-license",
-    "open-source",
-    "openssl",
-    "pass",
-    "passgen",
-    "passphrase",
-    "password generator",
-    "password-generator",
-    "preprocessor",
-    "random",
-    "secure",
-    "security"
-  ],
-  "license": "MIT",
-  "main": "bin/password-generator.js",
-  "filename": "dist/bin/password-generator.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sebastienrousseau/password-generator.git"
-  },
-  "author": "Sebastien Rousseau <hello@password-generator.pro> (https://github.com/sebastienrousseau/password-generator)",
-  "license_URI": "http://www.opensource.org/licenses/mit-license.php",
-  "bugs": {
-    "url": "https://github.com/sebastienrousseau/password-generator/issues"
-  },
-  "homepage": "https://password-generator.pro",
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://npm.pkg.github.com"
-  },
-  "autoupdate": {
-    "source": "git",
-    "target": "git://github.com/sebastienrousseau/password-generator.git",
-    "fileMap": [
-      {
-        "basePath": "dist",
-        "files": [
-          "**/*"
-        ]
-      }
-    ]
-  },
-  "engines": {
-    "node": ">=12.22.0"
-  },
-  "scripts": {
-    "// Build": " --- Build Scripts --- ",
-    "build": "npm run dev:generate:password:generator && cat ./package.json | grep -v '\"private\":' > dist/package.json && npm pack ./dist",
-    "// Password Generator": " --- Development Scripts --- ",
-    "dev:clean:directory": "rimraf \"dist/\"",
-    "dev:create:distribution": "mkdirp ./dist",
-    "dev:copy:bin": "cp -R ./bin dist/bin",
-    "dev:copy:dictionaries": "cp -R ./dictionaries dist/dictionaries/",
-    "dev:copy:images": "cp -R images/ dist/images/",
-    "dev:copy:lib": "cp -R ./lib dist/",
-    "dev:copy:readme": "cp README.md dist/",
-    "dev:copy:test": "cp -R ./lib test/",
-    "dev:filesizes:package": "filesizes dist/ > dist/package-report.txt",
-    "dev:generate:password:generator": "npm run dev:clean:directory && npm run dev:create:distribution && npm run dev:copy:bin && npm run dev:copy:dictionaries && npm run dev:copy:images && npm run dev:copy:lib && npm run dev:copy:readme && npm run dev:copy:test && npm run dev:filesizes:package",
-    "// Production": " --- Production Scripts --- ",
-    "postpublish": "npm run publish-npm",
-    "publish-npm": "npm publish --access public --ignore-scripts --@OWNER:registry='https://registry.npmjs.org'",
-    "prepare:password:generator": "npm run build",
-    "npm login": "npm publish $(node -p \"p=require('./package.json');p.name+'-'+p.version+'.tgz'\")",
-    "test": "echo \"Who need tests anyway? ¯\\_(ツ)_/¯ \" && exit 0"
-  },
-  "type": "module",
-  "dependencies": {
-    "commander": "^9.1.0"
-  },
-  "devDependencies": {
-    "chai": "^4.3.6",
-    "filesizes": "^0.1.2",
-    "jshint": "^2.13.4",
-    "mkdirp": "^1.0.4",
-    "mocha": "^9.2.2",
-    "rimraf": "^3.0.2"
-  },
-  "bin": {
-    "password-generator": "bin/password-generator.js"
-  },
-  "directories": {
-    "lib": "lib",
-    "test": "test"
-  }
+    "author": "Sebastien Rousseau <hello@password-generator.pro> (https://github.com/sebastienrousseau/password-generator)",
+    "autoupdate": {
+        "fileMap": [
+            {
+                "basePath": "dist",
+                "files": [
+                    "**/*"
+                ]
+            }
+        ],
+        "source": "git",
+        "target": "git://github.com/sebastienrousseau/password-generator.git"
+    },
+    "bin": {
+        "password-generator": "bin/password-generator.js"
+    },
+    "bugs": {
+        "url": "https://github.com/sebastienrousseau/password-generator/issues"
+    },
+    "description": "A fast, simple and powerful utility library for generating unique passwords to streamline your digital and mobile web development needs.",
+    "devDependencies": {
+        "@babel/cli": "^7.17.6",
+        "@babel/core": "^7.17.9",
+        "@babel/eslint-parser": "^7.17.0",
+        "@babel/preset-env": "^7.16.11",
+        "@babel/preset-typescript": "^7.16.7",
+        "chai": "^4.3.6",
+        "commander": "^9.2.0",
+        "eslint-plugin-import": "^2.26.0",
+        "filesizes": "^0.1.2",
+        "jest": "^28.0.0-alpha.9",
+        "jshint": "^2.13.4",
+        "mkdirp": "^1.0.4",
+        "mocha": "^9.2.2",
+        "nyc": "^15.1.0",
+        "prettier": "2.6.2",
+        "rimraf": "^3.0.2"
+    },
+    "directories": {
+        "src": "src/",
+        "test": "test/"
+    },
+    "engines": {
+        "node": ">=12.0.0"
+    },
+    "filename": "src/index.js",
+    "files": [
+        "src/",
+        "test/",
+        "COPYRIGHT",
+        "LICENSE",
+        "index.js",
+        "Makefile",
+        "README.md"
+    ],
+    "funding": "https://paypal.me/wwdseb",
+    "homepage": "https://password-generator.pro",
+    "keywords": [
+        "base64",
+        "complex",
+        "crypto",
+        "cryptography",
+        "dictionary",
+        "entropy",
+        "encryption",
+        "memorable",
+        "mit-license",
+        "open-source",
+        "openssl",
+        "pass",
+        "passgen",
+        "passphrase",
+        "password generator",
+        "password-generator",
+        "preprocessor",
+        "random",
+        "secure",
+        "security"
+    ],
+    "license": "MIT",
+    "license_URI": "http://www.opensource.org/licenses/mit-license.php",
+    "main": "src/index.js",
+    "name": "@sebastienrousseau/password-generator",
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://npm.pkg.github.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/sebastienrousseau/password-generator.git"
+    },
+    "rules": {
+        "node/no-unpublished-import": ["error", {
+            "convertPath": [
+                {
+                    "include": ["src/**/*.js"],
+                    "replace": ["^src/(.+)$", "lib/$1"]
+                }
+            ]
+        }]
+    },
+    "scripts": {
+        "build": "npm run lint && npm run build:password:generator && cat ./package.json | grep -v '\"private\":' > dist/package.json && npm pack ./dist",
+        "build:password:generator": "npm run clean:directory && npm run create:directory && npm run copy:src && npm run copy:test && npm run copy:readme && npm run copy:license && npm run copy:copyright && npm run filesize:distribution",
+        "clean": "rimraf .nyc_output coverage",
+        "clean:directory": "rimraf \"dist/\"",
+        "copy:copyright": "cp COPYRIGHT dist/",
+        "copy:license": "cp LICENSE dist/",
+        "copy:readme": "cp README.md dist/",
+        "copy:src": "cp -R ./src dist/src",
+        "copy:test": "cp -R ./src dist/test",
+        "create:directory": "mkdirp ./dist",
+        "filesize:distribution": "filesizes dist/ > dist/report.txt",
+        "lint": "eslint \"./src/bin/**/*.js\" \"./src/**/*.js\"",
+        "npm login": "npm publish $(node -p \"p=require('./package.json');p.name+'-'+p.version+'.tgz'\")",
+        "postpublish": "npm run publish-npm",
+        "publish-npm": "npm publish --access public --ignore-scripts --@OWNER:registry='https://registry.npmjs.org'",
+        "start": "node src/bin/index.js",
+        "test": "mocha test/**/*.js",
+        "coverage": "nyc npm run test"
+    },
+    "type": "module",
+    "version": "1.0.5"
 }
