@@ -106,11 +106,13 @@ node .
 Displays the following help menu
 
 ```shell
-Usage: index [options]
+Usage: password-generator [options]
+
+A fast, simple and powerful open-source utility tool for generating strong, unique and random passwords
 
 Options:
-  -V, --version              output the version number
-  -t, --type <type>          specify a password type
+  -v, --version              output the current version
+  -t, --type <type>          specify a password type (default: "base64, complex or memorable")
   -l, --length <numbers>     specify a length for each iteration
   -i, --iteration <numbers>  specify a number of iteration
   -s, --separator <char>     specify a character for the separator
