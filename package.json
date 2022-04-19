@@ -43,7 +43,7 @@
     "engines": {
         "node": ">=12.0.0"
     },
-    "filename": "./src/dist/bin/index.js",
+    "filename": "src/bin/index.js",
     "files": [
       "src/",
       "test/",
@@ -52,6 +52,7 @@
       "Makefile",
       "README.md"
     ],
+    "funding": "https://paypal.me/wwdseb",
     "homepage": "https://password-generator.pro",
     "keywords": [
         "base64",
