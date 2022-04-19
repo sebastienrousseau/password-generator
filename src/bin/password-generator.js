@@ -21,6 +21,7 @@ const program = new commander();
 export function passwordGenerator() {
   program
     .version(pkg.version)
+    .description('A fast, simple and powerful open-source utility tool for generating strong, unique and random passwords')
     .option("-t, --type <type>", "specify a password type")
     .option("-l, --length <numbers>", "specify a length for each iteration")
     .option("-i, --iteration <numbers>", "specify a number of iteration")
