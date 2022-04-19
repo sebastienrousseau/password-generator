@@ -1,6 +1,6 @@
 /*jshint esversion: 8 */
 import { base64Password } from "../lib/base64-password.js";
-import { Command as c } from "commander";
+import { Command as commander } from "commander";
 import { complexPassword } from "../lib/complex-password.js";
 import { memorablePassword } from "../lib/memorable-password.js";
 import { readFileSync } from "fs";
@@ -17,7 +17,7 @@ const bool = Object.prototype.hasOwnProperty.call(actions, args[1]);
 const pkg = JSON.parse(
   readFileSync(join(process.cwd(), "/package.json"), "utf8")
 );
-const program = new c();
+const program = new commander();
 export function passwordGenerator() {
   program
     .version(pkg.version)
