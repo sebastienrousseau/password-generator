@@ -19,17 +19,14 @@ const pkg = JSON.parse(readFileSync(join(process.cwd(), '/package.json'), 'utf8'
 const program = new c();
 export function passwordGenerator() {
 
-  if (bool) {
-    actions[args[1]]();
-  }
-  else {
-    program
-      .version(pkg.version)
-      .option("-t, --type <type>", "Specify a type (base64, complex, memorable)")
-      .option("-l, --length <numbers>", "Specify a length for each iteration")
-      .option("-i, --iteration <numbers>", "Specify a number of iteration")
-      .option("-s, --separator <char>", "Specify a character for the separator")
-      .parse(process.argv);
-    program.help();
-  }
+  program
+    .version(pkg.version)
+    .option("-t, --type <type>", "Specify a type (base64, complex, memorable)")
+    .option("-l, --length <numbers>", "Specify a length for each iteration")
+    .option("-i, --iteration <numbers>", "Specify a number of iteration")
+    .option("-s, --separator <char>", "Specify a character for the separator")
+    .parse(process.argv);
+
+  if (!bool) return program.help();
+  if (bool) return actions[args[1]]();
 }
