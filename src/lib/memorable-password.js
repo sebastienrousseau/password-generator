@@ -8,7 +8,7 @@ import { toTitleCase } from "../utils/toTitleCase.js";
 const args = process.argv.slice(2);
 const __dirname = process.cwd();
 let data,
-    memorable = [];
+  memorable = [];
 
 export async function memorablePassword() {
   // Initializing variables
@@ -20,7 +20,7 @@ export async function memorablePassword() {
   // Picking random words from the JSON dictionary based on the data length
   data.entries.forEach(() => {
     memorable.push(
-      toTitleCase(data.entries[randomNumber(data.entries.length)]));
+    toTitleCase(data.entries[randomNumber(data.entries.length)]));
     return memorable;
   });
 
