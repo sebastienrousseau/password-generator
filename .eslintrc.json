@@ -1,13 +1,15 @@
 {
   "env": {
-		"es8": true,
+		"es6": true,
 		"node": true
   },
+  "extends": ["plugin:import/recommended"],
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
-    "ecmaVersion": 2020,
+    "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "extends": ["eslint: recommended", "prettier"],
+  "plugins": ["import"],
   "rules": {
     "camelcase": [1, {"properties": "always"}],
     "comma-dangle": 0,
@@ -20,7 +22,6 @@
     "key-spacing": [2, {"beforeColon": false, "afterColon": true}],
     "keyword-spacing": 2,
     "linebreak-style": 0,
-    "node/file-extension-in-import": ["error", "never"],
     "no-console": 0,
     "no-irregular-whitespace": 2,
     "no-multi-str": 2,

@@ -13,7 +13,7 @@
         "target": "git://github.com/sebastienrousseau/password-generator.git"
     },
     "bin": {
-        "password-generator": "src/bin/index.js"
+        "password-generator": "./src/bin/index.js"
     },
     "bugs": {
         "url": "https://github.com/sebastienrousseau/password-generator/issues"
@@ -21,25 +21,29 @@
     "description": "A fast, simple and powerful utility library for generating unique passwords to streamline your digital and mobile web development needs.",
     "devDependencies": {
         "@babel/cli": "^7.17.6",
-        "babel-preset-es2015": "^7.0.0-beta.3",
-        "commander": "^9.1.0",
+        "@babel/core": "^7.17.9",
+        "@babel/eslint-parser": "^7.17.0",
+        "@babel/preset-env": "^7.16.11",
+        "@babel/preset-typescript": "^7.16.7",
+        "chai": "^4.3.6",
+        "commander": "^9.2.0",
+        "eslint-plugin-import": "^2.26.0",
         "filesizes": "^0.1.2",
+        "jest": "^28.0.0-alpha.9",
         "jshint": "^2.13.4",
         "mkdirp": "^1.0.4",
         "mocha": "^9.2.2",
+        "prettier": "2.6.2",
         "rimraf": "^3.0.2"
     },
     "directories": {
-        "dictionaries": "dictionaries",
-        "images": "images",
-        "lib": "lib",
-        "test": "test",
-        "utils": "utils"
+        "src": "src",
+        "test": "test"
     },
     "engines": {
-        "node": ">=13"
+        "node": ">=12.0.0"
     },
-    "filename": "src/dist/bin/password-generator.js",
+    "filename": "./src/dist/bin/password-generator.js",
     "homepage": "https://password-generator.pro",
     "keywords": [
         "base64",
@@ -65,7 +69,7 @@
     ],
     "license": "MIT",
     "license_URI": "http://www.opensource.org/licenses/mit-license.php",
-    "main": "src/bin/password-generator.js",
+    "main": "dist/src/bin/password-generator.js",
     "name": "@sebastienrousseau/password-generator",
     "publishConfig": {
         "access": "public",
@@ -76,23 +80,22 @@
         "url": "git+https://github.com/sebastienrousseau/password-generator.git"
     },
     "scripts": {
-        "build": "npm run dev:generate:password:generator && cat ./package.json | grep -v '\"private\":' > dist/package.json && npm pack ./dist",
-        "dev:clean:directory": "rimraf \"dist/\"",
-        "dev:copy:bin": "cp -R ./bin dist/bin",
-        "dev:copy:dictionaries": "cp -R ./dictionaries dist/dictionaries/",
-        "dev:copy:images": "cp -R images/ dist/images/",
-        "dev:copy:lib": "cp -R ./lib dist/",
-        "dev:copy:readme": "cp README.md dist/",
-        "dev:copy:test": "cp -R ./lib test/",
-        "dev:create:distribution": "mkdirp ./dist",
-        "dev:filesizes:package": "filesizes dist/ > dist/package-report.txt",
-        "dev:generate:password:generator": "npm run dev:clean:directory && npm run dev:create:distribution && npm run dev:copy:bin && npm run dev:copy:dictionaries && npm run dev:copy:images && npm run dev:copy:lib && npm run dev:copy:readme && npm run dev:copy:test && npm run dev:filesizes:package",
+        "build": "npm run build:password:generator && cat ./package.json | grep -v '\"private\":' > dist/package.json && npm pack ./dist",
+        "build:password:generator": "npm run clean:directory && npm run create:directory && npm run copy:src && npm run copy:test && npm run copy:readme && npm run copy:license && npm run copy:copyright && npm run filesize:distribution",
+        "clean:directory": "rimraf \"dist/\"",
+        "create:directory": "mkdirp ./dist",
+        "copy:src": "cp -R ./src dist/src",
+        "copy:test": "cp -R ./src dist/test",
+        "copy:readme": "cp README.md dist/",
+        "copy:license": "cp LICENSE dist/",
+        "copy:copyright": "cp COPYRIGHT dist/",
+        "filesize:distribution": "filesizes dist/ > dist/report.txt",
+        "lint": "eslint \"./src/bin/**/*.js\" \"./src/**/*.js\" \"test/**/*.js\"",
         "npm login": "npm publish $(node -p \"p=require('./package.json');p.name+'-'+p.version+'.tgz'\")",
-        "password-generator": "node src/bin/index.js",
+        "start": "node src/bin/index.js",
         "postpublish": "npm run publish-npm",
-        "prepare:password:generator": "npm run build",
         "publish-npm": "npm publish --access public --ignore-scripts --@OWNER:registry='https://registry.npmjs.org'",
-        "test": "jest"
+        "test": "mocha test/**/*.js"
     },
     "type": "module",
     "version": "1.0.4"

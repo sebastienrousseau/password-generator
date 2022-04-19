@@ -56,52 +56,66 @@ Within the download you'll find all the password generator source files grouped 
 
 You'll see something like this:
 
-```bash
+```shell
 .
 ├── COPYRIGHT
 ├── LICENSE
+├── Makefile
 ├── README.md
-├── bin
-│   └── password-generator.js
+├── babel.config.js
 ├── bower.json
-├── dictionaries
-│   ├── adjectives.json
-│   ├── adverbs.json
-│   ├── animals.json
-│   ├── cars.json
-│   ├── cities.json
-│   ├── common.json
-│   ├── countries.json
-│   ├── dinosaurs.json
-│   ├── emoji.json
-│   ├── encouraging.json
-│   ├── ergative.json
-│   ├── fruits.json
-│   ├── gemstones.json
-│   ├── hazards.json
-│   ├── instruments.json
-│   ├── lovecraft.json
-│   ├── metals.json
-│   ├── music.json
-│   ├── nouns.json
-│   ├── prepositions.json
-│   ├── shakespeare.json
-│   ├── sports.json
-│   ├── strange.json
-│   ├── vegetables.json
-│   └── winds.json
-├── dist
-├── lib
-│   ├── base64-password.js
-│   ├── complex-password.js
-│   ├── memorable-password.js
-│   └── title-case.js
 ├── package-lock.json
 ├── package.json
-└── test
-    └── test-title-case.js
+└── src
+    ├── bin
+    │   └── index.js
+    ├── dictionaries
+    │   ├── adjectives.json
+    │   ├── adverbs.json
+    │   ├── animals.json
+    │   ├── cars.json
+    │   ├── cities.json
+    │   ├── common.json
+    │   ├── countries.json
+    │   ├── dinosaurs.json
+    │   ├── emoji.json
+    │   ├── encouraging.json
+    │   ├── ergative.json
+    │   ├── fruits.json
+    │   ├── gemstones.json
+    │   ├── hazards.json
+    │   ├── instruments.json
+    │   ├── lovecraft.json
+    │   ├── metals.json
+    │   ├── music.json
+    │   ├── nouns.json
+    │   ├── prepositions.json
+    │   ├── shakespeare.json
+    │   ├── sports.json
+    │   ├── strange.json
+    │   ├── vegetables.json
+    │   └── winds.json
+    ├── images
+    │   ├── button-primary.svg
+    │   ├── button-secondary.svg
+    │   └── password-generator-logo.svg
+    ├── lib
+    │   ├── base64-password.js
+    │   ├── complex-password.js
+    │   ├── memorable-password.js
+    │   └── password-generator.js
+    └── utils
+        ├── README.md
+        ├── randomConsonant.js
+        ├── randomNumber.js
+        ├── randomSyllable.js
+        ├── randomVowel.js
+        ├── toCamelCase.js
+        ├── toKebabCase.js
+        ├── toSnakeCase.js
+        └── toTitleCase.js
 
-5 directories, 37 files
+6 directories, 50 files
 ```
 
 ## Usage
@@ -109,21 +123,21 @@ You'll see something like this:
 ### From the CLI
 
 ```shell
-node ./bin/password-generator.js
+node src/bin/index.js
 ```
 
 Displays the following help menu
 
 ```shell
-Usage: password-generator [options]
+Usage: index [options]
 
 Options:
-  \-V, --version              output the version number
-  \-t, --type <type>          Specify a type (base64, complex, memorable)
-  \-l, --length <numbers>     Specify a length for each iteration
-  \-i, --iteration <numbers>  Specify a number of iteration
-  \-s, --separator <char>     Specify a character for the separator
-  \-h, --help                 display help for command
+  -V, --version              output the version number
+  -t, --type <type>          specify a password type
+  -l, --length <numbers>     specify a length for each iteration
+  -i, --iteration <numbers>  specify a number of iteration
+  -s, --separator <char>     specify a character for the separator
+  -h, --help                 display help for command
 ```
 
 ### From Node.js
@@ -135,7 +149,7 @@ var generatePassword = require('password-generator');
 ### From the Browser
 
 ```shell
-<script src="<https://raw.githubusercontent.com/sebastienrousseau/password-generator/master/bin/password-generator.js>" type="text/javascript"></script>
+<script src="<https://raw.githubusercontent.com/sebastienrousseau/password-generator/master/src/bin/password-generator.js>" type="text/javascript"></script>
 ```
 
 ## Password options
