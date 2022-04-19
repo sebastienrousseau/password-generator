@@ -37,17 +37,21 @@
         "rimraf": "^3.0.2"
     },
     "directories": {
-        "src": "src",
-        "test": "test"
+        "src": "src/",
+        "test": "test/"
     },
     "engines": {
         "node": ">=12.0.0"
     },
     "filename": "./src/dist/bin/index.js",
     "files": [
-    "index.js",
-    "src/"
-  ],
+      "src/",
+      "test/",
+      "COPYRIGHT",
+      "LICENSE",
+      "Makefile",
+      "README.md"
+    ],
     "homepage": "https://password-generator.pro",
     "keywords": [
         "base64",
@@ -84,34 +88,44 @@
         "url": "git+https://github.com/sebastienrousseau/password-generator.git"
     },
     "rules": {
-        "node/no-unpublished-bin": ["error", {
-            "convertPath": [
-                {
-                    "include": ["src/bin/**/*.js"],
-                    "exclude": ["**/*.spec.js"],
-                    "replace": ["^src/(.+)$", "$1"]
-                }
-            ]
-        }]
+        "node/no-unpublished-bin": [
+            "error",
+            {
+                "convertPath": [
+                    {
+                        "exclude": [
+                            "**/*.spec.js"
+                        ],
+                        "include": [
+                            "src/bin/**/*.js"
+                        ],
+                        "replace": [
+                            "^src/(.+)$",
+                            "$1"
+                        ]
+                    }
+                ]
+            }
+        ]
     },
     "scripts": {
         "build": "npm run build:password:generator && cat ./package.json | grep -v '\"private\":' > dist/package.json && npm pack ./dist",
         "build:password:generator": "npm run clean:directory && npm run create:directory && npm run copy:src && npm run copy:test && npm run copy:readme && npm run copy:license && npm run copy:copyright && npm run filesize:distribution",
         "clean:directory": "rimraf \"dist/\"",
-        "create:directory": "mkdirp ./dist",
+        "copy:copyright": "cp COPYRIGHT dist/",
+        "copy:license": "cp LICENSE dist/",
+        "copy:readme": "cp README.md dist/",
         "copy:src": "cp -R ./src dist/src",
         "copy:test": "cp -R ./src dist/test",
-        "copy:readme": "cp README.md dist/",
-        "copy:license": "cp LICENSE dist/",
-        "copy:copyright": "cp COPYRIGHT dist/",
+        "create:directory": "mkdirp ./dist",
         "filesize:distribution": "filesizes dist/ > dist/report.txt",
         "lint": "eslint \"./src/bin/**/*.js\" \"./src/**/*.js\" \"test/**/*.js\"",
         "npm login": "npm publish $(node -p \"p=require('./package.json');p.name+'-'+p.version+'.tgz'\")",
-        "start": "node src/bin/index.js",
         "postpublish": "npm run publish-npm",
         "publish-npm": "npm publish --access public --ignore-scripts --@OWNER:registry='https://registry.npmjs.org'",
+        "start": "node src/bin/index.js",
         "test": "mocha test/**/*.js"
     },
     "type": "module",
-    "version": "1.0.4"
+    "version": "1.0.5"
 }
