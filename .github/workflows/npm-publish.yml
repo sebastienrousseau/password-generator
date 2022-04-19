@@ -20,13 +20,23 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
     steps:
+      - run: echo ${{github.ref}}
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - name: Build on Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
         with:
-          node-version: 16
-      - run: npm i
-      - run: npm run rescript:build
+          node-version: ${{ matrix.node-version }}
+      - name: npm install, build and test
+        run: |
+          npm ci
+          npm run build
+          npm test
+        env:
+          CI: true
 
   publish-npm:
     needs: build
