@@ -7,7 +7,8 @@ import { toTitleCase } from "../utils/toTitleCase.js";
 // Initializing Variables
 const args = process.argv.slice(2);
 const __dirname = process.cwd();
-let data, memorable = [];
+let data,
+    memorable = [];
 
 export async function memorablePassword() {
   // Initializing variables
