@@ -18,8 +18,7 @@ const pkg = JSON.parse(
   readFileSync(join(process.cwd(), "/package.json"), "utf8")
 );
 const program = new c();
-export function passwordGenerator()
-{
+export function passwordGenerator() {
   program
     .version(pkg.version)
     .option("-t, --type <type>", "specify a password type")

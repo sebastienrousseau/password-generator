@@ -10,8 +10,7 @@ const __dirname = process.cwd();
 let data,
   memorable = [];
 
-export async function memorablePassword()
-{
+export async function memorablePassword() {
   // Initializing variables
   data = await fs.readFile(`${__dirname}/src/dictionaries/common.json`, "utf8");
 
