@@ -91,7 +91,7 @@
         "url": "git+https://github.com/sebastienrousseau/password-generator.git"
     },
     "scripts": {
-        "build": "npm run build:password:generator && cat ./package.json | grep -v '\"private\":' > dist/package.json && npm pack ./dist",
+        "build": "npm run lint && npm run build:password:generator && cat ./package.json | grep -v '\"private\":' > dist/package.json && npm pack ./dist",
         "build:password:generator": "npm run clean:directory && npm run create:directory && npm run copy:src && npm run copy:test && npm run copy:readme && npm run copy:license && npm run copy:copyright && npm run filesize:distribution",
         "clean": "rimraf .nyc_output coverage",
         "clean:directory": "rimraf \"dist/\"",
@@ -102,7 +102,7 @@
         "copy:test": "cp -R ./src dist/test",
         "create:directory": "mkdirp ./dist",
         "filesize:distribution": "filesizes dist/ > dist/report.txt",
-        "lint": "eslint \"./src/bin/**/*.js\" \"./src/**/*.js\" \"test/**/*.js\"",
+        "lint": "eslint \"./src/bin/**/*.js\" \"./src/**/*.js\"",
         "npm login": "npm publish $(node -p \"p=require('./package.json');p.name+'-'+p.version+'.tgz'\")",
         "postpublish": "npm run publish-npm",
         "publish-npm": "npm publish --access public --ignore-scripts --@OWNER:registry='https://registry.npmjs.org'",
