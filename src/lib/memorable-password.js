@@ -1,8 +1,8 @@
 /*jshint esversion: 8 */
 
-import { promises as fs } from 'fs';
-import { randomNumber } from '../utils/randomNumber.js';
-import { toTitleCase } from '../utils/toTitleCase.js';
+import { promises as fs } from "fs";
+import { randomNumber } from "../utils/randomNumber.js";
+import { toTitleCase } from "../utils/toTitleCase.js";
 
 // Initializing Variables
 const args = process.argv.slice(2);
@@ -11,7 +11,7 @@ let data, memorable = [];
 
 export async function memorablePassword () {
   // Initializing variables
-  data = await fs.readFile(`${__dirname}/src/dictionaries/common.json`, 'utf8');
+  data = await fs.readFile(`${__dirname}/src/dictionaries/common.json`, "utf8");
 
   // Read the JSON dictionary and store it as an array
   data = JSON.parse(data);
@@ -27,6 +27,6 @@ export async function memorablePassword () {
     .slice(0, args[3])
     .join(args[5])
     .toString()
-    .replace(/ /g, '');
+    .replace(/ /g, "");
   console.log(memorable);
 }
