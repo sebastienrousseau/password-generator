@@ -100,7 +100,7 @@ You'll see something like this:
 ### From the CLI
 
 ```shell
-node src/bin/index.js
+node .
 ```
 
 Displays the following help menu
@@ -134,19 +134,19 @@ var generatePassword = require('password-generator');
 ### Generating a random base64 password
 
 ```shell
-node src/bin/index.js -t base64 -l 8 -i 4 -s -
+node . -t base64 -l 8 -i 4 -s - 
 ```
 
 ### Generating a strong password
 
 ```shell
-node src/bin/index.js -t complex -l 8 -i 4 -s -
+node . -t complex -l 8 -i 4 -s -
 ```
 
 ### Generating a memorable password
 
 ```shell
-node src/bin/index.js -t memorable -i 4 -s -
+node . -t memorable -i 4 -s - 
 ```
 
 ## 🚥  Semantic Versioning Policy
@@ -155,8 +155,7 @@ For transparency into our release cycle and in striving to maintain backward com
 
 ## 📰  Changelog
 
-- [GitHub Releases](https://github.com/sebastienrousseau/password-generator/releases)
-
+-   [GitHub Releases](https://github.com/sebastienrousseau/password-generator/releases)
 
 ## ❤️  Contributing
 
@@ -164,9 +163,9 @@ Please read carefully through our [Contributing Guidelines](https://github.com/s
 
 Development Tools
 
--   npm test runs tests and measures coverage.
--   npm run coverage shows the coverage result of npm test command.
--   npm run clean removes the coverage result of npm test command.
+-   `npm test` runs tests and measures coverage.
+-   `npm run coverage` shows the coverage result of npm test command.
+-   `npm run clean` removes the coverage result of npm test command.
 
 ## 📖  Rules
 

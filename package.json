@@ -13,7 +13,7 @@
         "target": "git://github.com/sebastienrousseau/password-generator.git"
     },
     "bin": {
-        "password-generator": "bin/index.js"
+        "password-generator": "bin/password-generator.js"
     },
     "bugs": {
         "url": "https://github.com/sebastienrousseau/password-generator/issues"
@@ -33,6 +33,7 @@
         "jshint": "^2.13.4",
         "mkdirp": "^1.0.4",
         "mocha": "^9.2.2",
+        "nyc": "^15.1.0",
         "prettier": "2.6.2",
         "rimraf": "^3.0.2"
     },
@@ -43,14 +44,15 @@
     "engines": {
         "node": ">=12.0.0"
     },
-    "filename": "src/bin/index.js",
+    "filename": "src/index.js",
     "files": [
-      "src/",
-      "test/",
-      "COPYRIGHT",
-      "LICENSE",
-      "Makefile",
-      "README.md"
+        "src/",
+        "test/",
+        "COPYRIGHT",
+        "LICENSE",
+        "index.js",
+        "Makefile",
+        "README.md"
     ],
     "funding": "https://paypal.me/wwdseb",
     "homepage": "https://password-generator.pro",
@@ -78,7 +80,7 @@
     ],
     "license": "MIT",
     "license_URI": "http://www.opensource.org/licenses/mit-license.php",
-    "main": "src/bin/index.js",
+    "main": "src/index.js",
     "name": "@sebastienrousseau/password-generator",
     "publishConfig": {
         "access": "public",
@@ -112,6 +114,7 @@
     "scripts": {
         "build": "npm run build:password:generator && cat ./package.json | grep -v '\"private\":' > dist/package.json && npm pack ./dist",
         "build:password:generator": "npm run clean:directory && npm run create:directory && npm run copy:src && npm run copy:test && npm run copy:readme && npm run copy:license && npm run copy:copyright && npm run filesize:distribution",
+        "clean": "rimraf .nyc_output coverage",
         "clean:directory": "rimraf \"dist/\"",
         "copy:copyright": "cp COPYRIGHT dist/",
         "copy:license": "cp LICENSE dist/",
@@ -125,7 +128,8 @@
         "postpublish": "npm run publish-npm",
         "publish-npm": "npm publish --access public --ignore-scripts --@OWNER:registry='https://registry.npmjs.org'",
         "start": "node src/bin/index.js",
-        "test": "mocha test/**/*.js"
+        "test": "mocha test/**/*.js",
+        "coverage": "nyc npm run test"
     },
     "type": "module",
     "version": "1.0.5"
