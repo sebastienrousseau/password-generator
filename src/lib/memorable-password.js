@@ -19,7 +19,8 @@ export async function memorablePassword() {
 
   // Picking random words from the JSON dictionary based on the data length
   data.entries.forEach(() => {
-    memorable.push(toTitleCase(data.entries[randomNumber(data.entries.length)]));
+    memorable.push(
+      toTitleCase(data.entries[randomNumber(data.entries.length)]));
     return memorable;
   });
 
