@@ -22,7 +22,7 @@ export function passwordGenerator() {
   program
     .version(pkg.version)
     .description('A fast, simple and powerful open-source utility tool for generating strong, unique and random passwords')
-    .option("-t, --type <type>", "specify a password type")
+    .option("-t, --type <type>", "specify a password type", "base64, complex or memorable")
     .option("-l, --length <numbers>", "specify a length for each iteration")
     .option("-i, --iteration <numbers>", "specify a number of iteration")
     .option("-s, --separator <char>", "specify a character for the separator")
