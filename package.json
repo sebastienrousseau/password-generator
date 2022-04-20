@@ -27,6 +27,7 @@
         "@babel/preset-typescript": "^7.16.7",
         "chai": "^4.3.6",
         "commander": "^9.2.0",
+        "coveralls":"^3.1.1",
         "eslint": "^8.13.0",
         "eslint-plugin-import": "^2.26.0",
         "filesizes": "^0.1.2",
@@ -119,7 +120,7 @@
         "publish-npm": "npm publish --access public --ignore-scripts --@OWNER:registry='https://registry.npmjs.org'",
         "start": "node src/bin/index.js",
         "test": "mocha test/**/*.js",
-        "coverage": "nyc npm run test"
+        "coverage": "npm run clean && nyc npm run test"
     },
     "type": "module",
     "version": "1.0.5"
