@@ -11,6 +11,7 @@ Converts all the alphabetic characters in a string to kebab case.
 ```js
 export function toKebabCase(str) {
   return str
+    // any of ((literally "/", uppercase, at least 2 times, capture (any of ((optional, literally "=", uppercase, letter, once or more, digit, never or more), word))), (uppercase, optional, letter, once or more, digit, never or more), uppercase, (digit, once or more, literally "/g"))
     .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
     .map(x => x.toLowerCase())
     .join('-');
