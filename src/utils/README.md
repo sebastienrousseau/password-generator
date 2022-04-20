@@ -4,8 +4,10 @@
 -   [Utils](#utils)
     -   [Table of Contents](#table-of-contents)
         -   [toCamelCase(): string](#tocamelcase-string)
+        -   [toCharArray(): string](#tochararray-string)
         -   [toKebabCase(): string](#tokebabcase-string)
         -   [toSnakeCase(): string](#tosnakecase-string)
+        -   [toTitleCase(): string](#totitlecase-string)
 
 ## Utils
 
@@ -101,7 +103,7 @@ console.log(toKebabCase('IAmEditingSomeXMLAndHTML')); // 'i-am-editing-some-xml-
 
 [File: toSnakeCase.js](./toSnakeCase.js)
 
-Converts all the alphabetic characters in a snake case string.
+Converts all the alphabetic characters in a string to snake case.
 
 -   Use `String.prototype.match()` to break the string into words using an appropriate regexp.
 -   Use `String.prototype.replace()` and `String.prototype.toLowerCase()` to combine them, adding `_` as a separator.
@@ -122,4 +124,35 @@ console.log(toSnakeCase('some text')); // 'some-text'
 console.log(toSnakeCase('some-mixed_string With spaces_underscores-and-hyphens')); // 'some-mixed-string-with-spaces-underscores-and-hyphens'
 console.log(toSnakeCase('AllThe-small Things')); // 'all-the-small-things'
 console.log(toSnakeCase('IAmEditingSomeXMLAndHTML')); // 'i-am-editing-some-xml-and-html'
+```
+
+### toTitleCase(): string
+
+[File: toTitleCase.js](./toTitleCase.js)
+
+Converts all the alphabetic characters in a string to a title case string.
+
+-   Use `String.prototype.match()` to break the string into words using an appropriate regexp.
+-   Use `Array.prototype.map()`, `Array.prototype.slice()`, `Array.prototype.join()` and `String.prototype.toUpperCase()` to combine them, capitalizing the first letter of each word and adding a whitespace between them.
+
+```js
+export const toTitleCase = (str) =>
+  str
+    .toLowerCase()
+    .match(/[A-Z]{2,}(?=[A-Z][a-z]|\b)|[A-Z]?[a-z]+|[A-Z]|\d+/g)
+    .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
+    .join(" ");
+```
+
+```js
+toTitleCase("passwordGenerator");      // ✔ should convert a camel case string to title case
+toTitleCase("password.generator");     // ✔ should convert a dot case string to title case
+toTitleCase("--PASSWORD-GENERATOR--"); // ✔ should convert a junk case string to title case
+toTitleCase("password-generator");     // ✔ should convert a kebab case string to title case
+toTitleCase("PasswordGenerator");      // ✔ should convert a pascal case string to title case
+toTitleCase("Password generator");     // ✔ should convert a sentence case string to title case
+toTitleCase("password_generator");     // ✔ should convert a snake case string to title case
+toTitleCase("password generator");     // ✔ should convert a space case string to title case
+toTitleCase("Password Generator");     // ✔ should convert a title case string to title case
+toTitleCase("PASSWORD GENERATOR");     // ✔ should convert a uppercase case string to title case
 ```
