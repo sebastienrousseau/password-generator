@@ -2,7 +2,7 @@
 
 import { promises as fs } from "fs";
 import { randomNumber } from "../utils/randomNumber.js";
-import { toTitleCase } from "../utils/toTitleCase.js";
+import { toTitleCase } from "../utils/toTitleCase/toTitleCase.js";
 
 // Initializing Variables
 const args = process.argv.slice(2);

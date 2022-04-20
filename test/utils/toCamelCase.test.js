@@ -1,6 +1,6 @@
 /*jshint esversion: 8 */
 
-import { toCamelCase } from "../../src/utils/toCamelCase.js";
+import { toCamelCase } from "../../src/utils/toCamelCase/toCamelCase.js";
 import * as chai from "chai";
 let expect = chai.expect;
 let assert = chai.assert;

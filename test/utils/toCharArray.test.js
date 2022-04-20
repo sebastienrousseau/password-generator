@@ -1,6 +1,6 @@
 /*jshint esversion: 8 */
 
-import { toCharArray } from "../../src/utils/toCharArray.js";
+import { toCharArray } from "../../src/utils/toCharArray/toCharArray.js";
 import * as chai from "chai";
 let expect = chai.expect;
 let assert = chai.assert;
