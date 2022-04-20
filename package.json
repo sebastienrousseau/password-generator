@@ -22,11 +22,12 @@
     "devDependencies": {
         "@babel/cli": "^7.17.6",
         "@babel/core": "^7.17.9",
-        "@babel/eslint-parser": "^7.17.0",
+        "@babel/eslint-parser":"^7.17.0",
         "@babel/preset-env": "^7.16.11",
         "@babel/preset-typescript": "^7.16.7",
         "chai": "^4.3.6",
         "commander": "^9.2.0",
+        "eslint": "^8.13.0",
         "eslint-plugin-import": "^2.26.0",
         "filesizes": "^0.1.2",
         "jest": "^28.0.0-alpha.9",
