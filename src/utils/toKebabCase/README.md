@@ -18,10 +18,15 @@ export function toKebabCase(str) {
 ```
 
 ```js
-console.log(toKebabCase('kebabCase')); // 'kebab-case'
-console.log(toKebabCase('some text')); // 'some-text'
-console.log(toKebabCase('some-mixed_string With spaces_underscores-and-hyphens')); // 'some-mixed-string-with-spaces-underscores-and-hyphens'
-console.log(toKebabCase('AllThe-small Things')); // 'all-the-small-things'
-console.log(toKebabCase('IAmEditingSomeXMLAndHTML')); // 'i-am-editing-some-xml-and-html'
+toKebabCase("passwordGenerator");      // ✔ should convert a camel case string to kebab case
+toKebabCase("password.generator");     // ✔ should convert a dot case string to kebab case
+toKebabCase("--PASSWORD-GENERATOR--"); // ✔ should convert a junk case string to kebab case
+toKebabCase("password-generator");     // ✔ should convert a kebab case string to kebab case
+toKebabCase("PasswordGenerator");      // ✔ should convert a pascal case string to kebab case
+toKebabCase("Password generator");     // ✔ should convert a sentence case string to kebab case
+toKebabCase("password_generator");     // ✔ should convert a snake case string to kebab case
+toKebabCase("password generator");     // ✔ should convert a space case string to kebab case
+toKebabCase("Password Generator");     // ✔ should convert a title case string to kebab case
+toKebabCase("PASSWORD GENERATOR");     // ✔ should convert a uppercase case string to kebab case
 ```
 
