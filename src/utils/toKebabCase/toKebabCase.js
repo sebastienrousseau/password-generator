@@ -6,6 +6,7 @@
  */
 export const toKebabCase = (str) =>
   str
+    // any of ((literally "/", uppercase, at least 2 times, capture (any of ((optional, literally "=", uppercase, letter, once or more, digit, never or more), word))), (uppercase, optional, letter, once or more, digit, never or more), uppercase, (digit, once or more, literally "/g"))
     .match(/[A-Z]{2,}|[A-Z]?[a-z]+\d*|[A-Z]|\d+/g)
     .map((x) => x.toLowerCase())
     .join("-");
