@@ -18,13 +18,6 @@ let strings = {
   uppercase: "PASSWORD GENERATOR",
 };
 
-// mocha() test
-describe("Running mocha () function \n", function () {
-  it("should run mocha", function () {
-    expect(true);
-  });
-});
-
 // Test type of toCharArray() function
 describe("Running test type of toCharArray() function \n", function () {
   for (let key in strings) testArray(key);

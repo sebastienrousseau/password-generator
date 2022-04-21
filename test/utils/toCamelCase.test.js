@@ -18,13 +18,6 @@ let strings = {
   uppercase: "PASSWORD GENERATOR",
 };
 
-// mocha() test
-describe("Running mocha () function \n", function () {
-  it("should run mocha", function () {
-    expect(true);
-  });
-});
-
 // toCamelCase() tests
 describe("Running toCamelCase () function \n", function () {
   for (let key in strings) test(key);

@@ -1,9 +1,9 @@
 /*jshint esversion: 8 */
-import { base64Password } from "../lib/base64-password.js";
+import { base64Password } from "../src/lib/base64-password.js";
 import { Command } from "commander";
-import { complexPassword } from "../lib/complex-password.js";
+import { complexPassword } from "../src/lib/complex-password.js";
 import { join } from "path";
-import { memorablePassword } from "../lib/memorable-password.js";
+import { memorablePassword } from "../src/lib/memorable-password.js";
 import { readFileSync } from "fs";
 
 // Initializing Variables

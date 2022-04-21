@@ -11,13 +11,6 @@ let toTitleCaseArray = [
   "Password Generator",
 ];
 
-// mocha() test
-describe("Running mocha () ", function () {
-  it("should run mocha", function () {
-    expect(true);
-  });
-});
-
 // toTitleCase() test
 describe("Running toTitleCase (string) \n", function () {
   it("should return a string", function () {

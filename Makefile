@@ -21,6 +21,7 @@ else
 endif
 
 .DEFAULT_GOAL := help
+.PHONY: all run clean
 
 # @HELP Install.
 install:
@@ -28,11 +29,11 @@ install:
 	@echo "Installing..."
 	install-deps
 
-# @HELP Run production password-generator.
+# @HELP Run password-generator.
 run:
 	@echo
-	@echo "Running the production password-generator..."
-	npx node 'dist/src/index.js' production
+	@echo "Running the password-generator..."
+	npx node . -t base64 -l 8 -i 4 -s -
 
 # @HELP Run the developer password-generator.
 dev:

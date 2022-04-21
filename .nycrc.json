@@ -1,6 +1,8 @@
 {
   "all": true,
   "include": [
+    "index.js",
+    "bin/**/*.js",
     "src/**/*.js"
   ],
   "exclude": [

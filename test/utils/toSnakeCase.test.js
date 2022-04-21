@@ -17,13 +17,6 @@ let snakeCaseArray = [
   "--PASSWORD-GENERATOR--",
 ];
 
-// mocha() test
-describe("Running mocha () ", function () {
-  it("should run mocha", function () {
-    expect(true);
-  });
-});
-
 // toSnakeCase() tests
 describe("Running toSnakeCase (string) \n", function () {
   it("should return a string \n", function () {
