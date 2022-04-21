@@ -4,7 +4,7 @@
  * Converts a string to an array of characters.
  * @param {String} str The text to be converted to an array of characters.
  */
-export const toCharArray = str => [...str];
+export const toCharArray = (str) => [...str];
 
 // console.log(toCharArray("passwordGenerator"));      // ✔ should convert a camel case string to an array of characters
 // console.log(toCharArray("password.generator"));     // ✔ should convert a dot case string to an array of characters
