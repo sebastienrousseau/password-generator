@@ -6,7 +6,7 @@
     },
     "recurseDepth": 10,
     "opts": {
-        "destination": "./docs/",
+        "destination": "./src/docs/",
         "recurse": true
     }
 }
