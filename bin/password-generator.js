@@ -1,4 +1,4 @@
-/*jshint esversion: 8 */
+/* jshint esversion: 8 */
 import { base64Password } from "../src/lib/base64-password.js";
 import { Command } from "commander";
 import { complexPassword } from "../src/lib/complex-password.js";
@@ -18,6 +18,8 @@ const pkg = JSON.parse(
   readFileSync(join(process.cwd(), "/package.json"), "utf8")
 );
 const program = new Command();
+
+/** @function passwordGenerator */
 export function passwordGenerator() {
   program
     .name("password-generator")

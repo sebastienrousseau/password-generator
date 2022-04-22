@@ -2,6 +2,7 @@
 
 /build/**
 /coverage/**
+/docs/**
 /dist/**
 /test/**
 /node_modules/**
