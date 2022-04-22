@@ -140,7 +140,7 @@
         "copy:test": "cp -R ./test dist/test",
         "coverage": "npm run clean && nyc npm run --silent \"test/*.js\" \"./test/**/*.js\"",
         "create:directory": "mkdirp ./dist",
-        "create:docs":"rimraf \"docs/\" && mkdirp \"docs/\" && jsdoc -c ./jsdoc.json",
+        "create:docs":"jsdoc -c ./jsdoc.json",
         "filesize:distribution": "filesizes dist/ > dist/Report.txt",
         "lint": "eslint \"./*.js\" \"./bin/**/*.js\" \"./src/**/*.js\"",
         "npm login": "npm publish $(node -p \"p=require('./package.json');p.name+'-'+p.version+'.tgz'\")",
