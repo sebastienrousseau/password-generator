@@ -144,7 +144,7 @@
         "npm login": "npm publish $(node -p \"p=require('./package.json');p.name+'-'+p.version+'.tgz'\")",
         "postpublish": "npm run publish-npm",
         "publish-npm": "npm publish --access public --ignore-scripts --@OWNER:registry='https://registry.npmjs.org'",
-        "start": "node dist/bin/index.js",
+        "start": "node dist/index.js",
         "test": "mocha \"./test/*.js\" \"./test/**/*.js\""
     },
     "type": "module",
