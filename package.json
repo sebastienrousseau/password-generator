@@ -129,7 +129,7 @@
         "commit:msg": "commitlint -e",
         "copy:bin": "cp -R ./bin dist/bin",
         "copy:copyright": "cp COPYRIGHT dist/",
-        "copy:docs": "cp -R ./docs dist/docs",
+        "copy:docs": "cp -R ./src/docs dist/docs",
         "copy:index": "cp index.js dist/",
         "copy:license": "cp LICENSE dist/",
         "copy:makefile": "cp Makefile dist/",
