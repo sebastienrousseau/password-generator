@@ -1,10 +1,12 @@
+#!/usr/bin/env node
+
 /* jshint esversion: 8 */
 import { base64Password } from "../src/lib/base64-password.js";
-import cli from "commander";
 import { complexPassword } from "../src/lib/complex-password.js";
 import { join } from "path";
 import { memorablePassword } from "../src/lib/memorable-password.js";
 import { readFileSync } from "fs";
+import cli from "commander";
 
 // Initializing Variables
 const actions = {
