@@ -39,78 +39,72 @@ You'll see something like this:
 ├── LICENSE
 ├── Makefile
 ├── README.md
-├── babel.config.json
+├── Report.txt
 ├── bin
-│   └── password-generator.js
-├── bower.json
-├── images
-│   ├── button-primary.svg
-│   ├── button-secondary.svg
-│   └── password-generator-logo.svg
+│   └── password-generator.js
 ├── index.js
-├── jsdoc.json
 ├── package.json
 ├── src
-│   ├── dictionaries
-│   │   ├── adjectives.json
-│   │   ├── adverbs.json
-│   │   ├── animals.json
-│   │   ├── cars.json
-│   │   ├── cities.json
-│   │   ├── common.json
-│   │   ├── countries.json
-│   │   ├── dinosaurs.json
-│   │   ├── emoji.json
-│   │   ├── encouraging.json
-│   │   ├── ergative.json
-│   │   ├── fruits.json
-│   │   ├── gemstones.json
-│   │   ├── hazards.json
-│   │   ├── instruments.json
-│   │   ├── lovecraft.json
-│   │   ├── metals.json
-│   │   ├── music.json
-│   │   ├── nouns.json
-│   │   ├── prepositions.json
-│   │   ├── shakespeare.json
-│   │   ├── sports.json
-│   │   ├── strange.json
-│   │   ├── vegetables.json
-│   │   └── winds.json
-│   ├── lib
-│   │   ├── base64-password.js
-│   │   ├── memorable-password.js
-│   │   └── strong-password.js
-│   └── utils
-│       ├── README.md
-│       ├── randomConsonant.js
-│       ├── randomNumber.js
-│       ├── randomSyllable.js
-│       ├── randomVowel.js
-│       ├── toCamelCase
-│       │   ├── README.md
-│       │   └── toCamelCase.js
-│       ├── toCharArray
-│       │   ├── README.md
-│       │   └── toCharArray.js
-│       ├── toKebabCase
-│       │   ├── README.md
-│       │   └── toKebabCase.js
-│       ├── toSnakeCase
-│       │   ├── README.md
-│       │   └── toSnakeCase.js
-│       └── toTitleCase
-│           ├── README.md
-│           └── toTitleCase.js
-├── test
-│   ├── index.test.js
-│   └── utils
-│       ├── toCamelCase.test.js
-│       ├── toCharArray.test.js
-│       ├── toSnakeCase.test.js
-└──     └── toTitleCase.test.js
+│   ├── dictionaries
+│   │   ├── adjectives.json
+│   │   ├── adverbs.json
+│   │   ├── animals.json
+│   │   ├── cars.json
+│   │   ├── cities.json
+│   │   ├── common.json
+│   │   ├── countries.json
+│   │   ├── dinosaurs.json
+│   │   ├── emoji.json
+│   │   ├── encouraging.json
+│   │   ├── ergative.json
+│   │   ├── fruits.json
+│   │   ├── gemstones.json
+│   │   ├── hazards.json
+│   │   ├── instruments.json
+│   │   ├── lovecraft.json
+│   │   ├── metals.json
+│   │   ├── music.json
+│   │   ├── nouns.json
+│   │   ├── prepositions.json
+│   │   ├── shakespeare.json
+│   │   ├── sports.json
+│   │   ├── strange.json
+│   │   ├── vegetables.json
+│   │   └── winds.json
+│   ├── lib
+│   │   ├── base64-password.js
+│   │   ├── memorable-password.js
+│   │   └── strong-password.js
+│   └── utils
+│       ├── README.md
+│       ├── randomConsonant.js
+│       ├── randomNumber.js
+│       ├── randomSyllable.js
+│       ├── randomVowel.js
+│       ├── toCamelCase
+│       │   ├── README.md
+│       │   └── toCamelCase.js
+│       ├── toCharArray
+│       │   ├── README.md
+│       │   └── toCharArray.js
+│       ├── toKebabCase
+│       │   ├── README.md
+│       │   └── toKebabCase.js
+│       ├── toSnakeCase
+│       │   ├── README.md
+│       │   └── toSnakeCase.js
+│       └── toTitleCase
+│           ├── README.md
+│           └── toTitleCase.js
+└── test
+    ├── index.test.js
+    └── utils
+        ├── toCamelCase.test.js
+        ├── toCharArray.test.js
+        ├── toSnakeCase.test.js
+        └── toTitleCase.test.js
 
-13 directories, 61 files
+12 directories, 56 files
 ```
 
 ## 💿 Usage
@@ -165,7 +159,7 @@ yarn start -t base64 -l 8 -i 4 -s -
 node . -t base64 -l 8 -i 4 -s -
 ```
 
-#### Generating a random base64 password calling the base64 function
+#### Generating a random base64 password calling the base64Password function
 
 ```shell
 node dist/src/lib/base64-password.js -t base64 -l 8 -i 4 -s -
@@ -185,7 +179,7 @@ yarn start -t strong -l 8 -i 4 -s -
 node . -t strong -l 8 -i 4 -s -
 ```
 
-#### Generating a random strong password calling the strong function
+#### Generating a random strong password calling the strongPassword function
 
 ```shell
 node dist/src/lib/strong-password.js -t base64 -l 8 -i 4 -s -  
@@ -205,7 +199,7 @@ yarn start -t memorable -i 4 -s -
 node . -t memorable -i 4 -s -
 ```
 
-#### Generating a random memorable password calling the strong function
+#### Generating a random memorable password calling the memorablePassword function
 
 ```shell
 node dist/src/lib/memorable-password.js -t base64  -i 4 -s -
@@ -228,6 +222,7 @@ Development Tools
 -   `npm test` runs tests and measures coverage.
 -   `npm run coverage` shows the coverage result of npm test command.
 -   `npm run clean` removes the coverage result of npm test command.
+-   `npm run build` runs build.
 
 ## 📖 Rules
 

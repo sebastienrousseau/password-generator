@@ -27,7 +27,8 @@ export let passwordGenerator = async() => {
     .parse(process.argv);
 
 
-  if (args[1]) { import ("../src/lib/" + args[1] + "-password.js");
+  if (args[0] === "-t") {
+    import ("../src/lib/" + args[1] + "-password.js");
   } else if (!args[1]) {
     program.help();
   }

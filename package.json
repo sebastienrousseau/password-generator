@@ -142,11 +142,12 @@
         "create:docs":"jsdoc -c ./jsdoc.json",
         "filesize:distribution": "filesizes dist/ > dist/Report.txt",
         "lint": "eslint \"./*.js\" \"./bin/**/*.js\" \"./src/**/*.js\"",
+        "lint-fix": "npm run lint -- --fix",
         "npm login": "npm publish $(node -p \"p=require('./package.json');p.name+'-'+p.version+'.tgz'\")",
         "postpublish": "npm run publish-npm",
         "publish-npm": "npm publish --access public --ignore-scripts --@OWNER:registry='https://registry.npmjs.org'",
-        "start": "node dist/index.js \"$@\"",
-        "test": "mocha \"./test/*.js\" \"./test/**/*.js\""
+        "start": "node index.js",
+        "test": "mocha \"./index.js\" \"./bin/**/*.js\" \"./src/lib/*.js\" \"./src/utils/*.js\""
     },
     "type": "module",
     "version": "1.0.6"
