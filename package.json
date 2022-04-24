@@ -13,7 +13,7 @@
         "target": "git://github.com/sebastienrousseau/password-generator.git"
     },
     "bin": {
-        "password-generator": "./dist/bin/password-generator.js"
+        "password-generator": "index.js"
     },
     "bugs": {
         "url": "https://github.com/sebastienrousseau/password-generator/issues"
