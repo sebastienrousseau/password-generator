@@ -1,6 +1,3 @@
-#!/usr/bin/env node
-
-/* jshint esversion: 8 */
 import { base64Password } from "../src/lib/base64-password.js";
 import { complexPassword } from "../src/lib/complex-password.js";
 import { join } from "path";
