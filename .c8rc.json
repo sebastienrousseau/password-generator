@@ -1,0 +1,32 @@
+{
+    "all": true,
+    "branches": 100,
+    "cache": false,
+    "check-coverage": true,
+    "clean": true,
+    "exclude": [
+        "coverage/*",
+        "dist/*",
+        "lib/*",
+        "node_modules/*",
+        "src/docs/*",
+        "test/*"
+    ],
+    "extension": [".js"],
+    "functions": 100,
+    "include": [
+        "**/*.js"
+    ],
+    "lines": 100,
+    "reporter": [
+        "cobertura",
+        "html",
+        "lcov",
+        "text",
+        "text-summary"
+    ],
+    "reports-dir": "./coverage",
+    "skip-full": true,
+    "sourceMap": true,
+    "statements": 100
+}

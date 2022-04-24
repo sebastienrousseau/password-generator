@@ -21,7 +21,8 @@ else
 endif
 
 .DEFAULT_GOAL := help
-.PHONY: all run clean
+
+.PHONY: all run clean coverage
 
 # @HELP Install.
 install:
@@ -41,30 +42,31 @@ dev:
 	@echo "Running the developer password-generator..."
 	npx nodemon --delay 1 --exec node 'dist/src/index.js' developer
 
-# @HELP Install npm dependencies.
+# @HELP Install npx dependencies.
 install-deps:
 	@echo
-	@echo "Installing npm dependencies..."
-	npm ci
+	@echo "Installing npx dependencies..."
+	npx ci
 
 # @HELP Build.
 build:
 	@echo
 	@echo "Building..."
 	rm -rf dist
-	npm run build
+	npx run build
+
+# @HELP Test Coverage.
+coverage:
+	@echo
+	@echo "Checking Test Coverage..."
+	npx c8 mocha \"test/*.js\" \"./test/**/*.js\"
 
 # @HELP Unit tests.
 test:
 	@echo
 	@echo "Checking Unit tests..."
-	npm test
+	npx test
 
-# @HELP Test Coverage.
-test-coverage:
-	@echo
-	@echo "Checking Test Coverage..."
-	npm run coverage
 
 # @HELP Run eslint.
 lint:
@@ -76,13 +78,13 @@ lint:
 publish:
 	@echo
 	@echo "Publishing password-generator..."
-	npm publish
+	npx publish
 
-# @HELP NPM check updates.
+# @HELP npx check updates.
 update-deps:
 	@echo
-	@echo "Checking npm updates..."
-	npx npm-check-updates -u
+	@echo "Checking npx updates..."
+	npx npx-check-updates -u
 
 # @HELP Display the help menu.
 help:
