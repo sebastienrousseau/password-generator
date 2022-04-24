@@ -3,7 +3,7 @@ import { complexPassword } from "../src/lib/complex-password.js";
 import { join } from "path";
 import { memorablePassword } from "../src/lib/memorable-password.js";
 import { readFileSync } from "fs";
-import {program} from "commander";
+import { program } from "commander";
 
 // Initializing Variables
 const actions = {
