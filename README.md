@@ -1,11 +1,11 @@
 # Password Generator Tool
 
-![Banner representing the Password Generator Tool](https://raw.githubusercontent.com/sebastienrousseau/password-generator/master/src/images/password-generator-logo.svg)
+![Banner representing the Password Generator Tool](https://raw.githubusercontent.com/sebastienrousseau/password-generator/master/images/password-generator-logo.svg)
 
 A fast, simple and powerful open-source utility tool for generating strong, unique and random passwords. Password Generator is free to use as a secure password generator on any computer, phone, or tablet.
 
-[![Getting Started](https://raw.githubusercontent.com/sebastienrousseau/password-generator/master/src/images/button-primary.svg)](#installation)
-[![Download the Password Generator Tool v1.0.6](https://raw.githubusercontent.com/sebastienrousseau/password-generator/master/src/images/button-secondary.svg)](https://github.com/sebastienrousseau/password-generator/archive/refs/tags/1.0.6.zip)
+[![Getting Started](https://raw.githubusercontent.com/sebastienrousseau/password-generator/master/images/button-primary.svg)](#installation)
+[![Download the Password Generator Tool v1.0.6](https://raw.githubusercontent.com/sebastienrousseau/password-generator/master/images/button-secondary.svg)](https://github.com/sebastienrousseau/password-generator/archive/refs/tags/1.0.6.zip)
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/0acb169c95e443729551979e0fd86eaf)](https://www.codacy.com?utm_source=github.com&utm_medium=referral&utm_content=sebastienrousseau/password-generator&utm_campaign=Badge_Grade)
 [![npm](https://img.shields.io/npm/v/@sebastienrousseau/password-generator.svg?style=flat&color=success)](https://www.npmjs.com/package/@sebastienrousseau/password-generator)
