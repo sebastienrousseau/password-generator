@@ -39,60 +39,78 @@ You'll see something like this:
 ├── LICENSE
 ├── Makefile
 ├── README.md
-├── babel.config.js
+├── babel.config.json
+├── bin
+│   └── password-generator.js
 ├── bower.json
-├── package-lock.json
+├── images
+│   ├── button-primary.svg
+│   ├── button-secondary.svg
+│   └── password-generator-logo.svg
+├── index.js
+├── jsdoc.json
 ├── package.json
-└── src
-    ├── bin
-    │   └── index.js
-    ├── dictionaries
-    │   ├── adjectives.json
-    │   ├── adverbs.json
-    │   ├── animals.json
-    │   ├── cars.json
-    │   ├── cities.json
-    │   ├── common.json
-    │   ├── countries.json
-    │   ├── dinosaurs.json
-    │   ├── emoji.json
-    │   ├── encouraging.json
-    │   ├── ergative.json
-    │   ├── fruits.json
-    │   ├── gemstones.json
-    │   ├── hazards.json
-    │   ├── instruments.json
-    │   ├── lovecraft.json
-    │   ├── metals.json
-    │   ├── music.json
-    │   ├── nouns.json
-    │   ├── prepositions.json
-    │   ├── shakespeare.json
-    │   ├── sports.json
-    │   ├── strange.json
-    │   ├── vegetables.json
-    │   └── winds.json
-    ├── images
-    │   ├── button-primary.svg
-    │   ├── button-secondary.svg
-    │   └── password-generator-logo.svg
-    ├── lib
-    │   ├── base64-password.js
-    │   ├── complex-password.js
-    │   ├── memorable-password.js
-    │   └── password-generator.js
-    └── utils
-        ├── README.md
-        ├── randomConsonant.js
-        ├── randomNumber.js
-        ├── randomSyllable.js
-        ├── randomVowel.js
-        ├── toCamelCase.js
-        ├── toKebabCase.js
-        ├── toSnakeCase.js
-        └── toTitleCase.js
+├── src
+│   ├── dictionaries
+│   │   ├── adjectives.json
+│   │   ├── adverbs.json
+│   │   ├── animals.json
+│   │   ├── cars.json
+│   │   ├── cities.json
+│   │   ├── common.json
+│   │   ├── countries.json
+│   │   ├── dinosaurs.json
+│   │   ├── emoji.json
+│   │   ├── encouraging.json
+│   │   ├── ergative.json
+│   │   ├── fruits.json
+│   │   ├── gemstones.json
+│   │   ├── hazards.json
+│   │   ├── instruments.json
+│   │   ├── lovecraft.json
+│   │   ├── metals.json
+│   │   ├── music.json
+│   │   ├── nouns.json
+│   │   ├── prepositions.json
+│   │   ├── shakespeare.json
+│   │   ├── sports.json
+│   │   ├── strange.json
+│   │   ├── vegetables.json
+│   │   └── winds.json
+│   ├── lib
+│   │   ├── base64-password.js
+│   │   ├── memorable-password.js
+│   │   └── strong-password.js
+│   └── utils
+│       ├── README.md
+│       ├── randomConsonant.js
+│       ├── randomNumber.js
+│       ├── randomSyllable.js
+│       ├── randomVowel.js
+│       ├── toCamelCase
+│       │   ├── README.md
+│       │   └── toCamelCase.js
+│       ├── toCharArray
+│       │   ├── README.md
+│       │   └── toCharArray.js
+│       ├── toKebabCase
+│       │   ├── README.md
+│       │   └── toKebabCase.js
+│       ├── toSnakeCase
+│       │   ├── README.md
+│       │   └── toSnakeCase.js
+│       └── toTitleCase
+│           ├── README.md
+│           └── toTitleCase.js
+├── test
+│   ├── index.test.js
+│   └── utils
+│       ├── toCamelCase.test.js
+│       ├── toCharArray.test.js
+│       ├── toSnakeCase.test.js
+└──     └── toTitleCase.test.js
 
-6 directories, 50 files
+13 directories, 61 files
 ```
 
 ## 💿 Usage
