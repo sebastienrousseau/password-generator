@@ -39,6 +39,7 @@
         "jshint": "^2.13.4",
         "mkdirp": "^1.0.4",
         "mocha": "^9.2.2",
+        "c8":"^7.11.2",
         "prettier": "2.6.2",
         "rimraf": "^3.0.2"
     },
@@ -136,7 +137,7 @@
         "copy:readme": "cp README.md dist/",
         "copy:src": "cp -R ./src dist/src",
         "copy:test": "cp -R ./test dist/test",
-        "coverage": "npm run clean && nyc npm run --silent \"test/*.js\" \"./test/**/*.js\"",
+        "coverage": "npm run clean && c8 mocha \"test/*.js\" \"./test/**/*.js\"",
         "create:directory": "mkdirp ./dist",
         "create:docs":"jsdoc -c ./jsdoc.json",
         "filesize:distribution": "filesizes dist/ > dist/Report.txt",
