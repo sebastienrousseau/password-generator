@@ -2,10 +2,8 @@
 
 import { toCamelCase } from "../../src/utils/toCamelCase/toCamelCase.js";
 import * as chai from "chai";
-let expect = chai.expect;
-let assert = chai.assert;
 
-let strings = {
+global.strings = {
   camel: "passwordGenerator",
   dot: "password.generator",
   junk: "--PASSWORD-GENERATOR--",

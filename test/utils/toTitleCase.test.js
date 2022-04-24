@@ -1,7 +1,6 @@
 /*jshint esversion: 8 */
 import { toTitleCase } from "../../src/utils/toTitleCase/toTitleCase.js";
 import * as chai from "chai";
-let expect = chai.expect;
 
 let toTitleCaseArray = [
   "password Generator",

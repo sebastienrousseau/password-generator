@@ -2,8 +2,9 @@
 
 import { passwordGenerator } from "../bin/password-generator.js"
 import * as chai from "chai";
-let expect = chai.expect;
-let assert = chai.assert;
+
+global.expect = chai.expect;
+global.assert = chai.assert;
 
 
 // mocha() test

@@ -2,21 +2,6 @@
 
 import { toCharArray } from "../../src/utils/toCharArray/toCharArray.js";
 import * as chai from "chai";
-let expect = chai.expect;
-let assert = chai.assert;
-
-let strings = {
-  camel: "passwordGenerator",
-  dot: "password.generator",
-  junk: "--PASSWORD-GENERATOR--",
-  kebab: "password-generator",
-  pascal: "PasswordGenerator",
-  sentence: "Password generator",
-  snake: "password_generator",
-  space: "password generator",
-  title: "Password Generator",
-  uppercase: "PASSWORD GENERATOR",
-};
 
 // Test type of toCharArray() function
 describe("Running test type of toCharArray() function \n", function () {
