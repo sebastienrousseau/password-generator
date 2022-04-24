@@ -3,7 +3,7 @@ import { complexPassword } from "../src/lib/complex-password.js";
 import { join } from "path";
 import { memorablePassword } from "../src/lib/memorable-password.js";
 import { readFileSync } from "fs";
-import cli from "commander";
+import {program} from "commander";
 
 // Initializing Variables
 const actions = {
@@ -16,10 +16,9 @@ const bool = Object.prototype.hasOwnProperty.call(actions, args[1]);
 const pkg = JSON.parse(
   readFileSync(join(process.cwd(), "/package.json"), "utf8")
 );
-const program = new cli();
 
 /** @function passwordGenerator */
-export function passwordGenerator() {
+export async function passwordGenerator() {
   program
     .name("password-generator")
     .version(pkg.version, "-v, --version", "output the current version")
