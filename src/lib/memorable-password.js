@@ -10,7 +10,7 @@ const __dirname = process.cwd();
 let data,
   memorable = [];
 
-export async function memorablePassword() {
+export let memorablePassword = async() => {
   // Initializing variables
   data = await fs.readFile(`${__dirname}/src/dictionaries/common.json`, "utf8");
 
@@ -22,9 +22,7 @@ export async function memorablePassword() {
     memorable.push(
       toTitleCase(data.entries[randomNumber(data.entries.length)])
     );
-    return memorable;
   });
-
   // Initializing a memorable password
   memorable = memorable
     .slice(0, args[3])
@@ -32,4 +30,6 @@ export async function memorablePassword() {
     .toString()
     .replace(/ /g, "");
   console.log(memorable);
-}
+  return memorable;
+};
+memorablePassword();

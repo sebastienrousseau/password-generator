@@ -9,9 +9,6 @@
     "ecmaVersion": 2020,
     "sourceType": "module"
   },
-  "node/no-unpublished-import": ["error", {
-    "allowModules": ["commander"]
-  }],
   "plugins": ["import"],
   "rules": {
     "camelcase": [1, {"properties": "always"}],

@@ -1,25 +1,16 @@
-import { base64Password } from "../src/lib/base64-password.js";
-import { complexPassword } from "../src/lib/complex-password.js";
 import { join } from "path";
-import { memorablePassword } from "../src/lib/memorable-password.js";
 import { program } from "commander";
 import { readFileSync } from "fs";
 
 // Initializing Variables
-const actions = {
-  base64: () => base64Password(),
-  complex: () => complexPassword(),
-  memorable: () => memorablePassword(),
-};
 const args = process.argv.slice(2);
-const bool = Object.prototype.hasOwnProperty.call(actions, args[1]);
 const pkg = JSON.parse(
   readFileSync(join(process.cwd(), "/package.json"), "utf8")
 );
 
 /** @function passwordGenerator */
-export async function passwordGenerator() {
-  program
+export let passwordGenerator = async() => {
+  await program
     .name("password-generator")
     .version(pkg.version, "-v, --version", "output the current version")
     .description(
@@ -28,16 +19,18 @@ export async function passwordGenerator() {
     .option(
       "-t, --type <type>",
       "specify a password type",
-      "base64, complex or memorable"
+      "base64, memorable or strong"
     )
     .option("-l, --length <numbers>", "specify a length for each iteration")
     .option("-i, --iteration <numbers>", "specify a number of iteration")
     .option("-s, --separator <char>", "specify a character for the separator")
     .parse(process.argv);
 
-  if (!bool) {
-    return program.help();
-  } else if (bool) {
-    return actions[args[1]]();
+
+  if (args[1]) {
+    import ("../src/lib/" + args[1] + "-password.js");
+  } else if (!args[1]) {
+    program.help();
   }
-}
+};
+passwordGenerator();

@@ -1,6 +1,6 @@
-# Password Generator Tool
+# Password Generator
 
-![Banner representing the Password Generator Tool](https://raw.githubusercontent.com/sebastienrousseau/password-generator/master/images/password-generator-logo.svg)
+![Banner representing the Password Generator](https://raw.githubusercontent.com/sebastienrousseau/password-generator/master/images/password-generator-logo.svg)
 
 A fast, simple and powerful open-source utility tool for generating strong, unique and random passwords. Password Generator is free to use as a secure password generator on any computer, phone, or tablet.
 
@@ -112,7 +112,7 @@ A fast, simple and powerful open-source utility tool for generating strong, uniq
 
 Options:
   -v, --version              output the current version
-  -t, --type <type>          specify a password type (default: "base64, complex or memorable")
+  -t, --type <type>          specify a password type (default: "base64, memorable or strong")
   -l, --length <numbers>     specify a length for each iteration
   -i, --iteration <numbers>  specify a number of iteration
   -s, --separator <char>     specify a character for the separator
@@ -133,22 +133,64 @@ var generatePassword = require('password-generator');
 
 ## 🔐 Password options
 
-### Generating a random base64 password
+### Base64 password
+
+#### Generating a random base64 password using yarn
 
 ```shell
-node . -t base64 -l 8 -i 4 -s - 
+yarn start -t base64 -l 8 -i 4 -s -
 ```
 
-### Generating a strong password
+#### Generating a random base64 password using node
 
 ```shell
-node . -t complex -l 8 -i 4 -s -
+node . -t base64 -l 8 -i 4 -s -
 ```
 
-### Generating a memorable password
+#### Generating a random base64 password calling the base64 function
 
 ```shell
-node . -t memorable -i 4 -s - 
+node dist/src/lib/base64-password.js -t base64 -l 8 -i 4 -s -
+```
+
+### Strong password
+
+#### Generating a random strong password using yarn
+
+```shell
+yarn start -t strong -l 8 -i 4 -s -
+```
+
+#### Generating a random strong password using node
+
+```shell
+node . -t strong -l 8 -i 4 -s -
+```
+
+#### Generating a random strong password calling the strong function
+
+```shell
+node dist/src/lib/strong-password.js -t base64 -l 8 -i 4 -s -  
+```
+
+### Memorable password
+
+#### Generating a random memorable password using yarn
+
+```shell
+yarn start -t memorable -i 4 -s -
+```
+
+#### Generating a random memorable password using node
+
+```shell
+node . -t memorable -i 4 -s -
+```
+
+#### Generating a random memorable password calling the strong function
+
+```shell
+node dist/src/lib/memorable-password.js -t base64  -i 4 -s -
 ```
 
 ## 🚥 Semantic Versioning Policy
