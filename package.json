@@ -19,6 +19,9 @@
         "url": "https://github.com/sebastienrousseau/password-generator/issues"
     },
     "description": "A fast, simple and powerful open-source utility tool for generating strong, unique and random passwords.",
+    "dependencies": {
+        "commander": "^9.2.0"
+    },
     "devDependencies": {
         "@babel/cli": "^7.17.6",
         "@babel/core": "^7.17.9",
@@ -30,7 +33,6 @@
         "@commitlint/config-conventional": "^16.2.1",
         "babel-plugin-istanbul": "^6.1.1",
         "chai": "^4.3.6",
-        "commander": "^9.2.0",
         "eslint": "^8.13.0",
         "eslint-plugin-import": "^2.26.0",
         "filesizes": "^0.1.2",
