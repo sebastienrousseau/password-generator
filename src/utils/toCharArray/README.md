@@ -1,4 +1,3 @@
-
 # toCharArray(): string
 
 [File: toCharArray.js](../toCharArray/toCharArray.js)

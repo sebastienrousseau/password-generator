@@ -1,4 +1,3 @@
-
 # toTitleCase(): string
 
 [File: toTitleCase.js](../toTitleCase/toTitleCase.js)

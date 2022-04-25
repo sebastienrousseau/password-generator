@@ -1,4 +1,3 @@
-
 # toSnakeCase(): string
 
 [File: toSnakeCase.js](../toSnakeCase/toSnakeCase.js)
