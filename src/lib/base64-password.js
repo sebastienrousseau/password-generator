@@ -15,5 +15,4 @@ const base64Password = async() => {
   console.log(base64);
   return base64;
 };
-
 export default base64Password();
