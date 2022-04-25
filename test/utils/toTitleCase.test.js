@@ -1,4 +1,3 @@
-/*jshint esversion: 8 */
 import { toTitleCase } from "../../src/utils/toTitleCase/toTitleCase.js";
 import * as chai from "chai";
 

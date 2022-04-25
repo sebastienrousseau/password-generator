@@ -6,8 +6,8 @@
     "clean": true,
     "exclude": [
         "coverage/*",
+        "dictionaries/*",
         "dist/*",
-        "lib/*",
         "node_modules/*",
         "src/docs/*",
         "test/*"
@@ -21,6 +21,7 @@
     "reporter": [
         "cobertura",
         "html",
+        "html-spa",
         "lcov",
         "text",
         "text-summary"

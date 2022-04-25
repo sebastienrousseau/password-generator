@@ -1,11 +1,9 @@
-/*jshint esversion: 8 */
-
 import childProcess from "child_process";
 
 // Initializing Variables
 const args = process.argv.slice(2);
 
-export let strongPassword = async() => {
+const strongPassword = async() => {
   // Runs a command in a shell and buffers the output.
   await childProcess.exec(
     // Generating a 256-bit cipher
@@ -25,4 +23,4 @@ export let strongPassword = async() => {
     }
   );
 };
-strongPassword();
+export default strongPassword();

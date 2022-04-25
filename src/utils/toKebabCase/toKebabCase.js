@@ -1,5 +1,3 @@
-/*jshint esversion: 8 */
-
 /**
  * Converts all the alphabetic characters in a string to kebab case.
  * @param {String} str The text to be converted to kebab case.

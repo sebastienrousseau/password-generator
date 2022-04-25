@@ -1,5 +1,3 @@
-/*jshint esversion: 8 */
-
 import { toCharArray } from "../../src/utils/toCharArray/toCharArray.js";
 import * as chai from "chai";
 

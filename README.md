@@ -1,11 +1,11 @@
 # Password Generator
 
-![Banner representing the Password Generator](https://raw.githubusercontent.com/sebastienrousseau/password-generator/master/images/password-generator-logo.svg)
+![Banner representing the Password Generator](https://raw.githubusercontent.com/sebastienrousseau/password-generator/master/assets/password-generator-logo.svg)
 
 A fast, simple and powerful open-source utility tool for generating strong, unique and random passwords. Password Generator is free to use as a secure password generator on any computer, phone, or tablet.
 
-[![Getting Started](https://raw.githubusercontent.com/sebastienrousseau/password-generator/master/images/button-primary.svg)](#installation)
-[![Download the Password Generator Tool v1.0.6](https://raw.githubusercontent.com/sebastienrousseau/password-generator/master/images/button-secondary.svg)](https://github.com/sebastienrousseau/password-generator/archive/refs/tags/1.0.6.zip)
+[![Getting Started](https://raw.githubusercontent.com/sebastienrousseau/password-generator/master/assets/button-primary.svg)](#installation)
+[![Download the Password Generator Tool v1.0.6](https://raw.githubusercontent.com/sebastienrousseau/password-generator/master/assets/button-secondary.svg)](https://github.com/sebastienrousseau/password-generator/archive/refs/tags/1.0.6.zip)
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/0acb169c95e443729551979e0fd86eaf)](https://www.codacy.com?utm_source=github.com&utm_medium=referral&utm_content=sebastienrousseau/password-generator&utm_campaign=Badge_Grade)
 [![npm](https://img.shields.io/npm/v/@sebastienrousseau/password-generator.svg?style=flat&color=success)](https://www.npmjs.com/package/@sebastienrousseau/password-generator)
@@ -40,71 +40,62 @@ You'll see something like this:
 ├── Makefile
 ├── README.md
 ├── Report.txt
-├── bin
-│   └── password-generator.js
 ├── index.js
 ├── package.json
-├── src
-│   ├── dictionaries
-│   │   ├── adjectives.json
-│   │   ├── adverbs.json
-│   │   ├── animals.json
-│   │   ├── cars.json
-│   │   ├── cities.json
-│   │   ├── common.json
-│   │   ├── countries.json
-│   │   ├── dinosaurs.json
-│   │   ├── emoji.json
-│   │   ├── encouraging.json
-│   │   ├── ergative.json
-│   │   ├── fruits.json
-│   │   ├── gemstones.json
-│   │   ├── hazards.json
-│   │   ├── instruments.json
-│   │   ├── lovecraft.json
-│   │   ├── metals.json
-│   │   ├── music.json
-│   │   ├── nouns.json
-│   │   ├── prepositions.json
-│   │   ├── shakespeare.json
-│   │   ├── sports.json
-│   │   ├── strange.json
-│   │   ├── vegetables.json
-│   │   └── winds.json
-│   ├── lib
-│   │   ├── base64-password.js
-│   │   ├── memorable-password.js
-│   │   └── strong-password.js
-│   └── utils
-│       ├── README.md
-│       ├── randomConsonant.js
-│       ├── randomNumber.js
-│       ├── randomSyllable.js
-│       ├── randomVowel.js
-│       ├── toCamelCase
-│       │   ├── README.md
-│       │   └── toCamelCase.js
-│       ├── toCharArray
-│       │   ├── README.md
-│       │   └── toCharArray.js
-│       ├── toKebabCase
-│       │   ├── README.md
-│       │   └── toKebabCase.js
-│       ├── toSnakeCase
-│       │   ├── README.md
-│       │   └── toSnakeCase.js
-│       └── toTitleCase
-│           ├── README.md
-│           └── toTitleCase.js
-└── test
-    ├── index.test.js
+└── src
+    ├── dictionaries
+    │   ├── adjectives.json
+    │   ├── adverbs.json
+    │   ├── animals.json
+    │   ├── cars.json
+    │   ├── cities.json
+    │   ├── common.json
+    │   ├── countries.json
+    │   ├── dinosaurs.json
+    │   ├── emoji.json
+    │   ├── encouraging.json
+    │   ├── ergative.json
+    │   ├── fruits.json
+    │   ├── gemstones.json
+    │   ├── hazards.json
+    │   ├── instruments.json
+    │   ├── lovecraft.json
+    │   ├── metals.json
+    │   ├── music.json
+    │   ├── nouns.json
+    │   ├── prepositions.json
+    │   ├── shakespeare.json
+    │   ├── sports.json
+    │   ├── strange.json
+    │   ├── vegetables.json
+    │   └── winds.json
+    ├── lib
+    │   ├── base64-password.js
+    │   ├── memorable-password.js
+    │   └── strong-password.js
     └── utils
-        ├── toCamelCase.test.js
-        ├── toCharArray.test.js
-        ├── toSnakeCase.test.js
-        └── toTitleCase.test.js
+        ├── README.md
+        ├── randomConsonant.js
+        ├── randomNumber.js
+        ├── randomSyllable.js
+        ├── randomVowel.js
+        ├── toCamelCase
+        │   ├── README.md
+        │   └── toCamelCase.js
+        ├── toCharArray
+        │   ├── README.md
+        │   └── toCharArray.js
+        ├── toKebabCase
+        │   ├── README.md
+        │   └── toKebabCase.js
+        ├── toSnakeCase
+        │   ├── README.md
+        │   └── toSnakeCase.js
+        └── toTitleCase
+            ├── README.md
+            └── toTitleCase.js
 
-12 directories, 56 files
+9 directories, 50 files
 ```
 
 ## 💿 Usage
@@ -219,10 +210,12 @@ Please read carefully through our [Contributing Guidelines](https://github.com/s
 
 Development Tools
 
--   `npm test` runs tests and measures coverage.
--   `npm run coverage` shows the coverage result of npm test command.
--   `npm run clean` removes the coverage result of npm test command.
--   `npm run build` runs build.
+-   `yarn build` runs build.
+-   `yarn clean` removes the coverage result of npm test command.
+-   `yarn coverage` shows the coverage result of npm test command.
+-   `yarn lint` run ESLint.
+-   `yarn lint-fix` instructs ESLint to try to fix as many issues as possible..
+-   `yarn test` runs tests and measures coverage.
 
 ## 📖 Rules
 

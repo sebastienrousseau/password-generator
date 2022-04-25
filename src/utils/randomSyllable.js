@@ -1,5 +1,3 @@
-/*jshint esversion: 8 */
-
 import { randomConsonant } from "../../src/utils/randomConsonant.js";
 import { randomVowel } from "../../src/utils/randomVowel.js";
 

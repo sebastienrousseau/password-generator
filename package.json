@@ -31,9 +31,10 @@
         "@babel/register": "^7.17.7",
         "babel-plugin-istanbul": "^6.1.1",
         "chai": "^4.3.6",
-        "eslint": "^8.13.0",
+        "eslint": "^8.14.0",
         "eslint-plugin-import": "^2.26.0",
         "filesizes": "^0.1.2",
+        "jest": "^28.0.0",
         "jsdoc":"^3.6.10",
         "jshint": "^2.13.4",
         "mkdirp": "^1.0.4",
@@ -51,12 +52,10 @@
         "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
     },
     "files": [
-        "/bin/password-generator.js",
         "/COPYRIGHT",
         "/index.js",
         "/Makefile",
-        "/src",
-        "/test"
+        "/src"
     ],
     "funding": [
         {
@@ -124,30 +123,26 @@
     },
     "scripts": {
         "build": "npm run lint && npm run build:password:generator && cat ./package.json | grep -v '\"private\":' > dist/package.json && npm pack ./dist",
-        "build:password:generator": "npm run clean:directory && npm run create:directory && npm run create:docs && npm run copy:docs && npm run copy:bin && npm run copy:index && npm run copy:src && npm run copy:test && npm run copy:readme && npm run copy:license && npm run copy:makefile && npm run copy:copyright && npm run filesize:distribution",
+        "build:password:generator": "npm run clean:dist && npm run create:directory && npm run create:docs && npm run copy:index && npm run copy:src && npm run copy:readme && npm run copy:license && npm run copy:makefile && npm run copy:copyright && npm run filesize:distribution",
         "clean": "rimraf .nyc_output coverage",
-        "clean:directory": "rimraf \"dist/\"",
-        "commit:msg": "commitlint -e",
-        "copy:bin": "cp -R ./bin dist/bin",
+        "clean:dist": "rimraf \"dist/\"",
         "copy:copyright": "cp COPYRIGHT dist/",
-        "copy:docs": "cp -R ./src/docs dist/docs",
         "copy:index": "cp index.js dist/",
         "copy:license": "cp LICENSE dist/",
         "copy:makefile": "cp Makefile dist/",
         "copy:readme": "cp README.md dist/",
         "copy:src": "cp -R ./src dist/src",
-        "copy:test": "cp -R ./test dist/test",
-        "coverage": "npm run clean && c8 mocha \"test/*.js\" \"./test/**/*.js\"",
+        "coverage": "npm run clean && c8 mocha \"test/*.js\" \"./test/**/*.js\" && exit",
         "create:directory": "mkdirp ./dist",
         "create:docs":"jsdoc -c ./jsdoc.json",
         "filesize:distribution": "filesizes dist/ > dist/Report.txt",
-        "lint": "eslint \"./*.js\" \"./bin/**/*.js\" \"./src/**/*.js\"",
+        "lint": "eslint --config=.eslintrc.json \"./*.js\" \"./src/**/*.js\"",
         "lint-fix": "npm run lint -- --fix",
         "npm login": "npm publish $(node -p \"p=require('./package.json');p.name+'-'+p.version+'.tgz'\")",
         "postpublish": "npm run publish-npm",
         "publish-npm": "npm publish --access public --ignore-scripts --@OWNER:registry='https://registry.npmjs.org'",
         "start": "node index.js",
-        "test": "mocha \"./index.js\" \"./bin/**/*.js\" \"./src/lib/*.js\" \"./src/utils/*.js\""
+        "test": "npm run clean && c8 mocha"
     },
     "type": "module",
     "version": "1.0.6"

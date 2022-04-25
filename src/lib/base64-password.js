@@ -1,11 +1,9 @@
-/*jshint esversion: 8 */
-
 import crypto from "crypto";
 
 // Initializing Variables
 const args = process.argv.slice(2);
 
-export let base64Password = async() => {
+const base64Password = async() => {
   // Generating a base64 variable.
   let base64 = await crypto.randomBytes(256).toString("base64");
 
@@ -17,4 +15,5 @@ export let base64Password = async() => {
   console.log(base64);
   return base64;
 };
-base64Password();
+
+export default base64Password();

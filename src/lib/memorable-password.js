@@ -1,5 +1,3 @@
-/*jshint esversion: 8 */
-
 import { promises as fs } from "fs";
 import { randomNumber } from "../utils/randomNumber.js";
 import { toTitleCase } from "../utils/toTitleCase/toTitleCase.js";
@@ -10,12 +8,12 @@ const __dirname = process.cwd();
 let data,
   memorable = [];
 
-export let memorablePassword = async() => {
+const memorablePassword = async() => {
   // Initializing variables
   data = await fs.readFile(`${__dirname}/src/dictionaries/common.json`, "utf8");
 
   // Read the JSON dictionary and store it as an array
-  data = JSON.parse(data);
+  data = await JSON.parse(data);
 
   // Picking random words from the JSON dictionary based on the data length
   data.entries.forEach(() => {
@@ -32,4 +30,4 @@ export let memorablePassword = async() => {
   console.log(memorable);
   return memorable;
 };
-memorablePassword();
+export default memorablePassword();

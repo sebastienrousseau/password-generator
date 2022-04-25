@@ -1,5 +1,3 @@
-/*jshint esversion: 8 */
-
 /**
  * Converts a string to an array of characters.
  * @param {String} str The text to be converted to an array of characters.
