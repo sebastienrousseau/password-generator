@@ -1,4 +1,3 @@
-
 # toKebabCase(): string
 
 [File: toKebabCase.js](../toKebabCase/toKebabCase.js)
@@ -30,4 +29,3 @@ toKebabCase("password generator");     // ✔ should convert a space case string
 toKebabCase("Password Generator");     // ✔ should convert a title case string to kebab case
 toKebabCase("PASSWORD GENERATOR");     // ✔ should convert a uppercase case string to kebab case
 ```
-

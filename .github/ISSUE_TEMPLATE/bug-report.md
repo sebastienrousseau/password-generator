@@ -22,12 +22,12 @@ A clear and concise description of what you expected to happen.
 
 If applicable, add screenshots to help explain your problem.
 
-### Desktop (please complete the following information):
+### Desktop (please complete the following information)
 -   OS
 -   Browser
 -   Version
 
-### Smartphone (please complete the following information):
+### Smartphone (please complete the following information)
 -   Device
 -   OS
 -   Browser
