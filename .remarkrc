@@ -1,23 +1,6 @@
 {
-    "settings": {
-        "incrementListMarker": false
-    },
-    "plugins": [
-        "remark-frontmatter",
-        "preset-lint-consistent",
-        "preset-lint-recommended",
-        "lint-heading-increment",
-        [
-            "lint-unordered-list-marker-style",
-            "-"
-        ],
-        [
-            "lint-ordered-list-marker-value",
-            "one"
-        ],
-        [
-            "lint-code-block-style",
-            "consistent"
-        ]
-    ]
+  "plugins": [
+    "lint",
+    "lint-blank-lines-1-0-2"
+  ]
 }

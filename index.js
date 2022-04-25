@@ -14,7 +14,7 @@ program
   .option("-l, --length <numbers>", "specify a length for each iteration")
   .option("-i, --iteration <numbers>", "specify a number of iteration")
   .option("-s, --separator <char>", "specify a character for the separator")
-  .action(async (args) => {
+  .action(async(args) => {
     if (args.type === "base64") {
       const { base64Password } = import("./src/lib/base64-password.js");
       base64Password;

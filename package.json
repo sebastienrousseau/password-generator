@@ -20,7 +20,9 @@
     },
     "description": "A fast, simple and powerful open-source utility tool for generating strong, unique and random passwords.",
     "dependencies": {
-        "commander": "^9.2.0"
+        "commander": "^9.2.0",
+        "remark-lint": "^9.1.1",
+        "remark-lint-blank-lines-1-0-2": "^3.0.0"
     },
     "devDependencies": {
         "@babel/cli": "^7.17.6",
@@ -30,16 +32,16 @@
         "@babel/preset-typescript": "^7.16.7",
         "@babel/register": "^7.17.7",
         "babel-plugin-istanbul": "^6.1.1",
+        "c8": "^7.11.2",
         "chai": "^4.3.6",
         "eslint": "^8.14.0",
         "eslint-plugin-import": "^2.26.0",
         "filesizes": "^0.1.2",
         "jest": "^28.0.0",
-        "jsdoc":"^3.6.10",
+        "jsdoc": "^3.6.10",
         "jshint": "^2.13.4",
         "mkdirp": "^1.0.4",
         "mocha": "^9.2.2",
-        "c8":"^7.11.2",
         "prettier": "2.6.2",
         "rimraf": "^3.0.2"
     },
@@ -134,9 +136,10 @@
         "copy:src": "cp -R ./src dist/src",
         "coverage": "npm run clean && c8 mocha \"test/*.js\" \"./test/**/*.js\" && exit",
         "create:directory": "mkdirp ./dist",
-        "create:docs":"jsdoc -c ./jsdoc.json",
+        "create:docs": "jsdoc -c ./jsdoc.json",
         "filesize:distribution": "filesizes dist/ > dist/Report.txt",
         "lint": "eslint --config=.eslintrc.json \"./*.js\" \"./src/**/*.js\"",
+        "lint:markdown": "remark \"./*.md\" \"./src/**/*.md\" \"./.github/**/*.md\"",
         "lint-fix": "npm run lint -- --fix",
         "npm login": "npm publish $(node -p \"p=require('./package.json');p.name+'-'+p.version+'.tgz'\")",
         "postpublish": "npm run publish-npm",

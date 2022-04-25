@@ -14,6 +14,7 @@ A fast, simple and powerful open-source utility tool for generating strong, uniq
 [![License: MIT](https://img.shields.io/badge/License-MIT-success.svg?style=flat)](https://opensource.org/licenses/MIT)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsebastienrousseau%2Fpassword-generator.svg?type=small)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsebastienrousseau%2Fpassword-generator?ref=badge_small)
 
+
 ## Installation
 
 ### From NPM or YARN
@@ -22,6 +23,7 @@ To install the Password Generator Tool, use either npm or yarn as follows:
 
 -   `npm i @sebastienrousseau/password-generator`
 -   `yarn add @sebastienrousseau/password-generator`
+
 
 ### From GitHub
 
@@ -200,9 +202,11 @@ node dist/src/lib/memorable-password.js -t base64  -i 4 -s -
 
 For transparency into our release cycle and in striving to maintain backward compatibility, `password-generator` follows [semantic versioning](http://semver.org/) and [ESLint's Semantic Versioning Policy](https://github.com/eslint/eslint#semantic-versioning-policy).
 
+
 ## ✅ Changelog
 
 -   [GitHub Releases](https://github.com/sebastienrousseau/password-generator/releases)
+
 
 ## ❤️ Contributing
 
@@ -217,9 +221,11 @@ Development Tools
 -   `yarn lint-fix` instructs ESLint to try to fix as many issues as possible..
 -   `yarn test` runs tests and measures coverage.
 
+
 ## 📖 Rules
 
 We are committed to preserving and fostering a diverse, welcoming community. Please read our [Code of Conduct](https://github.com/sebastienrousseau/password-generator/blob/master/.github/CODE-OF-CONDUCT.md).
+
 
 ## ⭐️ Our Values
 
@@ -227,17 +233,19 @@ We are committed to preserving and fostering a diverse, welcoming community. Ple
 -   We take our passion beyond code into our daily practices.
 -   We are just obsessed about creating and delivering exceptional solutions.
 
+
 ## ⚖️ License
 
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/sebastienrousseau/password-generator/blob/master/LICENSE) file for details
+
 
 ## 🏢 Acknowledgements
 
 [The Password Generator Tool](https://password-generator.pro) is beautifully crafted by these people and a bunch of awesome [contributors](https://github.com/sebastienrousseau/password-generator/graphs/contributors)
 
-| Contributors                                                                                                     |
-| ---------------------------------------------------------------------------------------------------------------- |
-| [![Sebastien Rousseau](https://avatars0.githubusercontent.com/u/1394998?s=117)](https://sebastienrousseau.co.uk) |
-| [Sebastien Rousseau](https://github.com/sebastienrousseau)                                                       |
+| Contributors |
+|---------|
+|[![Sebastien Rousseau](https://avatars0.githubusercontent.com/u/1394998?s=117)](https://sebastienrousseau.co.uk)|
+|[Sebastien Rousseau](https://github.com/sebastienrousseau)|
 
 Made with ❤ in London.

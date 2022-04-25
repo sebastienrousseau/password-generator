@@ -8,6 +8,7 @@
         -   [toSnakeCase(): string](#tosnakecase-string)
         -   [toTitleCase(): string](#totitlecase-string)
 
+
 ## Utils
 
 ### toCamelCase(): string
