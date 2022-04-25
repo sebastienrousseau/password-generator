@@ -1,4 +1,3 @@
-
 # toCamelCase(): string
 
 [File: toCamelCase.js](../toCamelCase/toCamelCase.js)

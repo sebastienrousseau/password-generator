@@ -3,7 +3,7 @@ import crypto from "crypto";
 // Initializing Variables
 const args = process.argv.slice(2);
 
-const base64Password = async( ) => {
+const base64Password = async() => {
   // Generating a base64 variable.
   let base64 = await crypto.randomBytes(256).toString("base64");
 
