@@ -18,12 +18,10 @@
     "bugs": {
         "url": "https://github.com/sebastienrousseau/password-generator/issues"
     },
-    "description": "A fast, simple and powerful open-source utility tool for generating strong, unique and random passwords.",
     "dependencies": {
-        "commander": "^9.2.0",
-        "remark-lint": "^9.1.1",
-        "remark-lint-blank-lines-1-0-2": "^3.0.0"
+        "commander": "^9.2.0"
     },
+    "description": "A fast, simple and powerful open-source utility tool for generating strong, unique and random passwords.",
     "devDependencies": {
         "@babel/cli": "^7.17.6",
         "@babel/core": "^7.17.9",
@@ -43,6 +41,7 @@
         "mkdirp": "^1.0.4",
         "mocha": "^9.2.2",
         "prettier": "2.6.2",
+        "remark": "14.0.2",
         "rimraf": "^3.0.2"
     },
     "directories": {
@@ -139,8 +138,8 @@
         "create:docs": "jsdoc -c ./jsdoc.json",
         "filesize:distribution": "filesizes dist/ > dist/Report.txt",
         "lint": "eslint --config=.eslintrc.json \"./*.js\" \"./src/**/*.js\"",
-        "lint:markdown": "remark \"./*.md\" \"./src/**/*.md\" \"./.github/**/*.md\"",
         "lint-fix": "npm run lint -- --fix",
+        "lint:markdown": "remark \"./*.md\" \"./src/**/*.md\" \"./.github/**/*.md\"",
         "npm login": "npm publish $(node -p \"p=require('./package.json');p.name+'-'+p.version+'.tgz'\")",
         "postpublish": "npm run publish-npm",
         "publish-npm": "npm publish --access public --ignore-scripts --@OWNER:registry='https://registry.npmjs.org'",
