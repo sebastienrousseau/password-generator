@@ -10,6 +10,7 @@
   "MD007": {
     "indent": 4
   },
+  "MD012": false,
   "MD013": false,
   "MD029": {
     "style": "one"
