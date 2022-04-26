@@ -7,6 +7,7 @@
   "esversion": 8,
   "immed": true,
   "indent": 2,
+  "iterator":true,
   "latedef": true,
   "newcap": true,
   "noarg": true,
