@@ -123,7 +123,7 @@
         ]
     },
     "scripts": {
-        "build": "npm run lint && lint:markdown && npm run build:password:generator && cat ./package.json | grep -v '\"private\":' > dist/package.json && npm pack ./dist",
+        "build": "npm run lint && npm run lint:markdown && npm run build:password:generator && cat ./package.json | grep -v '\"private\":' > dist/package.json && npm pack ./dist",
         "build:password:generator": "npm run clean:dist && npm run create:directory && npm run create:docs && npm run copy:index && npm run copy:src && npm run copy:readme && npm run copy:license && npm run copy:makefile && npm run copy:copyright && npm run filesize:distribution",
         "clean": "rimraf .nyc_output coverage",
         "clean:dist": "rimraf \"dist/\"",
@@ -140,9 +140,8 @@
         "lint": "eslint --config=.eslintrc.json \"./*.js\" \"./src/**/*.js\"",
         "lint-fix": "npm run lint -- --fix",
         "lint:markdown": "remark \"./*.md\" \"./src/**/*.md\" \"./.github/**/*.md\"",
-        "npm login": "npm publish $(node -p \"p=require('./package.json');p.name+'-'+p.version+'.tgz'\")",
-        "postpublish": "npm run publish-npm",
-        "publish-npm": "npm publish --access public --ignore-scripts --@OWNER:registry='https://registry.npmjs.org'",
+        "release:prepare": "npm publish $(node -p \"p=require('./package.json');p.name+'-'+p.version+'.tgz'\")",
+        "release:publish": "npm publish --access public --ignore-scripts --@OWNER:registry='https://registry.npmjs.org'",
         "start": "node index.js",
         "test": "npm run clean && c8 mocha"
     },
