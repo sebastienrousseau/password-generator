@@ -4,13 +4,13 @@ import { toTitleCase } from "../utils/toTitleCase/toTitleCase.js";
 
 // Initializing Variables
 const args = process.argv.slice(2);
-const __dirname = process.cwd();
 let data,
   memorable = [];
 
+// console.log(pwd);
 const memorablePassword = async() => {
   // Initializing variables
-  data = await fs.readFile(`${__dirname}/src/dictionaries/common.json`, "utf8");
+  data = await fs.readFile("src/dictionaries/common.json", "utf8");
 
   // Read the JSON dictionary and store it as an array
   data = await JSON.parse(data);
