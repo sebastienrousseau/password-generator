@@ -1,5 +1,4 @@
 import { toTitleCase } from "../../src/utils/toTitleCase/toTitleCase.js";
-import * as chai from "chai";
 
 let toTitleCaseArray = [
   "password Generator",

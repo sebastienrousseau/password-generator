@@ -6,16 +6,15 @@
     "clean": true,
     "exclude": [
         "coverage/*",
-        "dictionaries/*",
         "dist/*",
         "node_modules/*",
-        "src/docs/*",
-        "test/*"
+        "docs/*"
     ],
     "extension": [".js"],
     "functions": 100,
     "include": [
-        "**/*.js"
+        "index.js",
+        "src/**/*.js"
     ],
     "lines": 100,
     "reporter": [

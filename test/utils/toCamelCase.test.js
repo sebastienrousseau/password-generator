@@ -1,5 +1,4 @@
 import { toCamelCase } from "../../src/utils/toCamelCase/toCamelCase.js";
-import * as chai from "chai";
 
 global.strings = {
   camel: "passwordGenerator",

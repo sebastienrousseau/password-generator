@@ -1,5 +1,4 @@
 import { toSnakeCase } from "../../src/utils/toSnakeCase/toSnakeCase.js";
-import * as chai from "chai";
 
 let snakeCaseArray = [
   "passwordGenerator",

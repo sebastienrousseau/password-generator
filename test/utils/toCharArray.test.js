@@ -1,5 +1,4 @@
 import { toCharArray } from "../../src/utils/toCharArray/toCharArray.js";
-import * as chai from "chai";
 
 // Test type of toCharArray() function
 describe("Running test type of toCharArray() function \n", function () {
