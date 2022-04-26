@@ -1,20 +1,15 @@
-import { promises as fs } from "fs";
 import { randomNumber } from "../utils/randomNumber.js";
+import { readFile } from "fs/promises";
 import { toTitleCase } from "../utils/toTitleCase/toTitleCase.js";
 
 // Initializing Variables
 const args = process.argv.slice(2);
-let data,
-  memorable = [];
+const data = JSON.parse(
+  await readFile(new URL("../dictionaries/common.json", import.meta.url))
+);
+let memorable = [];
 
-// console.log(pwd);
 const memorablePassword = async() => {
-  // Initializing variables
-  data = await fs.readFile("src/dictionaries/common.json", "utf8");
-
-  // Read the JSON dictionary and store it as an array
-  data = await JSON.parse(data);
-
   // Picking random words from the JSON dictionary based on the data length
   data.entries.forEach(() => {
     memorable.push(

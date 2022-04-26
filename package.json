@@ -147,5 +147,5 @@
         "test": "npm run clean && c8 mocha"
     },
     "type": "module",
-    "version": "1.0.8"
+    "version": "1.0.9"
 }
