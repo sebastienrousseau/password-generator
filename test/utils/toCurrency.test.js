@@ -17,6 +17,6 @@ describe("Running toCurrency", () => {
   it('should handle decimals', () => {
     expect(toCurrency(0.5, "USD", "en-us")).equal('$0.50');
     expect(toCurrency(10, "USD", "en-us")).equal('$10.00');
-    expect(toCurrency(100.50, "USD", "en-us")).equal('$100.50');
+    expect(toCurrency(100.5, "USD", "en-us")).equal('$100.50');
   })
 });
