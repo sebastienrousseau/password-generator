@@ -3,7 +3,7 @@
 import { program } from "commander";
 
 program
-  .version("1.0.7", "-v, --version", "output the current version")
+  .version("1.0.8", "-v, --version", "output the current version")
   .option("-t, --type <type>", "specify a password type")
   .option("-l, --length <numbers>", "specify a length for each iteration")
   .option("-i, --iteration <numbers>", "specify a number of iteration")
