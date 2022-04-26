@@ -1,16 +1,10 @@
 #!/usr/bin/env node
 
-import { join } from "path";
 import { program } from "commander";
-import { readFileSync } from "fs";
-
-const { version } = JSON.parse(
-  readFileSync(join(process.cwd(), "/package.json"), "utf8")
-);
 
 program
-  .version(version, "-v, --version", "output the current version")
-  .option("-t, --type <type>", "Specify a password type")
+  .version("1.0.7", "-v, --version", "output the current version")
+  .option("-t, --type <type>", "specify a password type")
   .option("-l, --length <numbers>", "specify a length for each iteration")
   .option("-i, --iteration <numbers>", "specify a number of iteration")
   .option("-s, --separator <char>", "specify a character for the separator")
