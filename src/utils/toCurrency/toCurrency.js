@@ -7,7 +7,7 @@ export const toCurrency = (n, curr, LanguageFormat = undefined) =>
   Intl.NumberFormat(LanguageFormat, {
     style: "currency",
     minimumFractionDigits: 2,
-    currency: curr
+    currency: curr,
   }).format(n);
 
 // console.log(toCurrency(123456.789, 'EUR')); // ✔ should convert to  €123,456.79  | currency: Euro | currencyLangFormat: Local
