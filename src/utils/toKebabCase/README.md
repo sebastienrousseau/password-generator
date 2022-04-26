@@ -1,6 +1,6 @@
 # toKebabCase(): string
 
-[File: toKebabCase.js](../toKebabCase/toKebabCase.js)
+[File: toKebabCase.js](./toKebabCase.js)
 
 Converts all the alphabetic characters in a string to kebab case.
 

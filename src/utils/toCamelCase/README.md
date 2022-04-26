@@ -1,6 +1,6 @@
 # toCamelCase(): string
 
-[File: toCamelCase.js](../toCamelCase/toCamelCase.js)
+[File: toCamelCase.js](./toCamelCase.js)
 
 Converts all the alphabetic characters in a string to camel case.
 

@@ -1,6 +1,6 @@
 # toSnakeCase(): string
 
-[File: toSnakeCase.js](../toSnakeCase/toSnakeCase.js)
+[File: toSnakeCase.js](./toSnakeCase.js)
 
 Converts all the alphabetic characters in a string to snake case.
 

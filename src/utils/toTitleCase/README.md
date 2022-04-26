@@ -1,6 +1,6 @@
 # toTitleCase(): string
 
-[File: toTitleCase.js](../toTitleCase/toTitleCase.js)
+[File: toTitleCase.js](./toTitleCase.js)
 
 Converts all the alphabetic characters in a string to a title case string.
 

@@ -1,6 +1,6 @@
 # toCharArray(): string
 
-[File: toCharArray.js](../toCharArray/toCharArray.js)
+[File: toCharArray.js](./toCharArray.js)
 
 Converts a string to an array of characters.
 
