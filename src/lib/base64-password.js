@@ -11,7 +11,7 @@ const base64Password = async(data) => {
     .match(new RegExp(".{1," + data.length + "}", "g"))
     .slice(0, data.iteration)
     .join(data.separator);
-  console.log("Base64-encoded password:" + base64);
+  console.log(base64);
   return base64;
 };
 export default base64Password;

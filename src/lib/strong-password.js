@@ -25,7 +25,7 @@ const strongPassword = async(data) => {
       // Initializing a strong password
       let strong = stdout.toString().match(new RegExp(".{0," + data.length + "}", "g"));
       strong = strong.slice(0, data.iteration).join(data.separator).toString();
-      console.log("Strong password:" + strong);
+      console.log(strong);
       return strong;
     }
   );

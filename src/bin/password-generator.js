@@ -1,4 +1,3 @@
-
 // Initializing Variables
 const args = process.argv.slice(2);
 const PasswordGenerator = async(data) => {
@@ -14,5 +13,4 @@ PasswordGenerator(
   { type: args[1], length: args[3], iteration: args[5], separator: args[7]}
 );
 export default PasswordGenerator;
-
 
