@@ -1,6 +1,6 @@
 {
     "all": true,
-    "branches": 100,
+    "branches": 40,
     "cache": false,
     "check-coverage": true,
     "clean": true,
@@ -11,12 +11,12 @@
         "docs/*"
     ],
     "extension": [".js"],
-    "functions": 100,
+    "functions": 40,
     "include": [
         "index.js",
         "src/**/*.js"
     ],
-    "lines": 100,
+    "lines": 40,
     "reporter": [
         "cobertura",
         "html",
@@ -28,5 +28,5 @@
     "reports-dir": "./coverage",
     "skip-full": false,
     "sourceMap": true,
-    "statements": 100
+    "statements": 40
 }
