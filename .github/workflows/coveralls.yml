@@ -1,0 +1,70 @@
+#
+#  ___                              _    ___                       _
+# | _ \__ _ _______ __ _____ _ _ __| |  / __|___ _ _  ___ _ _ __ _| |_ ___ _ _
+# |  _/ _` (_-<_-< V  V / _ \ '_/ _` | | (_ / -_) ' \/ -_) '_/ _` |  _/ _ \ '_|
+# |_| \__,_/__/__/\_/\_/\___/_| \__,_|  \___\___|_||_\___|_| \__,_|\__\___/_|
+#
+# Password Generator
+# https://password-generator.pro/
+#
+# Copyright (c) Sebastien Rousseau 2022. All rights reserved
+# Licensed under the MIT license
+#
+
+name: "Coveralls"
+
+on:
+  pull_request:
+    branches:
+      - "*"
+  push:
+    branches:
+      - "*"
+
+jobs:
+  job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js 14.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+
+      - name: Install yarn dependencies
+        # run: yarn --frozen-lockfile --ignore-scripts
+        run: |
+          yarn install
+
+      - name: Run lint fix
+        run: |
+          yarn run lint:fix
+
+      - name: Run prettier
+        run: |
+          yarn run format
+
+      - name: Run remark
+        run: |
+          yarn run markdown
+
+      - name: Building
+        run: |
+          yarn run build
+
+      - name: Testing & Coverage
+        run: |
+          yarn run test
+
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          base-path: /
+          flag-name: pm2md
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel: true
+          path-to-lcov: ./coverage/lcov.info
