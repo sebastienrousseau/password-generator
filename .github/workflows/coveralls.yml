@@ -50,7 +50,7 @@ jobs:
 
       - name: Run remark
         run: |
-          yarn run markdown
+          yarn run lint:markdown
 
       - name: Building
         run: |
