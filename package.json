@@ -141,7 +141,7 @@
         "create:directory": "mkdirp ./dist",
         "create:docs": "jsdoc -c ./jsdoc.json",
         "filesize:distribution": "filesizes dist/ > dist/Report.txt",
-        "format": "prettier --write src/**/*.ts",
+        "format": "prettier --write src/**/*.js",
         "lint": "eslint --config=.eslintrc.json \"./*.js\" \"./src/**/*.js\"",
         "lint:fix": "yarn lint --fix",
         "lint:markdown": "yarn remark \"./*.md\" \"./src/**/*.md\" \"./.github/**/*.md\"",
