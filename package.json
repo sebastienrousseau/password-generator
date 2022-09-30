@@ -18,22 +18,21 @@
     "bugs": {
         "url": "https://github.com/sebastienrousseau/password-generator/issues"
     },
-    "dependencies": {},
     "description": "A fast, simple and powerful open-source utility tool for generating strong, unique and random passwords.",
     "devDependencies": {
-        "@babel/cli": "^7.18.9",
-        "@babel/core": "^7.18.9",
-        "@babel/eslint-parser": "^7.18.9",
-        "@babel/preset-env": "^7.18.9",
+        "@babel/cli": "^7.19.3",
+        "@babel/core": "^7.19.3",
+        "@babel/eslint-parser": "^7.19.1",
+        "@babel/preset-env": "^7.19.3",
         "@babel/preset-typescript": "^7.18.6",
         "@babel/register": "^7.18.9",
         "babel-plugin-istanbul": "^6.1.1",
         "c8": "^7.12.0",
         "chai": "^4.3.6",
-        "commander": "^9.4.0",
+        "commander": "^9.4.1",
+        "eslint": "^8.24.0",
         "eslint-plugin-import": "^2.26.0",
         "eslint-plugin-prettier": "^4.2.1",
-        "eslint": "^8.20.0",
         "filesizes": "^0.1.2",
         "jest": "^29.0.2",
         "jsdoc": "^3.6.11",
@@ -127,7 +126,7 @@
         ]
     },
     "scripts": {
-        "build": "yarn lint:fix && yarn lint:markdown && yarn build:password:generator && cat ./package.json | grep -v '\"private\":' > dist/package.json && yarn pack ./dist",
+        "build": "pnpm run lint:fix && pnpm run lint:markdown && pnpm run build:password:generator && cat ./package.json | grep -v '\"private\":' > dist/package.json && pnpm pack ./dist",
         "build:password:generator": "npm run clean:dist && npm run create:directory && npm run create:docs && npm run copy:index && npm run copy:src && npm run copy:readme && npm run copy:license && npm run copy:makefile && npm run copy:copyright && npm run filesize:distribution",
         "clean": "rimraf .nyc_output coverage",
         "clean:dist": "rimraf \"dist/\"",
@@ -137,19 +136,19 @@
         "copy:makefile": "cp Makefile dist/",
         "copy:readme": "cp README.md dist/",
         "copy:src": "cp -R ./src dist/src",
-        "coverage": "yarn clean && c8 mocha \"test/*.js\" \"./test/**/*.js\" && exit",
+        "coverage": "pnpm run clean && c8 mocha \"test/*.js\" \"./test/**/*.js\" && exit",
         "create:directory": "mkdirp ./dist",
         "create:docs": "jsdoc -c ./jsdoc.json",
         "filesize:distribution": "filesizes dist/ > dist/Report.txt",
         "format": "prettier --write src/**/*.js",
         "lint": "eslint --config=.eslintrc.json \"./*.js\" \"./src/**/*.js\"",
-        "lint:fix": "yarn lint --fix",
-        "lint:markdown": "yarn remark \"./*.md\" \"./src/**/*.md\" \"./.github/**/*.md\"",
-        "release:prepare": "yarn publish $(node -p \"p=require('./package.json');p.name+'-'+p.version+'.tgz'\")",
-        "release:publish": "yarn publish --access public --ignore-scripts --@OWNER:registry='https://registry.npmjs.org'",
+        "lint:fix": "pnpm run lint --fix",
+        "lint:markdown": "remark \"./*.md\" \"./src/**/*.md\" \"./.github/**/*.md\"",
+        "release:prepare": "pnpm run publish $(node -p \"p=require('./package.json');p.name+'-'+p.version+'.tgz'\")",
+        "release:publish": "pnpm run publish --access public --ignore-scripts --@OWNER:registry='https://registry.npmjs.org'",
         "start": "node index.js",
-        "test": "yarn clean && c8 mocha"
+        "test": "pnpm run clean && c8 mocha"
     },
     "type": "module",
-    "version": "1.0.9"
+    "version": "1.1.0"
 }
