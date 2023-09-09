@@ -1,28 +1,19 @@
-// import { passwordGenerator } from "../bin/password-generator.js"
-import * as chai from "chai";
-
-global.expect = chai.expect;
-global.assert = chai.assert;
-
+import { exec } from 'child_process';
+import { expect, assert } from 'chai';
 
 // mocha() test
 describe("Running mocha () ", function () {
   it("should run mocha", function () {
-    expect(true);
+    expect(true).to.be.true;
   });
 });
 
-// Initialization test
-// describe("Running Initialization tests \n", function() {
-//   it('should asserts passwordGenerator is truthy', function () {
-//     expect(passwordGenerator).to.be.ok;
-//     expect(passwordGenerator).to.exist;
-//   });
-// });
-
-// passwordGenerator() test
-// describe("passwordGenerator() test", function() {
-//     it("should be a promise", function () {
-//       expect(Promise.resolve()).to.be.a("promise");
-//     });
-// });
+describe('PasswordGenerator Entry Point', () => {
+  it('should run without errors', (done) => {
+    exec('node index.js', (error, stdout, stderr) => {
+      expect(error).to.be.null;
+      expect(stderr).to.equal('');
+      done();
+    });
+  });
+});

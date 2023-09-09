@@ -1,8 +1,17 @@
 import { randomNumber } from "../../src/utils/randomNumber.js";
 
-// There are 5 vowels (a, e, i, o, u)
-let vowels = "aeiou";
-
+/**
+ * Generate a random vowel character from a predefined list of vowels.
+ *
+ * @returns {string} A randomly selected vowel character (a, e, i, o, u).
+ */
 export function randomVowel() {
-  return vowels[randomNumber(vowels.length)];
+  // Define a string containing the vowels
+  const vowels = "aeiou";
+
+  // Generate a random index within the range of the vowels string
+  const randomIndex = randomNumber(vowels.length);
+
+  // Return the vowel character at the randomly selected index
+  return vowels[randomIndex];
 }
