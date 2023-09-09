@@ -1,11 +1,10 @@
 import { toCamelCase } from "../../src/utils/toCamelCase/toCamelCase.js";
+import { assert } from 'chai';
 
-global.strings = {
-  camel: "passwordGenerator",
+const strings = {
   dot: "password.generator",
   junk: "--PASSWORD-GENERATOR--",
   kebab: "password-generator",
-  pascal: "PasswordGenerator",
   sentence: "Password generator",
   snake: "password_generator",
   space: "password generator",
@@ -13,19 +12,26 @@ global.strings = {
   uppercase: "PASSWORD GENERATOR",
 };
 
-// toCamelCase() tests
-describe("Running toCamelCase () function \n", function () {
-  for (let key in strings) test(key);
+// Run the tests
+describe("Running toCamelCase() function", function () {
+  for (let key in strings) {
+    it(`should convert a ${key} case string to camelCase`, function () {
+      assert.equal(toCamelCase(strings[key]), expectedResults[key]);
+    });
+  }
 });
 
-/**
- * Create a test for a given case `key`.
- *
- * @param {String} key
- */
+const expectedResults = {
+  dot: "passwordGenerator",
+  junk: "passwordGenerator",
+  kebab: "passwordGenerator",
+  sentence: "passwordGenerator",
+  snake: "passwordGenerator",
+  space: "passwordGenerator",
+  title: "passwordGenerator",
+  uppercase: "passwordGenerator",
+};
 
-function test(key) {
-  it("should convert a " + key + " case string to camelcase", function () {
-    assert.equal(toCamelCase(strings[key]), "passwordGenerator");
-  });
-}
+
+
+
