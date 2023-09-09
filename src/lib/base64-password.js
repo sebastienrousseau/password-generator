@@ -54,7 +54,7 @@ for (let i = 0; i < args.length; i += 2) {
 
 if (data.t !== "base64" || !data.l || !data.i || !data.s) {
   console.error(
-    "Usage: node . -t base64 -l <length> -i <iteration> -s <separator>"
+    "Usage: node . -t base64 -l <length> -i <iteration> -s <separator>",
   );
   process.exit(1);
 }
@@ -64,7 +64,7 @@ if (data.t !== "base64" || !data.l || !data.i || !data.s) {
   const generatedPassword = base64Password({
     length: parseInt(data.l, 10),
     iteration: parseInt(data.i, 10),
-    separator: data.s
+    separator: data.s,
   });
 
   // Copy the password to clipboard

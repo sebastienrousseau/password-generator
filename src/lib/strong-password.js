@@ -22,7 +22,8 @@ const strongPassword = ({ length, iteration, separator }) => {
         return reject(err);
       }
 
-      const strong = stdout.toString()
+      const strong = stdout
+        .toString()
         .match(new RegExp(`.{1,${length}}`, "g"))
         .slice(0, iteration)
         .join(separator);
@@ -43,7 +44,9 @@ for (let i = 0; i < args.length; i += 2) {
 }
 
 if (data.t !== "strong" || !data.l || !data.i || !data.s) {
-  console.error("Usage: node . -t strong -l <length> -i <iteration> -s <separator>");
+  console.error(
+    "Usage: node . -t strong -l <length> -i <iteration> -s <separator>",
+  );
   process.exit(1);
 }
 
@@ -52,7 +55,7 @@ if (data.t !== "strong" || !data.l || !data.i || !data.s) {
   const generatedPassword = await strongPassword({
     length: parseInt(data.l, 10),
     iteration: parseInt(data.i, 10),
-    separator: data.s
+    separator: data.s,
   });
 
   // Copy the password to clipboard

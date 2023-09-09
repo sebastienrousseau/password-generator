@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: utils/randomNumber.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,34 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: utils/randomNumber.js</h1>
 
     
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Generates a random integer within a specified range.
+ *
+ * @param {number} max - The upper bound (exclusive) for the random number.
+ * @param {number} min - The lower bound (inclusive) for the random number (optional).
+ * @returns {number} A random integer within the specified range.
+ */
+export function randomNumber(max, min = 0) {
+  /**
+   * Math.random() generates a random floating-point number in the range [0, 1),
+   * so we multiply it by (max - min) to expand the range.
+   * We then add min to shift the range to [min, max).
+   * Finally, we use Math.floor() to ensure the result is an integer.
+   */
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: utils/randomVowel.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,35 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: utils/randomVowel.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { randomNumber } from "../../src/utils/randomNumber.js";
 
+/**
+ * Generate a random vowel character from a predefined list of vowels.
+ *
+ * @returns {string} A randomly selected vowel character (a, e, i, o, u).
+ */
+export function randomVowel() {
+  // Define a string containing the vowels
+  const vowels = "aeiou";
 
-    <h3> </h3>
+  // Generate a random index within the range of the vowels string
+  const randomIndex = randomNumber(vowels.length);
 
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+  // Return the vowel character at the randomly selected index
+  return vowels[randomIndex];
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

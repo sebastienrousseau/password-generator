@@ -98,13 +98,13 @@
 
         
             
-<h4 class="name" id="toCamelCase"><span class="type-signature">(constant) </span>toCamelCase<span class="type-signature"></span></h4>
+<h4 class="name" id="base64Password"><span class="type-signature">(constant) </span>base64Password<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Converts all the alphabetic characters in a string to camel case.
+    Generate a password using random Base64 characters.
 </div>
 
 
@@ -142,7 +142,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="toCamelCase_toCamelCase.js.html">toCamelCase/toCamelCase.js</a>, <a href="toCamelCase_toCamelCase.js.html#line5">line 5</a>
+        <a href="lib_base64-password.js.html">lib/base64-password.js</a>, <a href="lib_base64-password.js.html#line38">line 38</a>
     </li></ul></dd>
     
 
@@ -155,6 +155,204 @@
 
 
 
+
+
+
+        
+            
+<h4 class="name" id="generateRandomBase64String"><span class="type-signature">(constant) </span>generateRandomBase64String<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Generate a random base64 string.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_base64-password.js.html">lib/base64-password.js</a>, <a href="lib_base64-password.js.html#line13">line 13</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="splitBase64String"><span class="type-signature">(constant) </span>splitBase64String<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Split a base64 string into substrings of the specified length.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_base64-password.js.html">lib/base64-password.js</a>, <a href="lib_base64-password.js.html#line24">line 24</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="toCamelCase"><span class="type-signature">(constant) </span>toCamelCase<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Converts a given string to camel case.
+
+Camel case is a naming convention where spaces or other delimiters are removed,
+and each word (except the first one) starts with a capital letter.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_toCamelCase_toCamelCase.js.html">utils/toCamelCase/toCamelCase.js</a>, <a href="utils_toCamelCase_toCamelCase.js.html#line19">line 19</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// Returns "myCamelCaseString"
+const camelCaseStr = toCamelCase("my camel case string");
+
+// Returns "helloWorld"
+const anotherCamelCaseStr = toCamelCase("Hello, World!");</code></pre>
 
 
 
@@ -204,7 +402,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="toCharArray_toCharArray.js.html">toCharArray/toCharArray.js</a>, <a href="toCharArray_toCharArray.js.html#line5">line 5</a>
+        <a href="utils_toCharArray_toCharArray.js.html">utils/toCharArray/toCharArray.js</a>, <a href="utils_toCharArray_toCharArray.js.html#line5">line 5</a>
     </li></ul></dd>
     
 
@@ -266,7 +464,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="toCurrency_toCurrency.js.html">toCurrency/toCurrency.js</a>, <a href="toCurrency_toCurrency.js.html#line6">line 6</a>
+        <a href="utils_toCurrency_toCurrency.js.html">utils/toCurrency/toCurrency.js</a>, <a href="utils_toCurrency_toCurrency.js.html#line6">line 6</a>
     </li></ul></dd>
     
 
@@ -328,7 +526,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="toKebabCase_toKebabCase.js.html">toKebabCase/toKebabCase.js</a>, <a href="toKebabCase_toKebabCase.js.html#line5">line 5</a>
+        <a href="utils_toKebabCase_toKebabCase.js.html">utils/toKebabCase/toKebabCase.js</a>, <a href="utils_toKebabCase_toKebabCase.js.html#line5">line 5</a>
     </li></ul></dd>
     
 
@@ -390,7 +588,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="toSnakeCase_toSnakeCase.js.html">toSnakeCase/toSnakeCase.js</a>, <a href="toSnakeCase_toSnakeCase.js.html#line5">line 5</a>
+        <a href="utils_toSnakeCase_toSnakeCase.js.html">utils/toSnakeCase/toSnakeCase.js</a>, <a href="utils_toSnakeCase_toSnakeCase.js.html#line5">line 5</a>
     </li></ul></dd>
     
 
@@ -452,7 +650,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="toTitleCase_toTitleCase.js.html">toTitleCase/toTitleCase.js</a>, <a href="toTitleCase_toTitleCase.js.html#line5">line 5</a>
+        <a href="utils_toTitleCase_toTitleCase.js.html">utils/toTitleCase/toTitleCase.js</a>, <a href="utils_toTitleCase_toTitleCase.js.html#line5">line 5</a>
     </li></ul></dd>
     
 
@@ -472,6 +670,1007 @@
     
 
     
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="memorablePassword"><span class="type-signature">(async) </span>memorablePassword<span class="signature">(options)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Generate a memorable password using random words from a dictionary.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Configuration options for password generation.
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>iteration</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The number of words to use.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>separator</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The separator between words.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_memorable-password.js.html">lib/memorable-password.js</a>, <a href="lib_memorable-password.js.html#line18">line 18</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The generated password.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="randomConsonant"><span class="type-signature"></span>randomConsonant<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Generates a random consonant character.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_randomConsonant.js.html">utils/randomConsonant.js</a>, <a href="utils_randomConsonant.js.html#line7">line 7</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    A single consonant character.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="randomNumber"><span class="type-signature"></span>randomNumber<span class="signature">(max, min)</span><span class="type-signature"> &rarr; {number}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Generates a random integer within a specified range.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>max</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The upper bound (exclusive) for the random number.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>min</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The lower bound (inclusive) for the random number (optional).</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_randomNumber.js.html">utils/randomNumber.js</a>, <a href="utils_randomNumber.js.html#line8">line 8</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    A random integer within the specified range.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="randomSyllable"><span class="type-signature"></span>randomSyllable<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Generate a random syllable.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_randomSyllable.js.html">utils/randomSyllable.js</a>, <a href="utils_randomSyllable.js.html#line10">line 10</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    A random syllable containing a consonant, vowel, and consonant.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="randomVowel"><span class="type-signature"></span>randomVowel<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Generate a random vowel character from a predefined list of vowels.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_randomVowel.js.html">utils/randomVowel.js</a>, <a href="utils_randomVowel.js.html#line8">line 8</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    A randomly selected vowel character (a, e, i, o, u).
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="strongPassword"><span class="type-signature"></span>strongPassword<span class="signature">(options)</span><span class="type-signature"> &rarr; {Promise.&lt;string>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Generate a strong password using OpenSSL.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Configuration options for password generation.
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>length</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The length of each password chunk.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>iteration</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The number of password chunks.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>separator</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The separator between password chunks.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_strong-password.js.html">lib/strong-password.js</a>, <a href="lib_strong-password.js.html#line17">line 17</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The generated password.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;string></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+    
 
     
 
@@ -486,13 +1685,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#toCamelCase">toCamelCase</a></li><li><a href="global.html#toCharArray">toCharArray</a></li><li><a href="global.html#toCurrency">toCurrency</a></li><li><a href="global.html#toKebabCase">toKebabCase</a></li><li><a href="global.html#toSnakeCase">toSnakeCase</a></li><li><a href="global.html#toTitleCase">toTitleCase</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#base64Password">base64Password</a></li><li><a href="global.html#generateRandomBase64String">generateRandomBase64String</a></li><li><a href="global.html#memorablePassword">memorablePassword</a></li><li><a href="global.html#randomConsonant">randomConsonant</a></li><li><a href="global.html#randomNumber">randomNumber</a></li><li><a href="global.html#randomSyllable">randomSyllable</a></li><li><a href="global.html#randomVowel">randomVowel</a></li><li><a href="global.html#splitBase64String">splitBase64String</a></li><li><a href="global.html#strongPassword">strongPassword</a></li><li><a href="global.html#toCamelCase">toCamelCase</a></li><li><a href="global.html#toCharArray">toCharArray</a></li><li><a href="global.html#toCurrency">toCurrency</a></li><li><a href="global.html#toKebabCase">toKebabCase</a></li><li><a href="global.html#toSnakeCase">toSnakeCase</a></li><li><a href="global.html#toTitleCase">toTitleCase</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Fri Sep 30 2022 20:15:50 GMT+0100 (British Summer Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Sep 09 2023 22:24:14 GMT+0100 (British Summer Time)
 </footer>
 
 <script> prettyPrint(); </script>

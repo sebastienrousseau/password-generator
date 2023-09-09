@@ -17,7 +17,7 @@ import clipboardy from "clipboardy";
  */
 const memorablePassword = async({ iteration, separator }) => {
   const dictionary = JSON.parse(
-    await readFile(new URL("../dictionaries/common.json", import.meta.url))
+    await readFile(new URL("../dictionaries/common.json", import.meta.url)),
   );
 
   if (iteration < 1) {
@@ -29,9 +29,9 @@ const memorablePassword = async({ iteration, separator }) => {
   }
 
   const memorable = Array.from({ length: iteration }, () => {
-    return toTitleCase(dictionary.entries[
-      randomNumber(dictionary.entries.length)
-    ]);
+    return toTitleCase(
+      dictionary.entries[randomNumber(dictionary.entries.length)],
+    );
   });
 
   const password = memorable.join(separator).replace(/ /g, "");
@@ -58,7 +58,7 @@ if (data.t !== "memorable" || !data.i || !data.s) {
 (async() => {
   const generatedPassword = await memorablePassword({
     iteration: parseInt(data.i, 10),
-    separator: data.s
+    separator: data.s,
   });
 
   // Copy the password to clipboard
