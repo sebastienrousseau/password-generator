@@ -32,6 +32,9 @@ devDependencies:
   chai:
     specifier: ^4.3.8
     version: 4.3.8
+  clipboardy:
+    specifier: ^3.0.0
+    version: 3.0.0
   commander:
     specifier: ^11.0.0
     version: 11.0.0
@@ -2022,6 +2025,10 @@ packages:
       picomatch: 2.3.1
     dev: true
 
+  /arch@2.2.0:
+    resolution: {integrity: sha512-Of/R0wqp83cgHozfIYLbBMnej79U/SVGOOyuB3VVFv1NRM/PSFMK12x9KVtiYzJqmnU5WR2qp0Z5rHb7sWGnFQ==}
+    dev: true
+
   /argparse@1.0.10:
     resolution: {integrity: sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg==}
     dependencies:
@@ -2443,6 +2450,15 @@ packages:
     dependencies:
       exit: 0.1.2
       glob: 7.2.3
+    dev: true
+
+  /clipboardy@3.0.0:
+    resolution: {integrity: sha512-Su+uU5sr1jkUy1sGRpLKjKrvEOVXgSgiSInwa/qeID6aJ07yh+5NWc3h2QfjHjBnfX4LhtFcuAWKUsJ3r+fjbg==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    dependencies:
+      arch: 2.2.0
+      execa: 5.1.1
+      is-wsl: 2.2.0
     dev: true
 
   /cliui@7.0.4:
