@@ -1,7 +1,7 @@
 // Initializing Variables
 const args = process.argv.slice(2);
 
-const PasswordGenerator = async(data) => {
+export const PasswordGenerator = async(data) => {
   if (data.type) {
     let genPassword = "../lib/"+ data.type + "-password.js";
     const run = async() => {
