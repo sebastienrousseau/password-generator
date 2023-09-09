@@ -1,5 +1,5 @@
 import { toCamelCase } from "../../src/utils/toCamelCase/toCamelCase.js";
-import { assert } from 'chai';
+import { assert, expect } from 'chai';
 
 const strings = {
   dot: "password.generator",
@@ -19,19 +19,16 @@ describe("Running toCamelCase() function", function () {
       assert.equal(toCamelCase(strings[key]), expectedResults[key]);
     });
   }
+
+  it("should handle an empty string", function () {
+    assert.equal(toCamelCase(""), "");
+  });
+
+  it("should handle a single word string", function () {
+    assert.equal(toCamelCase("singleword"), "singleword");
+  });
+
+  it("should throw a TypeError for non-string input", function () {
+    expect(() => toCamelCase(123)).to.throw(TypeError, "Input must be a string");
+  });
 });
-
-const expectedResults = {
-  dot: "passwordGenerator",
-  junk: "passwordGenerator",
-  kebab: "passwordGenerator",
-  sentence: "passwordGenerator",
-  snake: "passwordGenerator",
-  space: "passwordGenerator",
-  title: "passwordGenerator",
-  uppercase: "passwordGenerator",
-};
-
-
-
-
