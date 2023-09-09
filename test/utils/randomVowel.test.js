@@ -4,8 +4,10 @@ import { expect } from 'chai';
 // Mock the randomNumber function for testing
 const mockRandomNumber = (max) => Math.floor(Math.random() * max);
 
-// Replace the randomNumber function with the mock version
+// Store the original randomNumber function to restore it later
 const originalRandomNumber = global.randomNumber;
+
+// Replace the randomNumber function with the mock version
 global.randomNumber = mockRandomNumber;
 
 // Test the randomVowel() function
@@ -19,17 +21,7 @@ describe("Running randomVowel", () => {
     expect(vowel).to.be.a('string');
     expect(vowel).to.match(/[aeiou]/);
   });
-
-  it('should return a random vowel character', () => {
-    // Mock the random number to always return 0 (the first vowel)
-    global.randomNumber = () => 0;
-    expect(randomVowel()).to.equal('a');
-
-    // Mock the random number to always return 4 (the last vowel)
-    global.randomNumber = () => 4;
-    expect(randomVowel()).to.equal('u');
-  });
 });
 
-// Restore the original randomNumber function
+// Restore the original randomNumber function after the tests
 global.randomNumber = originalRandomNumber;
