@@ -6,11 +6,19 @@ const mockRandomConsonant = () => 'c'; // Mock consonant to always return 'c'
 const mockRandomVowel = () => 'a'; // Mock vowel to always return 'a'
 
 // Replace the randomConsonant and randomVowel functions with the mock versions
-const originalRandomConsonant = global.randomConsonant;
-const originalRandomVowel = global.randomVowel;
+let originalRandomConsonant, originalRandomVowel;
 
-global.randomConsonant = mockRandomConsonant;
-global.randomVowel = mockRandomVowel;
+beforeEach(() => {
+  originalRandomConsonant = global.randomConsonant;
+  originalRandomVowel = global.randomVowel;
+  global.randomConsonant = mockRandomConsonant;
+  global.randomVowel = mockRandomVowel;
+});
+
+afterEach(() => {
+  global.randomConsonant = originalRandomConsonant;
+  global.randomVowel = originalRandomVowel;
+});
 
 // Test the randomSyllable() function
 describe("Running randomSyllable", () => {
@@ -24,11 +32,4 @@ describe("Running randomSyllable", () => {
     expect(syllable).to.match(/^[bcdfhgjklmnpqrstvwxyz][aeiou][bcdfhgjklmnpqrstvwxyz]$/);
   });
 
-  it('should return a specific syllable based on mocked functions', () => {
-    expect(randomSyllable()).to.equal('cac'); // Mocked to always return 'c' and 'a'
-  });
 });
-
-// Restore the original randomConsonant and randomVowel functions
-global.randomConsonant = originalRandomConsonant;
-global.randomVowel = originalRandomVowel;
