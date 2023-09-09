@@ -43,13 +43,3 @@ export const toCamelCase = (str) => {
 
   return camelCaseStr;
 };
-
-// console.log(toCamelCase("password.generator"));     // ✔ should convert a dot case string to camelcase
-// console.log(toCamelCase("--PASSWORD-GENERATOR--")); // ✔ should convert a junk case string to camelcase
-// console.log(toCamelCase("password-generator"));     // ✔ should convert a kebab case string to camelcase
-// console.log(toCamelCase("PasswordGenerator"));      // ✔ should convert a pascal case string to camelcase
-// console.log(toCamelCase("Password generator"));     // ✔ should convert a sentence case string to camelcase
-// console.log(toCamelCase("password_generator"));     // ✔ should convert a snake case string to camelcase
-// console.log(toCamelCase("password generator"));     // ✔ should convert a space case string to camelcase
-// console.log(toCamelCase("Password Generator"));     // ✔ should convert a title case string to camelcase
-// console.log(toCamelCase("PASSWORD GENERATOR"));     // ✔ should convert a uppercase case string to camelcase

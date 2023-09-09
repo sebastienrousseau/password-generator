@@ -12,6 +12,17 @@ const strings = {
   uppercase: "PASSWORD GENERATOR",
 };
 
+const expectedResults = {
+  dot: "passwordGenerator",
+  junk: "passwordGenerator",
+  kebab: "passwordGenerator",
+  sentence: "passwordGenerator",
+  snake: "passwordGenerator",
+  space: "passwordGenerator",
+  title: "passwordGenerator",
+  uppercase: "passwordGenerator",
+};
+
 // Run the tests
 describe("Running toCamelCase() function", function () {
   for (let key in strings) {
