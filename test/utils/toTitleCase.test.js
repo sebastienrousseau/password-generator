@@ -1,4 +1,5 @@
 import { toTitleCase } from "../../src/utils/toTitleCase/toTitleCase.js";
+import { expect } from 'chai';
 
 let toTitleCaseArray = [
   "password Generator",
