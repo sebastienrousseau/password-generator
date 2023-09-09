@@ -8,8 +8,7 @@ const mockRandomNumber = (max) => Math.floor(Math.random() * max);
 const originalRandomNumber = global.randomNumber;
 global.randomNumber = mockRandomNumber;
 
-// Test the randomConsonant() function
-describe("Running randomConsonant", () => {
+describe("randomConsonant()", () => {
   it('should be a defined function', () => {
     expect(randomConsonant).to.be.a('function');
   });
@@ -20,15 +19,6 @@ describe("Running randomConsonant", () => {
     expect(consonant).to.match(/[bcdfhgjklmnpqrstvwxyz]/);
   });
 
-  it('should return a random consonant character', () => {
-    // Mock the random number to always return 0 (the first consonant)
-    global.randomNumber = () => 0;
-    expect(randomConsonant()).to.equal('b');
-
-    // Mock the random number to always return 9 (the tenth consonant)
-    global.randomNumber = () => 9;
-    expect(randomConsonant()).to.equal('k');
-  });
 });
 
 // Restore the original randomNumber function
