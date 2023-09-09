@@ -7,7 +7,7 @@
 # Password Generator
 # https://password-generator.pro/
 #
-# Copyright (c) Sebastien Rousseau 2022. All rights reserved
+# Copyright (c) Sebastien Rousseau 2022 - 2023. All rights reserved
 # Licensed under the MIT license
 #
 
