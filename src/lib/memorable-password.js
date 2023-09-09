@@ -15,10 +15,18 @@ import clipboardy from "clipboardy";
  * @param {string} options.separator - The separator between words.
  * @return {string} The generated password.
  */
-const memorablePassword = async ({ iteration, separator }) => {
+const memorablePassword = async({ iteration, separator }) => {
   const dictionary = JSON.parse(
     await readFile(new URL("../dictionaries/common.json", import.meta.url))
   );
+
+  if (iteration < 1) {
+    throw new RangeError("The iteration argument must be a positive integer");
+  }
+
+  if (separator.length > 1) {
+    throw new TypeError("The separator argument must be a single character");
+  }
 
   const memorable = Array.from({ length: iteration }, () => {
     return toTitleCase(dictionary.entries[

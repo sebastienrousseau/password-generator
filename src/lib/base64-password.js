@@ -10,7 +10,7 @@ import clipboardy from "clipboardy";
  *
  * @return {string} The generated base64 string.
  */
-const generateRandomBase64String = () => {
+export const generateRandomBase64String = () => {
   return crypto.randomBytes(256).toString("base64");
 };
 
@@ -21,7 +21,7 @@ const generateRandomBase64String = () => {
  * @param {number} length The length of each substring.
  * @return {Array<string>} The substrings.
  */
-const splitBase64String = (base64String, length) => {
+export const splitBase64String = (base64String, length) => {
   const substrings = base64String.match(new RegExp(`.{1,${length}}`, "g"));
   return substrings || [];
 };
@@ -35,7 +35,7 @@ const splitBase64String = (base64String, length) => {
  * @param {string} options.separator - The separator between password chunks.
  * @return {string} The generated password.
  */
-const base64Password = ({ length, iteration, separator }) => {
+export const base64Password = ({ length, iteration, separator }) => {
   const base64String = generateRandomBase64String();
   const substrings = splitBase64String(base64String, length);
   const password = substrings.slice(0, iteration).join(separator);
