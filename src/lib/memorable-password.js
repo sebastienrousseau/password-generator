@@ -1,38 +1,60 @@
+// Copyright © 2022-2023 Password Generator. All rights reserved.
+// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
+
 import { randomNumber } from "../utils/randomNumber.js";
 import { readFile } from "fs/promises";
 import { toTitleCase } from "../utils/toTitleCase/toTitleCase.js";
+import clipboardy from "clipboardy";
 
-// Initializing Variables
-const args = process.argv.slice(2);
-const dictionary = JSON.parse(
-  await readFile(new URL("../dictionaries/common.json", import.meta.url))
-);
-let memorable = [];
+/**
+ * Generate a memorable password using random words from a dictionary.
+ *
+ * @param {Object} options - Configuration options for password generation.
+ * @param {number} options.iteration - The number of words to use.
+ * @param {string} options.separator - The separator between words.
+ * @return {string} The generated password.
+ */
+const memorablePassword = async ({ iteration, separator }) => {
+  const dictionary = JSON.parse(
+    await readFile(new URL("../dictionaries/common.json", import.meta.url))
+  );
 
-const memorablePassword = async(data) => {
-  // console.log(data);
-  // Picking random words from the JSON dictionary based on the data length
-  dictionary.entries.forEach(() => {
-    memorable.push(
-      toTitleCase(dictionary.entries[randomNumber(dictionary.entries.length)])
-    );
+  const memorable = Array.from({ length: iteration }, () => {
+    return toTitleCase(dictionary.entries[
+      randomNumber(dictionary.entries.length)
+    ]);
   });
-  // Initializing a memorable password
-  memorable = memorable
-    .slice(0, data.iteration)
-    .join(data.separator)
-    .toString()
-    .replace(/ /g, "");
-  console.log(memorable);
-  return memorable;
-};
-export default memorablePassword;
 
-if (args) {
-  let data = args;
-  data.length = data[3];
-  data.iteration = data[5];
-  data.separator = data[7];
-  memorablePassword(data);
+  const password = memorable.join(separator).replace(/ /g, "");
+
+  return password;
+};
+
+// Parse command-line arguments
+const args = process.argv.slice(2);
+const data = {};
+
+for (let i = 0; i < args.length; i += 2) {
+  const key = args[i].replace("-", "");
+  const value = args[i + 1];
+  data[key] = value;
 }
 
+if (data.t !== "memorable" || !data.i || !data.s) {
+  console.error("Usage: node . -t memorable -i <iteration> -s <separator>");
+  process.exit(1);
+}
+
+// Generate and print the password
+(async() => {
+  const generatedPassword = await memorablePassword({
+    iteration: parseInt(data.i, 10),
+    separator: data.s
+  });
+
+  // Copy the password to clipboard
+  clipboardy.writeSync(generatedPassword);
+
+  console.log(generatedPassword);
+})();

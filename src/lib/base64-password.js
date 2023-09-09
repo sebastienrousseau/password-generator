@@ -60,14 +60,16 @@ if (data.t !== "base64" || !data.l || !data.i || !data.s) {
 }
 
 // Generate the password
-const generatedPassword = base64Password({
-  length: parseInt(data.l, 10),
-  iteration: parseInt(data.i, 10),
-  separator: data.s
-});
+(async() => {
+  const generatedPassword = base64Password({
+    length: parseInt(data.l, 10),
+    iteration: parseInt(data.i, 10),
+    separator: data.s
+  });
 
-// Copy the password to clipboard
-clipboardy.writeSync(generatedPassword);
+  // Copy the password to clipboard
+  clipboardy.writeSync(generatedPassword);
 
-// Print the generated password
-console.log(generatedPassword);
+  // Print the generated password
+  console.log(generatedPassword);
+})();
