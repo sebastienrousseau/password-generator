@@ -7,7 +7,7 @@ settings:
 devDependencies:
   '@babel/cli':
     specifier: ^7.22.15
-    version: 7.22.15(@babel/core@7.22.17)
+    version: 7.23.0(@babel/core@7.22.17)
   '@babel/core':
     specifier: ^7.22.17
     version: 7.22.17
@@ -102,8 +102,8 @@ packages:
       '@jridgewell/trace-mapping': 0.3.19
     dev: true
 
-  /@babel/cli@7.22.15(@babel/core@7.22.17):
-    resolution: {integrity: sha512-prtg5f6zCERIaECeTZzd2fMtVjlfjhUcO+fBLQ6DXXdq5FljN+excVitJ2nogsusdf31LeqkjAfXZ7Xq+HmN8g==}
+  /@babel/cli@7.23.0(@babel/core@7.22.17):
+    resolution: {integrity: sha512-17E1oSkGk2IwNILM4jtfAvgjt+ohmpfBky8aLerUfYZhiPNg7ca+CRCxZn8QDxwNhV/upsc2VHBCqGFIR+iBfA==}
     engines: {node: '>=6.9.0'}
     hasBin: true
     peerDependencies:
@@ -112,7 +112,7 @@ packages:
       '@babel/core': 7.22.17
       '@jridgewell/trace-mapping': 0.3.19
       commander: 4.1.1
-      convert-source-map: 1.9.0
+      convert-source-map: 2.0.0
       fs-readdir-recursive: 1.1.0
       glob: 7.2.3
       make-dir: 2.1.0
@@ -3664,6 +3664,7 @@ packages:
   /is-extglob@2.1.1:
     resolution: {integrity: sha512-SbKbANkN603Vi4jEZv49LeVJMn4yGwsbzZworEoyEiutsN3nJYdbO36zfhGJ6QEDpOZIFkDtnq5JRxmvl3jsoQ==}
     engines: {node: '>=0.10.0'}
+    requiresBuild: true
     dev: true
 
   /is-fullwidth-code-point@3.0.0:
