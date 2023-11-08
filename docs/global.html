@@ -98,13 +98,13 @@
 
         
             
-<h4 class="name" id="base64Password"><span class="type-signature">(constant) </span>base64Password<span class="type-signature"></span></h4>
+<h4 class="name" id="generatePassword"><span class="type-signature">(constant) </span>generatePassword<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Generate a password using random Base64 characters.
+    Generates a password using random Base64 characters with the specified configuration.
 </div>
 
 
@@ -160,13 +160,137 @@
 
         
             
+<h4 class="name" id="generatePassword"><span class="type-signature">(constant) </span>generatePassword<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Generate a memorable password using random words from a dictionary.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_memorable-password.js.html">lib/memorable-password.js</a>, <a href="lib_memorable-password.js.html#line23">line 23</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="generatePassword"><span class="type-signature">(constant) </span>generatePassword<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Asynchronously generates a strong password based on the provided options.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_strong-password.js.html">lib/strong-password.js</a>, <a href="lib_strong-password.js.html#line37">line 37</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
 <h4 class="name" id="generateRandomBase64String"><span class="type-signature">(constant) </span>generateRandomBase64String<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Generate a random base64 string.
+    Generates a random base64 string of the specified length.
 </div>
 
 
@@ -228,7 +352,7 @@
 
 
 <div class="description">
-    Split a base64 string into substrings of the specified length.
+    Splits a base64 string into substrings of the specified length.
 </div>
 
 
@@ -267,6 +391,68 @@
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="lib_base64-password.js.html">lib/base64-password.js</a>, <a href="lib_base64-password.js.html#line24">line 24</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="strongPassword"><span class="type-signature">(constant) </span>strongPassword<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Generates a strong password of a specified length using OpenSSL.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_strong-password.js.html">lib/strong-password.js</a>, <a href="lib_strong-password.js.html#line13">line 13</a>
     </li></ul></dd>
     
 
@@ -671,237 +857,6 @@ const anotherCamelCaseStr = toCamelCase("Hello, World!");</code></pre>
 
     
         <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="memorablePassword"><span class="type-signature">(async) </span>memorablePassword<span class="signature">(options)</span><span class="type-signature"> &rarr; {string}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Generate a memorable password using random words from a dictionary.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Configuration options for password generation.
-                <h6>Properties</h6>
-                
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>iteration</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The number of words to use.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>separator</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The separator between words.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_memorable-password.js.html">lib/memorable-password.js</a>, <a href="lib_memorable-password.js.html#line18">line 18</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    The generated password.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
 
         
             
@@ -1416,260 +1371,6 @@ const anotherCamelCaseStr = toCamelCase("Hello, World!");</code></pre>
 
 
         
-            
-
-    
-
-    
-    <h4 class="name" id="strongPassword"><span class="type-signature"></span>strongPassword<span class="signature">(options)</span><span class="type-signature"> &rarr; {Promise.&lt;string>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Generate a strong password using OpenSSL.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Configuration options for password generation.
-                <h6>Properties</h6>
-                
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>length</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The length of each password chunk.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>iteration</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The number of password chunks.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>separator</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The separator between password chunks.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_strong-password.js.html">lib/strong-password.js</a>, <a href="lib_strong-password.js.html#line17">line 17</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    The generated password.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;string></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
     
 
     
@@ -1685,13 +1386,13 @@ const anotherCamelCaseStr = toCamelCase("Hello, World!");</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#base64Password">base64Password</a></li><li><a href="global.html#generateRandomBase64String">generateRandomBase64String</a></li><li><a href="global.html#memorablePassword">memorablePassword</a></li><li><a href="global.html#randomConsonant">randomConsonant</a></li><li><a href="global.html#randomNumber">randomNumber</a></li><li><a href="global.html#randomSyllable">randomSyllable</a></li><li><a href="global.html#randomVowel">randomVowel</a></li><li><a href="global.html#splitBase64String">splitBase64String</a></li><li><a href="global.html#strongPassword">strongPassword</a></li><li><a href="global.html#toCamelCase">toCamelCase</a></li><li><a href="global.html#toCharArray">toCharArray</a></li><li><a href="global.html#toCurrency">toCurrency</a></li><li><a href="global.html#toKebabCase">toKebabCase</a></li><li><a href="global.html#toSnakeCase">toSnakeCase</a></li><li><a href="global.html#toTitleCase">toTitleCase</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#generatePassword">generatePassword</a></li><li><a href="global.html#generateRandomBase64String">generateRandomBase64String</a></li><li><a href="global.html#randomConsonant">randomConsonant</a></li><li><a href="global.html#randomNumber">randomNumber</a></li><li><a href="global.html#randomSyllable">randomSyllable</a></li><li><a href="global.html#randomVowel">randomVowel</a></li><li><a href="global.html#splitBase64String">splitBase64String</a></li><li><a href="global.html#strongPassword">strongPassword</a></li><li><a href="global.html#toCamelCase">toCamelCase</a></li><li><a href="global.html#toCharArray">toCharArray</a></li><li><a href="global.html#toCurrency">toCurrency</a></li><li><a href="global.html#toKebabCase">toKebabCase</a></li><li><a href="global.html#toSnakeCase">toSnakeCase</a></li><li><a href="global.html#toTitleCase">toTitleCase</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Sep 09 2023 22:24:14 GMT+0100 (British Summer Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Nov 08 2023 07:12:55 GMT+0000 (Greenwich Mean Time)
 </footer>
 
 <script> prettyPrint(); </script>
