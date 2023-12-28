@@ -28,7 +28,7 @@
         "@babel/register": "^7.22.15",
         "babel-plugin-istanbul": "^6.1.1",
         "c8": "^8.0.1",
-        "chai": "^4.3.10",
+        "chai": "^5.0.0",
         "clipboardy": "^4.0.0",
         "commander": "^11.1.0",
         "eslint": "^8.53.0",
