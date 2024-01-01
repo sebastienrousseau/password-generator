@@ -22,7 +22,7 @@ devDependencies:
     version: 7.23.3(@babel/core@7.23.6)
   '@babel/register':
     specifier: ^7.22.15
-    version: 7.22.15(@babel/core@7.23.6)
+    version: 7.23.7(@babel/core@7.23.6)
   babel-plugin-istanbul:
     specifier: ^6.1.1
     version: 6.1.1
@@ -1344,8 +1344,8 @@ packages:
       '@babel/plugin-transform-typescript': 7.23.3(@babel/core@7.23.6)
     dev: true
 
-  /@babel/register@7.22.15(@babel/core@7.23.6):
-    resolution: {integrity: sha512-V3Q3EqoQdn65RCgTLwauZaTfd1ShhwPmbBv+1dkZV/HpCGMKVyn6oFcRlI7RaKqiDQjX2Qd3AuoEguBgdjIKlg==}
+  /@babel/register@7.23.7(@babel/core@7.23.6):
+    resolution: {integrity: sha512-EjJeB6+kvpk+Y5DAkEAmbOBEFkh9OASx0huoEkqYTFxAZHzOAX2Oh5uwAUuL2rUddqfM0SA+KPXV2TbzoZ2kvQ==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
