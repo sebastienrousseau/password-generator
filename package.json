@@ -27,7 +27,7 @@
         "@babel/preset-typescript": "^7.23.3",
         "@babel/register": "^7.22.15",
         "babel-plugin-istanbul": "^6.1.1",
-        "c8": "^8.0.1",
+        "c8": "^9.0.0",
         "chai": "^5.0.0",
         "clipboardy": "^4.0.0",
         "commander": "^11.1.0",
