@@ -1,0 +1,36 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #25272a;
+}
+
+.container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /**background-color: #f7f7f7;**/
+}
+
+input[type="text"] {
+    margin-bottom: 20px;
+    padding: 10px;
+    width: 300px;
+    text-align: center;
+}
+
+button {
+    padding: 20px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #0075e2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+h1 {
+    color: #e2e2e2;
+}
