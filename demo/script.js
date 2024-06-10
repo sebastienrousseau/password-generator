@@ -1,6 +1,6 @@
 function generatePassword() {
     //const length = 12; 
-    const length =  Math.random() * (15 - 12) + 12; // length of the password based on french governmental recommandations >=12
+    const length =  Math.random() * (3) + 12; // length of the password based on french governmental recommandations >=12
     const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; // character list taken randomly for each index of the password
     let password = ""; //
 
