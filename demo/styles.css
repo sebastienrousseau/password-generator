@@ -21,6 +21,13 @@ input[type="text"] {
     text-align: center;
 }
 
+input[type="number"] {
+    margin-bottom: 20px;
+    padding: 10px;
+    width: 200px;
+    text-align: center;
+}
+
 button {
     padding: 20px 20px;
     font-size: 16px;

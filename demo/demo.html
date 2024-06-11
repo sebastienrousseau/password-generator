@@ -9,9 +9,15 @@
 <body>
     <div class="container">
         <h1>Password Generator</h1>
-        <input type="text" id="passwordDisplay" readonly>
+        <div>
+            <input type="text" id="passwordDisplay" readonly>
+            <button onclick="copyPassword()">Copy</button>
+        </div>
+        <input type="number" id="passwordLength" placeholder="Enter password length">
+        
         <button onclick="generatePassword()">Generate Password</button>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>

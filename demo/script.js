@@ -1,14 +1,20 @@
 function generatePassword() {
-    //const length = 12; 
-    const length =  Math.random() * (3) + 12; // length of the password based on french governmental recommandations >=12
-    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; // character list taken randomly for each index of the password
-    let password = ""; //
+    const lengthInput = document.getElementById('passwordLength');
+    const length = parseInt(lengthInput.value); // Parse the input value as an integer
+
+    const base64charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/";
+    let password = "";
 
     for (let i = 0; i < length; i++) {
-        const randomIndex = Math.floor(Math.random() * charset.length); // Get a random index
-        password += charset.charAt(randomIndex); // Append the character at the random index to the password
+        const randomIndex = Math.floor(Math.random() * base64charset.length);
+        password += base64charset.charAt(randomIndex);
     }
 
-    document.getElementById('passwordDisplay').value = password; 
+    document.getElementById('passwordDisplay').value = password;
 }
 
+function copyPassword() {
+    const passwordDisplay = document.getElementById('passwordDisplay');
+    passwordDisplay.select();
+    document.execCommand('copy');
+}
