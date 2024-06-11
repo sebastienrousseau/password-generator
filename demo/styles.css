@@ -13,20 +13,23 @@ body, html {
     align-items: center;
     /**background-color: #f7f7f7;**/
 }
-
-input[type="text"] {
+.display{
+    input{
     margin-bottom: 20px;
-    padding: 10px;
+    padding: 20px;
     width: 300px;
     text-align: center;
+    }
 }
-
-input[type="number"] {
+.parameters{
+    input{
     margin-bottom: 20px;
     padding: 10px;
-    width: 200px;
+    width: 100px;
     text-align: center;
+    }  
 }
+
 
 button {
     padding: 20px 20px;
