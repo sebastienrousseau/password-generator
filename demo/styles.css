@@ -5,6 +5,9 @@ body, html {
     background-color: #25272a;
 }
 
+
+
+
 .container {
     height: 100vh;
     display: flex;
@@ -13,22 +16,98 @@ body, html {
     align-items: center;
     /**background-color: #f7f7f7;**/
 }
-.display{
-    input{
+
+
+
+.display input{
+    margin-top: 1em;
     margin-bottom: 20px;
     padding: 20px;
     width: 300px;
     text-align: center;
-    }
+
 }
-.parameters{
-    input{
+
+.settings{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    align-items: flex-start;
+}
+
+
+.checkbox-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;  
+    margin-bottom: 10px;  
+}
+
+.boxSettings,
+.inputSettings {
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+}
+
+
+
+.boxSettings {
+    align-items: flex-start;
+}
+
+
+
+.boxSettings input,
+.inputSettings input {
     margin-bottom: 20px;
     padding: 10px;
-    width: 100px;
-    text-align: center;
-    }  
+    text-align: center; 
 }
+
+
+
+.boxSettings label {
+    color: #e2e2e2;
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+
+}
+
+
+input[type="checkbox"] {
+    position: relative;
+    top: 5px;
+    /* Size */
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-right: 5px;
+    /* Appearance */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    border: 2px solid #0075e2;
+    border-radius: 4px;
+    outline: none;
+}
+
+
+input[type="checkbox"]:checked {
+    background-color: #0075e2;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="%23ffffff" viewBox="0 0 20 20"><path d="M16.7 5.3a1 1 0 00-1.4 0L7.5 13.1 5.2 10.8a1 1 0 10-1.4 1.4l3 3c.4.4 1 .4 1.4 0l8.5-8.5a1 1 0 000-1.4z"/></svg>');
+    background-position: center; 
+}
+
+
+input[type="checkbox"]:hover {
+    filter: brightness(0.95);
+}
+
+
 
 
 button {

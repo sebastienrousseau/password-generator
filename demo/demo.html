@@ -11,12 +11,26 @@
         <h1>Password Generator</h1>
         <div class="display">
             <input type="text" id="passwordDisplay" readonly>
-            <button onclick="copyPassword()">Copy</button>
+            <button id="copyButton" onclick="copyPassword()">Copy</button>
+
         </div>
-        <div class="parameters">
-            <input type="number" id="iterationLength" placeholder="Iteration length">
-            <input type="number" id="iteration" placeholder="Iteration">
-            <input type="text" id="separator" placeholder="Separator for iterations">
+        <div class="settings">
+            <div class="boxSettings">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="specialChars" name="specialChars" checked>
+                    <label for="specialChars">Include special characters</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="digits" name="digits" checked>
+                    <label for="specialChars">Include digits</label>
+            </div>
+                
+            </div>
+            <div class="inputSettings">
+                <input type="number" id="iterationLength" placeholder="Iteration length">
+                <input type="number" id="iteration" placeholder="Iteration">
+                <input type="text" id="separator" placeholder="Separator for iterations">
+            </div>
             
         </div>
         <button onclick="generatePassword()">Generate Password</button>

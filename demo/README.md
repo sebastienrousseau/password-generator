@@ -3,9 +3,18 @@
 This repository is a fork of the original [Password Generator](https://github.com/sebastienrousseau/password-generator) by [Sebastien Rousseau](https://github.com/sebastienrousseau). We've created this fork to specifically address an enhancement outlined in [Issue #9](https://github.com/sebastienrousseau/password-generator/issues/9).
 
 ## Purpose
-The purpose of this update is to create a web-based user interface and add functionality as requested in the issue.
+The purpose of this update is to create a web-based user demo interface of a password generator.
 
-## What's New
-Demo Directory: We have added at the moment a new directory named demo which includes:
-A basic HTML file to demonstrate the changes.
-A CSS file that contains new styling to improve visual layout and responsiveness.
+## Features
+#### Customizable Password Length:
+Users can specify the exact length of the password, with a specific number of iteration of various length. 
+
+#### Character Inclusion Options:
+- Digits: Users can choose to include or exclude digits (0-9) in the password.
+- Special Characters: For added security, the option to include special characters (such as +/) can be toggled on or off.
+
+#### Copy functionality
+Once a password is generated, it can be easily copied to the clipboard with a single clic.
+
+#### Password strength indicator
+The copy button carries a color indicator based on the length of the password, its purpose is to reflect the strength of the password.
