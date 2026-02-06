@@ -1,0 +1,8 @@
+{
+  "esversion": 11,
+  "module": true,
+  "node": true,
+  "mocha": true,
+  "expr": true,
+  "strict": false
+}
