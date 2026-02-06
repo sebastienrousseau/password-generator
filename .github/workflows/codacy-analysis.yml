@@ -15,6 +15,9 @@ name: Codacy Security Scan
 
 on: ["push"]
 
+permissions:
+  security-events: write
+
 jobs:
   codacy-security-scan:
     name: Codacy Security Scan
@@ -35,6 +38,7 @@ jobs:
 
       - name: Upload SARIF results file
         uses: github/codeql-action/upload-sarif@v4
+        continue-on-error: true
         with:
           sarif_file: results.sarif
           category: codacy-security
