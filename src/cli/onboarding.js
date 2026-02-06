@@ -1,8 +1,8 @@
 // Copyright © 2022-2024 Password Generator. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-import { createInterface } from 'readline';
-import { VALID_PASSWORD_TYPES, PRESET_PROFILES } from '../config.js';
+import { createInterface } from "readline";
+import { PRESET_PROFILES } from "../config.js";
 
 /**
  * Interactive onboarding flow for password generator
@@ -23,7 +23,7 @@ export class OnboardingFlow {
   initReadline() {
     // Check if we're in a TTY environment
     if (!process.stdin.isTTY) {
-      console.error('Interactive mode requires a terminal (TTY). Please run this in a terminal.');
+      console.error("Interactive mode requires a terminal (TTY). Please run this in a terminal.");
       process.exit(1);
     }
 
@@ -38,7 +38,7 @@ export class OnboardingFlow {
     process.stdin.resume();
 
     // Handle keyboard input
-    process.stdin.on('data', this.handleKeyPress.bind(this));
+    process.stdin.on("data", this.handleKeyPress.bind(this));
   }
 
   /**
@@ -47,7 +47,7 @@ export class OnboardingFlow {
   cleanup() {
     if (this.rl) {
       process.stdin.setRawMode(false);
-      process.stdin.removeAllListeners('data');
+      process.stdin.removeAllListeners("data");
       this.rl.close();
       this.rl = null;
     }
@@ -125,12 +125,12 @@ export class OnboardingFlow {
    * Navigate up in the current options
    */
   navigateUp() {
-    if (this.showingExamples) return;
+    if (this.showingExamples) {return;}
 
     const options = this.getCurrentOptions();
-    this.selectedIndex = this.selectedIndex > 0
-      ? this.selectedIndex - 1
-      : options.length - 1;
+    this.selectedIndex = this.selectedIndex > 0 ?
+      this.selectedIndex - 1 :
+      options.length - 1;
     this.renderCurrentStep();
   }
 
@@ -138,12 +138,12 @@ export class OnboardingFlow {
    * Navigate down in the current options
    */
   navigateDown() {
-    if (this.showingExamples) return;
+    if (this.showingExamples) {return;}
 
     const options = this.getCurrentOptions();
-    this.selectedIndex = this.selectedIndex < options.length - 1
-      ? this.selectedIndex + 1
-      : 0;
+    this.selectedIndex = this.selectedIndex < options.length - 1 ?
+      this.selectedIndex + 1 :
+      0;
     this.renderCurrentStep();
   }
 
@@ -153,13 +153,13 @@ export class OnboardingFlow {
   getCurrentOptions() {
     switch (this.currentStep) {
       case 0:
-        return ['Quick Setup (Recommended)', 'Custom Configuration', 'Learn More'];
+        return ["Quick Setup (Recommended)", "Custom Configuration", "Learn More"];
       case 1:
-        return ['Quick & Simple', 'Maximum Security', 'Easy to Remember'];
+        return ["Quick & Simple", "Maximum Security", "Easy to Remember"];
       case 2:
-        return ['3 segments', '4 segments', '5 segments'];
+        return ["3 segments", "4 segments", "5 segments"];
       case 3:
-        return ['Hyphen (-)', 'Underscore (_)', 'No separator'];
+        return ["Hyphen (-)", "Underscore (_)", "No separator"];
       default:
         return [];
     }
@@ -169,9 +169,6 @@ export class OnboardingFlow {
    * Confirm the current selection
    */
   confirmSelection() {
-    const options = this.getCurrentOptions();
-    const selected = options[this.selectedIndex];
-
     switch (this.currentStep) {
       case 0:
         if (this.selectedIndex === 0) {
@@ -189,7 +186,7 @@ export class OnboardingFlow {
         break;
       case 1:
         // Password type selection
-        const typeMap = ['strong', 'strong', 'memorable'];
+        const typeMap = ["strong", "strong", "memorable"];
         this.config.type = typeMap[this.selectedIndex];
         this.currentStep = 2;
         this.selectedIndex = 0;
@@ -202,10 +199,10 @@ export class OnboardingFlow {
         break;
       case 3:
         // Separator
-        const separatorMap = ['-', '_', ''];
+        const separatorMap = ["-", "_", ""];
         this.config.separator = separatorMap[this.selectedIndex];
         // Set defaults based on type
-        if (this.config.type === 'strong' || this.config.type === 'base64') {
+        if (this.config.type === "strong" || this.config.type === "base64") {
           this.config.length = this.selectedIndex === 1 ? 16 : 12; // More secure if maximum security was chosen
         }
         this.completeOnboarding();
@@ -222,35 +219,35 @@ export class OnboardingFlow {
     this.showingExamples = true;
     this.clearScreen();
 
-    console.log('📚 Examples\n');
+    console.log("📚 Examples\n");
 
     switch (this.currentStep) {
       case 1:
-        console.log('Strong Password Examples:');
-        console.log('• Kx9#mP2$vL4@nR8!');
-        console.log('• 7z$eQ1@pW9#xT3&');
-        console.log('');
-        console.log('Memorable Password Examples:');
-        console.log('• twilight-meadow-dancing-river');
-        console.log('• cosmic-forest-gentle-breeze');
+        console.log("Strong Password Examples:");
+        console.log("• Kx9#mP2$vL4@nR8!");
+        console.log("• 7z$eQ1@pW9#xT3&");
+        console.log("");
+        console.log("Memorable Password Examples:");
+        console.log("• twilight-meadow-dancing-river");
+        console.log("• cosmic-forest-gentle-breeze");
         break;
       case 2:
-        console.log('Segment Examples:');
-        console.log('3 segments: strong-pass-word');
-        console.log('4 segments: very-strong-pass-word');
-        console.log('5 segments: ultra-very-strong-pass-word');
+        console.log("Segment Examples:");
+        console.log("3 segments: strong-pass-word");
+        console.log("4 segments: very-strong-pass-word");
+        console.log("5 segments: ultra-very-strong-pass-word");
         break;
       case 3:
-        console.log('Separator Examples:');
-        console.log('Hyphen: word-word-word');
-        console.log('Underscore: word_word_word');
-        console.log('None: wordwordword');
+        console.log("Separator Examples:");
+        console.log("Hyphen: word-word-word");
+        console.log("Underscore: word_word_word");
+        console.log("None: wordwordword");
         break;
       default:
-        console.log('No examples available for this step.');
+        console.log("No examples available for this step.");
     }
 
-    console.log('\nPress SPACE or ENTER to go back');
+    console.log("\nPress SPACE or ENTER to go back");
   }
 
   /**
@@ -258,18 +255,18 @@ export class OnboardingFlow {
    */
   showLearnMore() {
     this.clearScreen();
-    console.log('🔐 About Password Security\n');
-    console.log('Strong passwords are your first line of defense against cyber attacks.');
-    console.log('This generator uses cryptographically secure random number generation');
-    console.log('to create passwords that are both secure and practical.\n');
-    console.log('Password Types:');
-    console.log('• Strong: Random characters with high entropy');
-    console.log('• Memorable: Readable words that are easier to remember');
-    console.log('• Base64: Encoded random data for API keys and tokens\n');
-    console.log('Press ENTER to continue with setup...');
+    console.log("🔐 About Password Security\n");
+    console.log("Strong passwords are your first line of defense against cyber attacks.");
+    console.log("This generator uses cryptographically secure random number generation");
+    console.log("to create passwords that are both secure and practical.\n");
+    console.log("Password Types:");
+    console.log("• Strong: Random characters with high entropy");
+    console.log("• Memorable: Readable words that are easier to remember");
+    console.log("• Base64: Encoded random data for API keys and tokens\n");
+    console.log("Press ENTER to continue with setup...");
 
     // Wait for enter key
-    this.rl.once('line', () => {
+    this.rl.once("line", () => {
       this.currentStep = 1;
       this.selectedIndex = 0;
       this.renderCurrentStep();
@@ -281,15 +278,15 @@ export class OnboardingFlow {
    */
   completeOnboarding() {
     this.clearScreen();
-    console.log('✅ Configuration Complete!\n');
-    console.log('Your password settings:');
+    console.log("✅ Configuration Complete!\n");
+    console.log("Your password settings:");
     console.log(`• Type: ${this.config.type}`);
     console.log(`• Segments: ${this.config.iteration}`);
-    console.log(`• Separator: "${this.config.separator || 'none'}"`);
+    console.log(`• Separator: "${this.config.separator || "none"}"`);
     if (this.config.length) {
       console.log(`• Length: ${this.config.length} characters per segment`);
     }
-    console.log('\nGenerating your password...\n');
+    console.log("\nGenerating your password...\n");
 
     this.cleanup();
 
@@ -302,8 +299,8 @@ export class OnboardingFlow {
    */
   exitOnboarding() {
     this.clearScreen();
-    console.log('👋 Setup cancelled. You can still use the command line options:');
-    console.log('  password-generator --help');
+    console.log("👋 Setup cancelled. You can still use the command line options:");
+    console.log("  password-generator --help");
     this.cleanup();
     process.exit(0);
   }
@@ -315,12 +312,12 @@ export class OnboardingFlow {
     const indicators = [];
     for (let i = 0; i < this.totalSteps; i++) {
       if (i <= this.currentStep) {
-        indicators.push('●');
+        indicators.push("●");
       } else {
-        indicators.push('○');
+        indicators.push("○");
       }
     }
-    return indicators.join('') + ` (${this.currentStep + 1}/${this.totalSteps})`;
+    return indicators.join("") + ` (${this.currentStep + 1}/${this.totalSteps})`;
   }
 
   /**
@@ -335,46 +332,46 @@ export class OnboardingFlow {
    */
   renderCurrentStep() {
     /* c8 ignore next - early return when showing examples */
-    if (this.showingExamples) return;
+    if (this.showingExamples) {return;}
 
     this.clearScreen();
 
     // Header
-    console.log('🔐 Password Generator Setup');
-    console.log('═'.repeat(50));
-    console.log('');
+    console.log("🔐 Password Generator Setup");
+    console.log("═".repeat(50));
+    console.log("");
 
     // Progress indicator
     console.log(`Progress: ${this.getProgressIndicator()}`);
-    console.log('');
+    console.log("");
 
     // Step content
     const stepTitles = [
-      'Welcome! How would you like to proceed?',
-      'Choose your password style:',
-      'How many segments do you want?',
-      'Choose a separator between segments:'
+      "Welcome! How would you like to proceed?",
+      "Choose your password style:",
+      "How many segments do you want?",
+      "Choose a separator between segments:"
     ];
 
     console.log(stepTitles[this.currentStep]);
-    console.log('');
+    console.log("");
 
     // Options
     const options = this.getCurrentOptions();
     options.forEach((option, index) => {
-      const prefix = this.selectedIndex === index ? '→' : ' ';
+      const prefix = this.selectedIndex === index ? "→" : " ";
       const number = index + 1;
       console.log(`${prefix} ${number}. ${option}`);
     });
 
     // Controls
-    console.log('');
-    console.log('Controls:');
-    console.log('• ↑↓ or 1-3: Navigate');
-    console.log('• ENTER: Select');
-    console.log('• SPACE: Show examples');
-    console.log('• ESC: Go back');
-    console.log('• Ctrl+C: Exit');
+    console.log("");
+    console.log("Controls:");
+    console.log("• ↑↓ or 1-3: Navigate");
+    console.log("• ENTER: Select");
+    console.log("• SPACE: Show examples");
+    console.log("• ESC: Go back");
+    console.log("• Ctrl+C: Exit");
   }
 
   /**

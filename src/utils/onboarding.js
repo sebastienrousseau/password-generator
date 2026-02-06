@@ -1,11 +1,8 @@
 // Copyright © 2022-2024 Password Generator. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-import readline from "readline";
-import { emitKeypressEvents } from "readline";
+import readline, { emitKeypressEvents } from "readline";
 import {
-  VALID_PASSWORD_TYPES,
-  VALID_PRESETS,
   getPresetConfig
 } from "../config.js";
 
@@ -81,34 +78,34 @@ const promptWithNavigation = (question, options, rl, step, totalSteps, examples 
     };
 
     const handleKeypress = (str, key) => {
-      if (!key) return;
+      if (!key) {return;}
 
       switch (key.name) {
-        case 'up':
+        case "up":
           selectedIndex = selectedIndex > 0 ? selectedIndex - 1 : options.length - 1;
           renderMenu();
           break;
-        case 'down':
+        case "down":
           selectedIndex = selectedIndex < options.length - 1 ? selectedIndex + 1 : 0;
           renderMenu();
           break;
-        case 'return':
-          process.stdin.removeListener('keypress', handleKeypress);
+        case "return":
+          process.stdin.removeListener("keypress", handleKeypress);
           if (process.stdin.isTTY) {
             process.stdin.setRawMode(false);
           }
           console.log(`\n✅ Selected: ${options[selectedIndex]}\n`);
           resolve(options[selectedIndex]);
           break;
-        case 'escape':
-          process.stdin.removeListener('keypress', handleKeypress);
+        case "escape":
+          process.stdin.removeListener("keypress", handleKeypress);
           if (process.stdin.isTTY) {
             process.stdin.setRawMode(false);
           }
           console.log("\n⬅️  Going back...\n");
-          resolve('__BACK__');
+          resolve("__BACK__");
           break;
-        case 'space':
+        case "space":
           showingExamples = !showingExamples;
           renderMenu();
           break;
@@ -118,7 +115,7 @@ const promptWithNavigation = (question, options, rl, step, totalSteps, examples 
             const index = parseInt(str) - 1;
             if (index < options.length) {
               selectedIndex = index;
-              process.stdin.removeListener('keypress', handleKeypress);
+              process.stdin.removeListener("keypress", handleKeypress);
               if (process.stdin.isTTY) {
                 process.stdin.setRawMode(false);
               }
@@ -130,7 +127,7 @@ const promptWithNavigation = (question, options, rl, step, totalSteps, examples 
       }
     };
 
-    process.stdin.on('keypress', handleKeypress);
+    process.stdin.on("keypress", handleKeypress);
     renderMenu();
   });
 };
@@ -169,7 +166,7 @@ const displayWelcome = () => {
  * @returns {Promise<string>} The selected password type
  */
 /* c8 ignore start - Interactive TUI requires TTY and user input */
-const selectPasswordType = async (rl) => {
+const selectPasswordType = async(rl) => {
   const options = [
     "🔐 strong - Maximum security for important accounts",
     "🧠 memorable - Easy to remember for daily use",
@@ -194,17 +191,72 @@ const selectPasswordType = async (rl) => {
     examples
   );
 
-  if (result === '__BACK__') {
+  if (result === "__BACK__") {
     console.log("❌ Cannot go back from first step.");
     return await selectPasswordType(rl);
   }
 
   // Map display option back to type
-  if (result.includes("strong")) return "strong";
-  if (result.includes("memorable")) return "memorable";
-  if (result.includes("base64")) return "base64";
+  if (result.includes("strong")) {return "strong";}
+  if (result.includes("memorable")) {return "memorable";}
+  if (result.includes("base64")) {return "base64";}
 
   return "strong"; // fallback
+};
+/* c8 ignore stop */
+
+/**
+ * Handles custom configuration for advanced users.
+ * @param {readline.Interface} rl - The readline interface
+ * @param {string} passwordType - The selected password type
+ * @returns {Promise<Object>} Custom configuration object
+ */
+/* c8 ignore start - Interactive TUI requires TTY and user input */
+const customConfiguration = async(rl, passwordType) => {
+  console.log("\n⚙️  Custom Configuration");
+  console.log("─".repeat(25));
+
+  const config = { type: passwordType };
+
+  if (passwordType !== "memorable") {
+    while (true) {
+      const lengthAnswer = await askQuestion("Password chunk length (8-64): ", rl);
+      const length = parseInt(lengthAnswer);
+      if (length >= 8 && length <= 64) {
+        config.length = length;
+        break;
+      }
+      console.log("❌ Please enter a number between 8 and 64.\n");
+    }
+  }
+
+  while (true) {
+    const iterationAnswer = await askQuestion(
+      passwordType === "memorable" ?
+        "Number of words (2-8): " :
+        "Number of chunks (1-10): ",
+      rl
+    );
+    const iteration = parseInt(iterationAnswer);
+    if (iteration >= 1 && iteration <= (passwordType === "memorable" ? 8 : 10)) {
+      config.iteration = iteration;
+      break;
+    }
+    console.log(
+      passwordType === "memorable" ?
+        "❌ Please enter a number between 2 and 8.\n" :
+        "❌ Please enter a number between 1 and 10.\n"
+    );
+  }
+
+  const separatorAnswer = await askQuestion(
+    "Separator character (-, _, space, or none): ", rl
+  );
+  config.separator = separatorAnswer === "none" ? "" :
+    separatorAnswer === "space" ? " " :
+      separatorAnswer || "-";
+
+  return config;
 };
 /* c8 ignore stop */
 
@@ -215,7 +267,7 @@ const selectPasswordType = async (rl) => {
  * @returns {Promise<Object>} The preset configuration or custom flag
  */
 /* c8 ignore start - Interactive TUI requires TTY and user input */
-const selectSecurityLevel = async (rl, passwordType) => {
+const selectSecurityLevel = async(rl, passwordType) => {
   const options = [
     "⚡ quick - Fast setup for everyday accounts",
     "🔒 secure - Maximum protection for important accounts",
@@ -243,7 +295,7 @@ const selectSecurityLevel = async (rl, passwordType) => {
     examples
   );
 
-  if (result === '__BACK__') {
+  if (result === "__BACK__") {
     return await selectPasswordType(rl);
   }
 
@@ -262,59 +314,6 @@ const selectSecurityLevel = async (rl, passwordType) => {
 };
 /* c8 ignore stop */
 
-/**
- * Handles custom configuration for advanced users.
- * @param {readline.Interface} rl - The readline interface
- * @param {string} passwordType - The selected password type
- * @returns {Promise<Object>} Custom configuration object
- */
-/* c8 ignore start - Interactive TUI requires TTY and user input */
-const customConfiguration = async (rl, passwordType) => {
-  console.log("\n⚙️  Custom Configuration");
-  console.log("─".repeat(25));
-
-  const config = { type: passwordType };
-
-  if (passwordType !== "memorable") {
-    while (true) {
-      const lengthAnswer = await askQuestion("Password chunk length (8-64): ", rl);
-      const length = parseInt(lengthAnswer);
-      if (length >= 8 && length <= 64) {
-        config.length = length;
-        break;
-      }
-      console.log("❌ Please enter a number between 8 and 64.\n");
-    }
-  }
-
-  while (true) {
-    const iterationAnswer = await askQuestion(
-      passwordType === "memorable"
-        ? "Number of words (2-8): "
-        : "Number of chunks (1-10): ",
-      rl
-    );
-    const iteration = parseInt(iterationAnswer);
-    if (iteration >= 1 && iteration <= (passwordType === "memorable" ? 8 : 10)) {
-      config.iteration = iteration;
-      break;
-    }
-    console.log(
-      passwordType === "memorable"
-        ? "❌ Please enter a number between 2 and 8.\n"
-        : "❌ Please enter a number between 1 and 10.\n"
-    );
-  }
-
-  const separatorAnswer = await askQuestion(
-    "Separator character (-, _, space, or none): ", rl
-  );
-  config.separator = separatorAnswer === "none" ? "" :
-                     separatorAnswer === "space" ? " " :
-                     separatorAnswer || "-";
-
-  return config;
-};
 /* c8 ignore stop */
 
 /**
@@ -323,7 +322,7 @@ const customConfiguration = async (rl, passwordType) => {
  * @returns {Promise<boolean>} Whether to copy to clipboard
  */
 /* c8 ignore start - Interactive TUI requires TTY and user input */
-const selectClipboardOption = async (rl) => {
+const selectClipboardOption = async(rl) => {
   const options = [
     "✅ Yes - Copy to clipboard automatically",
     "❌ No - Display password only"
@@ -345,7 +344,7 @@ const selectClipboardOption = async (rl) => {
     examples
   );
 
-  if (result === '__BACK__') {
+  if (result === "__BACK__") {
     return await selectSecurityLevel(rl);
   }
 
@@ -455,7 +454,7 @@ const displayResults = (config, clipboard, preset) => {
  * @returns {Promise<Object>} Configuration object with clipboard setting
  */
 /* c8 ignore start - Interactive TUI requires TTY and user input */
-export const runOnboarding = async () => {
+export const runOnboarding = async() => {
   const rl = createInterface();
 
   try {

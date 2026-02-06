@@ -151,9 +151,9 @@ const mergePresetWithOptions = (preset, userOptions) => {
 const validateFinalConfig = (config, hasPreset) => {
   const missingRequired = [];
 
-  if (!config.type) missingRequired.push("type");
-  if (config.iteration === undefined) missingRequired.push("iteration");
-  if (config.separator === undefined) missingRequired.push("separator");
+  if (!config.type) {missingRequired.push("type");}
+  if (config.iteration === undefined) {missingRequired.push("iteration");}
+  if (config.separator === undefined) {missingRequired.push("separator");}
 
   if (missingRequired.length > 0) {
     /* c8 ignore next 3 - defensive code: valid presets always have required fields */
@@ -249,9 +249,9 @@ program
 // Only parse argv when running as CLI (not when imported as a module)
 // Check if this file is being run directly (not imported)
 const isMainModule = process.argv[1] && (
-  process.argv[1].endsWith('password-generator.js') ||
-  process.argv[1].endsWith('index.js') ||
-  process.argv[1].includes('bin/password-generator')
+  process.argv[1].endsWith("password-generator.js") ||
+  process.argv[1].endsWith("index.js") ||
+  process.argv[1].includes("bin/password-generator")
 );
 
 if (isMainModule) {
@@ -262,18 +262,18 @@ if (isMainModule) {
     // No arguments provided
     if (!process.stdin.isTTY) {
       // Not in a terminal - show help instead
-      console.log('🔐 Password Generator');
-      console.log('\nFor interactive setup, run this command in a terminal.');
-      console.log('For command-line usage:');
-      console.log('  password-generator --help');
-      console.log('\nQuick examples:');
-      console.log('  password-generator -p quick');
-      console.log('  password-generator -t strong -i 3 -s "-"');
+      console.log("🔐 Password Generator");
+      console.log("\nFor interactive setup, run this command in a terminal.");
+      console.log("For command-line usage:");
+      console.log("  password-generator --help");
+      console.log("\nQuick examples:");
+      console.log("  password-generator -p quick");
+      console.log("  password-generator -t strong -i 3 -s \"-\"");
     /* c8 ignore next - else branch requires TTY */
     } else {
       /* c8 ignore start - Interactive TTY onboarding requires user input */
       // In a terminal - start interactive onboarding
-      startOnboarding(async (config) => {
+      startOnboarding(async(config) => {
         try {
           // Generate password with onboarding config
           const password = await PasswordGenerator({

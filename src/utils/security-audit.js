@@ -50,21 +50,10 @@ const ENTROPY_CONSTANTS = {
 };
 
 /**
- * Enables or disables audit mode
- * @param {boolean} enabled - Whether to enable audit tracking
- */
-export const setAuditMode = (enabled) => {
-  auditEnabled = enabled;
-  if (enabled) {
-    resetAuditSession();
-  }
-};
-
-/**
  * Resets audit session state for new password generation
  */
 export const resetAuditSession = () => {
-  if (!auditEnabled) return;
+  if (!auditEnabled) {return;}
 
   entropyLog = [];
   algorithmUsage = {};
@@ -76,6 +65,17 @@ export const resetAuditSession = () => {
 };
 
 /**
+ * Enables or disables audit mode
+ * @param {boolean} enabled - Whether to enable audit tracking
+ */
+export const setAuditMode = (enabled) => {
+  auditEnabled = enabled;
+  if (enabled) {
+    resetAuditSession();
+  }
+};
+
+/**
  * Records entropy source usage during password generation
  * @param {string} source - The entropy source ('crypto.randomBytes', 'crypto.randomInt', etc.)
  * @param {number} calls - Number of calls to this source
@@ -83,7 +83,7 @@ export const resetAuditSession = () => {
  * @param {Object} details - Additional details about the entropy generation
  */
 export const recordEntropyUsage = (source, calls, entropyBits, details = {}) => {
-  if (!auditEnabled) return;
+  if (!auditEnabled) {return;}
 
   const auditStart = performance.now();
 
@@ -104,7 +104,7 @@ export const recordEntropyUsage = (source, calls, entropyBits, details = {}) => 
  * @param {Object} config - Configuration parameters for the algorithm
  */
 export const recordAlgorithmUsage = (algorithm, config = {}) => {
-  if (!auditEnabled) return;
+  if (!auditEnabled) {return;}
 
   const auditStart = performance.now();
 
@@ -165,9 +165,54 @@ export const setDictionarySize = (size) => {
  * Finishes audit session and calculates final metrics
  */
 export const finishAuditSession = () => {
-  if (!auditEnabled) return;
+  if (!auditEnabled) {return;}
 
   performanceMetrics.generationEnd = performance.now();
+};
+
+/**
+ * Determines security level based on total entropy
+ * @param {number} entropyBits - Total entropy in bits
+ * @return {string} Security level classification
+ */
+const getSecurityLevel = (entropyBits) => {
+  if (entropyBits >= 256) {return "EXCELLENT (256+ bits)";}
+  if (entropyBits >= 128) {return "STRONG (128-255 bits)";}
+  if (entropyBits >= 80) {return "GOOD (80-127 bits)";}
+  if (entropyBits >= 64) {return "MODERATE (64-79 bits)";}
+  return "WEAK (<64 bits)";
+};
+
+/**
+ * Creates entropy breakdown by source type
+ * @return {Object} Entropy breakdown by source
+ */
+const getEntropyBreakdown = () => {
+  const breakdown = {};
+
+  for (const entry of entropyLog) {
+    if (!breakdown[entry.source]) {
+      breakdown[entry.source] = 0;
+    }
+    breakdown[entry.source] += entry.entropyBits;
+  }
+
+  return breakdown;
+};
+
+/**
+ * Provides security recommendations based on entropy level
+ * @param {number} entropyBits - Total entropy in bits
+ * @return {string} Security recommendation
+ */
+const getSecurityRecommendation = (entropyBits) => {
+  if (entropyBits >= 128) {
+    return "Excellent security. Suitable for high-security applications.";
+  } else if (entropyBits >= 80) {
+    return "Good security for most applications. Consider increasing length for high-security needs.";
+  } else {
+    return "Consider increasing password length or iteration count for better security.";
+  }
 };
 
 /**
@@ -215,49 +260,4 @@ export const generateAuditReport = () => {
       recommendation: getSecurityRecommendation(totalEntropyBits)
     }
   };
-};
-
-/**
- * Determines security level based on total entropy
- * @param {number} entropyBits - Total entropy in bits
- * @return {string} Security level classification
- */
-const getSecurityLevel = (entropyBits) => {
-  if (entropyBits >= 256) return "EXCELLENT (256+ bits)";
-  if (entropyBits >= 128) return "STRONG (128-255 bits)";
-  if (entropyBits >= 80) return "GOOD (80-127 bits)";
-  if (entropyBits >= 64) return "MODERATE (64-79 bits)";
-  return "WEAK (<64 bits)";
-};
-
-/**
- * Creates entropy breakdown by source type
- * @return {Object} Entropy breakdown by source
- */
-const getEntropyBreakdown = () => {
-  const breakdown = {};
-
-  for (const entry of entropyLog) {
-    if (!breakdown[entry.source]) {
-      breakdown[entry.source] = 0;
-    }
-    breakdown[entry.source] += entry.entropyBits;
-  }
-
-  return breakdown;
-};
-
-/**
- * Provides security recommendations based on entropy level
- * @param {number} entropyBits - Total entropy in bits
- * @return {string} Security recommendation
- */
-const getSecurityRecommendation = (entropyBits) => {
-  if (entropyBits >= 128) {
-    return "Excellent security. Suitable for high-security applications.";
-  } else if (entropyBits >= 80) {
-    return "Good security for most applications. Consider increasing length for high-security needs.";
-  } else {
-    return "Consider increasing password length or iteration count for better security.";
-  }
 };
