@@ -4,6 +4,12 @@
 import { randomBytes, randomInt } from "crypto";
 import { BASE64_CHARSET } from "../constants.js";
 import { CRYPTO_ERRORS } from "../errors.js";
+import {
+  recordEntropyUsage,
+  recordAlgorithmUsage,
+  calculateBase64Entropy,
+  calculateBase64ChunkEntropy
+} from "./security-audit.js";
 
 /**
  * Validates that a value is a positive integer, throwing a RangeError if not.
@@ -27,7 +33,20 @@ export const validatePositiveInteger = (value, name) => {
  */
 export const generateRandomBase64 = (byteLength) => {
   validatePositiveInteger(byteLength, "byteLength");
-  return randomBytes(byteLength).toString("base64");
+  const result = randomBytes(byteLength).toString("base64");
+
+  // Record entropy usage for audit
+  recordEntropyUsage("crypto.randomBytes", 1, calculateBase64Entropy(byteLength), {
+    byteLength,
+    outputLength: result.length,
+    method: "base64-encoding"
+  });
+  recordAlgorithmUsage("base64-password-generation", {
+    byteLength,
+    encoding: "base64"
+  });
+
+  return result;
 };
 
 /**
@@ -46,6 +65,18 @@ export const generateBase64Chunk = (length) => {
   for (let i = 0; i < length; i++) {
     result += BASE64_CHARSET[randomInt(BASE64_CHARSET.length)];
   }
+
+  // Record entropy usage for audit
+  recordEntropyUsage("crypto.randomInt", length, calculateBase64ChunkEntropy(length), {
+    charsetSize: BASE64_CHARSET.length,
+    outputLength: length,
+    method: "character-by-character"
+  });
+  recordAlgorithmUsage("base64-chunk-generation", {
+    charsetSize: BASE64_CHARSET.length,
+    outputLength: length
+  });
+
   return result;
 };
 

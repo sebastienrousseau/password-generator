@@ -16,6 +16,34 @@
 export const VALID_PASSWORD_TYPES = ["strong", "base64", "memorable"];
 
 /**
+ * Valid preset profile names.
+ */
+export const VALID_PRESETS = ["quick", "secure", "memorable"];
+
+/**
+ * Preset profile configurations for zero-config CLI usage.
+ */
+export const PRESET_PROFILES = {
+  quick: {
+    type: "strong",
+    length: 12,
+    iteration: 3,
+    separator: "-",
+  },
+  secure: {
+    type: "strong",
+    length: 16,
+    iteration: 4,
+    separator: "",
+  },
+  memorable: {
+    type: "memorable",
+    iteration: 4,
+    separator: "-",
+  },
+};
+
+/**
  * Default values for CLI options.
  */
 export const CLI_DEFAULTS = {
@@ -36,6 +64,10 @@ export const CLI_OPTIONS = {
   name: "password-generator",
   description: "A fast, simple and powerful utility for generating strong, unique and random passwords",
   options: {
+    preset: {
+      flags: "-p, --preset <preset>",
+      description: `use a preset configuration (${VALID_PRESETS.join(", ")})`,
+    },
     type: {
       flags: "-t, --type <type>",
       description: `password type (${VALID_PASSWORD_TYPES.join(", ")})`,
@@ -63,6 +95,11 @@ export const CLI_OPTIONS = {
       description: "copy the generated password to clipboard",
       defaultValue: CLI_DEFAULTS.clipboard,
     },
+    audit: {
+      flags: "-a, --audit",
+      description: "show security audit with entropy sources and algorithms used",
+      defaultValue: false,
+    },
   },
 };
 
@@ -83,4 +120,33 @@ export const isValidPasswordType = (type) => {
  */
 export const getValidTypesString = () => {
   return VALID_PASSWORD_TYPES.join(", ");
+};
+
+/**
+ * Helper function to validate preset name.
+ *
+ * @param {string} preset - The preset name to validate.
+ * @returns {boolean} True if the preset is valid, false otherwise.
+ */
+export const isValidPreset = (preset) => {
+  return VALID_PRESETS.includes(preset);
+};
+
+/**
+ * Helper function to get preset configuration.
+ *
+ * @param {string} preset - The preset name.
+ * @returns {Object|null} Preset configuration object or null if invalid.
+ */
+export const getPresetConfig = (preset) => {
+  return isValidPreset(preset) ? PRESET_PROFILES[preset] : null;
+};
+
+/**
+ * Helper function to get formatted valid presets string for error messages.
+ *
+ * @returns {string} Comma-separated list of valid preset names.
+ */
+export const getValidPresetsString = () => {
+  return VALID_PRESETS.join(", ");
 };

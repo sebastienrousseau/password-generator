@@ -5,6 +5,12 @@ import { randomNumber } from "../utils/randomNumber.js";
 import { readFile } from "fs/promises";
 import { toTitleCase } from "../utils/strings.js";
 import { validatePositiveInteger } from "../utils/crypto.js";
+import {
+  recordEntropyUsage,
+  recordAlgorithmUsage,
+  calculateDictionaryEntropy,
+  setDictionarySize
+} from "../utils/security-audit.js";
 
 /** @type {Object|null} Cached dictionary to avoid repeated file reads. */
 let dictionaryCache = null;
@@ -21,6 +27,8 @@ const loadDictionary = async() => {
         encoding: "utf8",
       }),
     );
+    // Set dictionary size for entropy calculations
+    setDictionarySize(dictionaryCache.entries.length);
   }
   return dictionaryCache;
 };
@@ -41,6 +49,19 @@ export const generatePassword = async({ iteration, separator }) => {
     return toTitleCase(
       dictionary.entries[randomNumber(dictionary.entries.length)],
     );
+  });
+
+  // Record entropy usage for audit
+  recordEntropyUsage("crypto.randomInt", iteration, calculateDictionaryEntropy(dictionary.entries.length, iteration), {
+    dictionarySize: dictionary.entries.length,
+    wordCount: iteration,
+    method: "dictionary-lookup"
+  });
+  recordAlgorithmUsage("memorable-password-generation", {
+    dictionarySize: dictionary.entries.length,
+    wordCount: iteration,
+    separator,
+    transformations: ["toTitleCase", "space-removal"]
   });
 
   const password = memorable.join(separator).replace(/ /g, "");
