@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 import { expect } from "chai";
-import { isFirstRun, runOnboarding } from "../../src/utils/onboarding.js";
+import { isFirstRun, runOnboarding } from "../../src/onboarding.js";
 
 describe("Onboarding Utils Module", function () {
   // Store original values

@@ -4,7 +4,7 @@
 import { Command } from "commander";
 import clipboardy from "clipboardy";
 import { CLI_OPTIONS } from "../config.js";
-import { startOnboarding } from "./onboarding.js";
+import { startOnboarding } from "../onboarding.js";
 
 // Import extracted services
 import { processConfiguration } from "../services/config-service.js";
