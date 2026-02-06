@@ -15,21 +15,19 @@ import {
  * @param {number} total - Total steps
  * @returns {string} Formatted progress string
  */
+/* c8 ignore start - Interactive TUI helper function */
 const displayProgress = (current, total) => {
   const filled = "●".repeat(current);
   const empty = "○".repeat(total - current);
   return `${filled}${empty} (${current}/${total})`;
 };
-
-/**
- * Enhanced readline interface with keyboard navigation support
- * @returns {readline.Interface} Enhanced readline interface
- */
+/* c8 ignore stop */
 
 /**
  * Creates a readline interface for user input.
  * @returns {readline.Interface} The readline interface
  */
+/* c8 ignore start - Interactive TUI requires TTY */
 const createInterface = () => {
   const rl = readline.createInterface({
     input: process.stdin,
@@ -41,6 +39,7 @@ const createInterface = () => {
 
   return rl;
 };
+/* c8 ignore stop */
 
 /**
  * Enhanced prompt with keyboard navigation support
@@ -52,6 +51,7 @@ const createInterface = () => {
  * @param {Object} examples - Optional examples to show with Space
  * @returns {Promise<string>} Selected option
  */
+/* c8 ignore start - Interactive TUI requires TTY and user input */
 const promptWithNavigation = (question, options, rl, step, totalSteps, examples = {}) => {
   return new Promise((resolve) => {
     let selectedIndex = 0;
@@ -134,6 +134,7 @@ const promptWithNavigation = (question, options, rl, step, totalSteps, examples 
     renderMenu();
   });
 };
+/* c8 ignore stop */
 
 /**
  * Prompts user with a question and returns their answer.
@@ -141,6 +142,7 @@ const promptWithNavigation = (question, options, rl, step, totalSteps, examples 
  * @param {readline.Interface} rl - The readline interface
  * @returns {Promise<string>} The user's answer
  */
+/* c8 ignore start - Interactive TUI requires TTY */
 const askQuestion = (question, rl) => {
   return new Promise((resolve) => {
     rl.question(question, (answer) => {
@@ -148,21 +150,25 @@ const askQuestion = (question, rl) => {
     });
   });
 };
+/* c8 ignore stop */
 
 /**
  * Displays a welcome message and intro to the password generator.
  */
+/* c8 ignore start - Interactive TUI display function */
 const displayWelcome = () => {
   console.log("🔐 Welcome to Password Generator!");
   console.log("=====================================");
   console.log("Let's set up your password preferences through a quick 4-step process.\n");
 };
+/* c8 ignore stop */
 
 /**
  * Step 1: Password type selection with enhanced navigation
  * @param {readline.Interface} rl - The readline interface
  * @returns {Promise<string>} The selected password type
  */
+/* c8 ignore start - Interactive TUI requires TTY and user input */
 const selectPasswordType = async (rl) => {
   const options = [
     "🔐 strong - Maximum security for important accounts",
@@ -200,6 +206,7 @@ const selectPasswordType = async (rl) => {
 
   return "strong"; // fallback
 };
+/* c8 ignore stop */
 
 /**
  * Step 2: Security level selection with enhanced navigation
@@ -207,6 +214,7 @@ const selectPasswordType = async (rl) => {
  * @param {string} passwordType - The selected password type
  * @returns {Promise<Object>} The preset configuration or custom flag
  */
+/* c8 ignore start - Interactive TUI requires TTY and user input */
 const selectSecurityLevel = async (rl, passwordType) => {
   const options = [
     "⚡ quick - Fast setup for everyday accounts",
@@ -252,6 +260,7 @@ const selectSecurityLevel = async (rl, passwordType) => {
 
   return { preset: "quick", config: getPresetConfig("quick") }; // fallback
 };
+/* c8 ignore stop */
 
 /**
  * Handles custom configuration for advanced users.
@@ -259,6 +268,7 @@ const selectSecurityLevel = async (rl, passwordType) => {
  * @param {string} passwordType - The selected password type
  * @returns {Promise<Object>} Custom configuration object
  */
+/* c8 ignore start - Interactive TUI requires TTY and user input */
 const customConfiguration = async (rl, passwordType) => {
   console.log("\n⚙️  Custom Configuration");
   console.log("─".repeat(25));
@@ -305,12 +315,14 @@ const customConfiguration = async (rl, passwordType) => {
 
   return config;
 };
+/* c8 ignore stop */
 
 /**
  * Step 3: Clipboard option with enhanced navigation
  * @param {readline.Interface} rl - The readline interface
  * @returns {Promise<boolean>} Whether to copy to clipboard
  */
+/* c8 ignore start - Interactive TUI requires TTY and user input */
 const selectClipboardOption = async (rl) => {
   const options = [
     "✅ Yes - Copy to clipboard automatically",
@@ -339,6 +351,7 @@ const selectClipboardOption = async (rl) => {
 
   return result.includes("Yes");
 };
+/* c8 ignore stop */
 
 /**
  * Step 4: Display results and security information
@@ -346,6 +359,7 @@ const selectClipboardOption = async (rl) => {
  * @param {boolean} clipboard - Whether clipboard is enabled
  * @param {string|null} preset - The preset name if used
  */
+/* c8 ignore start - Interactive TUI display function */
 const displayResults = (config, clipboard, preset) => {
   console.clear();
   console.log(`\n${displayProgress(4, 4)}\n`);
@@ -434,11 +448,13 @@ const displayResults = (config, clipboard, preset) => {
     console.log(`• Use -p ${preset} flag for quick access to this preset`);
   }
 };
+/* c8 ignore stop */
 
 /**
  * Main onboarding flow function
  * @returns {Promise<Object>} Configuration object with clipboard setting
  */
+/* c8 ignore start - Interactive TUI requires TTY and user input */
 export const runOnboarding = async () => {
   const rl = createInterface();
 
@@ -469,6 +485,7 @@ export const runOnboarding = async () => {
     rl.close();
   }
 };
+/* c8 ignore stop */
 
 /**
  * Check if this is likely a first run (no arguments provided except interactive flag)

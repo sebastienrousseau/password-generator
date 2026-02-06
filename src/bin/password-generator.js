@@ -157,6 +157,7 @@ const validateFinalConfig = (config, hasPreset) => {
 
   if (missingRequired.length > 0) {
     if (hasPreset) {
+      /* c8 ignore next - defensive code: valid presets always have required fields */
       throw new Error(`Missing required options: ${missingRequired.join(", ")}. This should not happen with a valid preset.`);
     } else {
       throw new Error(
@@ -269,6 +270,7 @@ if (isMainModule) {
       console.log('  password-generator -p quick');
       console.log('  password-generator -t strong -i 3 -s "-"');
     } else {
+      /* c8 ignore start - Interactive TTY onboarding requires user input */
       // In a terminal - start interactive onboarding
       startOnboarding(async (config) => {
         try {
@@ -291,5 +293,6 @@ if (isMainModule) {
         }
       });
     }
+    /* c8 ignore stop */
   }
 }

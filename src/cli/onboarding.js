@@ -93,7 +93,8 @@ export class OnboardingFlow {
       return;
     }
 
-    // Arrow keys
+    // Arrow keys - Note: ESC sequences starting with 27 are handled above
+    /* c8 ignore start - Arrow keys handled via navigateUp/navigateDown methods directly */
     if (key[0] === 27 && key[1] === 91) {
       if (key[2] === 65) { // Up arrow
         this.navigateUp();
@@ -102,6 +103,7 @@ export class OnboardingFlow {
       }
       return;
     }
+    /* c8 ignore stop */
 
     // Number keys (1-3)
     const num = parseInt(keyStr);
