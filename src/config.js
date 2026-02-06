@@ -76,13 +76,13 @@ export const CLI_OPTIONS = {
     length: {
       flags: "-l, --length <number>",
       description: "length of each password chunk",
-      parser: parseInt,
+      parser: (val) => parseInt(val, 10),
       defaultValue: CLI_DEFAULTS.length,
     },
     iteration: {
       flags: "-i, --iteration <number>",
       description: "number of password chunks or words",
-      parser: parseInt,
+      parser: (val) => parseInt(val, 10),
       required: true,
     },
     separator: {
@@ -106,7 +106,7 @@ export const CLI_OPTIONS = {
       defaultValue: false,
     },
     interactive: {
-      flags: "-i, --interactive",
+      flags: "--interactive",
       description: "start interactive guided setup for password generation",
       defaultValue: false,
     },

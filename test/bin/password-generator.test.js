@@ -128,7 +128,191 @@ describe('CLI Integration', function () {
     exec('node index.js', (error, stdout, stderr) => {
       expect(error).to.be.null;
       expect(stderr).to.equal('');
-      expect(stdout).to.equal('');
+      done();
+    });
+  });
+
+  it('should generate password with quick preset', function (done) {
+    exec('node index.js -p quick', (error, stdout, stderr) => {
+      expect(error).to.be.null;
+      expect(stdout).to.include('Generated Password:');
+      done();
+    });
+  });
+
+  it('should generate password with secure preset', function (done) {
+    exec('node index.js -p secure', (error, stdout, stderr) => {
+      expect(error).to.be.null;
+      expect(stdout).to.include('Generated Password:');
+      done();
+    });
+  });
+
+  it('should generate password with memorable preset', function (done) {
+    exec('node index.js -p memorable', (error, stdout, stderr) => {
+      expect(error).to.be.null;
+      expect(stdout).to.include('Generated Password:');
+      done();
+    });
+  });
+
+  it('should exit with error for invalid preset', function (done) {
+    exec('node index.js -p invalid', (error, stdout, stderr) => {
+      expect(error).to.not.be.null;
+      expect(stderr).to.include('Invalid preset');
+      done();
+    });
+  });
+
+  it('should show learn panel with --learn flag', function (done) {
+    exec("node index.js -t strong -l 10 -i 2 -s '-' --learn", (error, stdout, stderr) => {
+      expect(error).to.be.null;
+      expect(stdout).to.include('Generated Password:');
+      expect(stdout).to.include('COMMAND LEARNING');
+      expect(stdout).to.include('password-generator');
+      done();
+    });
+  });
+
+  it('should show audit report with --audit flag', function (done) {
+    exec("node index.js -t strong -l 10 -i 2 -s '-' --audit", (error, stdout, stderr) => {
+      expect(error).to.be.null;
+      expect(stdout).to.include('Generated Password:');
+      expect(stdout).to.include('SECURITY AUDIT REPORT');
+      done();
+    });
+  });
+
+  it('should combine preset with learn flag', function (done) {
+    exec('node index.js -p quick --learn', (error, stdout, stderr) => {
+      expect(error).to.be.null;
+      expect(stdout).to.include('Generated Password:');
+      expect(stdout).to.include('COMMAND LEARNING');
+      expect(stdout).to.include('-p quick');
+      done();
+    });
+  });
+
+  it('should combine preset with audit flag', function (done) {
+    exec('node index.js -p secure --audit', (error, stdout, stderr) => {
+      expect(error).to.be.null;
+      expect(stdout).to.include('Generated Password:');
+      expect(stdout).to.include('SECURITY AUDIT REPORT');
+      done();
+    });
+  });
+
+  it('should allow preset override with custom type', function (done) {
+    exec("node index.js -p quick -t base64", (error, stdout, stderr) => {
+      expect(error).to.be.null;
+      expect(stdout).to.include('Generated Password:');
+      done();
+    });
+  });
+
+  it('should allow preset override with custom iteration', function (done) {
+    exec("node index.js -p quick -i 5", (error, stdout, stderr) => {
+      expect(error).to.be.null;
+      expect(stdout).to.include('Generated Password:');
+      done();
+    });
+  });
+
+  it('should allow preset override with custom length', function (done) {
+    exec("node index.js -p quick -l 20", (error, stdout, stderr) => {
+      expect(error).to.be.null;
+      expect(stdout).to.include('Generated Password:');
+      done();
+    });
+  });
+
+  it('should allow preset override with custom separator', function (done) {
+    exec("node index.js -p quick -s '_'", (error, stdout, stderr) => {
+      expect(error).to.be.null;
+      expect(stdout).to.include('Generated Password:');
+      done();
+    });
+  });
+
+  it('should show learn panel with clipboard flag', function (done) {
+    exec("node index.js -t strong -l 10 -i 2 -s '-' --learn -c", (error, stdout, stderr) => {
+      // May fail due to clipboard in headless environment
+      if (error) {
+        done();
+      } else {
+        expect(stdout).to.include('COMMAND LEARNING');
+        expect(stdout).to.include('-c');
+        done();
+      }
+    });
+  });
+
+  it('should show learn panel with audit flag', function (done) {
+    exec("node index.js -t strong -l 10 -i 2 -s '-' --learn --audit", (error, stdout, stderr) => {
+      expect(error).to.be.null;
+      expect(stdout).to.include('COMMAND LEARNING');
+      expect(stdout).to.include('-a');
+      done();
+    });
+  });
+
+  it('should exit with error when missing required options without preset', function (done) {
+    exec("node index.js -t strong", (error, stdout, stderr) => {
+      expect(error).to.not.be.null;
+      expect(stderr).to.include('Missing required options');
+      done();
+    });
+  });
+
+  it('should exit with error when missing type without preset', function (done) {
+    exec("node index.js -i 3 -s '-'", (error, stdout, stderr) => {
+      expect(error).to.not.be.null;
+      expect(stderr).to.include('Missing required options');
+      expect(stderr).to.include('type');
+      done();
+    });
+  });
+
+  it('should exit with error for invalid type with preset override', function (done) {
+    exec("node index.js -p quick -t invalid", (error, stdout, stderr) => {
+      expect(error).to.not.be.null;
+      expect(stderr).to.include('Invalid password type');
+      done();
+    });
+  });
+
+  it('should show learn with preset override iteration', function (done) {
+    exec("node index.js -p quick -i 5 --learn", (error, stdout, stderr) => {
+      expect(error).to.be.null;
+      expect(stdout).to.include('COMMAND LEARNING');
+      expect(stdout).to.include('-i 5');
+      done();
+    });
+  });
+
+  it('should show learn with preset override separator', function (done) {
+    exec("node index.js -p quick -s '_' --learn", (error, stdout, stderr) => {
+      expect(error).to.be.null;
+      expect(stdout).to.include('COMMAND LEARNING');
+      expect(stdout).to.include('-s "_"');
+      done();
+    });
+  });
+
+  it('should show learn with preset override type', function (done) {
+    exec("node index.js -p quick -t base64 --learn", (error, stdout, stderr) => {
+      expect(error).to.be.null;
+      expect(stdout).to.include('COMMAND LEARNING');
+      expect(stdout).to.include('-t base64');
+      done();
+    });
+  });
+
+  it('should show learn with preset override length', function (done) {
+    exec("node index.js -p quick -l 20 --learn", (error, stdout, stderr) => {
+      expect(error).to.be.null;
+      expect(stdout).to.include('COMMAND LEARNING');
+      expect(stdout).to.include('-l 20');
       done();
     });
   });

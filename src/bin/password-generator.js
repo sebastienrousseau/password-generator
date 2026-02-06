@@ -246,41 +246,50 @@ program
   });
 
 // Only parse argv when running as CLI (not when imported as a module)
-const args = process.argv.slice(2);
-if (args.length > 0) {
-  program.parse();
-} else {
-  // No arguments provided
-  if (!process.stdin.isTTY) {
-    // Not in a terminal - show help instead
-    console.log('🔐 Password Generator');
-    console.log('\nFor interactive setup, run this command in a terminal.');
-    console.log('For command-line usage:');
-    console.log('  password-generator --help');
-    console.log('\nQuick examples:');
-    console.log('  password-generator -p quick');
-    console.log('  password-generator -t strong -i 3 -s "-"');
+// Check if this file is being run directly (not imported)
+const isMainModule = process.argv[1] && (
+  process.argv[1].endsWith('password-generator.js') ||
+  process.argv[1].endsWith('index.js') ||
+  process.argv[1].includes('bin/password-generator')
+);
+
+if (isMainModule) {
+  const args = process.argv.slice(2);
+  if (args.length > 0) {
+    program.parse();
   } else {
-    // In a terminal - start interactive onboarding
-    startOnboarding(async (config) => {
-      try {
-        // Generate password with onboarding config
-        const password = await PasswordGenerator({
-          type: config.type,
-          length: config.length,
-          iteration: config.iteration,
-          separator: config.separator,
-        });
+    // No arguments provided
+    if (!process.stdin.isTTY) {
+      // Not in a terminal - show help instead
+      console.log('🔐 Password Generator');
+      console.log('\nFor interactive setup, run this command in a terminal.');
+      console.log('For command-line usage:');
+      console.log('  password-generator --help');
+      console.log('\nQuick examples:');
+      console.log('  password-generator -p quick');
+      console.log('  password-generator -t strong -i 3 -s "-"');
+    } else {
+      // In a terminal - start interactive onboarding
+      startOnboarding(async (config) => {
+        try {
+          // Generate password with onboarding config
+          const password = await PasswordGenerator({
+            type: config.type,
+            length: config.length,
+            iteration: config.iteration,
+            separator: config.separator,
+          });
 
-        console.log(`Generated Password: ${password}`);
+          console.log(`Generated Password: ${password}`);
 
-        // Display command learning panel
-        const equivalentCommand = generateEquivalentCommand(config, null, {});
-        displayCommandLearningPanel(equivalentCommand);
-      } catch (error) {
-        console.error(`Error: ${error.message}`);
-        process.exit(1);
-      }
-    });
+          // Display command learning panel
+          const equivalentCommand = generateEquivalentCommand(config, null, {});
+          displayCommandLearningPanel(equivalentCommand);
+        } catch (error) {
+          console.error(`Error: ${error.message}`);
+          process.exit(1);
+        }
+      });
+    }
   }
 }

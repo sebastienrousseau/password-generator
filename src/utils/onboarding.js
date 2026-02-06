@@ -478,7 +478,7 @@ export const runOnboarding = async () => {
 export const isFirstRun = (args) => {
   // Filter out the interactive flags
   const nonInteractiveArgs = args.filter(arg =>
-    arg !== "--interactive" && arg !== "-i" && arg !== "password-generator"
+    arg !== "--interactive" && arg !== "password-generator"
   );
 
   // If no other arguments are provided, treat as first run
