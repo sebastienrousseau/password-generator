@@ -9,4 +9,4 @@ export {
   runOnboarding,
   isFirstRun,
   OnboardingFlow
-} from '../onboarding.js';
+} from "../onboarding.js";

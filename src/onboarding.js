@@ -1,8 +1,7 @@
 // Copyright © 2022-2024 Password Generator. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-import readline, { emitKeypressEvents } from "readline";
-import { createInterface } from "readline";
+import readline, { emitKeypressEvents, createInterface } from "readline";
 import {
   getPresetConfig,
   PRESET_PROFILES,
