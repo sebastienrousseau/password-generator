@@ -5,6 +5,7 @@ import readline, { emitKeypressEvents } from "readline";
 import {
   getPresetConfig
 } from "../config.js";
+import { CommandLearningPresenter } from "../presenters/CommandLearningPresenter.js";
 
 /**
  * Displays progress indicator in ●○○○ (1/4) format
@@ -394,58 +395,8 @@ const displayResults = (config, clipboard, preset) => {
     console.log("• Safe for URLs and most systems");
   }
 
-  console.log("\n💻 Command Learning Panel:");
-  console.log("─".repeat(30));
-  console.log("🎓 Next time, skip the setup and use this direct CLI command:");
-
-  // Build equivalent CLI command
-  let cliCommand = "password-generator";
-
-  if (preset) {
-    cliCommand += ` -p ${preset}`;
-  } else {
-    // Custom configuration command building
-    cliCommand += ` --type ${config.type}`;
-    if (config.length) {
-      cliCommand += ` --length ${config.length}`;
-    }
-    cliCommand += ` --iteration ${config.iteration}`;
-    if (config.separator && config.separator !== "-") {
-      cliCommand += ` --separator "${config.separator}"`;
-    }
-  }
-
-  if (clipboard) {
-    cliCommand += " -c";
-  }
-
-  console.log(`\n   ${cliCommand}\n`);
-  console.log("📚 Command breakdown:");
-  if (preset) {
-    console.log(`   -p ${preset}    Use the '${preset}' preset configuration`);
-  } else {
-    console.log(`   --type ${config.type}    Password type selection`);
-    if (config.length) {
-      console.log(`   --length ${config.length}     ${config.type === "memorable" ? "Word" : "Chunk"} length`);
-    }
-    console.log(`   --iteration ${config.iteration}   Number of ${config.type === "memorable" ? "words" : "chunks"}`);
-    if (config.separator && config.separator !== "-") {
-      console.log(`   --separator "${config.separator}"   Custom separator character`);
-    }
-  }
-  if (clipboard) {
-    console.log("   -c               Copy to clipboard");
-  }
-
-  console.log("\n🚀 Next Steps:");
-  console.log("─".repeat(15));
-  console.log("• Your password will be generated with these settings");
-  console.log("• Use --help to see all available CLI options");
-  console.log("• Run with --audit to see detailed security information");
-
-  if (preset) {
-    console.log(`• Use -p ${preset} flag for quick access to this preset`);
-  }
+  // Display command learning panel using the presenter
+  CommandLearningPresenter.displayFullCommandLearning(config, clipboard, preset);
 };
 /* c8 ignore stop */
 
