@@ -4,7 +4,7 @@
 import { Command } from "commander";
 import clipboardy from "clipboardy";
 import { PASSWORD_ERRORS } from "../errors.js";
-import { CLI_OPTIONS, CLI_DEFAULTS, isValidPasswordType } from "../config.js";
+import { CLI_OPTIONS } from "../config.js";
 
 /**
  * Generates a password of the specified type using the appropriate generator module.
