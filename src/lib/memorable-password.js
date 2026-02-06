@@ -4,6 +4,7 @@
 import { randomNumber } from "../utils/randomNumber.js";
 import { readFile } from "fs/promises";
 import { toTitleCase } from "../utils/strings.js";
+import { validatePositiveInteger } from "../utils/crypto.js";
 
 /** @type {Object|null} Cached dictionary to avoid repeated file reads. */
 let dictionaryCache = null;
@@ -13,7 +14,7 @@ let dictionaryCache = null;
  *
  * @return {Promise<Object>} The parsed dictionary object.
  */
-const loadDictionary = async () => {
+const loadDictionary = async() => {
   if (!dictionaryCache) {
     dictionaryCache = JSON.parse(
       await readFile(new URL("../dictionaries/common.json", import.meta.url), {
@@ -32,12 +33,9 @@ const loadDictionary = async () => {
  * @param {string} options.separator - The separator between words.
  * @return {Promise<string>} The generated password.
  */
-export const generatePassword = async ({ iteration, separator }) => {
+export const generatePassword = async({ iteration, separator }) => {
   const dictionary = await loadDictionary();
-
-  if (!Number.isInteger(iteration) || iteration < 1) {
-    throw new RangeError("The iteration argument must be a positive integer");
-  }
+  validatePositiveInteger(iteration, "iteration");
 
   const memorable = Array.from({ length: iteration }, () => {
     return toTitleCase(

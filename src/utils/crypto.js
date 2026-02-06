@@ -8,6 +8,19 @@ const BASE64_CHARSET =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
 /**
+ * Validates that a value is a positive integer, throwing a RangeError if not.
+ *
+ * @param {*} value The value to validate.
+ * @param {string} name The parameter name for the error message.
+ * @throws {RangeError} If value is not a positive integer.
+ */
+export const validatePositiveInteger = (value, name) => {
+  if (!Number.isInteger(value) || value < 1) {
+    throw new RangeError(`The ${name} argument must be a positive integer`);
+  }
+};
+
+/**
  * Generates a random base64 string of the specified byte length.
  *
  * @param {number} byteLength The number of random bytes to generate.
@@ -15,9 +28,7 @@ const BASE64_CHARSET =
  * @throws {RangeError} If byteLength is not a positive integer.
  */
 export const generateRandomBase64 = (byteLength) => {
-  if (!Number.isInteger(byteLength) || byteLength < 1) {
-    throw new RangeError("The byteLength argument must be a positive integer");
-  }
+  validatePositiveInteger(byteLength, "byteLength");
   return randomBytes(byteLength).toString("base64");
 };
 
@@ -32,9 +43,7 @@ export const generateRandomBase64 = (byteLength) => {
  * @throws {RangeError} If length is not a positive integer.
  */
 export const generateBase64Chunk = (length) => {
-  if (!Number.isInteger(length) || length < 1) {
-    throw new RangeError("The length argument must be a positive integer");
-  }
+  validatePositiveInteger(length, "length");
   let result = "";
   for (let i = 0; i < length; i++) {
     result += BASE64_CHARSET[randomInt(BASE64_CHARSET.length)];
@@ -51,9 +60,7 @@ export const generateBase64Chunk = (length) => {
  * @throws {RangeError} If length is not a positive integer.
  */
 export const splitString = (str, length) => {
-  if (!Number.isInteger(length) || length < 1) {
-    throw new RangeError("The length argument must be a positive integer");
-  }
+  validatePositiveInteger(length, "length");
   const substrings = str.match(new RegExp(`.{1,${length}}`, "g"));
   return substrings || [];
 };

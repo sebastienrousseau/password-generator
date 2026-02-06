@@ -14,7 +14,7 @@ import clipboardy from "clipboardy";
  * @param {string} data.separator - The separator between password chunks.
  * @return {Promise<string>} The generated password.
  */
-export const PasswordGenerator = async (data) => {
+export const PasswordGenerator = async(data) => {
   if (!data.type) {
     throw new Error("Password type is required");
   }
@@ -42,7 +42,7 @@ program
   .requiredOption("-i, --iteration <number>", "number of password chunks or words", parseInt)
   .requiredOption("-s, --separator <char>", "separator between password chunks")
   .option("-c, --clipboard", "copy the generated password to clipboard")
-  .action(async (opts) => {
+  .action(async(opts) => {
     try {
       const password = await PasswordGenerator({
         type: opts.type,

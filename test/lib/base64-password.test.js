@@ -1,48 +1,7 @@
 import { expect } from "chai";
-import {
-  generateRandomBase64String,
-  splitBase64String,
-  generatePassword,
-} from "../../src/lib/base64-password.js";
+import { generatePassword } from "../../src/lib/base64-password.js";
 
 describe("Base64 Password Generator", () => {
-  describe("generateRandomBase64String", () => {
-    it("should return a string", () => {
-      const result = generateRandomBase64String(16);
-      expect(result).to.be.a("string");
-    });
-
-    it("should contain only base64 characters", () => {
-      const result = generateRandomBase64String(32);
-      expect(result).to.match(/^[A-Za-z0-9+/=]+$/);
-    });
-
-    it("should generate different strings on each call", () => {
-      const results = new Set();
-      for (let i = 0; i < 10; i++) {
-        results.add(generateRandomBase64String(16));
-      }
-      expect(results.size).to.be.greaterThan(1);
-    });
-  });
-
-  describe("splitBase64String", () => {
-    it("should split a string into chunks of the specified length", () => {
-      const result = splitBase64String("abcdefghijkl", 4);
-      expect(result).to.deep.equal(["abcd", "efgh", "ijkl"]);
-    });
-
-    it("should handle strings not evenly divisible", () => {
-      const result = splitBase64String("abcde", 2);
-      expect(result).to.deep.equal(["ab", "cd", "e"]);
-    });
-
-    it("should return an empty array for an empty string", () => {
-      const result = splitBase64String("", 4);
-      expect(result).to.deep.equal([]);
-    });
-  });
-
   describe("generatePassword", () => {
     it("should return a string", () => {
       const result = generatePassword({ length: 8, iteration: 3, separator: "-" });
@@ -72,6 +31,22 @@ describe("Base64 Password Generator", () => {
     it("should work with a single iteration", () => {
       const result = generatePassword({ length: 16, iteration: 1, separator: "-" });
       expect(result).to.not.include("-");
+    });
+
+    it("should contain only base64 characters", () => {
+      const result = generatePassword({ length: 16, iteration: 2, separator: "-" });
+      const chunks = result.split("-");
+      chunks.forEach((chunk) => {
+        expect(chunk).to.match(/^[A-Za-z0-9+/=]+$/);
+      });
+    });
+
+    it("should generate different passwords on each call", () => {
+      const results = new Set();
+      for (let i = 0; i < 10; i++) {
+        results.add(generatePassword({ length: 16, iteration: 1, separator: "-" }));
+      }
+      expect(results.size).to.be.greaterThan(1);
     });
 
     it("should throw RangeError for length < 1", () => {

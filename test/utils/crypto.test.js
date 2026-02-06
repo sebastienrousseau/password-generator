@@ -1,12 +1,55 @@
 import { expect } from "chai";
 import assert from "assert";
 import {
+  validatePositiveInteger,
   generateRandomBase64,
   generateBase64Chunk,
   splitString,
 } from "../../src/utils/crypto.js";
 
 describe("Crypto Utilities", () => {
+  describe("validatePositiveInteger", () => {
+    it("should not throw for a valid positive integer", () => {
+      assert.doesNotThrow(() => validatePositiveInteger(1, "test"));
+      assert.doesNotThrow(() => validatePositiveInteger(100, "test"));
+    });
+
+    it("should throw RangeError for zero", () => {
+      assert.throws(
+        () => validatePositiveInteger(0, "count"),
+        { name: "RangeError", message: "The count argument must be a positive integer" }
+      );
+    });
+
+    it("should throw RangeError for negative values", () => {
+      assert.throws(
+        () => validatePositiveInteger(-5, "size"),
+        { name: "RangeError", message: "The size argument must be a positive integer" }
+      );
+    });
+
+    it("should throw RangeError for non-integer values", () => {
+      assert.throws(
+        () => validatePositiveInteger(2.5, "length"),
+        { name: "RangeError", message: "The length argument must be a positive integer" }
+      );
+    });
+
+    it("should throw RangeError for non-number values", () => {
+      assert.throws(
+        () => validatePositiveInteger("abc", "param"),
+        { name: "RangeError", message: "The param argument must be a positive integer" }
+      );
+    });
+
+    it("should include the parameter name in the error message", () => {
+      assert.throws(
+        () => validatePositiveInteger(0, "myParam"),
+        { message: "The myParam argument must be a positive integer" }
+      );
+    });
+  });
+
   describe("generateRandomBase64", () => {
     it("should return a string", () => {
       const result = generateRandomBase64(16);
