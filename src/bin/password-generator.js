@@ -18,6 +18,7 @@ import {
   finishAuditSession,
   generateAuditReport
 } from "../utils/security-audit.js";
+import { startOnboarding } from "../cli/onboarding.js";
 
 /**
  * Generates a password of the specified type using the appropriate generator module.
@@ -45,6 +46,72 @@ export const PasswordGenerator = async(data) => {
     }
     throw error;
   }
+};
+
+/**
+ * Generates the equivalent CLI command string based on the configuration used.
+ *
+ * @param {Object} config - The configuration that was used to generate the password.
+ * @param {string|undefined} preset - The preset used (if any).
+ * @param {Object} opts - The original CLI options passed by the user.
+ * @returns {string} The equivalent CLI command string.
+ */
+const generateEquivalentCommand = (config, preset, opts) => {
+  const parts = ["password-generator"];
+
+  if (preset) {
+    parts.push(`-p ${preset}`);
+    // Only add other options if they override the preset defaults
+    const presetConfig = getPresetConfig(preset);
+    if (config.type !== presetConfig.type) {
+      parts.push(`-t ${config.type}`);
+    }
+    if (config.length && config.length !== presetConfig.length) {
+      parts.push(`-l ${config.length}`);
+    }
+    if (config.iteration !== presetConfig.iteration) {
+      parts.push(`-i ${config.iteration}`);
+    }
+    if (config.separator !== presetConfig.separator) {
+      parts.push(`-s "${config.separator}"`);
+    }
+  } else {
+    // No preset, include all required options
+    parts.push(`-t ${config.type}`);
+    if (config.length) {
+      parts.push(`-l ${config.length}`);
+    }
+    parts.push(`-i ${config.iteration}`);
+    parts.push(`-s "${config.separator}"`);
+  }
+
+  // Add optional flags
+  if (opts.clipboard) {
+    parts.push("-c");
+  }
+  if (opts.audit) {
+    parts.push("-a");
+  }
+
+  return parts.join(" ");
+};
+
+/**
+ * Displays the command learning panel with the equivalent CLI command.
+ *
+ * @param {string} command - The equivalent CLI command string.
+ */
+const displayCommandLearningPanel = (command) => {
+  console.log("\n┌─────────────────────────────────────────────────────────┐");
+  console.log("│                    💡 COMMAND LEARNING                  │");
+  console.log("├─────────────────────────────────────────────────────────┤");
+  console.log("│ Equivalent CLI command for this password generation:   │");
+  console.log("│                                                         │");
+  console.log(`│ ${command.padEnd(55)} │`);
+  console.log("│                                                         │");
+  console.log("│ 💡 Copy this command to skip the guided mode next time │");
+  console.log("│ 🚀 Learn more: password-generator --help               │");
+  console.log("└─────────────────────────────────────────────────────────┘");
 };
 
 /**
@@ -121,6 +188,7 @@ program
   .option(CLI_OPTIONS.options.separator.flags, CLI_OPTIONS.options.separator.description)
   .option(CLI_OPTIONS.options.clipboard.flags, CLI_OPTIONS.options.clipboard.description)
   .option(CLI_OPTIONS.options.audit.flags, CLI_OPTIONS.options.audit.description)
+  .option(CLI_OPTIONS.options.learn.flags, CLI_OPTIONS.options.learn.description)
   .action(async(opts) => {
     try {
       // Enable audit mode if requested
@@ -159,6 +227,12 @@ program
         console.log("(Copied to clipboard)");
       }
 
+      // Display command learning panel if enabled
+      if (opts.learn) {
+        const equivalentCommand = generateEquivalentCommand(config, opts.preset, opts);
+        displayCommandLearningPanel(equivalentCommand);
+      }
+
       // Display security audit report if enabled
       if (opts.audit) {
         const auditReport = generateAuditReport();
@@ -175,4 +249,38 @@ program
 const args = process.argv.slice(2);
 if (args.length > 0) {
   program.parse();
+} else {
+  // No arguments provided
+  if (!process.stdin.isTTY) {
+    // Not in a terminal - show help instead
+    console.log('🔐 Password Generator');
+    console.log('\nFor interactive setup, run this command in a terminal.');
+    console.log('For command-line usage:');
+    console.log('  password-generator --help');
+    console.log('\nQuick examples:');
+    console.log('  password-generator -p quick');
+    console.log('  password-generator -t strong -i 3 -s "-"');
+  } else {
+    // In a terminal - start interactive onboarding
+    startOnboarding(async (config) => {
+      try {
+        // Generate password with onboarding config
+        const password = await PasswordGenerator({
+          type: config.type,
+          length: config.length,
+          iteration: config.iteration,
+          separator: config.separator,
+        });
+
+        console.log(`Generated Password: ${password}`);
+
+        // Display command learning panel
+        const equivalentCommand = generateEquivalentCommand(config, null, {});
+        displayCommandLearningPanel(equivalentCommand);
+      } catch (error) {
+        console.error(`Error: ${error.message}`);
+        process.exit(1);
+      }
+    });
+  }
 }

@@ -100,6 +100,16 @@ export const CLI_OPTIONS = {
       description: "show security audit with entropy sources and algorithms used",
       defaultValue: false,
     },
+    learn: {
+      flags: "--learn",
+      description: "show equivalent CLI command to help graduate from guided mode",
+      defaultValue: false,
+    },
+    interactive: {
+      flags: "-i, --interactive",
+      description: "start interactive guided setup for password generation",
+      defaultValue: false,
+    },
   },
 };
 
