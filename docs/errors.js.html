@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: lib/base64-password.js</title>
+    <title>JSDoc: Source: errors.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: lib/base64-password.js</h1>
+    <h1 class="page-title">Source: errors.js</h1>
 
     
 
@@ -29,28 +29,41 @@
             <pre class="prettyprint source linenums"><code>// Copyright © 2022-2024 Password Generator. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-import { generateRandomBase64, splitString, validatePositiveInteger } from "../utils/crypto.js";
+/**
+ * Centralized error message constants for the password generator.
+ *
+ * This module provides a single source of truth for all error messages
+ * used throughout the application, improving consistency and maintainability.
+ *
+ * @module errors
+ */
 
 /**
- * Generates a password using random Base64 characters with the specified configuration.
- *
- * @param {Object} options - Configuration options for password generation.
- * @param {number} options.length - The length of each password chunk.
- * @param {number} options.iteration - The number of password chunks.
- * @param {string} options.separator - The separator between password chunks.
- * @return {string} The generated password.
+ * Error messages for string validation and transformation utilities.
  */
-export const generatePassword = ({ length, iteration, separator }) => {
-  validatePositiveInteger(length, "length");
-  validatePositiveInteger(iteration, "iteration");
-
-  const base64String = generateRandomBase64(length * iteration);
-  const substrings = splitString(base64String, length);
-  return substrings.slice(0, iteration).join(separator);
+export const STRING_ERRORS = {
+  /** Error message when a non-string value is provided where a string is expected. */
+  INPUT_MUST_BE_STRING: "Input must be a string",
 };
 
-export default generatePassword;
-</code></pre>
+/**
+ * Error messages for cryptographic operations and validation.
+ */
+export const CRYPTO_ERRORS = {
+  /** Template for positive integer validation errors. Use with parameter name. */
+  MUST_BE_POSITIVE_INTEGER: (paramName) => `The ${paramName} argument must be a positive integer`,
+};
+
+/**
+ * Error messages for password generation operations.
+ */
+export const PASSWORD_ERRORS = {
+  /** Error message when password type is missing. */
+  TYPE_REQUIRED: "Password type is required",
+
+  /** Template for unknown password type errors. Use with type value. */
+  UNKNOWN_TYPE: (type) => `Unknown password type: "${type}". Valid types: strong, base64, memorable`,
+};</code></pre>
         </article>
     </section>
 

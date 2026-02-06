@@ -98,6 +98,208 @@
 
         
             
+<h4 class="name" id="PasswordGenerator"><span class="type-signature">(constant) </span>PasswordGenerator<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Generates a password of the specified type using the appropriate generator module.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="bin_password-generator.js.html">bin/password-generator.js</a>, <a href="bin_password-generator.js.html#line18">line 18</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="dictionaryCache"><span class="type-signature"></span>dictionaryCache<span class="type-signature"> :Object|null</span></h4>
+
+
+
+
+<div class="description">
+    Cached dictionary to avoid repeated file reads.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+|
+
+<span class="param-type">null</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_memorable-password.js.html">lib/memorable-password.js</a>, <a href="lib_memorable-password.js.html#line10">line 10</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="generateBase64Chunk"><span class="type-signature">(constant) </span>generateBase64Chunk<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Generates a random string of the exact character length using uniform
+selection from the base64 character set. Each character is independently
+chosen via crypto.randomInt() to avoid the bias introduced by slicing
+base64-encoded byte strings.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_crypto.js.html">utils/crypto.js</a>, <a href="utils_crypto.js.html#line43">line 43</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
 <h4 class="name" id="generatePassword"><span class="type-signature">(constant) </span>generatePassword<span class="type-signature"></span></h4>
 
 
@@ -142,7 +344,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_base64-password.js.html">lib/base64-password.js</a>, <a href="lib_base64-password.js.html#line38">line 38</a>
+        <a href="lib_base64-password.js.html">lib/base64-password.js</a>, <a href="lib_base64-password.js.html#line15">line 15</a>
     </li></ul></dd>
     
 
@@ -204,7 +406,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_memorable-password.js.html">lib/memorable-password.js</a>, <a href="lib_memorable-password.js.html#line23">line 23</a>
+        <a href="lib_memorable-password.js.html">lib/memorable-password.js</a>, <a href="lib_memorable-password.js.html#line36">line 36</a>
     </li></ul></dd>
     
 
@@ -228,7 +430,7 @@
 
 
 <div class="description">
-    Asynchronously generates a strong password based on the provided options.
+    Generates a strong password based on the provided options.
 </div>
 
 
@@ -266,7 +468,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_strong-password.js.html">lib/strong-password.js</a>, <a href="lib_strong-password.js.html#line37">line 37</a>
+        <a href="lib_strong-password.js.html">lib/strong-password.js</a>, <a href="lib_strong-password.js.html#line15">line 15</a>
     </li></ul></dd>
     
 
@@ -284,13 +486,13 @@
 
         
             
-<h4 class="name" id="generateRandomBase64String"><span class="type-signature">(constant) </span>generateRandomBase64String<span class="type-signature"></span></h4>
+<h4 class="name" id="generateRandomBase64"><span class="type-signature">(constant) </span>generateRandomBase64<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Generates a random base64 string of the specified length.
+    Generates a random base64 string of the specified byte length.
 </div>
 
 
@@ -328,7 +530,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_base64-password.js.html">lib/base64-password.js</a>, <a href="lib_base64-password.js.html#line13">line 13</a>
+        <a href="utils_crypto.js.html">utils/crypto.js</a>, <a href="utils_crypto.js.html#line28">line 28</a>
     </li></ul></dd>
     
 
@@ -346,13 +548,13 @@
 
         
             
-<h4 class="name" id="splitBase64String"><span class="type-signature">(constant) </span>splitBase64String<span class="type-signature"></span></h4>
+<h4 class="name" id="splitString"><span class="type-signature">(constant) </span>splitString<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Splits a base64 string into substrings of the specified length.
+    Splits a string into substrings of the specified length.
 </div>
 
 
@@ -390,7 +592,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_base64-password.js.html">lib/base64-password.js</a>, <a href="lib_base64-password.js.html#line24">line 24</a>
+        <a href="utils_crypto.js.html">utils/crypto.js</a>, <a href="utils_crypto.js.html#line60">line 60</a>
     </li></ul></dd>
     
 
@@ -408,13 +610,13 @@
 
         
             
-<h4 class="name" id="strongPassword"><span class="type-signature">(constant) </span>strongPassword<span class="type-signature"></span></h4>
+<h4 class="name" id="validatePositiveInteger"><span class="type-signature">(constant) </span>validatePositiveInteger<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Generates a strong password of a specified length using OpenSSL.
+    Validates that a value is a positive integer, throwing a RangeError if not.
 </div>
 
 
@@ -452,391 +654,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_strong-password.js.html">lib/strong-password.js</a>, <a href="lib_strong-password.js.html#line13">line 13</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="toCamelCase"><span class="type-signature">(constant) </span>toCamelCase<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    Converts a given string to camel case.
-
-Camel case is a naming convention where spaces or other delimiters are removed,
-and each word (except the first one) starts with a capital letter.
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_toCamelCase_toCamelCase.js.html">utils/toCamelCase/toCamelCase.js</a>, <a href="utils_toCamelCase_toCamelCase.js.html#line19">line 19</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>// Returns "myCamelCaseString"
-const camelCaseStr = toCamelCase("my camel case string");
-
-// Returns "helloWorld"
-const anotherCamelCaseStr = toCamelCase("Hello, World!");</code></pre>
-
-
-
-        
-            
-<h4 class="name" id="toCharArray"><span class="type-signature">(constant) </span>toCharArray<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    Converts a string to an array of characters.
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_toCharArray_toCharArray.js.html">utils/toCharArray/toCharArray.js</a>, <a href="utils_toCharArray_toCharArray.js.html#line5">line 5</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="toCurrency"><span class="type-signature">(constant) </span>toCurrency<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    Takes a number and returns it in the specified currency formatting..
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_toCurrency_toCurrency.js.html">utils/toCurrency/toCurrency.js</a>, <a href="utils_toCurrency_toCurrency.js.html#line6">line 6</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="toKebabCase"><span class="type-signature">(constant) </span>toKebabCase<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    Converts all the alphabetic characters in a string to kebab case.
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_toKebabCase_toKebabCase.js.html">utils/toKebabCase/toKebabCase.js</a>, <a href="utils_toKebabCase_toKebabCase.js.html#line5">line 5</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="toSnakeCase"><span class="type-signature">(constant) </span>toSnakeCase<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    Converts all the alphabetic characters in a snake case string.
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_toSnakeCase_toSnakeCase.js.html">utils/toSnakeCase/toSnakeCase.js</a>, <a href="utils_toSnakeCase_toSnakeCase.js.html#line5">line 5</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="toTitleCase"><span class="type-signature">(constant) </span>toTitleCase<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    Converts all the alphabetic characters in a string to title case.
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_toTitleCase_toTitleCase.js.html">utils/toTitleCase/toTitleCase.js</a>, <a href="utils_toTitleCase_toTitleCase.js.html#line5">line 5</a>
+        <a href="utils_crypto.js.html">utils/crypto.js</a>, <a href="utils_crypto.js.html#line15">line 15</a>
     </li></ul></dd>
     
 
@@ -857,6 +675,116 @@ const anotherCamelCaseStr = toCamelCase("Hello, World!");</code></pre>
 
     
         <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="loadDictionary"><span class="type-signature">(async) </span>loadDictionary<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;Object>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Loads and caches the dictionary from disk.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_memorable-password.js.html">lib/memorable-password.js</a>, <a href="lib_memorable-password.js.html#line17">line 17</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The parsed dictionary object.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;Object></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
 
         
             
@@ -916,7 +844,7 @@ const anotherCamelCaseStr = toCamelCase("Hello, World!");</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_randomConsonant.js.html">utils/randomConsonant.js</a>, <a href="utils_randomConsonant.js.html#line7">line 7</a>
+        <a href="utils_randomConsonant.js.html">utils/randomConsonant.js</a>, <a href="utils_randomConsonant.js.html#line10">line 10</a>
     </li></ul></dd>
     
 
@@ -939,13 +867,42 @@ const anotherCamelCaseStr = toCamelCase("Hello, World!");</code></pre>
 
 
 
+<h5>Throws:</h5>
+
+        
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        If the random number generation fails (rare crypto module failure).
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">Error</span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+
+    
 
 
 <h5>Returns:</h5>
 
         
 <div class="param-desc">
-    A single consonant character.
+    A single consonant character from the set [bcdfhgjklmnpqrstvwxyz].
 </div>
 
 
@@ -982,7 +939,7 @@ const anotherCamelCaseStr = toCamelCase("Hello, World!");</code></pre>
 
 
 <div class="description">
-    Generates a random integer within a specified range.
+    Generates a cryptographically secure random integer within a specified range.
 </div>
 
 
@@ -1057,7 +1014,7 @@ const anotherCamelCaseStr = toCamelCase("Hello, World!");</code></pre>
 
             
 
-            <td class="description last">The lower bound (inclusive) for the random number (optional).</td>
+            <td class="description last">The lower bound (inclusive) for the random number (optional, defaults to 0).</td>
         </tr>
 
     
@@ -1098,7 +1055,7 @@ const anotherCamelCaseStr = toCamelCase("Hello, World!");</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_randomNumber.js.html">utils/randomNumber.js</a>, <a href="utils_randomNumber.js.html#line8">line 8</a>
+        <a href="utils_randomNumber.js.html">utils/randomNumber.js</a>, <a href="utils_randomNumber.js.html#line12">line 12</a>
     </li></ul></dd>
     
 
@@ -1121,13 +1078,69 @@ const anotherCamelCaseStr = toCamelCase("Hello, World!");</code></pre>
 
 
 
+<h5>Throws:</h5>
+<ul>
+        <li>
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        If max <= min (when min is explicitly provided and >= max).
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">RangeError</span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+</li>
+    
+        <li>
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        If max or min are not numbers.
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">TypeError</span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+</li>
+    </ul>
 
 
 <h5>Returns:</h5>
 
         
 <div class="param-desc">
-    A random integer within the specified range.
+    A cryptographically secure random integer in [min, max).
 </div>
 
 
@@ -1164,7 +1177,7 @@ const anotherCamelCaseStr = toCamelCase("Hello, World!");</code></pre>
 
 
 <div class="description">
-    Generate a random syllable.
+    Generate a random syllable following the consonant-vowel-consonant pattern.
 </div>
 
 
@@ -1208,7 +1221,7 @@ const anotherCamelCaseStr = toCamelCase("Hello, World!");</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_randomSyllable.js.html">utils/randomSyllable.js</a>, <a href="utils_randomSyllable.js.html#line10">line 10</a>
+        <a href="utils_randomSyllable.js.html">utils/randomSyllable.js</a>, <a href="utils_randomSyllable.js.html#line11">line 11</a>
     </li></ul></dd>
     
 
@@ -1231,13 +1244,42 @@ const anotherCamelCaseStr = toCamelCase("Hello, World!");</code></pre>
 
 
 
+<h5>Throws:</h5>
+
+        
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        If the random generation functions fail (rare crypto module failure).
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">Error</span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+
+    
 
 
 <h5>Returns:</h5>
 
         
 <div class="param-desc">
-    A random syllable containing a consonant, vowel, and consonant.
+    A random syllable containing a consonant, vowel, and consonant (e.g., "bat", "fox").
 </div>
 
 
@@ -1318,7 +1360,7 @@ const anotherCamelCaseStr = toCamelCase("Hello, World!");</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_randomVowel.js.html">utils/randomVowel.js</a>, <a href="utils_randomVowel.js.html#line8">line 8</a>
+        <a href="utils_randomVowel.js.html">utils/randomVowel.js</a>, <a href="utils_randomVowel.js.html#line10">line 10</a>
     </li></ul></dd>
     
 
@@ -1341,13 +1383,42 @@ const anotherCamelCaseStr = toCamelCase("Hello, World!");</code></pre>
 
 
 
+<h5>Throws:</h5>
+
+        
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        If the random number generation fails (rare crypto module failure).
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">Error</span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+
+    
 
 
 <h5>Returns:</h5>
 
         
 <div class="param-desc">
-    A randomly selected vowel character (a, e, i, o, u).
+    A randomly selected vowel character from the set [aeiou].
 </div>
 
 
@@ -1386,13 +1457,13 @@ const anotherCamelCaseStr = toCamelCase("Hello, World!");</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#generatePassword">generatePassword</a></li><li><a href="global.html#generateRandomBase64String">generateRandomBase64String</a></li><li><a href="global.html#randomConsonant">randomConsonant</a></li><li><a href="global.html#randomNumber">randomNumber</a></li><li><a href="global.html#randomSyllable">randomSyllable</a></li><li><a href="global.html#randomVowel">randomVowel</a></li><li><a href="global.html#splitBase64String">splitBase64String</a></li><li><a href="global.html#strongPassword">strongPassword</a></li><li><a href="global.html#toCamelCase">toCamelCase</a></li><li><a href="global.html#toCharArray">toCharArray</a></li><li><a href="global.html#toCurrency">toCurrency</a></li><li><a href="global.html#toKebabCase">toKebabCase</a></li><li><a href="global.html#toSnakeCase">toSnakeCase</a></li><li><a href="global.html#toTitleCase">toTitleCase</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-constants.html">constants</a></li><li><a href="module-errors.html">errors</a></li><li><a href="module-strings.html">strings</a></li></ul><h3>Global</h3><ul><li><a href="global.html#PasswordGenerator">PasswordGenerator</a></li><li><a href="global.html#dictionaryCache">dictionaryCache</a></li><li><a href="global.html#generateBase64Chunk">generateBase64Chunk</a></li><li><a href="global.html#generatePassword">generatePassword</a></li><li><a href="global.html#generateRandomBase64">generateRandomBase64</a></li><li><a href="global.html#loadDictionary">loadDictionary</a></li><li><a href="global.html#randomConsonant">randomConsonant</a></li><li><a href="global.html#randomNumber">randomNumber</a></li><li><a href="global.html#randomSyllable">randomSyllable</a></li><li><a href="global.html#randomVowel">randomVowel</a></li><li><a href="global.html#splitString">splitString</a></li><li><a href="global.html#validatePositiveInteger">validatePositiveInteger</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Nov 08 2023 09:05:49 GMT+0000 (Greenwich Mean Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Fri Feb 06 2026 19:52:21 GMT+0000 (Greenwich Mean Time)
 </footer>
 
 <script> prettyPrint(); </script>

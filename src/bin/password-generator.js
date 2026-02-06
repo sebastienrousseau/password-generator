@@ -3,6 +3,8 @@
 
 import { Command } from "commander";
 import clipboardy from "clipboardy";
+import { PASSWORD_ERRORS } from "../errors.js";
+import { CLI_OPTIONS, CLI_DEFAULTS, isValidPasswordType } from "../config.js";
 
 /**
  * Generates a password of the specified type using the appropriate generator module.
@@ -16,7 +18,7 @@ import clipboardy from "clipboardy";
  */
 export const PasswordGenerator = async(data) => {
   if (!data.type) {
-    throw new Error("Password type is required");
+    throw new Error(PASSWORD_ERRORS.TYPE_REQUIRED);
   }
 
   const modulePath = `../lib/${data.type}-password.js`;
@@ -26,7 +28,7 @@ export const PasswordGenerator = async(data) => {
     return await generatorModule.generatePassword(data);
   } catch (error) {
     if (error.code === "ERR_MODULE_NOT_FOUND") {
-      throw new Error(`Unknown password type: "${data.type}". Valid types: strong, base64, memorable`);
+      throw new Error(PASSWORD_ERRORS.UNKNOWN_TYPE(data.type));
     }
     throw error;
   }
@@ -35,13 +37,18 @@ export const PasswordGenerator = async(data) => {
 const program = new Command();
 
 program
-  .name("password-generator")
-  .description("A fast, simple and powerful utility for generating strong, unique and random passwords")
-  .requiredOption("-t, --type <type>", "password type (strong, base64, memorable)")
-  .option("-l, --length <number>", "length of each password chunk", parseInt)
-  .requiredOption("-i, --iteration <number>", "number of password chunks or words", parseInt)
-  .requiredOption("-s, --separator <char>", "separator between password chunks")
-  .option("-c, --clipboard", "copy the generated password to clipboard")
+  .name(CLI_OPTIONS.name)
+  .description(CLI_OPTIONS.description)
+  .requiredOption(CLI_OPTIONS.options.type.flags, CLI_OPTIONS.options.type.description)
+  .option(
+    CLI_OPTIONS.options.length.flags,
+    CLI_OPTIONS.options.length.description,
+    CLI_OPTIONS.options.length.parser,
+    CLI_OPTIONS.options.length.defaultValue
+  )
+  .requiredOption(CLI_OPTIONS.options.iteration.flags, CLI_OPTIONS.options.iteration.description, CLI_OPTIONS.options.iteration.parser)
+  .requiredOption(CLI_OPTIONS.options.separator.flags, CLI_OPTIONS.options.separator.description)
+  .option(CLI_OPTIONS.options.clipboard.flags, CLI_OPTIONS.options.clipboard.description)
   .action(async(opts) => {
     try {
       const password = await PasswordGenerator({

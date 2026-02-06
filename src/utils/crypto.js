@@ -2,10 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 import { randomBytes, randomInt } from "crypto";
-
-/** Base64 character set (64 characters, no padding bias). */
-const BASE64_CHARSET =
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+import { BASE64_CHARSET } from "../constants.js";
+import { CRYPTO_ERRORS } from "../errors.js";
 
 /**
  * Validates that a value is a positive integer, throwing a RangeError if not.
@@ -16,7 +14,7 @@ const BASE64_CHARSET =
  */
 export const validatePositiveInteger = (value, name) => {
   if (!Number.isInteger(value) || value < 1) {
-    throw new RangeError(`The ${name} argument must be a positive integer`);
+    throw new RangeError(CRYPTO_ERRORS.MUST_BE_POSITIVE_INTEGER(name));
   }
 };
 

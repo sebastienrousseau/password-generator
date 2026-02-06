@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: lib/base64-password.js</title>
+    <title>JSDoc: Source: constants.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: lib/base64-password.js</h1>
+    <h1 class="page-title">Source: constants.js</h1>
 
     
 
@@ -29,28 +29,21 @@
             <pre class="prettyprint source linenums"><code>// Copyright © 2022-2024 Password Generator. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-import { generateRandomBase64, splitString, validatePositiveInteger } from "../utils/crypto.js";
-
 /**
- * Generates a password using random Base64 characters with the specified configuration.
+ * Centralized constants for character sets used across password generators.
  *
- * @param {Object} options - Configuration options for password generation.
- * @param {number} options.length - The length of each password chunk.
- * @param {number} options.iteration - The number of password chunks.
- * @param {string} options.separator - The separator between password chunks.
- * @return {string} The generated password.
+ * @module constants
  */
-export const generatePassword = ({ length, iteration, separator }) => {
-  validatePositiveInteger(length, "length");
-  validatePositiveInteger(iteration, "iteration");
 
-  const base64String = generateRandomBase64(length * iteration);
-  const substrings = splitString(base64String, length);
-  return substrings.slice(0, iteration).join(separator);
-};
+/** Base64 character set (64 characters, no padding bias). */
+export const BASE64_CHARSET =
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
-export default generatePassword;
-</code></pre>
+/** Vowel characters for syllable generation. */
+export const VOWELS = "aeiou";
+
+/** Consonant characters for syllable generation. */
+export const CONSONANTS = "bcdfhgjklmnpqrstvwxyz";</code></pre>
         </article>
     </section>
 
