@@ -1,4 +1,5 @@
 import { expect } from "chai";
+import assert from "assert";
 import { generatePassword } from "../../src/lib/memorable-password.js";
 
 describe("Memorable Password Generator", () => {
@@ -28,13 +29,10 @@ describe("Memorable Password Generator", () => {
     });
 
     it("should throw a RangeError for iteration < 1", async () => {
-      try {
-        await generatePassword({ iteration: 0, separator: "-" });
-        expect.fail("Expected RangeError");
-      } catch (error) {
-        expect(error).to.be.instanceOf(RangeError);
-        expect(error.message).to.equal("The iteration argument must be a positive integer");
-      }
+      await assert.rejects(
+        () => generatePassword({ iteration: 0, separator: "-" }),
+        { name: "RangeError", message: "The iteration argument must be a positive integer" }
+      );
     });
 
     it("should work with a single iteration", async () => {
@@ -57,23 +55,17 @@ describe("Memorable Password Generator", () => {
     });
 
     it("should throw a RangeError for non-integer iteration", async () => {
-      try {
-        await generatePassword({ iteration: 2.5, separator: "-" });
-        expect.fail("Expected RangeError");
-      } catch (error) {
-        expect(error).to.be.instanceOf(RangeError);
-        expect(error.message).to.equal("The iteration argument must be a positive integer");
-      }
+      await assert.rejects(
+        () => generatePassword({ iteration: 2.5, separator: "-" }),
+        { name: "RangeError", message: "The iteration argument must be a positive integer" }
+      );
     });
 
     it("should throw a RangeError for negative iteration", async () => {
-      try {
-        await generatePassword({ iteration: -1, separator: "-" });
-        expect.fail("Expected RangeError");
-      } catch (error) {
-        expect(error).to.be.instanceOf(RangeError);
-        expect(error.message).to.equal("The iteration argument must be a positive integer");
-      }
+      await assert.rejects(
+        () => generatePassword({ iteration: -1, separator: "-" }),
+        { name: "RangeError", message: "The iteration argument must be a positive integer" }
+      );
     });
   });
 });

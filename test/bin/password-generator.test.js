@@ -1,6 +1,7 @@
 import { PasswordGenerator } from '../../src/bin/password-generator.js';
 import { expect } from 'chai';
 import { exec } from 'child_process';
+import assert from 'assert';
 
 describe('PasswordGenerator', function () {
   it('should be a function', function () {
@@ -43,30 +44,24 @@ describe('PasswordGenerator', function () {
   });
 
   it('should throw an error when type is missing', async function () {
-    try {
-      await PasswordGenerator({});
-      expect.fail('Expected error');
-    } catch (error) {
-      expect(error.message).to.equal('Password type is required');
-    }
+    await assert.rejects(
+      () => PasswordGenerator({}),
+      { message: 'Password type is required' }
+    );
   });
 
   it('should throw an error for an unknown type', async function () {
-    try {
-      await PasswordGenerator({ type: 'unknown', length: 8, iteration: 2, separator: '-' });
-      expect.fail('Expected error');
-    } catch (error) {
-      expect(error.message).to.include('Unknown password type: "unknown"');
-    }
+    await assert.rejects(
+      () => PasswordGenerator({ type: 'unknown', length: 8, iteration: 2, separator: '-' }),
+      (error) => error.message.includes('Unknown password type: "unknown"')
+    );
   });
 
   it('should rethrow generator errors for valid types with invalid params', async function () {
-    try {
-      await PasswordGenerator({ type: 'strong', length: -1, iteration: 0, separator: '-' });
-      expect.fail('Expected error');
-    } catch (error) {
-      expect(error).to.be.instanceOf(RangeError);
-    }
+    await assert.rejects(
+      () => PasswordGenerator({ type: 'strong', length: -1, iteration: 0, separator: '-' }),
+      RangeError
+    );
   });
 });
 
