@@ -1,4 +1,32 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: onboarding.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: onboarding.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// Copyright © 2022-2024 Password Generator. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 import readline, { emitKeypressEvents, createInterface } from "readline";
@@ -57,7 +85,7 @@ const createReadlineInterface = () => {
  * @param {number} step - Current step number
  * @param {number} totalSteps - Total number of steps
  * @param {Object} examples - Optional examples to show with Space
- * @returns {Promise<string>} Selected option
+ * @returns {Promise&lt;string>} Selected option
  */
 /* c8 ignore start - Interactive TUI requires TTY and user input */
 const promptWithNavigation = (question, options, rl, step, totalSteps, examples = {}) => {
@@ -71,7 +99,7 @@ const promptWithNavigation = (question, options, rl, step, totalSteps, examples 
       console.log(question);
       console.log("─".repeat(40));
 
-      if (showingExamples && examples[options[selectedIndex]]) {
+      if (showingExamples &amp;&amp; examples[options[selectedIndex]]) {
         console.log(`\n💡 Example for ${options[selectedIndex]}:`);
         console.log(examples[options[selectedIndex]]);
         console.log("\n📝 Press Space again to hide examples\n");
@@ -97,7 +125,7 @@ const promptWithNavigation = (question, options, rl, step, totalSteps, examples 
           renderMenu();
           break;
         case "down":
-          selectedIndex = selectedIndex < options.length - 1 ? selectedIndex + 1 : 0;
+          selectedIndex = selectedIndex &lt; options.length - 1 ? selectedIndex + 1 : 0;
           renderMenu();
           break;
         case "return":
@@ -122,9 +150,9 @@ const promptWithNavigation = (question, options, rl, step, totalSteps, examples 
           break;
         default:
           // Handle number keys (1-9)
-          if (str && /^[1-9]$/.test(str)) {
+          if (str &amp;&amp; /^[1-9]$/.test(str)) {
             const index = parseInt(str) - 1;
-            if (index < options.length) {
+            if (index &lt; options.length) {
               selectedIndex = index;
               process.stdin.removeListener("keypress", handleKeypress);
               if (process.stdin.isTTY) {
@@ -148,7 +176,7 @@ const promptWithNavigation = (question, options, rl, step, totalSteps, examples 
  * Prompts user with a question and returns their answer.
  * @param {string} question - The question to ask
  * @param {readline.Interface} rl - The readline interface
- * @returns {Promise<string>} The user's answer
+ * @returns {Promise&lt;string>} The user's answer
  */
 /* c8 ignore start - Interactive TUI requires TTY */
 const askQuestion = (question, rl) => {
@@ -174,7 +202,7 @@ const displayWelcome = () => {
 /**
  * Step 1: Password type selection with enhanced navigation
  * @param {readline.Interface} rl - The readline interface
- * @returns {Promise<string>} The selected password type
+ * @returns {Promise&lt;string>} The selected password type
  */
 /* c8 ignore start - Interactive TUI requires TTY and user input */
 const selectPasswordType = async(rl) => {
@@ -186,7 +214,7 @@ const selectPasswordType = async(rl) => {
 
   const examples = {
     "🔐 strong - Maximum security for important accounts":
-      "Example: K9#mL$8vR2@qN7!pX4^wB6&zD3*hF5+jG1%cV9~sA8",
+      "Example: K9#mL$8vR2@qN7!pX4^wB6&amp;zD3*hF5+jG1%cV9~sA8",
     "🧠 memorable - Easy to remember for daily use":
       "Example: Rainbow-Mountain-7-Coffee or Sunset_Ocean_42_Music",
     "⚙️ base64 - For API keys and system integration":
@@ -220,7 +248,7 @@ const selectPasswordType = async(rl) => {
  * Handles custom configuration for advanced users.
  * @param {readline.Interface} rl - The readline interface
  * @param {string} passwordType - The selected password type
- * @returns {Promise<Object>} Custom configuration object
+ * @returns {Promise&lt;Object>} Custom configuration object
  */
 /* c8 ignore start - Interactive TUI requires TTY and user input */
 const customConfiguration = async(rl, passwordType) => {
@@ -236,7 +264,7 @@ const customConfiguration = async(rl, passwordType) => {
     while (true) {
       const lengthAnswer = await askQuestion(`Password chunk length (${minLength}-${maxLength}): `, rl);
       const length = parseInt(lengthAnswer);
-      if (length >= minLength && length <= maxLength) {
+      if (length >= minLength &amp;&amp; length &lt;= maxLength) {
         config.length = length;
         break;
       }
@@ -255,7 +283,7 @@ const customConfiguration = async(rl, passwordType) => {
       rl
     );
     const iteration = parseInt(iterationAnswer);
-    if (iteration >= minVal && iteration <= maxVal) {
+    if (iteration >= minVal &amp;&amp; iteration &lt;= maxVal) {
       config.iteration = iteration;
       break;
     }
@@ -277,7 +305,7 @@ const customConfiguration = async(rl, passwordType) => {
  * Step 2: Security level selection with enhanced navigation
  * @param {readline.Interface} rl - The readline interface
  * @param {string} passwordType - The selected password type
- * @returns {Promise<Object>} The preset configuration or custom flag
+ * @returns {Promise&lt;Object>} The preset configuration or custom flag
  */
 /* c8 ignore start - Interactive TUI requires TTY and user input */
 const selectSecurityLevel = async(rl, passwordType) => {
@@ -330,7 +358,7 @@ const selectSecurityLevel = async(rl, passwordType) => {
 /**
  * Step 3: Clipboard option with enhanced navigation
  * @param {readline.Interface} rl - The readline interface
- * @returns {Promise<boolean>} Whether to copy to clipboard
+ * @returns {Promise&lt;boolean>} Whether to copy to clipboard
  */
 /* c8 ignore start - Interactive TUI requires TTY and user input */
 const selectClipboardOption = async(rl) => {
@@ -412,7 +440,7 @@ const displayResults = (config, clipboard, preset) => {
 
 /**
  * Main onboarding flow function
- * @returns {Promise<Object>} Configuration object with clipboard setting
+ * @returns {Promise&lt;Object>} Configuration object with clipboard setting
  */
 /* c8 ignore start - Interactive TUI requires TTY and user input */
 export const runOnboarding = async() => {
@@ -455,7 +483,7 @@ export const runOnboarding = async() => {
 export const isFirstRun = (args) => {
   // Filter out the interactive flags
   const nonInteractiveArgs = args.filter(arg =>
-    arg !== "--interactive" && arg !== "password-generator"
+    arg !== "--interactive" &amp;&amp; arg !== "password-generator"
   );
 
   // If no other arguments are provided, treat as first run
@@ -554,7 +582,7 @@ export class OnboardingFlow {
 
     // Arrow keys - Note: ESC sequences starting with 27 are handled above
     /* c8 ignore start - Arrow keys handled via navigateUp/navigateDown methods directly */
-    if (key[0] === 27 && key[1] === 91) {
+    if (key[0] === 27 &amp;&amp; key[1] === 91) {
       if (key[2] === 65) { // Up arrow
         this.navigateUp();
       } else if (key[2] === 66) { // Down arrow
@@ -566,9 +594,9 @@ export class OnboardingFlow {
 
     // Number keys (1-3)
     const num = parseInt(keyStr);
-    if (num >= 1 && num <= 3 && !this.showingExamples) {
+    if (num >= 1 &amp;&amp; num &lt;= 3 &amp;&amp; !this.showingExamples) {
       const options = this.getCurrentOptions();
-      if (num <= options.length) {
+      if (num &lt;= options.length) {
         this.selectedIndex = num - 1;
         this.renderCurrentStep();
       }
@@ -600,7 +628,7 @@ export class OnboardingFlow {
     if (this.showingExamples) {return;}
 
     const options = this.getCurrentOptions();
-    this.selectedIndex = this.selectedIndex < options.length - 1 ?
+    this.selectedIndex = this.selectedIndex &lt; options.length - 1 ?
       this.selectedIndex + 1 :
       0;
     this.renderCurrentStep();
@@ -614,7 +642,7 @@ export class OnboardingFlow {
       case 0:
         return ["Quick Setup (Recommended)", "Custom Configuration", "Learn More"];
       case 1:
-        return ["Quick & Simple", "Maximum Security", "Easy to Remember"];
+        return ["Quick &amp; Simple", "Maximum Security", "Easy to Remember"];
       case 2:
         return ["3 segments", "4 segments", "5 segments"];
       case 3:
@@ -684,7 +712,7 @@ export class OnboardingFlow {
       case 1:
         console.log("Strong Password Examples:");
         console.log("• Kx9#mP2$vL4@nR8!");
-        console.log("• 7z$eQ1@pW9#xT3&");
+        console.log("• 7z$eQ1@pW9#xT3&amp;");
         console.log("");
         console.log("Memorable Password Examples:");
         console.log("• twilight-meadow-dancing-river");
@@ -771,8 +799,8 @@ export class OnboardingFlow {
    */
   getProgressIndicator() {
     const indicators = [];
-    for (let i = 0; i < this.totalSteps; i++) {
-      if (i <= this.currentStep) {
+    for (let i = 0; i &lt; this.totalSteps; i++) {
+      if (i &lt;= this.currentStep) {
         indicators.push("●");
       } else {
         indicators.push("○");
@@ -853,3 +881,26 @@ export function startOnboarding(onComplete) {
   const flow = new OnboardingFlow();
   flow.start(onComplete);
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-config.html">config</a></li><li><a href="module-constants.html">constants</a></li><li><a href="module-errors.html">errors</a></li><li><a href="module-security-audit.html">security-audit</a></li><li><a href="module-services_audit-service.html">services/audit-service</a></li><li><a href="module-services_cli-service.html">services/cli-service</a></li><li><a href="module-services_config-service.html">services/config-service</a></li><li><a href="module-services_password-service.html">services/password-service</a></li><li><a href="module-strings.html">strings</a></li></ul><h3>Classes</h3><ul><li><a href="CLIController.html">CLIController</a></li><li><a href="CommandLearningPresenter.html">CommandLearningPresenter</a></li><li><a href="ConfigurationService.html">ConfigurationService</a></li><li><a href="OnboardingFlow.html">OnboardingFlow</a></li><li><a href="PasswordGeneratorFactory.html">PasswordGeneratorFactory</a></li><li><a href="PasswordGeneratorOrchestrator.html">PasswordGeneratorOrchestrator</a></li></ul><h3>Global</h3><ul><li><a href="global.html#PasswordGenerator">PasswordGenerator</a></li><li><a href="global.html#createCLIController">createCLIController</a></li><li><a href="global.html#dictionaryCache">dictionaryCache</a></li><li><a href="global.html#generate">generate</a></li><li><a href="global.html#generateBase64Chunk">generateBase64Chunk</a></li><li><a href="global.html#generatePassword">generatePassword</a></li><li><a href="global.html#generateRandomBase64">generateRandomBase64</a></li><li><a href="global.html#isFirstRun">isFirstRun</a></li><li><a href="global.html#loadDictionary">loadDictionary</a></li><li><a href="global.html#randomConsonant">randomConsonant</a></li><li><a href="global.html#randomNumber">randomNumber</a></li><li><a href="global.html#randomSyllable">randomSyllable</a></li><li><a href="global.html#randomVowel">randomVowel</a></li><li><a href="global.html#splitString">splitString</a></li><li><a href="global.html#startOnboarding">startOnboarding</a></li><li><a href="global.html#validatePositiveInteger">validatePositiveInteger</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Fri Feb 06 2026 23:45:51 GMT+0000 (Greenwich Mean Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

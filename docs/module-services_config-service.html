@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: constants</title>
+    <title>JSDoc: Module: services/config-service</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: constants</h1>
+    <h1 class="page-title">Module: services/config-service</h1>
 
     
 
@@ -38,7 +38,10 @@
     <div class="container-overview">
     
         
-            <div class="description">Centralized constants for character sets used across password generators.</div>
+            <div class="description">Configuration Service - Handles configuration validation and processing
+
+This module provides services for merging presets with user options,
+validating configuration, and processing password generation parameters.</div>
         
 
         
@@ -87,7 +90,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="constants.js.html">constants.js</a>, <a href="constants.js.html#line4">line 4</a>
+        <a href="services_config-service.js.html">services/config-service.js</a>, <a href="services_config-service.js.html#line4">line 4</a>
     </li></ul></dd>
     
 
@@ -138,13 +141,13 @@
 
         
             
-<h4 class="name" id=".BASE64_CHARSET"><span class="type-signature">(static, constant) </span>BASE64_CHARSET<span class="type-signature"></span></h4>
+<h4 class="name" id=".mergePresetWithOptions"><span class="type-signature">(static, constant) </span>mergePresetWithOptions<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Base64 character set (64 characters, no padding bias).
+    Merges preset configuration with user options, giving priority to user options.
 </div>
 
 
@@ -182,7 +185,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="constants.js.html">constants.js</a>, <a href="constants.js.html#line11">line 11</a>
+        <a href="services_config-service.js.html">services/config-service.js</a>, <a href="services_config-service.js.html#line29">line 29</a>
     </li></ul></dd>
     
 
@@ -200,13 +203,13 @@
 
         
             
-<h4 class="name" id=".CONSONANTS"><span class="type-signature">(static, constant) </span>CONSONANTS<span class="type-signature"></span></h4>
+<h4 class="name" id=".normalizeConfig"><span class="type-signature">(static, constant) </span>normalizeConfig<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Consonant characters for syllable generation.
+    Creates a normalized configuration object for password generation.
 </div>
 
 
@@ -244,7 +247,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="constants.js.html">constants.js</a>, <a href="constants.js.html#line18">line 18</a>
+        <a href="services_config-service.js.html">services/config-service.js</a>, <a href="services_config-service.js.html#line101">line 101</a>
     </li></ul></dd>
     
 
@@ -262,13 +265,13 @@
 
         
             
-<h4 class="name" id=".VOWELS"><span class="type-signature">(static, constant) </span>VOWELS<span class="type-signature"></span></h4>
+<h4 class="name" id=".processConfiguration"><span class="type-signature">(static, constant) </span>processConfiguration<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Vowel characters for syllable generation.
+    Processes and validates the complete configuration workflow.
 </div>
 
 
@@ -306,7 +309,69 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="constants.js.html">constants.js</a>, <a href="constants.js.html#line15">line 15</a>
+        <a href="services_config-service.js.html">services/config-service.js</a>, <a href="services_config-service.js.html#line118">line 118</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".validateFinalConfig"><span class="type-signature">(static, constant) </span>validateFinalConfig<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Validates the final configuration and provides helpful error messages.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="services_config-service.js.html">services/config-service.js</a>, <a href="services_config-service.js.html#line57">line 57</a>
     </li></ul></dd>
     
 

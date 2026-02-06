@@ -9,7 +9,7 @@ import {
   recordEntropyUsage,
   recordAlgorithmUsage,
   calculateDictionaryEntropy,
-  setDictionarySize
+  setDictionarySize,
 } from "../utils/security-audit.js";
 
 /** @type {Object|null} Cached dictionary to avoid repeated file reads. */
@@ -20,12 +20,12 @@ let dictionaryCache = null;
  *
  * @return {Promise<Object>} The parsed dictionary object.
  */
-const loadDictionary = async() => {
+const loadDictionary = async () => {
   if (!dictionaryCache) {
     dictionaryCache = JSON.parse(
       await readFile(new URL("../dictionaries/common.json", import.meta.url), {
         encoding: "utf8",
-      }),
+      })
     );
     // Set dictionary size for entropy calculations
     setDictionarySize(dictionaryCache.entries.length);
@@ -41,27 +41,30 @@ const loadDictionary = async() => {
  * @param {string} options.separator - The separator between words.
  * @return {Promise<string>} The generated password.
  */
-export const generatePassword = async({ iteration, separator }) => {
+export const generatePassword = async ({ iteration, separator }) => {
   const dictionary = await loadDictionary();
   validatePositiveInteger(iteration, "iteration");
 
   const memorable = Array.from({ length: iteration }, () => {
-    return toTitleCase(
-      dictionary.entries[randomNumber(dictionary.entries.length)],
-    );
+    return toTitleCase(dictionary.entries[randomNumber(dictionary.entries.length)]);
   });
 
   // Record entropy usage for audit
-  recordEntropyUsage("crypto.randomInt", iteration, calculateDictionaryEntropy(dictionary.entries.length, iteration), {
-    dictionarySize: dictionary.entries.length,
-    wordCount: iteration,
-    method: "dictionary-lookup"
-  });
+  recordEntropyUsage(
+    "crypto.randomInt",
+    iteration,
+    calculateDictionaryEntropy(dictionary.entries.length, iteration),
+    {
+      dictionarySize: dictionary.entries.length,
+      wordCount: iteration,
+      method: "dictionary-lookup",
+    }
+  );
   recordAlgorithmUsage("memorable-password-generation", {
     dictionarySize: dictionary.entries.length,
     wordCount: iteration,
     separator,
-    transformations: ["toTitleCase", "space-removal"]
+    transformations: ["toTitleCase", "space-removal"],
   });
 
   const password = memorable.join(separator).replace(/ /g, "");

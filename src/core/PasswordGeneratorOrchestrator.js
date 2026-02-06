@@ -7,7 +7,7 @@ import {
   setAuditMode,
   resetAuditSession,
   finishAuditSession,
-  generateAuditReport
+  generateAuditReport,
 } from "../utils/security-audit.js";
 
 /**
@@ -15,8 +15,6 @@ import {
  * Handles configuration merging, validation, and password generation coordination.
  */
 export class PasswordGeneratorOrchestrator {
-
-
   /**
    * Orchestrates the complete password generation process including configuration merging,
    * validation, audit management, and password generation.
@@ -28,7 +26,7 @@ export class PasswordGeneratorOrchestrator {
    * @param {number} [options.iteration] - Number of iterations.
    * @param {string} [options.separator] - Separator character.
    * @param {boolean} [options.audit] - Whether to enable audit mode.
-   * @returns {Promise<{password: string, config: Object, auditReport?: Object}>} Generation result.
+   * @returns {Promise<Object>} Generation result with password, config, and optional auditReport.
    */
   static async orchestrateGeneration(options) {
     try {

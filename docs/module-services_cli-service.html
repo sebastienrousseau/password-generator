@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: constants</title>
+    <title>JSDoc: Module: services/cli-service</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: constants</h1>
+    <h1 class="page-title">Module: services/cli-service</h1>
 
     
 
@@ -38,7 +38,10 @@
     <div class="container-overview">
     
         
-            <div class="description">Centralized constants for character sets used across password generators.</div>
+            <div class="description">CLI Service - Handles command generation and user interface logic
+
+This module provides services for generating equivalent CLI commands,
+displaying learning panels, and handling CLI-specific formatting.</div>
         
 
         
@@ -87,7 +90,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="constants.js.html">constants.js</a>, <a href="constants.js.html#line4">line 4</a>
+        <a href="services_cli-service.js.html">services/cli-service.js</a>, <a href="services_cli-service.js.html#line4">line 4</a>
     </li></ul></dd>
     
 
@@ -138,13 +141,13 @@
 
         
             
-<h4 class="name" id=".BASE64_CHARSET"><span class="type-signature">(static, constant) </span>BASE64_CHARSET<span class="type-signature"></span></h4>
+<h4 class="name" id=".displayCommandLearningPanel"><span class="type-signature">(static, constant) </span>displayCommandLearningPanel<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Base64 character set (64 characters, no padding bias).
+    Displays the command learning panel with the equivalent CLI command.
 </div>
 
 
@@ -182,7 +185,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="constants.js.html">constants.js</a>, <a href="constants.js.html#line11">line 11</a>
+        <a href="services_cli-service.js.html">services/cli-service.js</a>, <a href="services_cli-service.js.html#line68">line 68</a>
     </li></ul></dd>
     
 
@@ -200,13 +203,13 @@
 
         
             
-<h4 class="name" id=".CONSONANTS"><span class="type-signature">(static, constant) </span>CONSONANTS<span class="type-signature"></span></h4>
+<h4 class="name" id=".displayNonTTYHelp"><span class="type-signature">(static, constant) </span>displayNonTTYHelp<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Consonant characters for syllable generation.
+    Displays help information for non-TTY environments.
 </div>
 
 
@@ -244,7 +247,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="constants.js.html">constants.js</a>, <a href="constants.js.html#line18">line 18</a>
+        <a href="services_cli-service.js.html">services/cli-service.js</a>, <a href="services_cli-service.js.html#line108">line 108</a>
     </li></ul></dd>
     
 
@@ -262,13 +265,13 @@
 
         
             
-<h4 class="name" id=".VOWELS"><span class="type-signature">(static, constant) </span>VOWELS<span class="type-signature"></span></h4>
+<h4 class="name" id=".displayPasswordOutput"><span class="type-signature">(static, constant) </span>displayPasswordOutput<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Vowel characters for syllable generation.
+    Displays password output with optional clipboard notification.
 </div>
 
 
@@ -306,7 +309,131 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="constants.js.html">constants.js</a>, <a href="constants.js.html#line15">line 15</a>
+        <a href="services_cli-service.js.html">services/cli-service.js</a>, <a href="services_cli-service.js.html#line87">line 87</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".displaySecurityAuditReport"><span class="type-signature">(static, constant) </span>displaySecurityAuditReport<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Displays a security audit report in formatted output.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="services_cli-service.js.html">services/cli-service.js</a>, <a href="services_cli-service.js.html#line100">line 100</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".generateEquivalentCommand"><span class="type-signature">(static, constant) </span>generateEquivalentCommand<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Generates the equivalent CLI command string based on the configuration used.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="services_cli-service.js.html">services/cli-service.js</a>, <a href="services_cli-service.js.html#line23">line 23</a>
     </li></ul></dd>
     
 

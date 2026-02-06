@@ -23,7 +23,7 @@ import { PASSWORD_ERRORS } from "../errors.js";
  * @return {Promise<string>} The generated password.
  * @throws {Error} If the password type is invalid or generation fails.
  */
-export const generatePassword = async(config) => {
+export const generatePassword = async (config) => {
   if (!config.type) {
     throw new Error(PASSWORD_ERRORS.TYPE_REQUIRED);
   }
@@ -49,8 +49,8 @@ export const generatePassword = async(config) => {
  * @param {Array<Object>} configs - Array of configuration objects.
  * @returns {Promise<Array<string>>} Array of generated passwords.
  */
-export const generateMultiplePasswords = async(configs) => {
-  const promises = configs.map(config => generatePassword(config));
+export const generateMultiplePasswords = async (configs) => {
+  const promises = configs.map((config) => generatePassword(config));
   return Promise.all(promises);
 };
 
@@ -78,7 +78,11 @@ export const validatePasswordConfig = (config) => {
   }
 
   // Validate length for types that require it
-  if ((config.type === "strong" || config.type === "base64") && config.length && (typeof config.length !== "number" || config.length <= 0)) {
+  if (
+    (config.type === "strong" || config.type === "base64") &&
+    config.length &&
+    (typeof config.length !== "number" || config.length <= 0)
+  ) {
     throw new Error("Length must be a positive number for strong and base64 password types");
   }
 };
@@ -90,7 +94,7 @@ export const validatePasswordConfig = (config) => {
  * @returns {Promise<string>} The generated password.
  * @throws {Error} If validation fails or generation fails.
  */
-export const safeGeneratePassword = async(config) => {
+export const safeGeneratePassword = async (config) => {
   validatePasswordConfig(config);
   return generatePassword(config);
 };

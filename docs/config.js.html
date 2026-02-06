@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: config.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: config.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// Copyright © 2022-2024 Password Generator. All rights reserved.
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+/**
+ * Centralized configuration for the password generator CLI.
+ *
+ * This module provides a single source of truth for all CLI configuration,
+ * including valid password types, default values, and option definitions.
+ *
+ * @module config
+ */
+
+/**
+ * Valid password types supported by the generator.
+ */
+export const VALID_PASSWORD_TYPES = ["strong", "base64", "memorable"];
+
+/**
+ * Valid preset profile names.
+ */
+export const VALID_PRESETS = ["quick", "secure", "memorable"];
+
+/**
+ * Preset profile configurations for zero-config CLI usage.
+ */
+export const PRESET_PROFILES = {
+  quick: {
+    type: "strong",
+    length: 14,
+    iteration: 4,
+    separator: "-",
+  },
+  secure: {
+    type: "strong",
+    length: 16,
+    iteration: 4,
+    separator: "",
+  },
+  memorable: {
+    type: "memorable",
+    iteration: 4,
+    separator: "-",
+  },
+};
+
+/**
+ * Validation bounds for password generation parameters.
+ * These constants are used by both CLI and onboarding to ensure consistency.
+ */
+export const VALIDATION_BOUNDS = {
+  /** Minimum length for password chunks */
+  minLength: 8,
+  /** Maximum length for password chunks */
+  maxLength: 64,
+  /** Minimum number of chunks for strong/base64 passwords */
+  minIteration: 1,
+  /** Maximum number of chunks for strong/base64 passwords */
+  maxIteration: 10,
+  /** Minimum number of words for memorable passwords */
+  minWords: 2,
+  /** Maximum number of words for memorable passwords */
+  maxWords: 8,
+};
+
+/**
+ * Default values for CLI options.
+ */
+export const CLI_DEFAULTS = {
+  /** Default length for password chunks (applies to strong and base64 types) */
+  length: 16,
+  /** Default number of password chunks or words */
+  iteration: 3,
+  /** Default separator between password chunks */
+  separator: "-",
+  /** Default clipboard option state */
+  clipboard: false,
+};
+
+/**
+ * CLI option configurations for the commander program.
+ */
+export const CLI_OPTIONS = {
+  name: "password-generator",
+  description: "A fast, simple and powerful utility for generating strong, unique and random passwords",
+  options: {
+    preset: {
+      flags: "-p, --preset &lt;preset>",
+      description: `use a preset configuration (${VALID_PRESETS.join(", ")})`,
+    },
+    type: {
+      flags: "-t, --type &lt;type>",
+      description: `password type (${VALID_PASSWORD_TYPES.join(", ")})`,
+      required: true,
+    },
+    length: {
+      flags: "-l, --length &lt;number>",
+      description: "length of each password chunk",
+      parser: (val) => parseInt(val, 10),
+      defaultValue: CLI_DEFAULTS.length,
+    },
+    iteration: {
+      flags: "-i, --iteration &lt;number>",
+      description: "number of password chunks or words",
+      parser: (val) => parseInt(val, 10),
+      required: true,
+    },
+    separator: {
+      flags: "-s, --separator &lt;char>",
+      description: "separator between password chunks",
+      required: true,
+    },
+    clipboard: {
+      flags: "-c, --clipboard",
+      description: "copy the generated password to clipboard",
+      defaultValue: CLI_DEFAULTS.clipboard,
+    },
+    audit: {
+      flags: "-a, --audit",
+      description: "show security audit with entropy sources and algorithms used",
+      defaultValue: false,
+    },
+    learn: {
+      flags: "--learn",
+      description: "show equivalent CLI command to help graduate from guided mode",
+      defaultValue: false,
+    },
+    interactive: {
+      flags: "--interactive",
+      description: "start interactive guided setup for password generation",
+      defaultValue: false,
+    },
+  },
+};
+
+/**
+ * Helper function to validate password type.
+ *
+ * @param {string} type - The password type to validate.
+ * @returns {boolean} True if the type is valid, false otherwise.
+ */
+export const isValidPasswordType = (type) => {
+  return VALID_PASSWORD_TYPES.includes(type);
+};
+
+/**
+ * Helper function to get formatted valid types string for error messages.
+ *
+ * @returns {string} Comma-separated list of valid password types.
+ */
+export const getValidTypesString = () => {
+  return VALID_PASSWORD_TYPES.join(", ");
+};
+
+/**
+ * Helper function to validate preset name.
+ *
+ * @param {string} preset - The preset name to validate.
+ * @returns {boolean} True if the preset is valid, false otherwise.
+ */
+export const isValidPreset = (preset) => {
+  return VALID_PRESETS.includes(preset);
+};
+
+/**
+ * Helper function to get preset configuration.
+ *
+ * @param {string} preset - The preset name.
+ * @returns {Object|null} Preset configuration object or null if invalid.
+ */
+export const getPresetConfig = (preset) => {
+  return isValidPreset(preset) ? PRESET_PROFILES[preset] : null;
+};
+
+/**
+ * Helper function to get formatted valid presets string for error messages.
+ *
+ * @returns {string} Comma-separated list of valid preset names.
+ */
+export const getValidPresetsString = () => {
+  return VALID_PRESETS.join(", ");
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-config.html">config</a></li><li><a href="module-constants.html">constants</a></li><li><a href="module-errors.html">errors</a></li><li><a href="module-security-audit.html">security-audit</a></li><li><a href="module-services_audit-service.html">services/audit-service</a></li><li><a href="module-services_cli-service.html">services/cli-service</a></li><li><a href="module-services_config-service.html">services/config-service</a></li><li><a href="module-services_password-service.html">services/password-service</a></li><li><a href="module-strings.html">strings</a></li></ul><h3>Classes</h3><ul><li><a href="CLIController.html">CLIController</a></li><li><a href="CommandLearningPresenter.html">CommandLearningPresenter</a></li><li><a href="ConfigurationService.html">ConfigurationService</a></li><li><a href="OnboardingFlow.html">OnboardingFlow</a></li><li><a href="PasswordGeneratorFactory.html">PasswordGeneratorFactory</a></li><li><a href="PasswordGeneratorOrchestrator.html">PasswordGeneratorOrchestrator</a></li></ul><h3>Global</h3><ul><li><a href="global.html#PasswordGenerator">PasswordGenerator</a></li><li><a href="global.html#createCLIController">createCLIController</a></li><li><a href="global.html#dictionaryCache">dictionaryCache</a></li><li><a href="global.html#generate">generate</a></li><li><a href="global.html#generateBase64Chunk">generateBase64Chunk</a></li><li><a href="global.html#generatePassword">generatePassword</a></li><li><a href="global.html#generateRandomBase64">generateRandomBase64</a></li><li><a href="global.html#isFirstRun">isFirstRun</a></li><li><a href="global.html#loadDictionary">loadDictionary</a></li><li><a href="global.html#randomConsonant">randomConsonant</a></li><li><a href="global.html#randomNumber">randomNumber</a></li><li><a href="global.html#randomSyllable">randomSyllable</a></li><li><a href="global.html#randomVowel">randomVowel</a></li><li><a href="global.html#splitString">splitString</a></li><li><a href="global.html#startOnboarding">startOnboarding</a></li><li><a href="global.html#validatePositiveInteger">validatePositiveInteger</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Fri Feb 06 2026 23:45:51 GMT+0000 (Greenwich Mean Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

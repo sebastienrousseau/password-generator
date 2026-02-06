@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: constants</title>
+    <title>JSDoc: Source: services/audit-service.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,322 +17,91 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: constants</h1>
-
-    
-
-
-
-
-<section>
-
-<header>
-    
-        
-            
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description">Centralized constants for character sets used across password generators.</div>
-        
-
-        
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="constants.js.html">constants.js</a>, <a href="constants.js.html#line4">line 4</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id=".BASE64_CHARSET"><span class="type-signature">(static, constant) </span>BASE64_CHARSET<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    Base64 character set (64 characters, no padding bias).
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="constants.js.html">constants.js</a>, <a href="constants.js.html#line11">line 11</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".CONSONANTS"><span class="type-signature">(static, constant) </span>CONSONANTS<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    Consonant characters for syllable generation.
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="constants.js.html">constants.js</a>, <a href="constants.js.html#line18">line 18</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".VOWELS"><span class="type-signature">(static, constant) </span>VOWELS<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    Vowel characters for syllable generation.
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="constants.js.html">constants.js</a>, <a href="constants.js.html#line15">line 15</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <h1 class="page-title">Source: services/audit-service.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// Copyright © 2022-2024 Password Generator. All rights reserved.
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+/**
+ * Audit Service - Handles security audit functionality
+ *
+ * This module provides services for managing security audit sessions,
+ * collecting audit data, and generating audit reports.
+ *
+ * @module services/audit-service
+ */
+
+import {
+  setAuditMode,
+  resetAuditSession,
+  finishAuditSession,
+  generateAuditReport,
+} from "../utils/security-audit.js";
+
+/**
+ * Starts a new audit session and enables audit mode.
+ */
+export const startAuditSession = () => {
+  setAuditMode(true);
+  resetAuditSession();
+};
+
+/**
+ * Completes the current audit session and returns the audit report.
+ *
+ * @returns {Object} The complete audit report.
+ */
+export const completeAuditSession = () => {
+  finishAuditSession();
+  return generateAuditReport();
+};
+
+/**
+ * Executes a function with audit tracking enabled.
+ *
+ * @param {Function} operation - The operation to execute with audit tracking.
+ * @returns {Promise&lt;{result: any, auditReport: Object}>} The operation result and audit report.
+ */
+export const executeWithAudit = async (operation) => {
+  startAuditSession();
+
+  try {
+    const result = await operation();
+    const auditReport = completeAuditSession();
+
+    return {
+      result,
+      auditReport,
+    };
+  } catch (error) {
+    // Complete audit session even if operation fails
+    const auditReport = completeAuditSession();
+    throw new Error(
+      `Operation failed: ${error.message}. Audit Report: ${JSON.stringify(auditReport)}`
+    );
+  }
+};
+
+/**
+ * Checks if audit mode is currently enabled.
+ *
+ * @returns {boolean} True if audit mode is enabled.
+ */
+export const isAuditEnabled = () => {
+  // This would require exposing the audit state from security-audit.js
+  // For now, we'll return false as a placeholder
+  return false;
+};
+</code></pre>
+        </article>
+    </section>
 
 
 

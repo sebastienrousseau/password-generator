@@ -23,7 +23,7 @@ export function randomNumber(max, min = 0) {
     min,
     max,
     rangeSize,
-    result
+    result,
   });
 
   return result;

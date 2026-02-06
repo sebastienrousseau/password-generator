@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: strings</title>
+    <title>JSDoc: Module: config</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: strings</h1>
+    <h1 class="page-title">Module: config</h1>
 
     
 
@@ -38,7 +38,10 @@
     <div class="container-overview">
     
         
-            <div class="description">Consolidated string transformation utilities.</div>
+            <div class="description">Centralized configuration for the password generator CLI.
+
+This module provides a single source of truth for all CLI configuration,
+including valid password types, default values, and option definitions.</div>
         
 
         
@@ -87,7 +90,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_strings.js.html">utils/strings.js</a>, <a href="utils_strings.js.html#line6">line 6</a>
+        <a href="config.js.html">config.js</a>, <a href="config.js.html#line4">line 4</a>
     </li></ul></dd>
     
 
@@ -138,13 +141,13 @@
 
         
             
-<h4 class="name" id=".toCamelCase"><span class="type-signature">(static, constant) </span>toCamelCase<span class="type-signature"></span></h4>
+<h4 class="name" id=".CLI_DEFAULTS"><span class="type-signature">(static, constant) </span>CLI_DEFAULTS<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Converts a given string to camel case.
+    Default values for CLI options.
 </div>
 
 
@@ -182,7 +185,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_strings.js.html">utils/strings.js</a>, <a href="utils_strings.js.html#line19">line 19</a>
+        <a href="config.js.html">config.js</a>, <a href="config.js.html#line68">line 68</a>
     </li></ul></dd>
     
 
@@ -200,13 +203,13 @@
 
         
             
-<h4 class="name" id=".toCharArray"><span class="type-signature">(static, constant) </span>toCharArray<span class="type-signature"></span></h4>
+<h4 class="name" id=".CLI_OPTIONS"><span class="type-signature">(static, constant) </span>CLI_OPTIONS<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Converts a string to an array of characters.
+    CLI option configurations for the commander program.
 </div>
 
 
@@ -244,7 +247,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_strings.js.html">utils/strings.js</a>, <a href="utils_strings.js.html#line41">line 41</a>
+        <a href="config.js.html">config.js</a>, <a href="config.js.html#line82">line 82</a>
     </li></ul></dd>
     
 
@@ -262,13 +265,13 @@
 
         
             
-<h4 class="name" id=".toCurrency"><span class="type-signature">(static, constant) </span>toCurrency<span class="type-signature"></span></h4>
+<h4 class="name" id=".PRESET_PROFILES"><span class="type-signature">(static, constant) </span>PRESET_PROFILES<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Formats a number as a currency string.
+    Preset profile configurations for zero-config CLI usage.
 </div>
 
 
@@ -306,7 +309,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_strings.js.html">utils/strings.js</a>, <a href="utils_strings.js.html#line51">line 51</a>
+        <a href="config.js.html">config.js</a>, <a href="config.js.html#line26">line 26</a>
     </li></ul></dd>
     
 
@@ -324,13 +327,14 @@
 
         
             
-<h4 class="name" id=".toKebabCase"><span class="type-signature">(static, constant) </span>toKebabCase<span class="type-signature"></span></h4>
+<h4 class="name" id=".VALIDATION_BOUNDS"><span class="type-signature">(static, constant) </span>VALIDATION_BOUNDS<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Converts a string to kebab case.
+    Validation bounds for password generation parameters.
+These constants are used by both CLI and onboarding to ensure consistency.
 </div>
 
 
@@ -368,7 +372,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_strings.js.html">utils/strings.js</a>, <a href="utils_strings.js.html#line64">line 64</a>
+        <a href="config.js.html">config.js</a>, <a href="config.js.html#line50">line 50</a>
     </li></ul></dd>
     
 
@@ -386,13 +390,13 @@
 
         
             
-<h4 class="name" id=".toSnakeCase"><span class="type-signature">(static, constant) </span>toSnakeCase<span class="type-signature"></span></h4>
+<h4 class="name" id=".VALID_PASSWORD_TYPES"><span class="type-signature">(static, constant) </span>VALID_PASSWORD_TYPES<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Converts a string to snake case.
+    Valid password types supported by the generator.
 </div>
 
 
@@ -430,7 +434,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_strings.js.html">utils/strings.js</a>, <a href="utils_strings.js.html#line76">line 76</a>
+        <a href="config.js.html">config.js</a>, <a href="config.js.html#line16">line 16</a>
     </li></ul></dd>
     
 
@@ -448,13 +452,13 @@
 
         
             
-<h4 class="name" id=".toTitleCase"><span class="type-signature">(static, constant) </span>toTitleCase<span class="type-signature"></span></h4>
+<h4 class="name" id=".VALID_PRESETS"><span class="type-signature">(static, constant) </span>VALID_PRESETS<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Converts a string to title case.
+    Valid preset profile names.
 </div>
 
 
@@ -492,7 +496,317 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_strings.js.html">utils/strings.js</a>, <a href="utils_strings.js.html#line89">line 89</a>
+        <a href="config.js.html">config.js</a>, <a href="config.js.html#line21">line 21</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".getPresetConfig"><span class="type-signature">(static, constant) </span>getPresetConfig<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Helper function to get preset configuration.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="config.js.html">config.js</a>, <a href="config.js.html#line170">line 170</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".getValidPresetsString"><span class="type-signature">(static, constant) </span>getValidPresetsString<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Helper function to get formatted valid presets string for error messages.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="config.js.html">config.js</a>, <a href="config.js.html#line179">line 179</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".getValidTypesString"><span class="type-signature">(static, constant) </span>getValidTypesString<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Helper function to get formatted valid types string for error messages.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="config.js.html">config.js</a>, <a href="config.js.html#line150">line 150</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".isValidPasswordType"><span class="type-signature">(static, constant) </span>isValidPasswordType<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Helper function to validate password type.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="config.js.html">config.js</a>, <a href="config.js.html#line141">line 141</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".isValidPreset"><span class="type-signature">(static, constant) </span>isValidPreset<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Helper function to validate preset name.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="config.js.html">config.js</a>, <a href="config.js.html#line160">line 160</a>
     </li></ul></dd>
     
 

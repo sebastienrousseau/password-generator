@@ -8,7 +8,7 @@ import {
   recordEntropyUsage,
   recordAlgorithmUsage,
   calculateBase64Entropy,
-  calculateBase64ChunkEntropy
+  calculateBase64ChunkEntropy,
 } from "./security-audit.js";
 
 /**
@@ -39,11 +39,11 @@ export const generateRandomBase64 = (byteLength) => {
   recordEntropyUsage("crypto.randomBytes", 1, calculateBase64Entropy(byteLength), {
     byteLength,
     outputLength: result.length,
-    method: "base64-encoding"
+    method: "base64-encoding",
   });
   recordAlgorithmUsage("base64-password-generation", {
     byteLength,
-    encoding: "base64"
+    encoding: "base64",
   });
 
   return result;
@@ -70,11 +70,11 @@ export const generateBase64Chunk = (length) => {
   recordEntropyUsage("crypto.randomInt", length, calculateBase64ChunkEntropy(length), {
     charsetSize: BASE64_CHARSET.length,
     outputLength: length,
-    method: "character-by-character"
+    method: "character-by-character",
   });
   recordAlgorithmUsage("base64-chunk-generation", {
     charsetSize: BASE64_CHARSET.length,
-    outputLength: length
+    outputLength: length,
   });
 
   return result;

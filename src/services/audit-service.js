@@ -14,7 +14,7 @@ import {
   setAuditMode,
   resetAuditSession,
   finishAuditSession,
-  generateAuditReport
+  generateAuditReport,
 } from "../utils/security-audit.js";
 
 /**
@@ -41,7 +41,7 @@ export const completeAuditSession = () => {
  * @param {Function} operation - The operation to execute with audit tracking.
  * @returns {Promise<{result: any, auditReport: Object}>} The operation result and audit report.
  */
-export const executeWithAudit = async(operation) => {
+export const executeWithAudit = async (operation) => {
   startAuditSession();
 
   try {
@@ -50,12 +50,14 @@ export const executeWithAudit = async(operation) => {
 
     return {
       result,
-      auditReport
+      auditReport,
     };
   } catch (error) {
     // Complete audit session even if operation fails
     const auditReport = completeAuditSession();
-    throw new Error(`Operation failed: ${error.message}. Audit Report: ${JSON.stringify(auditReport)}`);
+    throw new Error(
+      `Operation failed: ${error.message}. Audit Report: ${JSON.stringify(auditReport)}`
+    );
   }
 };
 

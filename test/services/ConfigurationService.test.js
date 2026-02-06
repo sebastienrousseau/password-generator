@@ -19,7 +19,7 @@ describe("ConfigurationService", function () {
       expect(result).to.deep.equal({
         type: "base64", // Overridden by user
         length: 20, // Overridden by user
-        iteration: 3, // From quick preset
+        iteration: 4, // From quick preset (updated for P2 security hardening)
         separator: "|", // Overridden by user
       });
     });
@@ -191,7 +191,7 @@ describe("ConfigurationService", function () {
       expect(result).to.deep.equal({
         type: "base64",
         length: 20,
-        iteration: 3,
+        iteration: 4, // From quick preset (updated for P2 security hardening)
         separator: "-",
       });
     });

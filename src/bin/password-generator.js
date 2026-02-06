@@ -5,10 +5,22 @@ import { createCLIController } from "../cli/CLIController.js";
 import PasswordGeneratorFactory from "../core/PasswordGeneratorFactory.js";
 
 // Export services for programmatic use
-export { generatePassword, safeGeneratePassword, generateMultiplePasswords } from "../services/password-service.js";
-export { processConfiguration, mergePresetWithOptions, validateFinalConfig } from "../services/config-service.js";
+export {
+  generatePassword,
+  safeGeneratePassword,
+  generateMultiplePasswords,
+} from "../services/password-service.js";
+export {
+  processConfiguration,
+  mergePresetWithOptions,
+  validateFinalConfig,
+} from "../services/config-service.js";
 export { generateEquivalentCommand, displayCommandLearningPanel } from "../services/cli-service.js";
-export { startAuditSession, completeAuditSession, executeWithAudit } from "../services/audit-service.js";
+export {
+  startAuditSession,
+  completeAuditSession,
+  executeWithAudit,
+} from "../services/audit-service.js";
 
 /**
  * Generates a password of the specified type using the PasswordGeneratorFactory.
@@ -24,17 +36,17 @@ export { startAuditSession, completeAuditSession, executeWithAudit } from "../se
  * @param {string} data.separator - The separator between password chunks.
  * @return {Promise<string>} The generated password.
  */
-export const PasswordGenerator = async(data) => {
+export const PasswordGenerator = async (data) => {
   return await PasswordGeneratorFactory.generate(data);
 };
 
 // Only execute CLI logic when running as CLI (not when imported as a module)
 // Check if this file is being run directly (not imported)
-const isMainModule = process.argv[1] && (
-  process.argv[1].endsWith("password-generator.js") ||
-  process.argv[1].endsWith("index.js") ||
-  process.argv[1].includes("bin/password-generator")
-);
+const isMainModule =
+  process.argv[1] &&
+  (process.argv[1].endsWith("password-generator.js") ||
+    process.argv[1].endsWith("index.js") ||
+    process.argv[1].includes("bin/password-generator"));
 
 if (isMainModule) {
   // Create CLI controller with the password generator function
@@ -42,7 +54,7 @@ if (isMainModule) {
 
   // Run the CLI controller
   /* c8 ignore start - Error handler for unexpected CLI failures */
-  cliController.run().catch(error => {
+  cliController.run().catch((error) => {
     console.error(`Error: ${error.message}`);
     process.exit(1);
   });

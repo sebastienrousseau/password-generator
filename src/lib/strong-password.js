@@ -16,9 +16,7 @@ export const generatePassword = ({ length, iteration, separator }) => {
   validatePositiveInteger(length, "length");
   validatePositiveInteger(iteration, "iteration");
 
-  const passwordChunks = Array.from({ length: iteration }, () =>
-    generateBase64Chunk(length)
-  );
+  const passwordChunks = Array.from({ length: iteration }, () => generateBase64Chunk(length));
   return passwordChunks.join(separator);
 };
 
