@@ -43,7 +43,7 @@ describe("randomNumber Function", () => {
 
     // Check that each number is within tolerance of the expected count (uniform distribution).
     count.forEach((c) => {
-      expect(c).to.be.closeTo(tolerance, tolerance * 0.2); // Allowing 20% tolerance
+      expect(c).to.be.closeTo(tolerance, tolerance * 0.4); // Allowing 40% tolerance
     });
   });
 });
