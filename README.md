@@ -1,235 +1,253 @@
 <!-- markdownlint-disable MD033 MD041 -->
-
 <img
   src="https://kura.pro/password-generator-pro/images/logos/password-generator-pro.webp"
   alt="Password Generator Logo"
   width="261"
   align="right"
 />
-
 <!-- markdownlint-enable MD033 MD041 -->
 
 # Password Generator
 
-A fast, simple, and powerful open-source utility tool for generating strong, unique, and random passwords. The Password Generator supports various types of passwords including base64-encoded, memorable, and complex strong passwords. It is designed to be a versatile tool for both personal and enterprise needs, ensuring that all users have access to high-security password options. Password Generator is free to use as a secure password generator on any computer, phone, or tablet.
+A fast, simple, and powerful open-source utility for generating cryptographically secure passwords. Supports three password types: strong (complex), base64-encoded, and memorable word-based passwords.
 
-[![Getting Started](https://kura.pro/common/images/buttons/button-primary.svg)](#installation)
-[![Download the Password Generator Tool v1.1.4](https://kura.pro/common/images/buttons/button-secondary.svg)](https://github.com/sebastienrousseau/password-generator/archive/refs/tags/1.1.4.zip)
+[![Getting Started](https://kura.pro/common/images/buttons/button-primary.svg)](#quick-start)
+[![Download v1.1.4](https://kura.pro/common/images/buttons/button-secondary.svg)](https://github.com/sebastienrousseau/password-generator/archive/refs/tags/1.1.4.zip)
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/0acb169c95e443729551979e0fd86eaf)](https://www.codacy.com?utm_source=github.com&utm_medium=referral&utm_content=sebastienrousseau/password-generator&utm_campaign=Badge_Grade)
 [![npm](https://img.shields.io/npm/v/@sebastienrousseau/password-generator.svg?style=flat&color=success)](https://www.npmjs.com/package/@sebastienrousseau/password-generator)
 [![Release Notes](https://img.shields.io/badge/release-notes-success.svg)](https://github.com/sebastienrousseau/password-generator/releases/)
-[![npm](https://img.shields.io/npm/dm/password-generator.svg?style=flat)](https://www.npmjs.com/package/@sebastienrousseau/password-generator)
 [![License: MIT](https://img.shields.io/badge/License-MIT-success.svg?style=flat)](https://opensource.org/licenses/MIT)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsebastienrousseau%2Fpassword-generator.svg?type=small)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsebastienrousseau%2Fpassword-generator?ref=badge_small)
 
-## Features
+## Quick Start
 
--   **Base64 Passwords**: Generate passwords with base64 encoding for a balance of security and usability.
--   **Memorable Passwords**: Create passwords using a combination of memorable words, making them easier to remember while maintaining security.
--   **Strong Passwords**: Produce highly secure passwords with customizable length and complexity to meet the highest security standards.
--   **Customizable Options**: Specify password length, complexity, and word separators to tailor your password to your security needs.
--   **CLI Support**: Use the Password Generator directly from your terminal for quick and easy access.
--   **Clipboard Support**: Optionally copy the generated password directly to your clipboard with the `--clipboard` flag.
--   **Secure**: Built with security as a priority, using Node.js `crypto.randomInt()` and `crypto.randomBytes()` for cryptographically secure randomness.
+### Installation
 
-## Installation
+**Node.js Requirements:** Node.js >= 18.0.0
 
-### From NPM or YARN
-
-To install the Password Generator Tool, use either npm or yarn as follows:
-
--   `npm i @sebastienrousseau/password-generator`
--   `yarn add @sebastienrousseau/password-generator`
-
-### From GitHub
-
-Clone the main repository to get all source files including build scripts: `git clone https://github.com/sebastienrousseau/password-generator.git`
-
-## Requirements
-
--   Node.js >= 18.0.0
-
-## What's included
-
-Within the download you'll find all the password generator source files grouped into the _dist_ folder.
-
-You'll see something like this:
-
-```shell
-.
-├── COPYRIGHT
-├── LICENSE
-├── Makefile
-├── README.md
-├── Report.txt
-├── index.js
-├── package.json
-└── src
-    ├── bin
-    │   └── password-generator.js
-    ├── dictionaries
-    │   ├── common.json
-    │   └── ... (24 themed dictionaries)
-    ├── lib
-    │   ├── base64-password.js
-    │   ├── memorable-password.js
-    │   └── strong-password.js
-    └── utils
-        ├── crypto.js
-        ├── randomConsonant.js
-        ├── randomNumber.js
-        ├── randomSyllable.js
-        ├── randomVowel.js
-        └── strings.js
+**Install from npm:**
+```bash
+npm install @sebastienrousseau/password-generator
 ```
 
-## Usage
-
-### From the CLI
-
-```shell
-node index.js --help
+**Install from source:**
+```bash
+git clone https://github.com/sebastienrousseau/password-generator.git
+cd password-generator
+npm install
 ```
 
-Displays the following help menu:
+### Generate Your First Password
 
-```shell
-Usage: password-generator [options]
-
-A fast, simple and powerful utility for generating strong, unique and random passwords
-
-Options:
-  -t, --type <type>          password type (strong, base64, memorable)
-  -l, --length <number>      length of each password chunk
-  -i, --iteration <number>   number of password chunks or words
-  -s, --separator <char>     separator between password chunks
-  -c, --clipboard            copy the generated password to clipboard
-  -h, --help                 display help for command
-```
-
-#### Examples
-
-```shell
+**Command Line:**
+```bash
 # Generate a strong password with 3 chunks of 12 characters
-node index.js -t strong -l 12 -i 3 -s '-'
+npx @sebastienrousseau/password-generator -t strong -l 12 -i 3 -s '-'
+# Output: aB3dEf+/gH1i-Kl2MnOpQr3s-tU4vWxYz5A
 
-# Generate a base64 password with 4 chunks of 8 characters
-node index.js -t base64 -l 8 -i 4 -s '.'
-
-# Generate a memorable password with 4 words
-node index.js -t memorable -i 4 -s '-'
-
-# Generate and copy to clipboard
-node index.js -t strong -l 16 -i 2 -s '-' --clipboard
+# Generate a memorable password
+npx @sebastienrousseau/password-generator -t memorable -i 4 -s '-'
+# Output: Apple-Breeze-Castle-Diamond
 ```
 
-### From Node.js (ES Modules)
-
+**Node.js/JavaScript:**
 ```javascript
-import { PasswordGenerator } from "@sebastienrousseau/password-generator";
+import PasswordGenerator from "@sebastienrousseau/password-generator";
 
-// Generate a strong password
-const strong = await PasswordGenerator({
+const password = await PasswordGenerator({
   type: "strong",
   length: 12,
   iteration: 3,
   separator: "-",
 });
-console.log(strong); // e.g. "aB3dEf+/gH1i-Kl2MnOpQr3s-tU4vWxYz5A"
+console.log(password); // aB3dEf+/gH1i-Kl2MnOpQr3s-tU4vWxYz5A
+```
 
-// Generate a memorable password
-const memorable = await PasswordGenerator({
-  type: "memorable",
-  iteration: 4,
-  separator: "-",
+## Password Types
+
+| Type | Description | Use Case | Example Output |
+|------|-------------|----------|----------------|
+| **strong** | Complex passwords with uppercase, lowercase, numbers, symbols | High-security accounts | `aB3dEf+/gH1i-Kl2MnOp` |
+| **base64** | Base64-encoded character combinations | API keys, tokens | `YWJjZGVm.ZGhpamts` |
+| **memorable** | Dictionary words for easy recall | Personal accounts, shared passwords | `Apple-Castle-River-Moon` |
+
+## Usage Guide
+
+### Command Line Interface
+
+**Basic syntax:**
+```bash
+npx @sebastienrousseau/password-generator [options]
+```
+
+**Options:**
+```
+-t, --type <type>          Password type: strong, base64, memorable
+-l, --length <number>      Length of each password chunk (not applicable to memorable)
+-i, --iteration <number>   Number of chunks or words
+-s, --separator <char>     Separator between chunks/words
+-c, --clipboard            Copy generated password to clipboard
+-h, --help                 Show help
+```
+
+### How-To Guides
+
+#### Generate Enterprise-Grade Strong Passwords
+
+**For high-security systems:**
+```bash
+# Generate a 64-character strong password (4 chunks of 16 chars)
+npx @sebastienrousseau/password-generator -t strong -l 16 -i 4 -s '-'
+# Output: A9k#mP2q$vZ8-B7n&jX4!wE3-C6r*sY9@uT1-D5h^lI0%fG8
+```
+
+**For database connections:**
+```javascript
+import PasswordGenerator from "@sebastienrousseau/password-generator";
+
+const dbPassword = await PasswordGenerator({
+  type: "strong",
+  length: 20,
+  iteration: 2,
+  separator: "",  // No separator for single string
 });
-console.log(memorable); // e.g. "Apple-Breeze-Castle-Diamond"
+console.log(dbPassword); // A9k#mP2q$vZ8B7n&jX4!
+```
 
-// Generate a base64 password
-const base64 = await PasswordGenerator({
+#### Generate Base64 API Keys
+
+**For REST API authentication:**
+```bash
+# Generate base64 tokens with dot separators
+npx @sebastienrousseau/password-generator -t base64 -l 12 -i 3 -s '.'
+# Output: YWJjZGVmZ2hp.amlrbG1ub3Bx.cnN0dXZ3eHl6
+```
+
+**For OAuth tokens:**
+```javascript
+const apiKey = await PasswordGenerator({
   type: "base64",
-  length: 8,
+  length: 32,
+  iteration: 1,
+  separator: "",
+});
+console.log(apiKey); // YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXo=
+```
+
+#### Generate Memorable Passwords
+
+**For team sharing:**
+```bash
+# Generate 5-word memorable password
+npx @sebastienrousseau/password-generator -t memorable -i 5 -s '-'
+# Output: Ocean-Mountain-Thunder-Crystal-Phoenix
+```
+
+**For user onboarding:**
+```javascript
+const tempPassword = await PasswordGenerator({
+  type: "memorable",
   iteration: 3,
   separator: ".",
 });
-console.log(base64); // e.g. "aB3dEf+/.Kl2MnOp.tU4vWxYz"
+console.log(tempPassword); // Forest.River.Eagle
 ```
 
-## Password options
+#### Copy to Clipboard
 
-### Base64 password
-
-```shell
-# Using node
-node index.js -t base64 -l 8 -i 4 -s '-'
-
-# Using yarn
-yarn start -t base64 -l 8 -i 4 -s '-'
+**Quick clipboard copy (all password types):**
+```bash
+npx @sebastienrousseau/password-generator -t strong -l 12 -i 3 -s '-' --clipboard
+# Password copied to clipboard: A9k#mP2q$vZ8-B7n&jX4!wE3-C6r*sY9@uT1
 ```
 
-### Strong password
+## API Reference
 
-```shell
-# Using node
-node index.js -t strong -l 8 -i 4 -s '-'
+### PasswordGenerator(options)
 
-# Using yarn
-yarn start -t strong -l 8 -i 4 -s '-'
+**Description:** Generates a password based on specified options.
+
+**Parameters:**
+- `options` (Object) - Configuration object
+  - `type` (string) - Password type: `"strong"`, `"base64"`, or `"memorable"`
+  - `length` (number) - Length of each chunk (not used for memorable type)
+  - `iteration` (number) - Number of chunks or words to generate
+  - `separator` (string) - Character(s) to separate chunks/words
+
+**Returns:** Promise\<string> - The generated password
+
+**Example:**
+```javascript
+const password = await PasswordGenerator({
+  type: "strong",
+  length: 12,
+  iteration: 3,
+  separator: "-"
+});
 ```
 
-### Memorable password
+### Security Features
 
-```shell
-# Using node
-node index.js -t memorable -i 4 -s '-'
+- **Cryptographically Secure**: Uses Node.js `crypto.randomInt()` and `crypto.randomBytes()`
+- **No Predictable Patterns**: Each password is independently generated
+- **Configurable Entropy**: Adjust length and iterations for desired security level
+- **Dictionary Support**: 24 themed dictionaries for memorable passwords
 
-# Using yarn
-yarn start -t memorable -i 4 -s '-'
+## Project Structure
+
+```
+password-generator/
+├── index.js              # Main entry point
+├── package.json           # Package configuration
+├── src/
+│   ├── bin/              # CLI implementation
+│   ├── lib/              # Core password generators
+│   ├── dictionaries/     # Word lists for memorable passwords
+│   └── utils/            # Utility functions
+├── docs/                 # Auto-generated API docs (JSDoc)
+└── .github/              # GitHub templates and workflows
 ```
 
-## Semantic Versioning Policy
+## Development
 
-For transparency into our release cycle and in striving to maintain backward compatibility, `password-generator` follows [semantic versioning](http://semver.org/) and [ESLint's Semantic Versioning Policy](https://github.com/eslint/eslint#semantic-versioning-policy).
+**Setup:**
+```bash
+git clone https://github.com/sebastienrousseau/password-generator.git
+cd password-generator
+npm install
+```
 
-## Changelog
-
--   [GitHub Releases](https://github.com/sebastienrousseau/password-generator/releases)
+**Available Scripts:**
+```bash
+npm run build      # Build distribution files
+npm run test       # Run tests and coverage
+npm run lint       # Check code style
+npm run lint:fix   # Fix code style issues
+```
 
 ## Contributing
 
-Please read carefully through our [Contributing Guidelines](https://github.com/sebastienrousseau/password-generator/blob/master/.github/CONTRIBUTING.md) for further details on the process for submitting pull requests to us.
+We welcome contributions! Please see our [Contributing Guidelines](.github/CONTRIBUTING.md) for details.
 
-Development Tools
-
--   `pnpm build` runs build.
--   `pnpm clean` removes the coverage result of npm test command.
--   `pnpm coverage` shows the coverage result of npm test command.
--   `pnpm lint` run ESLint.
--   `pnpm lint:fix` instructs ESLint to try to fix as many issues as possible..
--   `pnpm test` runs tests and measures coverage.
-
-## Rules
-
-We are committed to preserving and fostering a diverse, welcoming community. Please read our [Code of Conduct](https://github.com/sebastienrousseau/password-generator/blob/master/.github/CODE-OF-CONDUCT.md).
-
-## Our Values
-
--   We believe perfection must consider everything.
--   We take our passion beyond code into our daily practices.
--   We are just obsessed about creating and delivering exceptional solutions.
+**Quick contribution checklist:**
+- [ ] Fork the repository
+- [ ] Create a feature branch
+- [ ] Write tests for new features
+- [ ] Ensure all tests pass
+- [ ] Follow the existing code style
+- [ ] Submit a pull request
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/sebastienrousseau/password-generator/blob/master/LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Acknowledgements
+## Support
 
-[The Password Generator Tool](https://password-generator.pro) is beautifully crafted by these people and a bunch of awesome [contributors](https://github.com/sebastienrousseau/password-generator/graphs/contributors)
+- 📖 **Documentation**: [API Reference](docs/)
+- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/sebastienrousseau/password-generator/issues)
+- 💬 **Questions**: [GitHub Discussions](https://github.com/sebastienrousseau/password-generator/discussions)
+- 📦 **Releases**: [GitHub Releases](https://github.com/sebastienrousseau/password-generator/releases)
 
-| Contributors |
-|---------|
-|[![Sebastien Rousseau](https://avatars0.githubusercontent.com/u/1394998?s=117)](https://sebastienrousseau.co.uk)|
-|[Sebastien Rousseau](https://github.com/sebastienrousseau)|
+---
 
-Made with ❤ in London.
+**Designed by Sebastien Rousseau — Engineered with Euxis**

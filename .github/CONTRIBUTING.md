@@ -1,52 +1,147 @@
-# Contributing
+# Contributing to Password Generator
 
-Thank you so much for wanting to contribute to the Password Generator! There are a couple ways to help out.
+Thank you for your interest in contributing to Password Generator! We welcome contributions from the community.
 
-## Evangelize
+## Ways to Contribute
 
-Just tell people about the Password Generator. We believe that a bigger, more involved community makes for a better framework, and that better frameworks make the world a better place. We can always use more feedback.
+### 🐛 Report Bugs
+Found a bug? [Create an issue](https://github.com/sebastienrousseau/password-generator/issues/new/choose) with:
+- Clear, descriptive title
+- Steps to reproduce the issue
+- Expected vs actual behavior
+- Environment details (Node.js version, OS)
+- Code samples if applicable
 
-## How to Contribute
+### 💡 Suggest Features
+Have an idea? [Open a feature request](https://github.com/sebastienrousseau/password-generator/issues/new/choose) with:
+- Clear description of the proposed feature
+- Use cases and benefits
+- Implementation considerations
 
-Here are guides for submitting issues and pull requests.
+### 📝 Improve Documentation
+- Fix typos or unclear explanations
+- Add examples for complex use cases
+- Improve API documentation
+- Update installation guides
 
-### Bug Reports
+### 🔧 Submit Code Changes
 
-If you encounter a bug that hasn't already been filed, please file a bug report. Let us know of things we should fix, things we should add, questions, etc.
+## Development Setup
 
-Warning us of a bug is possibly the single most valuable contribution you can make to the Password Generator.
+### Prerequisites
+- Node.js >= 18.0.0
+- Git
 
--   Head [here](https://github.com/sebastienrousseau/password-generator/issues/new) to submit a new issue.
--   Include a descriptive title that is straight to the point.
--   Write a detailed description on what the issue is all about.
--   Wait for someone to get to the issue and add labels.
--   The issue will be fixed soon!
+### Setup Steps
+```bash
+# 1. Fork the repository on GitHub
+# 2. Clone your fork
+git clone https://github.com/YOUR-USERNAME/password-generator.git
+cd password-generator
 
-### Code Contributions
+# 3. Install dependencies
+npm install
 
-Contributing code is one of the more difficult ways to contribute to the Password Generator.
+# 4. Create a feature branch
+git checkout -b feature/your-feature-name
 
-#### Feature Requests
+# 5. Make your changes
+# Edit files in src/ directory only (dist/ is auto-generated)
 
-Filing feature requests is one of the most popular ways to contribute to the Password Generator.
+# 6. Test your changes
+npm test
+npm run lint
 
-Is there some feature request that you'd like to code up yourself? Is there a feature you asked for yourself that you'd like to code?
+# 7. Build to verify everything works
+npm run build
+```
 
-Here's how to contribute code for a new feature to the Password Generator. Pull Requests allow you to share your own code with us, and we can merge it into the main repo.
+## Code Guidelines
 
-#### Adding Code
+### Style Requirements
+- Follow existing code style (ESLint configuration provided)
+- Use meaningful variable and function names
+- Add JSDoc comments for public APIs
+- Write tests for new features
 
--   Fork the repo.
--   Clone the Password Generator repo by running: `git clone https://github.com/sebastienrousseau/password-generator.git`
--   Install Node.js if you haven't already, and run `npm install`. This installs the required dependencies for building the Password Generator.
--   Edit files in the `src/` folder. Don't edit any files in the `dist/` folder, this is only for distribution builds, which are automated.
--   Run `npm run build` to trigger builds, and the new distribution files will be in the `dist/` folder ready to go.
+### Testing
+- All new features must have tests
+- Existing tests must continue passing
+- Run `npm test` before submitting
 
-#### Fixing an Issue
+### Security Considerations
+- Use cryptographically secure randomness (`crypto` module)
+- Validate all inputs
+- Follow secure coding practices
 
-Have you found a solution to an issue? Here is how you can submit your code to the Password Generator.
+## Pull Request Process
 
--   Fork the repo, and refer above for how to change up code.
--   Head to your local fork of the repo, and click the "New Pull Request" button.
--   Include a title that is straight to the point.
--   Wait for someone to review the pull request, and then merge your pull request!
+### Before Submitting
+- [ ] Tests pass (`npm test`)
+- [ ] Linting passes (`npm run lint`)
+- [ ] Build succeeds (`npm run build`)
+- [ ] Documentation updated (if applicable)
+- [ ] CHANGELOG updated (if applicable)
+
+### PR Requirements
+1. **Clear title**: Describe what the PR does
+2. **Detailed description**: Explain the changes and why they're needed
+3. **Link related issues**: Reference any related GitHub issues
+4. **Small, focused changes**: Keep PRs focused on a single concern
+
+### Review Process
+1. Automated checks run (tests, linting, security)
+2. Code review by maintainers
+3. Feedback incorporated
+4. Final approval and merge
+
+## Project Structure
+
+```
+password-generator/
+├── src/
+│   ├── bin/              # CLI implementation
+│   ├── lib/              # Core password generators
+│   │   ├── base64-password.js
+│   │   ├── memorable-password.js
+│   │   └── strong-password.js
+│   ├── dictionaries/     # Word lists for memorable passwords
+│   └── utils/            # Utility functions
+├── test/                 # Test files
+├── docs/                 # Generated documentation
+└── .github/              # GitHub templates
+```
+
+### File Naming
+- Use kebab-case for files: `strong-password.js`
+- Match test files to source: `strong-password.test.js`
+
+## Community Guidelines
+
+### Code of Conduct
+Please read our [Code of Conduct](./.github/CODE-OF-CONDUCT.md). We are committed to providing a welcoming and inclusive environment.
+
+### Communication
+- Be respectful and constructive
+- Ask questions if anything is unclear
+- Help others when you can
+- Stay focused on the issue at hand
+
+## Recognition
+
+Contributors are recognized in:
+- GitHub contributors list
+- Release notes for significant contributions
+- Project documentation
+
+## Questions?
+
+- 💬 [GitHub Discussions](https://github.com/sebastienrousseau/password-generator/discussions) for questions
+- 🐛 [GitHub Issues](https://github.com/sebastienrousseau/password-generator/issues) for bugs
+- 📧 Contact: hello@password-generator.pro
+
+Thank you for contributing to making Password Generator better!
+
+---
+
+**Designed by Sebastien Rousseau — Engineered with Euxis**
