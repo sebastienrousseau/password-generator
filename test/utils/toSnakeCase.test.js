@@ -1,4 +1,4 @@
-import { toSnakeCase } from "../../src/utils/toSnakeCase/toSnakeCase.js";
+import { toSnakeCase } from "../../src/utils/strings.js";
 import { expect } from 'chai';
 
 let snakeCaseArray = [

@@ -1,4 +1,4 @@
-import { toCharArray } from "../../src/utils/toCharArray/toCharArray.js";
+import { toCharArray } from "../../src/utils/strings.js";
 import { assert } from 'chai';
 
 const strings = {

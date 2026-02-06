@@ -1,4 +1,5 @@
 import { expect } from "chai";
+import assert from "assert";
 import {
   generateRandomBase64,
   generateBase64Chunk,
@@ -24,6 +25,27 @@ describe("Crypto Utilities", () => {
       }
       expect(results.size).to.be.greaterThan(1);
     });
+
+    it("should throw RangeError for zero byteLength", () => {
+      assert.throws(
+        () => generateRandomBase64(0),
+        { name: "RangeError", message: "The byteLength argument must be a positive integer" }
+      );
+    });
+
+    it("should throw RangeError for negative byteLength", () => {
+      assert.throws(
+        () => generateRandomBase64(-5),
+        { name: "RangeError", message: "The byteLength argument must be a positive integer" }
+      );
+    });
+
+    it("should throw RangeError for non-integer byteLength", () => {
+      assert.throws(
+        () => generateRandomBase64(2.5),
+        { name: "RangeError", message: "The byteLength argument must be a positive integer" }
+      );
+    });
   });
 
   describe("generateBase64Chunk", () => {
@@ -38,9 +60,38 @@ describe("Crypto Utilities", () => {
       expect(result).to.have.lengthOf(1);
     });
 
-    it("should contain only base64 characters", () => {
+    it("should contain only base64 characters (no padding)", () => {
       const result = generateBase64Chunk(32);
-      expect(result).to.match(/^[A-Za-z0-9+/=]+$/);
+      expect(result).to.match(/^[A-Za-z0-9+/]+$/);
+    });
+
+    it("should generate different strings on each call", () => {
+      const results = new Set();
+      for (let i = 0; i < 10; i++) {
+        results.add(generateBase64Chunk(16));
+      }
+      expect(results.size).to.be.greaterThan(1);
+    });
+
+    it("should throw RangeError for zero length", () => {
+      assert.throws(
+        () => generateBase64Chunk(0),
+        { name: "RangeError", message: "The length argument must be a positive integer" }
+      );
+    });
+
+    it("should throw RangeError for negative length", () => {
+      assert.throws(
+        () => generateBase64Chunk(-1),
+        { name: "RangeError", message: "The length argument must be a positive integer" }
+      );
+    });
+
+    it("should throw RangeError for non-integer length", () => {
+      assert.throws(
+        () => generateBase64Chunk(3.14),
+        { name: "RangeError", message: "The length argument must be a positive integer" }
+      );
     });
   });
 
@@ -58,6 +109,27 @@ describe("Crypto Utilities", () => {
     it("should return an empty array for an empty string", () => {
       const result = splitString("", 4);
       expect(result).to.deep.equal([]);
+    });
+
+    it("should throw RangeError for zero length", () => {
+      assert.throws(
+        () => splitString("abc", 0),
+        { name: "RangeError", message: "The length argument must be a positive integer" }
+      );
+    });
+
+    it("should throw RangeError for negative length", () => {
+      assert.throws(
+        () => splitString("abc", -1),
+        { name: "RangeError", message: "The length argument must be a positive integer" }
+      );
+    });
+
+    it("should throw RangeError for non-integer length", () => {
+      assert.throws(
+        () => splitString("abc", 1.5),
+        { name: "RangeError", message: "The length argument must be a positive integer" }
+      );
     });
   });
 });

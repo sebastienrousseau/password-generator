@@ -14,7 +14,7 @@
 A fast, simple, and powerful open-source utility tool for generating strong, unique, and random passwords. The Password Generator supports various types of passwords including base64-encoded, memorable, and complex strong passwords. It is designed to be a versatile tool for both personal and enterprise needs, ensuring that all users have access to high-security password options. Password Generator is free to use as a secure password generator on any computer, phone, or tablet.
 
 [![Getting Started](https://kura.pro/common/images/buttons/button-primary.svg)](#installation)
-[![Download the Password Generator Tool v1.1.3](https://kura.pro/common/images/buttons/button-secondary.svg)](https://github.com/sebastienrousseau/password-generator/archive/refs/tags/1.1.3.zip)
+[![Download the Password Generator Tool v1.1.4](https://kura.pro/common/images/buttons/button-secondary.svg)](https://github.com/sebastienrousseau/password-generator/archive/refs/tags/1.1.4.zip)
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/0acb169c95e443729551979e0fd86eaf)](https://www.codacy.com?utm_source=github.com&utm_medium=referral&utm_content=sebastienrousseau/password-generator&utm_campaign=Badge_Grade)
 [![npm](https://img.shields.io/npm/v/@sebastienrousseau/password-generator.svg?style=flat&color=success)](https://www.npmjs.com/package/@sebastienrousseau/password-generator)
@@ -30,7 +30,8 @@ A fast, simple, and powerful open-source utility tool for generating strong, uni
 -   **Strong Passwords**: Produce highly secure passwords with customizable length and complexity to meet the highest security standards.
 -   **Customizable Options**: Specify password length, complexity, and word separators to tailor your password to your security needs.
 -   **CLI Support**: Use the Password Generator directly from your terminal for quick and easy access.
--   **Secure**: Built with security as a priority, using cryptographic functions to ensure password strength.
+-   **Clipboard Support**: Optionally copy the generated password directly to your clipboard with the `--clipboard` flag.
+-   **Secure**: Built with security as a priority, using Node.js `crypto.randomInt()` and `crypto.randomBytes()` for cryptographically secure randomness.
 
 ## Installation
 
@@ -44,6 +45,10 @@ To install the Password Generator Tool, use either npm or yarn as follows:
 ### From GitHub
 
 Clone the main repository to get all source files including build scripts: `git clone https://github.com/sebastienrousseau/password-generator.git`
+
+## Requirements
+
+-   Node.js >= 18.0.0
 
 ## What's included
 
@@ -61,159 +66,126 @@ You'll see something like this:
 ├── index.js
 ├── package.json
 └── src
+    ├── bin
+    │   └── password-generator.js
     ├── dictionaries
-    │   ├── adjectives.json
-    │   ├── adverbs.json
-    │   ├── animals.json
-    │   ├── cars.json
-    │   ├── cities.json
     │   ├── common.json
-    │   ├── countries.json
-    │   ├── dinosaurs.json
-    │   ├── emoji.json
-    │   ├── encouraging.json
-    │   ├── ergative.json
-    │   ├── fruits.json
-    │   ├── gemstones.json
-    │   ├── hazards.json
-    │   ├── instruments.json
-    │   ├── lovecraft.json
-    │   ├── metals.json
-    │   ├── music.json
-    │   ├── nouns.json
-    │   ├── prepositions.json
-    │   ├── shakespeare.json
-    │   ├── sports.json
-    │   ├── strange.json
-    │   ├── vegetables.json
-    │   └── winds.json
+    │   └── ... (24 themed dictionaries)
     ├── lib
     │   ├── base64-password.js
     │   ├── memorable-password.js
     │   └── strong-password.js
     └── utils
-        ├── README.md
+        ├── crypto.js
         ├── randomConsonant.js
         ├── randomNumber.js
         ├── randomSyllable.js
         ├── randomVowel.js
-        ├── toCamelCase
-        │   ├── README.md
-        │   └── toCamelCase.js
-        ├── toCharArray
-        │   ├── README.md
-        │   └── toCharArray.js
-        ├── toKebabCase
-        │   ├── README.md
-        │   └── toKebabCase.js
-        ├── toSnakeCase
-        │   ├── README.md
-        │   └── toSnakeCase.js
-        └── toTitleCase
-            ├── README.md
-            └── toTitleCase.js
-
-9 directories, 50 files
+        └── strings.js
 ```
 
 ## Usage
 
-To generate a password, you can call the Password Generator with the desired type and options. Below are examples of how to generate each type of password:
-
 ### From the CLI
 
 ```shell
-node .
+node index.js --help
 ```
 
-Displays the following help menu
+Displays the following help menu:
 
 ```shell
 Usage: password-generator [options]
 
-A fast, simple and powerful open-source utility tool for generating strong, unique and random passwords
+A fast, simple and powerful utility for generating strong, unique and random passwords
 
 Options:
-  -v, --version              output the current version
-  -t, --type <type>          specify a password type (default: "base64, memorable or strong")
-  -l, --length <numbers>     specify a length for each iteration
-  -i, --iteration <numbers>  specify a number of iteration
-  -s, --separator <char>     specify a character for the separator
+  -t, --type <type>          password type (strong, base64, memorable)
+  -l, --length <number>      length of each password chunk
+  -i, --iteration <number>   number of password chunks or words
+  -s, --separator <char>     separator between password chunks
+  -c, --clipboard            copy the generated password to clipboard
   -h, --help                 display help for command
 ```
 
-### From Node.js
+#### Examples
 
 ```shell
-var generatePassword = require('password-generator');
+# Generate a strong password with 3 chunks of 12 characters
+node index.js -t strong -l 12 -i 3 -s '-'
+
+# Generate a base64 password with 4 chunks of 8 characters
+node index.js -t base64 -l 8 -i 4 -s '.'
+
+# Generate a memorable password with 4 words
+node index.js -t memorable -i 4 -s '-'
+
+# Generate and copy to clipboard
+node index.js -t strong -l 16 -i 2 -s '-' --clipboard
 ```
 
-### From the Browser
+### From Node.js (ES Modules)
 
-```shell
-<script src="<https://raw.githubusercontent.com/sebastienrousseau/password-generator/master/src/bin/password-generator.js>" type="text/javascript"></script>
+```javascript
+import { PasswordGenerator } from "@sebastienrousseau/password-generator";
+
+// Generate a strong password
+const strong = await PasswordGenerator({
+  type: "strong",
+  length: 12,
+  iteration: 3,
+  separator: "-",
+});
+console.log(strong); // e.g. "aB3dEf+/gH1i-Kl2MnOpQr3s-tU4vWxYz5A"
+
+// Generate a memorable password
+const memorable = await PasswordGenerator({
+  type: "memorable",
+  iteration: 4,
+  separator: "-",
+});
+console.log(memorable); // e.g. "Apple-Breeze-Castle-Diamond"
+
+// Generate a base64 password
+const base64 = await PasswordGenerator({
+  type: "base64",
+  length: 8,
+  iteration: 3,
+  separator: ".",
+});
+console.log(base64); // e.g. "aB3dEf+/.Kl2MnOp.tU4vWxYz"
 ```
 
 ## Password options
 
 ### Base64 password
 
-#### Generating a random base64 password using yarn
-
 ```shell
-yarn start -t base64 -l 8 -i 4 -s -
-```
+# Using node
+node index.js -t base64 -l 8 -i 4 -s '-'
 
-#### Generating a random base64 password using node
-
-```shell
-node . -t base64 -l 8 -i 4 -s -
-```
-
-#### Generating a random base64 password calling the base64Password function
-
-```shell
-node dist/src/lib/base64-password.js -t base64 -l 8 -i 4 -s -
+# Using yarn
+yarn start -t base64 -l 8 -i 4 -s '-'
 ```
 
 ### Strong password
 
-#### Generating a random strong password using yarn
-
 ```shell
-yarn start -t strong -l 8 -i 4 -s -
-```
+# Using node
+node index.js -t strong -l 8 -i 4 -s '-'
 
-#### Generating a random strong password using node
-
-```shell
-node . -t strong -l 8 -i 4 -s -
-```
-
-#### Generating a random strong password calling the strongPassword function
-
-```shell
-node dist/src/lib/strong-password.js -t base64 -l 8 -i 4 -s -
+# Using yarn
+yarn start -t strong -l 8 -i 4 -s '-'
 ```
 
 ### Memorable password
 
-#### Generating a random memorable password using yarn
-
 ```shell
-yarn start -t memorable -i 4 -s -
-```
+# Using node
+node index.js -t memorable -i 4 -s '-'
 
-#### Generating a random memorable password using node
-
-```shell
-node . -t memorable -i 4 -s -
-```
-
-#### Generating a random memorable password calling the memorablePassword function
-
-```shell
-node dist/src/lib/memorable-password.js -t base64  -i 4 -s -
+# Using yarn
+yarn start -t memorable -i 4 -s '-'
 ```
 
 ## Semantic Versioning Policy
@@ -230,12 +202,12 @@ Please read carefully through our [Contributing Guidelines](https://github.com/s
 
 Development Tools
 
--   `yarn build` runs build.
--   `yarn clean` removes the coverage result of npm test command.
--   `yarn coverage` shows the coverage result of npm test command.
--   `yarn lint` run ESLint.
--   `yarn lint-fix` instructs ESLint to try to fix as many issues as possible..
--   `yarn test` runs tests and measures coverage.
+-   `pnpm build` runs build.
+-   `pnpm clean` removes the coverage result of npm test command.
+-   `pnpm coverage` shows the coverage result of npm test command.
+-   `pnpm lint` run ESLint.
+-   `pnpm lint:fix` instructs ESLint to try to fix as many issues as possible..
+-   `pnpm test` runs tests and measures coverage.
 
 ## Rules
 

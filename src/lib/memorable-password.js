@@ -3,7 +3,7 @@
 
 import { randomNumber } from "../utils/randomNumber.js";
 import { readFile } from "fs/promises";
-import { toTitleCase } from "../utils/toTitleCase/toTitleCase.js";
+import { toTitleCase } from "../utils/strings.js";
 
 /** @type {Object|null} Cached dictionary to avoid repeated file reads. */
 let dictionaryCache = null;

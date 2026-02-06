@@ -1,4 +1,4 @@
-import { toKebabCase } from "../../src/utils/toKebabCase/toKebabCase.js";
+import { toKebabCase } from "../../src/utils/strings.js";
 import { expect } from 'chai';
 
 let strings = [
