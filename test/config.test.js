@@ -8,6 +8,7 @@ import {
   PRESET_PROFILES,
   CLI_DEFAULTS,
   CLI_OPTIONS,
+  VALIDATION_BOUNDS,
   isValidPasswordType,
   getValidTypesString,
   isValidPreset,
@@ -68,6 +69,30 @@ describe("Config Module", function () {
       expect(CLI_DEFAULTS.iteration).to.equal(3);
       expect(CLI_DEFAULTS.separator).to.equal("-");
       expect(CLI_DEFAULTS.clipboard).to.equal(false);
+    });
+  });
+
+  describe("VALIDATION_BOUNDS", function () {
+    it("should have expected length bounds", function () {
+      expect(VALIDATION_BOUNDS.minLength).to.equal(8);
+      expect(VALIDATION_BOUNDS.maxLength).to.equal(64);
+    });
+
+    it("should have expected iteration bounds", function () {
+      expect(VALIDATION_BOUNDS.minIteration).to.equal(1);
+      expect(VALIDATION_BOUNDS.maxIteration).to.equal(10);
+    });
+
+    it("should have expected word bounds for memorable passwords", function () {
+      expect(VALIDATION_BOUNDS.minWords).to.equal(2);
+      expect(VALIDATION_BOUNDS.maxWords).to.equal(8);
+    });
+
+    it("should ensure security by preventing very short passwords", function () {
+      // Security check: minimum length should be at least 8 for reasonable entropy
+      expect(VALIDATION_BOUNDS.minLength).to.be.at.least(8);
+      // Security check: minimum words for memorable should be at least 2
+      expect(VALIDATION_BOUNDS.minWords).to.be.at.least(2);
     });
   });
 

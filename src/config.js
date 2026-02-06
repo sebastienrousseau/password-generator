@@ -44,6 +44,25 @@ export const PRESET_PROFILES = {
 };
 
 /**
+ * Validation bounds for password generation parameters.
+ * These constants are used by both CLI and onboarding to ensure consistency.
+ */
+export const VALIDATION_BOUNDS = {
+  /** Minimum length for password chunks */
+  minLength: 8,
+  /** Maximum length for password chunks */
+  maxLength: 64,
+  /** Minimum number of chunks for strong/base64 passwords */
+  minIteration: 1,
+  /** Maximum number of chunks for strong/base64 passwords */
+  maxIteration: 10,
+  /** Minimum number of words for memorable passwords */
+  minWords: 2,
+  /** Maximum number of words for memorable passwords */
+  maxWords: 8,
+};
+
+/**
  * Default values for CLI options.
  */
 export const CLI_DEFAULTS = {

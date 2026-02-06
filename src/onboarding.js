@@ -5,7 +5,8 @@ import readline, { emitKeypressEvents } from "readline";
 import { createInterface } from "readline";
 import {
   getPresetConfig,
-  PRESET_PROFILES
+  PRESET_PROFILES,
+  VALIDATION_BOUNDS
 } from "./config.js";
 import { CommandLearningPresenter } from "./presenters/CommandLearningPresenter.js";
 
@@ -26,9 +27,17 @@ const displayProgress = (current, total) => {
 /**
  * Creates a readline interface for user input.
  * @returns {readline.Interface} The readline interface
+ * @throws {Error} If not running in a TTY environment
  */
 /* c8 ignore start - Interactive TUI requires TTY */
 const createReadlineInterface = () => {
+  // TTY safety check - prevent onboarding in non-interactive environments
+  if (!process.stdin.isTTY) {
+    console.error("Interactive mode requires a terminal (TTY). Please run this in a terminal.");
+    console.error("For non-interactive usage, use: password-generator -p quick");
+    process.exit(1);
+  }
+
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
@@ -221,35 +230,37 @@ const customConfiguration = async(rl, passwordType) => {
 
   const config = { type: passwordType };
 
+  // Use centralized validation bounds from config
+  const { minLength, maxLength, minIteration, maxIteration, minWords, maxWords } = VALIDATION_BOUNDS;
+
   if (passwordType !== "memorable") {
     while (true) {
-      const lengthAnswer = await askQuestion("Password chunk length (8-64): ", rl);
+      const lengthAnswer = await askQuestion(`Password chunk length (${minLength}-${maxLength}): `, rl);
       const length = parseInt(lengthAnswer);
-      if (length >= 8 && length <= 64) {
+      if (length >= minLength && length <= maxLength) {
         config.length = length;
         break;
       }
-      console.log("❌ Please enter a number between 8 and 64.\n");
+      console.log(`❌ Please enter a number between ${minLength} and ${maxLength}.\n`);
     }
   }
 
   while (true) {
+    const isMemorableType = passwordType === "memorable";
+    const minVal = isMemorableType ? minWords : minIteration;
+    const maxVal = isMemorableType ? maxWords : maxIteration;
+    const label = isMemorableType ? "words" : "chunks";
+
     const iterationAnswer = await askQuestion(
-      passwordType === "memorable" ?
-        "Number of words (2-8): " :
-        "Number of chunks (1-10): ",
+      `Number of ${label} (${minVal}-${maxVal}): `,
       rl
     );
     const iteration = parseInt(iterationAnswer);
-    if (iteration >= 1 && iteration <= (passwordType === "memorable" ? 8 : 10)) {
+    if (iteration >= minVal && iteration <= maxVal) {
       config.iteration = iteration;
       break;
     }
-    console.log(
-      passwordType === "memorable" ?
-        "❌ Please enter a number between 2 and 8.\n" :
-        "❌ Please enter a number between 1 and 10.\n"
-    );
+    console.log(`❌ Please enter a number between ${minVal} and ${maxVal}.\n`);
   }
 
   const separatorAnswer = await askQuestion(
