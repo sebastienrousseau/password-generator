@@ -26,8 +26,8 @@ export const VALID_PRESETS = ["quick", "secure", "memorable"];
 export const PRESET_PROFILES = {
   quick: {
     type: "strong",
-    length: 12,
-    iteration: 3,
+    length: 14,
+    iteration: 4,
     separator: "-",
   },
   secure: {

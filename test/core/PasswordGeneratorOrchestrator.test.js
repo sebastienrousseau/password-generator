@@ -27,8 +27,8 @@ describe("PasswordGeneratorOrchestrator", function () {
       expect(result.password.length).to.be.greaterThan(0);
       expect(result.config).to.deep.include({
         type: "strong",
-        length: 12,
-        iteration: 3,
+        length: 14,
+        iteration: 4,
         separator: "-"
       });
       expect(result).to.not.have.property("auditReport");
@@ -137,7 +137,7 @@ describe("PasswordGeneratorOrchestrator", function () {
       expect(result.config.type).to.equal("base64");
       expect(result.config.length).to.equal(12);
       // Other values should come from preset
-      expect(result.config.iteration).to.equal(3);
+      expect(result.config.iteration).to.equal(4);
       expect(result.config.separator).to.equal("-");
     });
 

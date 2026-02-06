@@ -38,8 +38,8 @@ describe("Config Module", function () {
     it("should have quick preset with correct values", function () {
       expect(PRESET_PROFILES.quick).to.deep.equal({
         type: "strong",
-        length: 12,
-        iteration: 3,
+        length: 14,
+        iteration: 4,
         separator: "-",
       });
     });

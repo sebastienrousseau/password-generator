@@ -331,9 +331,9 @@ const selectClipboardOption = async(rl) => {
 
   const examples = {
     "✅ Yes - Copy to clipboard automatically":
-      "Password will be copied to your clipboard for easy pasting. More convenient but may leave traces in clipboard history.",
+      "⚠️ SECURITY NOTE: Password will be copied to your clipboard. Be aware that clipboard managers and some applications may store clipboard history, potentially exposing your password. Clear your clipboard after use.",
     "❌ No - Display password only":
-      "Password will only be shown in the terminal. More secure but requires manual copying."
+      "Password will only be shown in the terminal. More secure - no clipboard traces. Recommended for high-security accounts."
   };
 
   const result = await promptWithNavigation(
