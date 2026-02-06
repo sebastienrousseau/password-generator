@@ -156,8 +156,8 @@ const validateFinalConfig = (config, hasPreset) => {
   if (config.separator === undefined) missingRequired.push("separator");
 
   if (missingRequired.length > 0) {
+    /* c8 ignore next 3 - defensive code: valid presets always have required fields */
     if (hasPreset) {
-      /* c8 ignore next - defensive code: valid presets always have required fields */
       throw new Error(`Missing required options: ${missingRequired.join(", ")}. This should not happen with a valid preset.`);
     } else {
       throw new Error(
@@ -269,6 +269,7 @@ if (isMainModule) {
       console.log('\nQuick examples:');
       console.log('  password-generator -p quick');
       console.log('  password-generator -t strong -i 3 -s "-"');
+    /* c8 ignore next - else branch requires TTY */
     } else {
       /* c8 ignore start - Interactive TTY onboarding requires user input */
       // In a terminal - start interactive onboarding

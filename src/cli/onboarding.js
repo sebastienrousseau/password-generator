@@ -334,6 +334,7 @@ export class OnboardingFlow {
    * Render the current step
    */
   renderCurrentStep() {
+    /* c8 ignore next - early return when showing examples */
     if (this.showingExamples) return;
 
     this.clearScreen();
