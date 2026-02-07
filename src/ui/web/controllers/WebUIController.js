@@ -80,11 +80,17 @@ export class WebUIController {
     // Step 2: Map UI state to core config
     const config = this.stateToCoreMapper.toConfig(formState);
 
-    // Step 3: Delegate generation to core service
-    const password = await this.service.generate(config);
+    // Step 3: Delegate generation to core service (with entropy info for Web UI)
+    const result = await this.service.generate({ ...config, includeEntropy: true });
 
-    // Step 4: Get entropy info from core service
-    const entropyInfo = this.service.calculateEntropy(config);
+    // Step 4: Extract password and entropy info from result
+    // Core service returns an object with { password, entropy, securityLevel, metadata }
+    const password = result.password;
+    const entropyInfo = {
+      totalBits: result.entropy,
+      securityLevel: result.securityLevel,
+      recommendation: result.metadata?.recommendation || ""
+    };
 
     // Step 5: Transform to view model
     return PasswordViewModel.fromGenerationResult({
