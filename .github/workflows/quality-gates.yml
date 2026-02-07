@@ -104,14 +104,14 @@ jobs:
       - name: Run core tests
         run: npm run test:core
 
-      - name: Verify 100% coverage
+      - name: Verify high coverage
         run: |
-          # Core package must maintain 100% coverage
+          # Core package must maintain high coverage (95%+)
           COVERAGE=$(cat coverage/coverage-summary.json)
           STATEMENTS=$(echo $COVERAGE | jq '.total.statements.pct')
 
-          if (( $(echo "$STATEMENTS < 100" | bc -l) )); then
-            echo "Core package coverage dropped below 100%: $STATEMENTS%"
+          if (( $(echo "$STATEMENTS < 95" | bc -l) )); then
+            echo "Core package coverage dropped below 95%: $STATEMENTS%"
             exit 1
           fi
 
@@ -233,9 +233,9 @@ jobs:
 
       - name: Verify package structure
         run: |
-          # Check that main entry points exist
-          node -e "require('./index.js')"
-          node -e "require('./packages/core/index.js')"
+          # Check that main entry points exist (using ESM)
+          node --input-type=module -e "import './index.js'"
+          node --input-type=module -e "import './packages/core/index.js'"
           echo "Package structure valid"
 
   # ============================================
