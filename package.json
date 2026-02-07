@@ -155,11 +155,15 @@
         "lint": "eslint --config=.eslintrc.json \"./*.js\" \"./src/**/*.js\"",
         "lint:fix": "eslint --config=.eslintrc.json \"./*.js\" \"./src/**/*.js\" --fix",
         "lint:markdown": "remark \"./*.md\" \"./src/**/*.md\" \"./.github/**/*.md\"",
+        "lint:core": "eslint packages/core/src --config packages/core/.eslintrc.json",
         "release:prepare": "npm publish $(node -p \"p=require('./package.json');p.name+'-'+p.version+'.tgz'\") --no-git-checks",
         "release:publish": "npm publish --access public --ignore-scripts --@OWNER:registry='https://registry.npmjs.org'",
         "release": "npm run build && npm run release:prepare && npm run release:publish",
         "start": "node index.js",
-        "test": "npm run clean && c8 mocha"
+        "test": "npm run clean && c8 mocha",
+        "verify:core": "npm run verify:core:sh && npm run verify:core:js && npm run lint:core",
+        "verify:core:sh": "./scripts/verify-core-isolation.sh",
+        "verify:core:js": "node scripts/verify-core-deps.js"
     },
     "type": "module",
     "version": "1.1.4"

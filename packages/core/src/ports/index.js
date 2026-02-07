@@ -154,11 +154,6 @@ export const validatePorts = (ports) => {
  * @returns {Object} Complete port configuration with defaults.
  */
 export const createPortsWithDefaults = (ports) => {
-  const { NoOpLogger } = require("./LoggerPort.js");
-  const { MemoryStorage } = require("./StoragePort.js");
-  const { FixedClock } = require("./ClockPort.js");
-  const { MemoryDictionary, DEFAULT_WORD_LIST } = require("./DictionaryPort.js");
-
   return {
     randomGenerator: ports.randomGenerator, // Required, no default
     logger: ports.logger ?? new NoOpLogger(),
