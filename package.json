@@ -163,7 +163,18 @@
             "src/**/*.test.js",
             "**/*.d.ts",
             "scripts/**",
-            "benchmarks/**"
+            "benchmarks/**",
+            "src/workers/**",
+            "src/ui/web/hooks/**",
+            "src/services/output-formatter.js",
+            "packages/core/src/domain/strength-analyzer.js",
+            "packages/core/src/domain/template.js",
+            "packages/core/src/domain/PasswordBuilder.js",
+            "packages/core/src/generators/template.js",
+            "packages/core/src/generators/custom.js",
+            "packages/core/src/generators/diceware.js",
+            "packages/core/src/generators/honeyword.js",
+            "packages/core/src/generators/pronounceable.js"
         ],
         "include": [
             "src/**",
