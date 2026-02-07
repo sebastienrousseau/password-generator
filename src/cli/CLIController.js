@@ -52,8 +52,7 @@ export class CLIController {
       .option(
         CLI_OPTIONS.options.length.flags,
         CLI_OPTIONS.options.length.description,
-        CLI_OPTIONS.options.length.parser,
-        CLI_OPTIONS.options.length.defaultValue
+        CLI_OPTIONS.options.length.parser
       )
       .option(
         CLI_OPTIONS.options.iteration.flags,
@@ -157,7 +156,7 @@ export class CLIController {
       }
 
       // Step 5: Render output (CLI-specific presentation)
-      displayPasswordOutput(password, opts.clipboard);
+      displayPasswordOutput(password, opts.clipboard, config);
 
       // Display command learning panel if enabled
       if (opts.learn) {
@@ -168,7 +167,7 @@ export class CLIController {
       // Display security audit report if enabled
       if (opts.audit) {
         const auditReport = completeAuditSession();
-        displaySecurityAuditReport(auditReport);
+        displaySecurityAuditReport(auditReport, config);
       }
     } catch (error) {
       console.error(`Error: ${error.message}`);
@@ -194,7 +193,7 @@ export class CLIController {
         const password = await this.service.generate(config);
 
         // Render output
-        displayPasswordOutput(password);
+        displayPasswordOutput(password, false, config);
 
         // Display command learning panel
         const equivalentCommand = generateEquivalentCommand(config, null, {});

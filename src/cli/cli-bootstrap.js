@@ -122,6 +122,7 @@ const isMainModule = resolvedArg &&
   (resolvedArg.endsWith("cli-bootstrap.js") ||
    resolvedArg.includes("cli/cli-bootstrap"));
 
+/* c8 ignore start - CLI entry point execution, tested via subprocess */
 if (isMainModule) {
   // Create and run CLI bootstrap
   const bootstrap = createCLIBootstrap();
@@ -131,3 +132,4 @@ if (isMainModule) {
     process.exit(1);
   });
 }
+/* c8 ignore stop */

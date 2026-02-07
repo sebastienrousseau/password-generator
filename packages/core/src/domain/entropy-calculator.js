@@ -125,6 +125,7 @@ export const calculateTotalEntropy = (config) => {
   switch (type) {
     case "strong":
     case "base64":
+    case "quantum-resistant":
       return calculateBase64ChunkEntropy(length) * iteration;
     case "memorable":
       return calculateDictionaryEntropy(dictionarySize, iteration);

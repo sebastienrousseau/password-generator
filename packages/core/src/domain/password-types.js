@@ -15,6 +15,7 @@ export const PASSWORD_TYPES = {
   STRONG: "strong",
   BASE64: "base64",
   MEMORABLE: "memorable",
+  QUANTUM: "quantum-resistant",
 };
 
 /**
@@ -30,7 +31,7 @@ export const GENERATION_STRATEGIES = {
 /**
  * Valid password types for user-facing API
  */
-export const VALID_PASSWORD_TYPES = ["strong", "base64", "memorable"];
+export const VALID_PASSWORD_TYPES = ["strong", "base64", "memorable", "quantum-resistant"];
 
 /**
  * Checks if a password type is valid
@@ -74,6 +75,16 @@ export const PASSWORD_TYPE_METADATA = {
     unitType: "word",
     pattern: null, // Depends on dictionary and separator
     useCases: ["Passphrase generation", "XKCD-style passwords", "Human-memorable"],
+  },
+  [PASSWORD_TYPES.QUANTUM]: {
+    name: "Quantum-Resistant Password",
+    description: "Ultra-high entropy passwords designed for quantum-resistant security",
+    minLength: 32,
+    maxLength: 128,
+    entropyPerUnit: 6, // bits per character (log2(64))
+    unitType: "character",
+    pattern: /^[A-Za-z0-9+/]+$/,
+    useCases: ["Post-quantum cryptography", "Maximum security", "Future-proof credentials"],
   },
 };
 

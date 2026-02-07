@@ -30,7 +30,7 @@ A fast, simple, and powerful open-source utility for generating cryptographicall
 npx @sebastienrousseau/password-generator
 ```
 
-**That's it!** The interactive setup will guide you through creating your first secure password.
+The interactive setup guides you through creating your first secure password.
 
 ### Direct Commands (For Power Users)
 
@@ -53,7 +53,24 @@ const password = await PasswordGenerator({
 });
 ```
 
-### What You'll Get
+## Storage Matters
+
+**Important:** Store these passwords securely and hash them properly.
+
+### Application Security
+
+When storing user passwords in a database, **NEVER store them in plain text**. Use a secure Key Derivation Function (KDF):
+
+- **Recommended**: Argon2id with NIST SP 800-132 parameters
+- **Alternative**: scrypt or PBKDF2 with high iteration counts
+- **Avoid**: MD5, SHA-1, or plain SHA-256 for password hashing
+
+### References
+
+- [OWASP Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)
+- [NIST SP 800-63B](https://pages.nist.gov/800-63-3/sp800-63b.html) - Digital Identity Guidelines
+
+### Features
 
 ✅ **Cryptographically secure** passwords using Node.js crypto module
 ✅ **Interactive guided setup** for first-time users
@@ -63,12 +80,12 @@ const password = await PasswordGenerator({
 
 ## Interactive Onboarding
 
-When you run `npx @sebastienrousseau/password-generator` without options, you'll enter a friendly 4-step setup:
+When you run `npx @sebastienrousseau/password-generator` without options, you enter a 4-step setup:
 
 **Step 1: Choose Password Type** → Pick from strong, memorable, or base64
 **Step 2: Security Level** → Select quick, secure, memorable, or custom
 **Step 3: Clipboard Settings** → Auto-copy or display only
-**Step 4: Generate** → Get your password plus the CLI command to recreate it
+**Step 4: Generate** → Get your password plus the command-line command to recreate it
 
 **Navigation:** Use arrow keys, numbers (1-3), Space for examples, ESC to go back
 
@@ -85,7 +102,7 @@ When you run `npx @sebastienrousseau/password-generator` without options, you'll
 Controls: Arrow Keys: Navigate • Enter: Select • Space: Show examples
 ```
 
-**First-timer friendly:** The onboarding shows examples, explains security implications, and teaches you the CLI commands for future use.
+The onboarding shows examples, explains security implications, and teaches the command-line commands for future use.
 
 ## Password Types
 
@@ -94,10 +111,193 @@ Controls: Arrow Keys: Navigate • Enter: Select • Space: Show examples
 | **strong** | Complex passwords with uppercase, lowercase, numbers, symbols | High-security accounts | `aB3dEf+/gH1i-Kl2MnOp` |
 | **base64** | Base64-encoded character combinations | API keys, tokens | `YWJjZGVm.ZGhpamts` |
 | **memorable** | Dictionary words for easy recall | Personal accounts, shared passwords | `Apple-Castle-River-Moon` |
+| **quantum-resistant** | Enhanced entropy with quantum-safe algorithms | Post-quantum security | `QR$v9K#mF2@x7L&nE8!p` |
+
+## Quantum-Resistant Mode
+
+Password Generator includes quantum-resistant password generation that withstands both classical and quantum computational attacks.
+
+### What Quantum-Resistant Mode Is
+
+**Quantum-resistant mode** generates passwords with enhanced entropy using quantum-safe algorithms and follows NIST Post-Quantum Cryptography standards:
+
+- **Enhanced Character Sets**: Expanded symbol alphabet (94 printable ASCII characters)
+- **Quantum-Safe Entropy**: Minimum 256-bit entropy threshold
+- **NIST SP 800-132 Compliance**: Key derivation using Argon2id with recommended parameters
+- **Post-Quantum Ready**: Resists quantum computing threats
+
+### What Quantum-Resistant Mode Is NOT
+
+- **Not a silver bullet**: Still requires proper storage and handling
+- **Not immune to social engineering**: Human factors remain critical
+- **Not backwards compatible**: May not work with legacy systems requiring simple passwords
+- **Not performance optimized**: Generation takes longer due to enhanced security
+
+### Default Configuration
+
+Quantum-resistant mode applies the following defaults:
+
+```bash
+# Default quantum-resistant configuration
+Type: quantum-resistant
+Length: 32 characters per chunk
+Iterations: 4 chunks
+Separator: '' (concatenated for maximum entropy)
+Minimum Entropy: 256 bits
+KDF: Argon2id (memory=65536, time=3, parallelism=4)
+```
+
+### command-line Examples
+
+**Basic Quantum-Resistant Password:**
+```bash
+npx @sebastienrousseau/password-generator -t quantum-resistant
+# Output: QR$v9K#mF2@x7L&nE8!pX3@T5w$nM9&bE8!tZ7%L4@nF6#mR2$w
+```
+
+**High-Security Enterprise Use:**
+```bash
+npx @sebastienrousseau/password-generator -t quantum-resistant -l 48 -i 6 -s ''
+# Output: 288-bit entropy password suitable for post-quantum security
+```
+
+**Quantum-Resistant with Separators (Readable):**
+```bash
+npx @sebastienrousseau/password-generator -t quantum-resistant -l 24 -i 4 -s '-'
+# Output: QR$v9K#mF2@x7L&nE8!p-X3@T5w$nM9&bE8!tZ7%-L4@nF6#mR2$w-M8&vE2#rT9$
+```
+
+**Maximum Security Configuration:**
+```bash
+npx @sebastienrousseau/password-generator -t quantum-resistant -l 64 -i 8 -s ''
+# Output: 512-bit entropy for ultimate protection
+```
+
+### Library Examples
+
+**Node.js Implementation:**
+```javascript
+import PasswordGenerator from "@sebastienrousseau/password-generator";
+
+// Standard quantum-resistant password
+const qrPassword = await PasswordGenerator({
+  type: "quantum-resistant",
+  length: 32,
+  iteration: 4,
+  separator: ""
+});
+
+// Enterprise-grade with custom KDF
+const enterprisePassword = await PasswordGenerator({
+  type: "quantum-resistant",
+  length: 48,
+  iteration: 6,
+  separator: "",
+  kdf: {
+    algorithm: "argon2id",
+    memory: 131072,    // 128MB
+    time: 5,           // 5 iterations
+    parallelism: 8     // 8 threads
+  }
+});
+```
+
+**Browser Implementation:**
+```javascript
+import { createQuickService } from '@password-generator/core';
+import { BrowserQuantumRandom } from './adapters/browser/quantum-random.js';
+
+// Create service with quantum-safe random generator
+const service = createQuickService(new BrowserQuantumRandom());
+
+const qrPassword = await service.generate({
+  type: 'quantum-resistant',
+  length: 32,
+  iteration: 4,
+  separator: ''
+});
+```
+
+## Key Derivation Functions (KDF) - NIST SP 800-132 Guidance
+
+### Recommended KDF: Argon2id
+
+Password Generator uses **Argon2id** as the recommended key derivation function for quantum-resistant passwords, following **NIST SP 800-132** guidelines.
+
+#### NIST SP 800-132 Parameters
+
+**Minimum Parameters (NIST Compliance):**
+```
+Algorithm: Argon2id
+Memory: 65536 KB (64 MB)
+Time Cost: 3 iterations
+Parallelism: 4 threads
+Salt: 128-bit random salt
+Output: 256-bit derived key
+```
+
+**Recommended Parameters (High Security):**
+```
+Algorithm: Argon2id
+Memory: 131072 KB (128 MB)
+Time Cost: 5 iterations
+Parallelism: 8 threads
+Salt: 128-bit random salt
+Output: 512-bit derived key
+```
+
+**Enterprise Parameters (Maximum Security):**
+```
+Algorithm: Argon2id
+Memory: 262144 KB (256 MB)
+Time Cost: 10 iterations
+Parallelism: 16 threads
+Salt: 256-bit random salt
+Output: 512-bit derived key
+```
+
+### KDF Configuration Examples
+
+**command-line with Custom KDF Parameters:**
+```bash
+npx @sebastienrousseau/password-generator \
+  -t quantum-resistant \
+  --kdf-memory 131072 \
+  --kdf-time 5 \
+  --kdf-parallelism 8
+```
+
+**JavaScript with KDF Configuration:**
+```javascript
+const password = await PasswordGenerator({
+  type: "quantum-resistant",
+  kdf: {
+    algorithm: "argon2id",
+    memory: 131072,      // 128 MB
+    time: 5,             // 5 iterations
+    parallelism: 8,      // 8 threads
+    saltLength: 16       // 128-bit salt
+  }
+});
+```
+
+### Security Recommendations
+
+1. **Memory Parameter**: Use at least 64 MB, prefer 128 MB or higher
+2. **Time Parameter**: Minimum 3 iterations, prefer 5+ for sensitive applications
+3. **Parallelism**: Match your CPU cores (4-16 typical)
+4. **Salt**: Always use random salts, minimum 128-bit
+5. **Output Length**: 256-bit minimum, 512-bit for quantum-resistant applications
+
+### References
+
+- **NIST SP 800-132**: [Recommendation for Password-Based Key Derivation](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-132.pdf)
+- **NIST Post-Quantum Cryptography**: [Post-Quantum Cryptography Standards](https://csrc.nist.gov/projects/post-quantum-cryptography)
+- **Argon2 RFC**: [RFC 9106 - The Argon2 Memory-Hard Function](https://tools.ietf.org/rfc/rfc9106.txt)
 
 ## Usage Guide
 
-### Command Line Interface
+### Command-Line Interface
 
 **Basic syntax:**
 ```bash
@@ -180,7 +380,7 @@ const password = await PasswordGenerator({
 });
 ```
 
-**Security:** Cryptographically secure using Node.js `crypto.randomInt()`. No predictable patterns. Configurable entropy via length × iteration.
+**Security:** Cryptographically secure using Node.js `crypto.randomInt()`. No predictable patterns. Configure entropy via length × iteration.
 
 ## Programmatic API (Core Package)
 
@@ -218,6 +418,130 @@ console.log(`Entropy: ${entropy.totalBits} bits (${entropy.securityLevel})`);
 
 The core package has zero dependencies and uses a port/adapter pattern for I/O, making it suitable for any JavaScript runtime. See [packages/core/README.md](packages/core/README.md) for details.
 
+## Web UI Demo
+
+Experience the password generator through our modern web interface with real-time feedback and accessibility features.
+
+### Features
+
+- **Modern Interface** - Clean, responsive design with dark/light theme support
+- **Accessibility** - WCAG 2.1 AA compliant with screen reader support
+- **Smart Presets** - Quick, Secure, and Memorable password configurations
+- **Real-time Feedback** - Visual entropy calculation and strength indicators
+- **Keyboard Shortcuts** - Ctrl/Cmd+Enter to generate, Ctrl/Cmd+C to copy
+- **Cross-platform** - Runs on all modern browsers
+
+### Quick Start
+
+**Option 1: Local Development Server (Recommended)**
+```bash
+# Clone and setup
+git clone https://github.com/sebastienrousseau/password-generator.git
+cd password-generator
+
+# Start development server (typically serves on port 4173)
+npx serve src/ui/web/demo
+# or
+npm install -g http-server && http-server src/ui/web/demo -p 4173
+```
+
+**Option 2: Platform-Specific Static Server**
+
+**macOS/Linux:**
+```bash
+# Using Python 3
+python3 -m http.server 4173 --directory src/ui/web/demo
+
+# Using Python 2 (if available)
+python -m SimpleHTTPServer 4173
+cd src/ui/web/demo
+
+# Using Node.js
+npx serve src/ui/web/demo --listen 4173
+```
+
+**Windows:**
+```cmd
+REM Using Python
+python -m http.server 4173 --directory src/ui/web/demo
+REM Then open: http://localhost:4173
+
+REM Using PowerShell (Windows 10+)
+cd src/ui/web/demo
+python -m http.server 4173
+```
+
+**Option 3: PHP Development Server**
+```bash
+php -S localhost:4173 -t src/ui/web/demo
+```
+
+Open **http://localhost:4173** in your browser.
+
+### Development Guide
+
+**Prerequisites:**
+- Node.js 18+
+- Modern browser with Web Crypto API support
+
+**Architecture Overview:**
+```
+src/ui/web/
+├── demo/               # Standalone web demo
+│   ├── index.html      # Main interface
+│   ├── styles/         # CSS modules (tokens, components, utilities)
+│   └── scripts/        # JavaScript modules (main.js, theme.js)
+├── controllers/        # Web UI controllers (thin adapters)
+├── state/              # State management
+├── view-models/        # UI state models
+└── adapters/           # Browser adapters (crypto, clipboard)
+```
+
+**Integration Pattern:**
+```javascript
+import { createWebUIController } from '../controllers/WebUIController.js';
+import { FormState } from '../state/FormState.js';
+
+// Create controller (browser adapters + core engine)
+const controller = createWebUIController();
+
+// Generate password
+const formState = new FormState({
+  type: 'strong',
+  length: 16,
+  iteration: 4,
+  separator: '-'
+});
+
+const result = await controller.generate(formState);
+console.log(result.password); // aB3dEf+/gH1i-Kl2MnOpQr3s
+```
+
+**Browser Compatibility:**
+- Chrome 90+ | Firefox 88+ | Safari 14+ | Edge 90+
+- Requires JavaScript and Web Crypto API
+
+**Development Commands:**
+```bash
+# Lint web UI code
+npm run lint:web
+
+# Run web UI tests
+npm run test:web
+
+# Development workflow
+npm install
+npm run lint:web
+npm run test:web
+```
+
+### Customization
+
+The web UI uses CSS custom properties for easy theming:
+- **Design tokens**: `src/ui/web/demo/styles/tokens.css`
+- **Component styles**: `src/ui/web/demo/styles/components.css`
+- **Theme switching**: Automatic dark/light mode with manual toggle
+
 ## Project Structure
 
 ```
@@ -226,7 +550,7 @@ password-generator/
 │   └── core/             # Platform-agnostic core (zero dependencies)
 ├── src/
 │   ├── adapters/         # Node.js adapters (crypto, clipboard)
-│   ├── cli/              # CLI controller (thin adapter)
+│   ├── cli/              # command-line controller (thin adapter)
 │   └── ui/web/           # Web UI (thin adapter)
 ├── benchmarks/           # Performance benchmarks
 └── docs/                 # Documentation

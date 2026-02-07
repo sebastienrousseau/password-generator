@@ -198,21 +198,24 @@ export const runOnboarding = async () => {
       { label: "quick", desc: "fast & simple", value: "quick" },
       { label: "secure", desc: "maximum protection", value: "secure" },
       { label: "memorable", desc: "easy to remember", value: "memorable" },
+      { label: "quantum", desc: "256-bit entropy", value: "quantum" },
     ];
 
     const preset = await promptWithNavigation("choose a preset", presetOptions, "onboarding:preset");
     const config = getPresetConfig(preset.value);
 
-    // STEP 2: Choose length (chunk size)
-    const lengthOptions = [
-      { label: "8", desc: "short", value: 8 },
-      { label: "16", desc: "default", value: 16 },
-      { label: "24", desc: "long", value: 24 },
-      { label: "32", desc: "extra long", value: 32 },
-    ];
+    // STEP 2: Choose length (chunk size) - skip for quantum (fixed at 43 for 256-bit entropy)
+    if (preset.value !== "quantum") {
+      const lengthOptions = [
+        { label: "8", desc: "short", value: 8 },
+        { label: "16", desc: "default", value: 16 },
+        { label: "24", desc: "long", value: 24 },
+        { label: "32", desc: "extra long", value: 32 },
+      ];
 
-    const lengthChoice = await promptWithNavigation("length", lengthOptions, "onboarding:length");
-    config.length = lengthChoice.value;
+      const lengthChoice = await promptWithNavigation("length", lengthOptions, "onboarding:length");
+      config.length = lengthChoice.value;
+    }
 
     // STEP 3: Choose separator
     const separatorOptions = [
@@ -285,6 +288,7 @@ export class OnboardingFlow {
   async runFlow() {
     try {
       const result = await runOnboarding();
+      /* c8 ignore next 3 - Success path requires TTY (runOnboarding is c8-ignored) */
       if (this.onComplete) {
         this.onComplete(result.config);
       }

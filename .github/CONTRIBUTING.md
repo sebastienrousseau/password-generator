@@ -1,6 +1,6 @@
 # Contributing to Password Generator
 
-Thank you for your interest in contributing to Password Generator! We welcome contributions from the community.
+Password Generator accepts community contributions.
 
 ## Ways to Contribute
 
@@ -13,7 +13,7 @@ Found a bug? [Create an issue](https://github.com/sebastienrousseau/password-gen
 - Code samples if applicable
 
 ### 💡 Suggest Features
-Have an idea? [Open a feature request](https://github.com/sebastienrousseau/password-generator/issues/new/choose) with:
+[Open a feature request](https://github.com/sebastienrousseau/password-generator/issues/new/choose) with:
 - Clear description of the proposed feature
 - Use cases and benefits
 - Implementation considerations
@@ -65,7 +65,7 @@ npm run build
 - Write tests for new features
 
 ### Testing
-- All new features must have tests
+- Write tests for new features
 - Existing tests must continue passing
 - Run `npm test` before submitting
 

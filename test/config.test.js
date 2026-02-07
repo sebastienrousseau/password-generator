@@ -22,7 +22,8 @@ describe("Config Module", function () {
       expect(VALID_PASSWORD_TYPES).to.include("strong");
       expect(VALID_PASSWORD_TYPES).to.include("base64");
       expect(VALID_PASSWORD_TYPES).to.include("memorable");
-      expect(VALID_PASSWORD_TYPES).to.have.length(3);
+      expect(VALID_PASSWORD_TYPES).to.include("quantum-resistant");
+      expect(VALID_PASSWORD_TYPES).to.have.length(4);
     });
   });
 
@@ -31,7 +32,8 @@ describe("Config Module", function () {
       expect(VALID_PRESETS).to.include("quick");
       expect(VALID_PRESETS).to.include("secure");
       expect(VALID_PRESETS).to.include("memorable");
-      expect(VALID_PRESETS).to.have.length(3);
+      expect(VALID_PRESETS).to.include("quantum");
+      expect(VALID_PRESETS).to.have.length(4);
     });
   });
 

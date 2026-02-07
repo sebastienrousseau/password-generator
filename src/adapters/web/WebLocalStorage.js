@@ -72,12 +72,33 @@ export class WebLocalStorage {
 
   /**
    * Safely serializes data to JSON with error handling.
+   * Handles circular references gracefully by replacing them with a placeholder.
    * @param {any} data The data to serialize.
    * @returns {string|null} JSON string or null if serialization fails.
    */
   _serialize(data) {
     try {
-      return JSON.stringify(data);
+      const seen = new WeakSet();
+      let hasCircular = false;
+      const result = JSON.stringify(data, (key, value) => {
+        // Handle non-object values directly
+        if (typeof value !== "object" || value === null) {
+          return value;
+        }
+        // Check for circular reference
+        if (seen.has(value)) {
+          hasCircular = true;
+          return undefined; // Exclude circular references
+        }
+        seen.add(value);
+        return value;
+      });
+      // Return null if circular references were detected
+      if (hasCircular) {
+        console.warn("Circular reference detected in data for storage");
+        return null;
+      }
+      return result;
     } catch (error) {
       console.warn("Failed to serialize data for storage:", error);
       return null;

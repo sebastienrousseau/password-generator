@@ -87,7 +87,7 @@ const calculateStrength = (password) => {
 /**
  * Displays password output with minimal Crush-inspired design
  */
-export const displayPasswordOutput = (password, copiedToClipboard = false) => {
+export const displayPasswordOutput = (password, copiedToClipboard = false, config = {}) => {
   const { strength, entropy } = calculateStrength(password);
 
   console.log(
@@ -97,6 +97,12 @@ export const displayPasswordOutput = (password, copiedToClipboard = false) => {
       entropy,
     })
   );
+
+  // Display security note for quantum-resistant passwords
+  if (config.type === "quantum-resistant") {
+    console.log("");
+    console.log(`  ${colors.dim("🔒 security note:")} Use Argon2id KDF for storage (OWASP/NIST SP 800-63B)`);
+  }
 };
 
 /**
@@ -106,6 +112,7 @@ export const displayCommandLearningPanel = (command) => {
   const shortcuts = [
     { flag: "-p quick", desc: "fast preset" },
     { flag: "-p secure", desc: "maximum security" },
+    { flag: "-p quantum", desc: "quantum-resistant" },
     { flag: "-c", desc: "copy to clipboard" },
     { flag: "-a", desc: "security audit" },
   ];
@@ -116,7 +123,7 @@ export const displayCommandLearningPanel = (command) => {
 /**
  * Displays a security audit report (minimal)
  */
-export const displaySecurityAuditReport = (auditReport) => {
+export const displaySecurityAuditReport = (auditReport, config = {}) => {
   console.log("");
   console.log(`  ${gradient.primary("security audit")}`);
   console.log("");
@@ -146,6 +153,14 @@ export const displaySecurityAuditReport = (auditReport) => {
     }
 
     console.log(`  ${colors.success(icons.success)} ${colors.dim("NIST SP 800-63B compliant")}`);
+
+    // Enhanced security guidance for quantum-resistant passwords
+    if (config.type === "quantum-resistant") {
+      console.log("");
+      console.log(`  ${colors.dim("storage guidance")}`);
+      console.log(`  ${colors.muted(icons.pointer)} Use Argon2id KDF with NIST SP 800-132 parameters`);
+      console.log(`  ${colors.muted(icons.pointer)} References: OWASP Password Storage, NIST SP 800-63B`);
+    }
   } else {
     console.log(`  ${colors.dim(JSON.stringify(auditReport, null, 2))}`);
   }

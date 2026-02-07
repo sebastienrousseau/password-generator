@@ -67,7 +67,7 @@ export class RandomGeneratorPort {
 
 ### What is an Adapter?
 
-An **adapter** implements a port interface for a specific platform.
+An **adapter** provides a port interface implementation for a specific platform.
 
 ```javascript
 // Node.js adapter (src/adapters/node/crypto-random.js)
@@ -118,7 +118,7 @@ The `@password-generator/core` package follows strict isolation rules:
 
 ### Enforcement
 
-Core isolation is enforced through:
+Core isolation enforcement uses:
 1. **Parity tests** (`packages/core/test/parity/`) verify deterministic behavior
 2. **CI checks** detect forbidden imports
 3. **Code review** for architectural violations
@@ -129,7 +129,7 @@ Core isolation is enforced through:
 
 **Status**: Accepted
 
-**Context**: Password generator needs to run in CLI, browser, and potentially other environments.
+**Context**: Password Generator requires execution in command line, browser, and other environments.
 
 **Decision**: Use hexagonal architecture with ports and adapters.
 
@@ -142,7 +142,7 @@ Core isolation is enforced through:
 
 **Status**: Accepted
 
-**Context**: Some implementations (Web Crypto API) are inherently async.
+**Context**: Some implementations (Web Crypto API) are inherently asynchronous.
 
 **Decision**: All port methods return Promises.
 

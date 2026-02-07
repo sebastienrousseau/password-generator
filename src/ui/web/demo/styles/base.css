@@ -1,4 +1,4 @@
-/* Copyright 2022-2024 Password Generator. All rights reserved.
+/* Copyright 2022-2026 Password Generator. All rights reserved.
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  * Base Styles - Reset & Typography
@@ -34,6 +34,14 @@ body {
   color: var(--text-primary);
   background-color: var(--bg-primary);
   min-height: 100vh;
+  /* Center content vertically and horizontally */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* Required for ethereal background pseudo-elements */
+  position: relative;
+  overflow-x: hidden;
 }
 
 img,
@@ -165,15 +173,30 @@ a:focus-visible {
 }
 
 /* ============================================
- * Focus Visible
+ * Focus Visible - WCAG 2.2 AAA compliant
  * ============================================ */
 :focus {
   outline: none;
 }
 
 :focus-visible {
-  outline: var(--focus-ring-width) solid var(--focus-ring-color);
-  outline-offset: var(--focus-ring-offset);
+  outline: 3px solid var(--focus-ring-color);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px rgba(255, 107, 157, 0.25);
+}
+
+/* Enhanced focus for dark mode to ensure visibility */
+[data-theme="dark"] :focus-visible {
+  outline: 3px solid var(--brand-primary);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px rgba(255, 107, 157, 0.3);
+}
+
+/* Enhanced focus for light mode */
+[data-theme="light"] :focus-visible {
+  outline: 3px solid var(--brand-primary);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px rgba(209, 70, 113, 0.2);
 }
 
 /* ============================================

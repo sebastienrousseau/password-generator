@@ -1,0 +1,222 @@
+/* Copyright 2022-2026 Password Generator. All rights reserved.
+ * SPDX-License-Identifier: Apache-2.0 OR MIT
+ *
+ * Main Stylesheet - Automatic Light/Dark Theme Detection
+ * Imports all modular stylesheets and adds system preference detection
+ */
+
+/* ============================================
+ * Import Modular Stylesheets
+ * ============================================ */
+@import './tokens.css';
+@import './base.css';
+@import './components.css';
+@import './utilities.css';
+
+/* ============================================
+ * Ethereal Animated Background
+ * ============================================ */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 40%, rgba(255, 107, 157, 0.35) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 80% 60%, rgba(157, 78, 221, 0.30) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 30% at 40% 80%, rgba(0, 217, 255, 0.20) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 50% at 70% 20%, rgba(255, 71, 133, 0.25) 0%, transparent 50%);
+  animation: ethereal-drift 20s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes ethereal-drift {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  25% {
+    transform: translate(2%, -1%) scale(1.02);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate(-1%, 2%) scale(0.98);
+    opacity: 1;
+  }
+  75% {
+    transform: translate(-2%, -1%) scale(1.01);
+    opacity: 0.95;
+  }
+}
+
+/* Secondary floating orb layer */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle 300px at 10% 90%, rgba(61, 255, 163, 0.15) 0%, transparent 50%),
+    radial-gradient(circle 400px at 90% 10%, rgba(255, 184, 108, 0.12) 0%, transparent 50%);
+  animation: ethereal-float 15s ease-in-out infinite reverse;
+  pointer-events: none;
+}
+
+@keyframes ethereal-float {
+  0%, 100% {
+    transform: translate(0, 0);
+    opacity: 0.8;
+  }
+  33% {
+    transform: translate(-3%, 2%);
+    opacity: 1;
+  }
+  66% {
+    transform: translate(2%, -2%);
+    opacity: 0.9;
+  }
+}
+
+/* ============================================
+ * Automatic Theme Detection
+ * ============================================ */
+
+/* Light theme ethereal background - more visible with adjusted colors */
+[data-theme="light"] body::before {
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 40%, rgba(209, 70, 113, 0.25) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 80% 60%, rgba(123, 44, 191, 0.20) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 30% at 40% 80%, rgba(8, 145, 178, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 50% at 70% 20%, rgba(209, 70, 113, 0.18) 0%, transparent 50%);
+}
+
+[data-theme="light"] body::after {
+  background:
+    radial-gradient(circle 300px at 10% 90%, rgba(5, 150, 105, 0.12) 0%, transparent 50%),
+    radial-gradient(circle 400px at 90% 10%, rgba(194, 65, 12, 0.10) 0%, transparent 50%);
+}
+
+/* ============================================
+ * Smooth Theme Transitions
+ * Apple-like micro-interactions
+ * ============================================ */
+
+/* Smooth color transitions for theme changes */
+*,
+*::before,
+*::after {
+  transition:
+    background-color var(--duration-normal) var(--ease-out),
+    border-color var(--duration-normal) var(--ease-out),
+    color var(--duration-normal) var(--ease-out),
+    box-shadow var(--duration-normal) var(--ease-out);
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* ============================================
+ * High Contrast Support
+ * ============================================ */
+@media (prefers-contrast: high) {
+  :root {
+    /* Increase contrast ratios for better accessibility */
+    --text-secondary: var(--text-primary);
+    --border-default: var(--text-primary);
+    --shadow-sm: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 6px 12px 0 rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 12px 24px 0 rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* ============================================
+ * Apple-like Micro-interactions
+ * ============================================ */
+
+/* Subtle hover animations */
+button,
+a,
+[role="button"] {
+  transition:
+    transform var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+button:hover:not(:disabled),
+a:hover,
+[role="button"]:hover {
+  transform: translateY(-1px);
+}
+
+button:active:not(:disabled),
+a:active,
+[role="button"]:active {
+  transform: translateY(0);
+  transition-duration: calc(var(--duration-fast) / 2);
+}
+
+/* Focus states with spring animation */
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  animation: focus-spring var(--duration-normal) var(--ease-bounce);
+}
+
+@keyframes focus-spring {
+  0% {
+    transform: scale(0.98);
+    outline-width: 0;
+  }
+  50% {
+    transform: scale(1.02);
+    outline-width: calc(var(--focus-ring-width) * 1.5);
+  }
+  100% {
+    transform: scale(1);
+    outline-width: var(--focus-ring-width);
+  }
+}
+
+/* Card hover effects - only for direct card elements, not children */
+.card {
+  transition:
+    transform var(--duration-normal) var(--ease-out),
+    box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Disable animations for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  @keyframes focus-spring {
+    0%, 100% {
+      transform: scale(1);
+      outline-width: var(--focus-ring-width);
+    }
+  }
+
+  button:hover:not(:disabled),
+  a:hover,
+  [role="button"]:hover,
+  .card:hover {
+    transform: none;
+  }
+}

@@ -13,12 +13,12 @@
 /**
  * Valid password types supported by the generator.
  */
-export const VALID_PASSWORD_TYPES = ["strong", "base64", "memorable"];
+export const VALID_PASSWORD_TYPES = ["strong", "base64", "memorable", "quantum-resistant"];
 
 /**
  * Valid preset profile names.
  */
-export const VALID_PRESETS = ["quick", "secure", "memorable"];
+export const VALID_PRESETS = ["quick", "secure", "memorable", "quantum"];
 
 /**
  * Preset profile configurations for zero-config CLI usage.
@@ -40,6 +40,12 @@ export const PRESET_PROFILES = {
     type: "memorable",
     iteration: 4,
     separator: "-",
+  },
+  quantum: {
+    type: "quantum-resistant",
+    length: 43,
+    iteration: 1,
+    separator: "",
   },
 };
 
@@ -81,7 +87,7 @@ export const CLI_DEFAULTS = {
  */
 export const CLI_OPTIONS = {
   name: "password-generator",
-  description: "A fast, simple and powerful utility for generating strong, unique and random passwords",
+  description: "A fast, simple and powerful utility for generating strong, unique and quantum-resistant passwords",
   options: {
     preset: {
       flags: "-p, --preset <preset>",
@@ -96,7 +102,7 @@ export const CLI_OPTIONS = {
       flags: "-l, --length <number>",
       description: "length of each password chunk",
       parser: (val) => parseInt(val, 10),
-      defaultValue: CLI_DEFAULTS.length,
+      // Note: No default value here - defaults are handled by presets or in service layer
     },
     iteration: {
       flags: "-i, --iteration <number>",
@@ -128,6 +134,24 @@ export const CLI_OPTIONS = {
       flags: "--interactive",
       description: "start interactive guided setup for password generation",
       defaultValue: false,
+    },
+    kdfMemory: {
+      flags: "--kdf-memory <number>",
+      description: "Argon2id memory parameter in KB (default: 65536 KB = 64 MB)",
+      parser: (val) => parseInt(val, 10),
+      defaultValue: 65536,
+    },
+    kdfTime: {
+      flags: "--kdf-time <number>",
+      description: "Argon2id time cost parameter (default: 3 iterations)",
+      parser: (val) => parseInt(val, 10),
+      defaultValue: 3,
+    },
+    kdfParallelism: {
+      flags: "--kdf-parallelism <number>",
+      description: "Argon2id parallelism parameter (default: 4 threads)",
+      parser: (val) => parseInt(val, 10),
+      defaultValue: 4,
     },
   },
 };

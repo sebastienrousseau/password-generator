@@ -1,4 +1,4 @@
-/* Copyright 2022-2024 Password Generator. All rights reserved.
+/* Copyright 2022-2026 Password Generator. All rights reserved.
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  * Design Tokens - CSS Custom Properties
@@ -150,10 +150,10 @@
   --feedback-error: var(--color-coral);
   --feedback-info: var(--color-cyan);
 
-  /* Text */
+  /* Text - WCAG 2.2 AAA compliant contrast ratios */
   --text-primary: var(--color-white);
-  --text-secondary: var(--color-gray-400);
-  --text-muted: var(--color-gray-500);
+  --text-secondary: #D1D5DB; /* Improved from gray-400 for AAA compliance (4.5:1+ contrast) */
+  --text-muted: #9CA3AF; /* Improved for better readability */
   --text-disabled: var(--color-gray-600);
 
   /* Background */

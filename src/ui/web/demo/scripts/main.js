@@ -1,4 +1,4 @@
-// Copyright 2022-2024 Password Generator. All rights reserved.
+// Copyright 2022-2026 Password Generator. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -12,11 +12,12 @@ import { initTheme } from "./theme.js";
 import { createWebUIController } from "../../controllers/WebUIController.js";
 import { FormState } from "../../state/FormState.js";
 
-// Preset configurations
+// Preset configurations (aligned with CLI presets from src/config.js)
 const PRESETS = {
   quick: { type: "strong", length: 14, iteration: 4, separator: "-" },
-  secure: { type: "strong", length: 24, iteration: 6, separator: "-" },
+  secure: { type: "strong", length: 16, iteration: 4, separator: "" },
   memorable: { type: "memorable", length: 4, iteration: 4, separator: "-" },
+  "quantum-resistant": { type: "quantum-resistant", length: 43, iteration: 1, separator: "" },
 };
 
 // State
@@ -41,12 +42,14 @@ const elements = {
   strengthIndicator: null,
   strengthLabel: null,
   strengthBits: null,
+  strengthDescription: null,
   copyBtn: null,
   toggleVisibilityBtn: null,
   visibilityText: null,
   regenerateBtn: null,
   presetBtns: null,
   toast: null,
+  srAnnouncements: null,
 };
 
 /**
@@ -58,7 +61,7 @@ function initElements() {
   elements.lengthInput = document.getElementById("length");
   elements.lengthGroup = document.getElementById("length-group");
   elements.iterationInput = document.getElementById("iteration");
-  elements.iterationLabel = document.getElementById("iteration-label-text");
+  elements.iterationLabel = document.getElementById("iteration-label");
   elements.separatorInput = document.getElementById("separator");
   elements.generateBtn = document.getElementById("generate-btn");
   elements.generateText = document.getElementById("generate-text");
@@ -68,12 +71,14 @@ function initElements() {
   elements.strengthIndicator = document.getElementById("strength-indicator");
   elements.strengthLabel = document.getElementById("strength-label");
   elements.strengthBits = document.getElementById("strength-bits");
+  elements.strengthDescription = document.getElementById("strength-description");
   elements.copyBtn = document.getElementById("copy-btn");
   elements.toggleVisibilityBtn = document.getElementById("toggle-visibility-btn");
   elements.visibilityText = document.getElementById("visibility-text");
   elements.regenerateBtn = document.getElementById("regenerate-btn");
   elements.presetBtns = document.querySelectorAll(".preset-btn");
   elements.toast = document.getElementById("toast");
+  elements.srAnnouncements = document.getElementById("sr-announcements");
 }
 
 /**
@@ -97,9 +102,20 @@ function getFormState() {
  */
 function updateUIForType(type) {
   const isMemorableType = type === "memorable";
+  const isQuantumType = type === "quantum-resistant";
 
-  // Show/hide length field for memorable type
-  elements.lengthGroup.classList.toggle("hidden", isMemorableType);
+  // Show/hide length field for memorable type, fix for quantum
+  elements.lengthGroup.classList.toggle("hidden", isMemorableType || isQuantumType);
+
+  // Hide chunks and separator for quantum (single high-entropy string)
+  const iterationGroup = elements.iterationInput.closest(".form-group--inline");
+  const separatorGroup = elements.separatorInput.closest(".form-group--inline");
+  if (iterationGroup) {
+    iterationGroup.classList.toggle("hidden", isQuantumType);
+  }
+  if (separatorGroup) {
+    separatorGroup.classList.toggle("hidden", isQuantumType);
+  }
 
   // Update iteration label
   elements.iterationLabel.textContent = isMemorableType ? "Words" : "Chunks";
@@ -213,10 +229,14 @@ function updatePasswordDisplay() {
   if (isPasswordVisible) {
     elements.passwordValue.innerHTML = `<span class="select-all font-mono">${escapeHtml(currentPassword)}</span>`;
     elements.visibilityText.textContent = "Hide";
+    elements.toggleVisibilityBtn.setAttribute("aria-pressed", "true");
+    elements.toggleVisibilityBtn.setAttribute("aria-label", "Hide password (currently visible)");
   } else {
     const masked = currentPassword.slice(0, 3) + "•".repeat(Math.max(0, currentPassword.length - 6)) + currentPassword.slice(-3);
     elements.passwordValue.innerHTML = `<span class="font-mono">${escapeHtml(masked)}</span>`;
     elements.visibilityText.textContent = "Show";
+    elements.toggleVisibilityBtn.setAttribute("aria-pressed", "false");
+    elements.toggleVisibilityBtn.setAttribute("aria-label", "Show password (currently hidden)");
   }
 }
 
@@ -226,9 +246,14 @@ function updatePasswordDisplay() {
  */
 function updateStrengthIndicator(result) {
   const { strengthIndicator, entropyBits } = result;
+  const roundedBits = Math.round(entropyBits);
 
   elements.strengthIndicator.classList.remove("hidden");
   elements.strengthIndicator.className = `strength strength--${strengthIndicator.level}`;
+
+  // Update ARIA attributes for the meter (WCAG 2.2 AAA)
+  elements.strengthIndicator.setAttribute("aria-valuenow", strengthIndicator.dots);
+  elements.strengthIndicator.setAttribute("aria-valuetext", `${strengthIndicator.label} strength, ${roundedBits} bits of entropy`);
 
   // Update dots
   const dots = elements.strengthIndicator.querySelectorAll(".strength__dot");
@@ -238,22 +263,38 @@ function updateStrengthIndicator(result) {
 
   // Update labels
   elements.strengthLabel.textContent = `${strengthIndicator.label}`;
-  elements.strengthBits.textContent = `${Math.round(entropyBits)}-bit`;
+  elements.strengthBits.textContent = `${roundedBits}-bit`;
+
+  // Update screen reader description
+  if (elements.strengthDescription) {
+    elements.strengthDescription.textContent = `Password strength: ${strengthIndicator.label} with ${roundedBits} bits of entropy`;
+  }
 }
 
 /**
- * Announces a message to screen readers.
+ * Announces a message to screen readers using the dedicated live region.
  * @param {string} message - The message to announce.
  */
 function announceToScreenReader(message) {
-  const announcement = document.createElement("div");
-  announcement.setAttribute("role", "status");
-  announcement.setAttribute("aria-live", "polite");
-  announcement.className = "sr-only";
-  announcement.textContent = message;
-  document.body.appendChild(announcement);
+  // Use the dedicated announcement region if available
+  if (elements.srAnnouncements) {
+    // Clear previous announcement
+    elements.srAnnouncements.textContent = "";
+    // Small delay to ensure screen readers detect the change
+    setTimeout(() => {
+      elements.srAnnouncements.textContent = message;
+    }, 50);
+  } else {
+    // Fallback: create temporary announcement element
+    const announcement = document.createElement("div");
+    announcement.setAttribute("role", "status");
+    announcement.setAttribute("aria-live", "assertive");
+    announcement.className = "sr-only";
+    announcement.textContent = message;
+    document.body.appendChild(announcement);
 
-  setTimeout(() => announcement.remove(), 1000);
+    setTimeout(() => announcement.remove(), 1000);
+  }
 }
 
 /**
@@ -265,6 +306,7 @@ async function copyToClipboard() {
   try {
     await navigator.clipboard.writeText(currentPassword);
     showToast("Copied to clipboard!", "success");
+    announceToScreenReader("Password copied to clipboard");
   } catch {
     // Fallback for older browsers
     const textarea = document.createElement("textarea");
@@ -277,8 +319,10 @@ async function copyToClipboard() {
     try {
       document.execCommand("copy");
       showToast("Copied to clipboard!", "success");
+      announceToScreenReader("Password copied to clipboard");
     } catch {
       showToast("Failed to copy. Please copy manually.", "error");
+      announceToScreenReader("Failed to copy password. Please copy manually.");
     }
 
     document.body.removeChild(textarea);
@@ -336,6 +380,7 @@ function setupEventListeners() {
   elements.toggleVisibilityBtn.addEventListener("click", () => {
     isPasswordVisible = !isPasswordVisible;
     updatePasswordDisplay();
+    announceToScreenReader(isPasswordVisible ? "Password is now visible" : "Password is now hidden");
   });
 
   // Regenerate

@@ -61,7 +61,10 @@ export {
   generateBase64Password,
   generateMemorablePassword,
   generatePassphrase,
+  generateQuantumPassword,
   calculateStrongPasswordEntropy,
   calculateBase64PasswordEntropy,
   calculateMemorablePasswordEntropy,
+  calculateQuantumPasswordEntropy,
+  validateQuantumSecurity,
 } from "./generators/index.js";

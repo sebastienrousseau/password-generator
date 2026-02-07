@@ -25,9 +25,17 @@ export {
   generatePassphrase,
 } from "./memorable.js";
 
+export {
+  generateQuantumChunk,
+  generateQuantumPassword,
+  calculateQuantumPasswordEntropy,
+  validateQuantumSecurity,
+} from "./quantum.js";
+
 import { generateStrongPassword, calculateStrongPasswordEntropy } from "./strong.js";
 import { generateBase64Password, calculateBase64PasswordEntropy } from "./base64.js";
 import { generateMemorablePassword, calculateMemorablePasswordEntropy } from "./memorable.js";
+import { generateQuantumPassword, calculateQuantumPasswordEntropy } from "./quantum.js";
 import { PASSWORD_TYPES, isValidPasswordType } from "../domain/password-types.js";
 import { PASSWORD_ERRORS } from "../errors.js";
 
@@ -46,6 +54,10 @@ export const GENERATOR_REGISTRY = {
   [PASSWORD_TYPES.MEMORABLE]: {
     generate: generateMemorablePassword,
     calculateEntropy: calculateMemorablePasswordEntropy,
+  },
+  [PASSWORD_TYPES.QUANTUM]: {
+    generate: generateQuantumPassword,
+    calculateEntropy: calculateQuantumPasswordEntropy,
   },
 };
 
@@ -67,7 +79,7 @@ export const getGenerator = (type) => {
  * Generates a password of the specified type.
  *
  * @param {Object} config - Password configuration.
- * @param {string} config.type - Password type (strong, base64, memorable).
+ * @param {string} config.type - Password type (strong, base64, memorable, quantum).
  * @param {number} [config.length] - Length of each chunk (for strong/base64).
  * @param {number} config.iteration - Number of chunks/words.
  * @param {string} config.separator - Separator between chunks/words.
