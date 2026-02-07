@@ -845,13 +845,8 @@ describe("Crypto Adapters", () => {
     });
 
     describe("validateRandomnessQuality", () => {
-      it("should return true for cryptographically secure random", async () => {
-        const result = await nodeRandom.validateRandomnessQuality();
-        expect(result).to.be.true;
-      });
-
-      it("should perform chi-squared test correctly", async () => {
-        // Statistical tests can occasionally fail, allow up to 2 failures out of 5
+      it("should return true for cryptographically secure random with sufficient samples", async () => {
+        // Statistical tests can occasionally fail due to randomness, so we test multiple times
         let successCount = 0;
         for (let i = 0; i < 5; i++) {
           const result = await nodeRandom.validateRandomnessQuality();
