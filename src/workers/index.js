@@ -25,7 +25,7 @@
  * await pool.terminate();
  */
 
-export { PasswordWorkerPool } from './password-worker-pool.js';
+export { PasswordWorkerPool } from "./password-worker-pool.js";
 
 /**
  * Creates a quick worker pool with sensible defaults.
@@ -34,14 +34,11 @@ export { PasswordWorkerPool } from './password-worker-pool.js';
  * @returns {PasswordWorkerPool} Configured worker pool.
  */
 export function createWorkerPool(options = {}) {
-  const {
-    size = navigator?.hardwareConcurrency || 4,
-    ...restOptions
-  } = options;
+  const { size = navigator?.hardwareConcurrency || 4, ...restOptions } = options;
 
   return new PasswordWorkerPool({
     size,
-    ...restOptions
+    ...restOptions,
   });
 }
 
@@ -60,7 +57,7 @@ export async function generatePasswordsBulk(configs, options = {}) {
 
   const pool = createWorkerPool({
     size: workers,
-    ...poolOptions
+    ...poolOptions,
   });
 
   try {
@@ -93,40 +90,40 @@ export const GenerationPresets = {
    * Strong passwords suitable for most applications.
    */
   STRONG_DEFAULT: {
-    type: 'strong',
+    type: "strong",
     length: 16,
     iteration: 2,
-    separator: '-'
+    separator: "-",
   },
 
   /**
    * Memorable passwords for users who need to remember them.
    */
   MEMORABLE_DEFAULT: {
-    type: 'memorable',
+    type: "memorable",
     iteration: 4,
-    separator: '-'
+    separator: "-",
   },
 
   /**
    * High-security passwords for critical applications.
    */
   HIGH_SECURITY: {
-    type: 'strong',
+    type: "strong",
     length: 24,
     iteration: 3,
-    separator: '_'
+    separator: "_",
   },
 
   /**
    * Fast-generation passwords for performance testing.
    */
   PERFORMANCE_TEST: {
-    type: 'base64',
+    type: "base64",
     length: 12,
     iteration: 1,
-    separator: ''
-  }
+    separator: "",
+  },
 };
 
 /**
@@ -173,10 +170,10 @@ export const BulkPatterns = {
    */
   varyingLengths(count, lengths = [12, 16, 20, 24]) {
     return Array.from({ length: count }, (_, i) => ({
-      type: 'strong',
+      type: "strong",
       length: lengths[i % lengths.length],
       iteration: 1,
-      separator: '-'
+      separator: "-",
     }));
   },
 
@@ -188,5 +185,5 @@ export const BulkPatterns = {
    */
   benchmark(count) {
     return Array(count).fill({ ...GenerationPresets.PERFORMANCE_TEST });
-  }
+  },
 };

@@ -11,8 +11,8 @@
  */
 
 // Import dependencies (will need bundling for production use)
-import { createService } from '../../packages/core/src/index.js';
-import { randomBytes, randomInt, bytesToBase64 } from '../adapters/web/webcrypto-random.js';
+import { createService } from "../../packages/core/src/index.js";
+import { randomInt, bytesToBase64 } from "../adapters/web/webcrypto-random.js";
 
 /**
  * Web Crypto Random Generator implementation for Web Worker context.
@@ -36,7 +36,7 @@ class WebWorkerCryptoRandom {
   }
 
   async generateRandomString(length, charset) {
-    let result = '';
+    let result = "";
     for (let i = 0; i < length; i++) {
       result += charset[randomInt(charset.length)];
     }
@@ -52,22 +52,22 @@ const passwordService = createService({}, { randomGenerator });
  * Message handler for the worker.
  * Processes generation requests from the main thread.
  */
-self.onmessage = async function(event) {
+self.onmessage = async function (event) {
   const { id, action, payload } = event.data;
 
   try {
     switch (action) {
-      case 'generate': {
+      case "generate": {
         const password = await passwordService.generate(payload.config);
         self.postMessage({
           id,
           success: true,
-          result: password
+          result: password,
         });
         break;
       }
 
-      case 'generateBatch': {
+      case "generateBatch": {
         const { configs, batchId } = payload;
         const passwords = [];
 
@@ -79,10 +79,10 @@ self.onmessage = async function(event) {
           if ((i + 1) % 100 === 0 || i === configs.length - 1) {
             self.postMessage({
               id,
-              type: 'progress',
+              type: "progress",
               batchId,
               completed: i + 1,
-              total: configs.length
+              total: configs.length,
             });
           }
         }
@@ -91,56 +91,56 @@ self.onmessage = async function(event) {
           id,
           success: true,
           result: passwords,
-          batchId
+          batchId,
         });
         break;
       }
 
-      case 'generateMultiple': {
+      case "generateMultiple": {
         const passwords = await passwordService.generateMultiple(payload.configs);
         self.postMessage({
           id,
           success: true,
-          result: passwords
+          result: passwords,
         });
         break;
       }
 
-      case 'validateConfig': {
+      case "validateConfig": {
         const validation = passwordService.validateConfig(payload.config);
         self.postMessage({
           id,
           success: true,
-          result: validation
+          result: validation,
         });
         break;
       }
 
-      case 'calculateEntropy': {
+      case "calculateEntropy": {
         const entropy = passwordService.calculateEntropy(payload.config);
         self.postMessage({
           id,
           success: true,
-          result: entropy
+          result: entropy,
         });
         break;
       }
 
-      case 'getSupportedTypes': {
+      case "getSupportedTypes": {
         const types = passwordService.getSupportedTypes();
         self.postMessage({
           id,
           success: true,
-          result: types
+          result: types,
         });
         break;
       }
 
-      case 'ping': {
+      case "ping": {
         self.postMessage({
           id,
           success: true,
-          result: 'pong'
+          result: "pong",
         });
         break;
       }
@@ -149,7 +149,7 @@ self.onmessage = async function(event) {
         self.postMessage({
           id,
           success: false,
-          error: `Unknown action: ${action}`
+          error: `Unknown action: ${action}`,
         });
     }
   } catch (error) {
@@ -157,12 +157,12 @@ self.onmessage = async function(event) {
       id,
       success: false,
       error: error.message,
-      stack: error.stack
+      stack: error.stack,
     });
   }
 };
 
 // Signal that the worker is ready
 self.postMessage({
-  type: 'ready'
+  type: "ready",
 });

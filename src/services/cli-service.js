@@ -27,7 +27,6 @@ import {
 import {
   formatOutput,
   preparePasswordData,
-  calculatePasswordStrength,
 } from "./output-formatter.js";
 
 /**
@@ -66,7 +65,7 @@ export const generateEquivalentCommand = (config, preset, opts) => {
   if (opts.audit) {
     parts.push("-a");
   }
-  if (opts.format && opts.format !== 'text') {
+  if (opts.format && opts.format !== "text") {
     parts.push(`-f ${opts.format}`);
   }
   if (opts.count && opts.count > 1) {
@@ -232,23 +231,22 @@ export const displayFormattedOutput = (passwords, config, format, options = {}) 
   const {
     clipboardSuccess = false,
     showLearning = false,
-    showAudit = false,
     preset = null,
-    opts = {}
+    opts = {},
   } = options;
 
   // Prepare password data with metadata
   const passwordData = preparePasswordData(passwords, config);
 
   // For text format with single password, use legacy display
-  if (format === 'text' && passwords.length === 1) {
+  if (format === "text" && passwords.length === 1) {
     displayPasswordOutput(passwords[0], clipboardSuccess, config);
   } else {
     // Use structured output formatter
     const formattedOutput = formatOutput(passwordData, format, {
       pretty: true,
       includeHeaders: true,
-      showMetadata: format !== 'csv'
+      showMetadata: format !== "csv",
     });
 
     console.log(formattedOutput);
@@ -256,7 +254,11 @@ export const displayFormattedOutput = (passwords, config, format, options = {}) 
     // Show clipboard status for bulk operations
     if (clipboardSuccess && passwords.length > 1) {
       console.log("");
-      console.log(`  ${colors.success(icons.success)} ${colors.dim(`First password copied to clipboard (${passwords.length} total generated)`)}`);
+      console.log(
+        `  ${colors.success(icons.success)} ${colors.dim(
+          `First password copied to clipboard (${passwords.length} total generated)`
+        )}`
+      );
     }
   }
 
@@ -280,8 +282,18 @@ export const displayNonTTYHelp = () => {
   console.log(`  ${colors.muted(icons.pointer)} ${colors.command("password-generator --help")}`);
   console.log("");
   console.log(`  ${colors.dim("bulk operations")}`);
-  console.log(`  ${colors.muted(icons.pointer)} ${colors.command("password-generator -p quick -n 5 -f json")}`);
-  console.log(`  ${colors.muted(icons.pointer)} ${colors.command("password-generator -p secure -n 10 -f csv")}`);
-  console.log(`  ${colors.muted(icons.pointer)} ${colors.command("password-generator -p memorable -n 3 -f yaml")}`);
+  console.log(
+    `  ${colors.muted(icons.pointer)} ${colors.command("password-generator -p quick -n 5 -f json")}`
+  );
+  console.log(
+    `  ${colors.muted(icons.pointer)} ${colors.command(
+      "password-generator -p secure -n 10 -f csv"
+    )}`
+  );
+  console.log(
+    `  ${colors.muted(icons.pointer)} ${colors.command(
+      "password-generator -p memorable -n 3 -f yaml"
+    )}`
+  );
   console.log("");
 };
