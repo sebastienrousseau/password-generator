@@ -13,7 +13,7 @@
 /**
  * Valid password types supported by the generator.
  */
-export const VALID_PASSWORD_TYPES = ["strong", "base64", "memorable", "quantum-resistant"];
+export const VALID_PASSWORD_TYPES = ["strong", "base64", "memorable", "quantum-resistant", "diceware", "honeyword", "pronounceable", "custom"];
 
 /**
  * Valid output formats for bulk operations.

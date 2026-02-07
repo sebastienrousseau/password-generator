@@ -47,8 +47,8 @@ export class PasswordViewModel {
     this.dictionaries = this.strength.dictionaries || [];
     this.crackTime = this.strength.crackTime || {};
 
-    // Enhanced strength indicator (uses zxcvbn-style scoring)
-    this.strengthIndicator = this._mapToAdvancedStrengthIndicator();
+    // Enhanced strength indicator (uses zxcvbn-style scoring with entropy fallback)
+    this.strengthIndicator = this._getStrengthIndicator(data);
 
     // Configuration echo (for user reference)
     this.type = data.config?.type ?? "";
@@ -73,6 +73,24 @@ export class PasswordViewModel {
       return "*".repeat(password.length);
     }
     return password.slice(0, 2) + "*".repeat(password.length - 4) + password.slice(-2);
+  }
+
+  /**
+   * Gets the appropriate strength indicator based on available data.
+   * Uses score-based system when strength analysis is available,
+   * falls back to entropy-based system for backward compatibility.
+   *
+   * @param {Object} data - Original data object.
+   * @returns {Object} Strength indicator with level, label, dots, and color.
+   * @private
+   */
+  _getStrengthIndicator(data) {
+    // If we have a valid strength score (0-4), use the advanced system
+    if (data.strength && typeof data.strength.score === "number") {
+      return this._mapToAdvancedStrengthIndicator();
+    }
+    // Otherwise, fall back to entropy-based indicator for backward compatibility
+    return this._mapToStrengthIndicator(data.entropyInfo);
   }
 
   /**
@@ -159,11 +177,13 @@ export class PasswordViewModel {
   /**
    * Gets strength dots as a visual string.
    *
-   * @returns {string} Dots representation (e.g., "●●●○○").
+   * @returns {string} Dots representation (e.g., "●●●○").
    */
   getStrengthDots() {
     const filled = this.strengthIndicator.dots;
-    const empty = Math.max(0, 5 - filled); // Updated to 5 dots for more granular display
+    // Use 4 dots for entropy-based (maximum=4) or 5 dots for score-based (strong=5)
+    const maxDots = filled <= 4 ? 4 : 5;
+    const empty = Math.max(0, maxDots - filled);
     return "●".repeat(filled) + "○".repeat(empty);
   }
 
