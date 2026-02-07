@@ -80,7 +80,9 @@ export class CommandLearningPresenter {
       console.log(`  ${colors.dim("breakdown")}`);
       console.log("");
       for (const { flag, desc } of breakdown) {
-        console.log(`  ${colors.muted(icons.pointer)} ${colors.command(flag.padEnd(24))} ${colors.dim(desc)}`);
+        console.log(
+          `  ${colors.muted(icons.pointer)} ${colors.command(flag.padEnd(24))} ${colors.dim(desc)}`
+        );
       }
       console.log("");
     }
@@ -92,10 +94,22 @@ export class CommandLearningPresenter {
   static displayNextSteps(preset) {
     console.log(`  ${colors.dim("next")}`);
     console.log("");
-    console.log(`  ${colors.muted(icons.pointer)} ${colors.dim("use")} ${colors.command("--help")} ${colors.dim("for all options")}`);
-    console.log(`  ${colors.muted(icons.pointer)} ${colors.dim("use")} ${colors.command("--audit")} ${colors.dim("for security details")}`);
+    console.log(
+      `  ${colors.muted(icons.pointer)} ${colors.dim("use")} ${colors.command(
+        "--help"
+      )} ${colors.dim("for all options")}`
+    );
+    console.log(
+      `  ${colors.muted(icons.pointer)} ${colors.dim("use")} ${colors.command(
+        "--audit"
+      )} ${colors.dim("for security details")}`
+    );
     if (preset) {
-      console.log(`  ${colors.muted(icons.pointer)} ${colors.dim("use")} ${colors.command(`-p ${preset}`)} ${colors.dim("for quick access")}`);
+      console.log(
+        `  ${colors.muted(icons.pointer)} ${colors.dim("use")} ${colors.command(
+          `-p ${preset}`
+        )} ${colors.dim("for quick access")}`
+      );
     }
     console.log("");
   }

@@ -7,11 +7,7 @@
  * @module generators
  */
 
-export {
-  generateChunk,
-  generateStrongPassword,
-  calculateStrongPasswordEntropy,
-} from "./strong.js";
+export { generateChunk, generateStrongPassword, calculateStrongPasswordEntropy } from "./strong.js";
 
 export {
   generateBase64Chunk,

@@ -8,10 +8,25 @@
  * @module service
  */
 
-import { validatePorts, NoOpLogger, MemoryStorage, FixedClock, MemoryDictionary, DEFAULT_WORD_LIST } from "./ports/index.js";
-import { generate, getGenerator, GENERATOR_REGISTRY } from "./generators/index.js";
-import { isValidPasswordType, VALID_PASSWORD_TYPES, validatePasswordTypeConfig } from "./domain/password-types.js";
-import { calculateTotalEntropy, getSecurityLevel, getSecurityRecommendation } from "./domain/entropy-calculator.js";
+import {
+  validatePorts,
+  NoOpLogger,
+  MemoryStorage,
+  FixedClock,
+  MemoryDictionary,
+  DEFAULT_WORD_LIST,
+} from "./ports/index.js";
+import { generate, GENERATOR_REGISTRY } from "./generators/index.js";
+import {
+  isValidPasswordType,
+  VALID_PASSWORD_TYPES,
+  validatePasswordTypeConfig,
+} from "./domain/password-types.js";
+import {
+  calculateTotalEntropy,
+  getSecurityLevel,
+  getSecurityRecommendation,
+} from "./domain/entropy-calculator.js";
 import { PASSWORD_ERRORS } from "./errors.js";
 
 /**
@@ -60,12 +75,7 @@ export function createService(config = {}, ports) {
      * @returns {Promise<string>} The generated password.
      */
     async generate(options) {
-      const {
-        type,
-        length = 16,
-        iteration = 1,
-        separator = "-",
-      } = options;
+      const { type, length = 16, iteration = 1, separator = "-" } = options;
 
       // Validate type
       if (!type) {
@@ -119,7 +129,7 @@ export function createService(config = {}, ports) {
         totalBits: totalEntropy,
         securityLevel,
         recommendation,
-        perUnit: type === "memorable" ? totalEntropy / iteration : (length * Math.log2(64)),
+        perUnit: type === "memorable" ? totalEntropy / iteration : length * Math.log2(64),
       };
     },
 
@@ -137,7 +147,10 @@ export function createService(config = {}, ports) {
       }
 
       if (!isValidPasswordType(type)) {
-        return { isValid: false, errors: [PASSWORD_ERRORS.UNKNOWN_TYPE(type, VALID_PASSWORD_TYPES)] };
+        return {
+          isValid: false,
+          errors: [PASSWORD_ERRORS.UNKNOWN_TYPE(type, VALID_PASSWORD_TYPES)],
+        };
       }
 
       return validatePasswordTypeConfig(type, options);

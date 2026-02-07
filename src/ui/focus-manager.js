@@ -187,32 +187,42 @@ export const createFocusableMenu = (menuId, options) => {
   // Push onto focus stack when entering
   const enter = () => {
     focusManager.push(menuId, selectedIndex);
-    if (onRender) {onRender(selectedIndex);}
+    if (onRender) {
+      onRender(selectedIndex);
+    }
   };
 
   // Handle navigation
   const moveUp = () => {
     selectedIndex = selectedIndex > 0 ? selectedIndex - 1 : itemCount - 1;
     focusManager.updateIndex(selectedIndex);
-    if (onRender) {onRender(selectedIndex);}
+    if (onRender) {
+      onRender(selectedIndex);
+    }
     return selectedIndex;
   };
 
   const moveDown = () => {
     selectedIndex = selectedIndex < itemCount - 1 ? selectedIndex + 1 : 0;
     focusManager.updateIndex(selectedIndex);
-    if (onRender) {onRender(selectedIndex);}
+    if (onRender) {
+      onRender(selectedIndex);
+    }
     return selectedIndex;
   };
 
   const select = () => {
-    if (onSelect) {onSelect(selectedIndex);}
+    if (onSelect) {
+      onSelect(selectedIndex);
+    }
     return selectedIndex;
   };
 
   const back = () => {
     focusManager.pop();
-    if (onBack) {onBack();}
+    if (onBack) {
+      onBack();
+    }
     return focusManager.peek();
   };
 
@@ -222,7 +232,9 @@ export const createFocusableMenu = (menuId, options) => {
     if (index >= 0 && index < itemCount) {
       selectedIndex = index;
       focusManager.updateIndex(selectedIndex);
-      if (onRender) {onRender(selectedIndex);}
+      if (onRender) {
+        onRender(selectedIndex);
+      }
     }
     return selectedIndex;
   };

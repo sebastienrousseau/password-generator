@@ -69,17 +69,29 @@ export const generateEquivalentCommand = (config, preset, opts) => {
  */
 const calculateStrength = (password) => {
   let charsetSize = 0;
-  if (/[a-z]/.test(password)) {charsetSize += 26;}
-  if (/[A-Z]/.test(password)) {charsetSize += 26;}
-  if (/[0-9]/.test(password)) {charsetSize += 10;}
-  if (/[^a-zA-Z0-9]/.test(password)) {charsetSize += 32;}
+  if (/[a-z]/.test(password)) {
+    charsetSize += 26;
+  }
+  if (/[A-Z]/.test(password)) {
+    charsetSize += 26;
+  }
+  if (/[0-9]/.test(password)) {
+    charsetSize += 10;
+  }
+  if (/[^a-zA-Z0-9]/.test(password)) {
+    charsetSize += 32;
+  }
 
   const entropy = Math.floor(password.length * Math.log2(charsetSize || 1));
 
   let strength = "weak";
-  if (entropy >= 128) {strength = "maximum";}
-  else if (entropy >= 80) {strength = "strong";}
-  else if (entropy >= 50) {strength = "medium";}
+  if (entropy >= 128) {
+    strength = "maximum";
+  } else if (entropy >= 80) {
+    strength = "strong";
+  } else if (entropy >= 50) {
+    strength = "medium";
+  }
 
   return { strength, entropy };
 };
@@ -101,7 +113,9 @@ export const displayPasswordOutput = (password, copiedToClipboard = false, confi
   // Display security note for quantum-resistant passwords
   if (config.type === "quantum-resistant") {
     console.log("");
-    console.log(`  ${colors.dim("🔒 security note:")} Use Argon2id KDF for storage (OWASP/NIST SP 800-63B)`);
+    console.log(
+      `  ${colors.dim("🔒 security note:")} Use Argon2id KDF for storage (OWASP/NIST SP 800-63B)`
+    );
   }
 };
 
@@ -131,23 +145,47 @@ export const displaySecurityAuditReport = (auditReport, config = {}) => {
   if (auditReport) {
     if (auditReport.generation) {
       console.log(`  ${colors.dim("generation")}`);
-      console.log(`  ${colors.muted(icons.pointer)} algorithm      ${colors.text(auditReport.generation.algorithm || "cryptographic")}`);
-      console.log(`  ${colors.muted(icons.pointer)} entropy source ${colors.text(auditReport.generation.entropySource || "crypto.randomInt")}`);
+      console.log(
+        `  ${colors.muted(icons.pointer)} algorithm      ${colors.text(
+          auditReport.generation.algorithm || "cryptographic"
+        )}`
+      );
+      console.log(
+        `  ${colors.muted(icons.pointer)} entropy source ${colors.text(
+          auditReport.generation.entropySource || "crypto.randomInt"
+        )}`
+      );
       console.log("");
     }
 
     if (auditReport.password) {
       console.log(`  ${colors.dim("analysis")}`);
-      console.log(`  ${colors.muted(icons.pointer)} length         ${colors.text(String(auditReport.password.length || "N/A"))}`);
-      console.log(`  ${colors.muted(icons.pointer)} entropy        ${colors.text((auditReport.password.entropy || "N/A") + " bits")}`);
+      console.log(
+        `  ${colors.muted(icons.pointer)} length         ${colors.text(
+          String(auditReport.password.length || "N/A")
+        )}`
+      );
+      console.log(
+        `  ${colors.muted(icons.pointer)} entropy        ${colors.text(
+          (auditReport.password.entropy || "N/A") + " bits"
+        )}`
+      );
 
       // Display strength with accessible label using renderStrengthIndicator
       if (auditReport.password.entropy) {
         let strength = "weak";
-        if (auditReport.password.entropy >= 128) {strength = "maximum";}
-        else if (auditReport.password.entropy >= 80) {strength = "strong";}
-        else if (auditReport.password.entropy >= 50) {strength = "medium";}
-        console.log(`  ${colors.muted(icons.pointer)} strength       ${renderStrengthIndicator(strength, { showLabel: true })}`);
+        if (auditReport.password.entropy >= 128) {
+          strength = "maximum";
+        } else if (auditReport.password.entropy >= 80) {
+          strength = "strong";
+        } else if (auditReport.password.entropy >= 50) {
+          strength = "medium";
+        }
+        console.log(
+          `  ${colors.muted(icons.pointer)} strength       ${renderStrengthIndicator(strength, {
+            showLabel: true,
+          })}`
+        );
       }
       console.log("");
     }
@@ -158,8 +196,12 @@ export const displaySecurityAuditReport = (auditReport, config = {}) => {
     if (config.type === "quantum-resistant") {
       console.log("");
       console.log(`  ${colors.dim("storage guidance")}`);
-      console.log(`  ${colors.muted(icons.pointer)} Use Argon2id KDF with NIST SP 800-132 parameters`);
-      console.log(`  ${colors.muted(icons.pointer)} References: OWASP Password Storage, NIST SP 800-63B`);
+      console.log(
+        `  ${colors.muted(icons.pointer)} Use Argon2id KDF with NIST SP 800-132 parameters`
+      );
+      console.log(
+        `  ${colors.muted(icons.pointer)} References: OWASP Password Storage, NIST SP 800-63B`
+      );
     }
   } else {
     console.log(`  ${colors.dim(JSON.stringify(auditReport, null, 2))}`);

@@ -17,8 +17,7 @@ export const CRYPTO_ERRORS = {
    * @param {string} paramName - The name of the parameter that must be positive.
    * @returns {string} The error message.
    */
-  MUST_BE_POSITIVE_INTEGER: (paramName) =>
-    `The ${paramName} argument must be a positive integer`,
+  MUST_BE_POSITIVE_INTEGER: (paramName) => `The ${paramName} argument must be a positive integer`,
 
   /**
    * Error message for empty character set.
@@ -81,7 +80,9 @@ export const PORT_ERRORS = {
    * @returns {string} The error message.
    */
   MISSING_PORTS: (missingPorts, requiredPorts) =>
-    `Missing required ports: ${missingPorts.join(", ")}. Required ports: ${requiredPorts.join(", ")}`,
+    `Missing required ports: ${missingPorts.join(", ")}. Required ports: ${requiredPorts.join(
+      ", "
+    )}`,
 
   /**
    * Error message for invalid port implementation.
@@ -98,6 +99,5 @@ export const PORT_ERRORS = {
    * @param {string} expectedClass - The expected class name.
    * @returns {string} The error message.
    */
-  UNKNOWN_PORT_TYPE: (portName, expectedClass) =>
-    `${portName}: Unknown port type ${expectedClass}`,
+  UNKNOWN_PORT_TYPE: (portName, expectedClass) => `${portName}: Unknown port type ${expectedClass}`,
 };

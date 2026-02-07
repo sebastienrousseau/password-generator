@@ -23,7 +23,7 @@ export class RandomGeneratorPort {
    * @throws {Error} If random generation fails.
    * @abstract
    */
-  async generateRandomBytes(byteLength) {
+  async generateRandomBytes(_byteLength) {
     throw new Error("RandomGeneratorPort.generateRandomBytes() must be implemented");
   }
 
@@ -36,7 +36,7 @@ export class RandomGeneratorPort {
    * @throws {Error} If random generation fails.
    * @abstract
    */
-  async generateRandomInt(max) {
+  async generateRandomInt(_max) {
     throw new Error("RandomGeneratorPort.generateRandomInt() must be implemented");
   }
 
@@ -49,7 +49,7 @@ export class RandomGeneratorPort {
    * @throws {Error} If random generation fails.
    * @abstract
    */
-  async generateRandomBase64(byteLength) {
+  async generateRandomBase64(_byteLength) {
     throw new Error("RandomGeneratorPort.generateRandomBase64() must be implemented");
   }
 
@@ -64,7 +64,7 @@ export class RandomGeneratorPort {
    * @throws {Error} If random generation fails.
    * @abstract
    */
-  async generateRandomString(length, charset) {
+  async generateRandomString(_length, _charset) {
     throw new Error("RandomGeneratorPort.generateRandomString() must be implemented");
   }
 }
@@ -72,15 +72,9 @@ export class RandomGeneratorPort {
 /**
  * Required methods for RandomGeneratorPort implementations.
  */
-export const RANDOM_GENERATOR_REQUIRED_METHODS = [
-  "generateRandomBytes",
-  "generateRandomInt",
-];
+export const RANDOM_GENERATOR_REQUIRED_METHODS = ["generateRandomBytes", "generateRandomInt"];
 
 /**
  * Optional methods for RandomGeneratorPort implementations.
  */
-export const RANDOM_GENERATOR_OPTIONAL_METHODS = [
-  "generateRandomBase64",
-  "generateRandomString",
-];
+export const RANDOM_GENERATOR_OPTIONAL_METHODS = ["generateRandomBase64", "generateRandomString"];

@@ -30,14 +30,17 @@ import { NodeCryptoRandom } from "../adapters/node/crypto-random.js";
 function createCoreService() {
   const randomGenerator = new NodeCryptoRandom();
 
-  return createService({}, {
-    randomGenerator,
-    // Optional ports use defaults from core:
-    // - logger: NoOpLogger
-    // - storage: MemoryStorage
-    // - clock: FixedClock
-    // - dictionary: MemoryDictionary with DEFAULT_WORD_LIST
-  });
+  return createService(
+    {},
+    {
+      randomGenerator,
+      // Optional ports use defaults from core:
+      // - logger: NoOpLogger
+      // - storage: MemoryStorage
+      // - clock: FixedClock
+      // - dictionary: MemoryDictionary with DEFAULT_WORD_LIST
+    }
+  );
 }
 
 /**
@@ -118,9 +121,9 @@ export function createCLIBootstrap() {
  * Only executes when this file is run directly, not when imported as a module.
  */
 const resolvedArg = process.argv[1] ? resolve(process.argv[1]) : "";
-const isMainModule = resolvedArg &&
-  (resolvedArg.endsWith("cli-bootstrap.js") ||
-   resolvedArg.includes("cli/cli-bootstrap"));
+const isMainModule =
+  resolvedArg &&
+  (resolvedArg.endsWith("cli-bootstrap.js") || resolvedArg.includes("cli/cli-bootstrap"));
 
 /* c8 ignore start - CLI entry point execution, tested via subprocess */
 if (isMainModule) {

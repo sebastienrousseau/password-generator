@@ -37,7 +37,7 @@ export class DictionaryPort {
    * @returns {Promise<string>} A randomly selected word.
    * @abstract
    */
-  async selectRandomWord(randomIntFn) {
+  async selectRandomWord(_randomIntFn) {
     throw new Error("DictionaryPort.selectRandomWord() must be implemented");
   }
 }
@@ -82,10 +82,52 @@ export class MemoryDictionary extends DictionaryPort {
  * This is a small sample - real implementations should use the full EFF list.
  */
 export const DEFAULT_WORD_LIST = [
-  "abandon", "ability", "able", "about", "above", "absent", "absorb", "abstract",
-  "absurd", "abuse", "access", "accident", "account", "accuse", "achieve", "acid",
-  "acoustic", "acquire", "across", "act", "action", "actor", "actress", "actual",
-  "adapt", "add", "addict", "address", "adjust", "admit", "adult", "advance",
-  "advice", "aerobic", "affair", "afford", "afraid", "again", "age", "agent",
-  "agree", "ahead", "aim", "air", "airport", "aisle", "alarm", "album",
+  "abandon",
+  "ability",
+  "able",
+  "about",
+  "above",
+  "absent",
+  "absorb",
+  "abstract",
+  "absurd",
+  "abuse",
+  "access",
+  "accident",
+  "account",
+  "accuse",
+  "achieve",
+  "acid",
+  "acoustic",
+  "acquire",
+  "across",
+  "act",
+  "action",
+  "actor",
+  "actress",
+  "actual",
+  "adapt",
+  "add",
+  "addict",
+  "address",
+  "adjust",
+  "admit",
+  "adult",
+  "advance",
+  "advice",
+  "aerobic",
+  "affair",
+  "afford",
+  "afraid",
+  "again",
+  "age",
+  "agent",
+  "agree",
+  "ahead",
+  "aim",
+  "air",
+  "airport",
+  "aisle",
+  "alarm",
+  "album",
 ];

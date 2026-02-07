@@ -35,10 +35,13 @@ export { createService } from "../../packages/core/src/index.js";
 function createCoreService() {
   const randomGenerator = new NodeCryptoRandom();
 
-  return createService({}, {
-    randomGenerator,
-    // Optional ports use defaults from core
-  });
+  return createService(
+    {},
+    {
+      randomGenerator,
+      // Optional ports use defaults from core
+    }
+  );
 }
 
 /**

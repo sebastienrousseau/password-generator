@@ -113,19 +113,27 @@ export const defaultCommands = [
  * @returns {number} Match score (higher is better, 0 is no match)
  */
 export const fuzzyMatch = (query, text) => {
-  if (!query) {return 1;} // Empty query matches everything
+  if (!query) {
+    return 1;
+  } // Empty query matches everything
 
   const queryLower = query.toLowerCase();
   const textLower = text.toLowerCase();
 
   // Exact match gets highest score
-  if (textLower === queryLower) {return 100;}
+  if (textLower === queryLower) {
+    return 100;
+  }
 
   // Starts with query gets high score
-  if (textLower.startsWith(queryLower)) {return 80;}
+  if (textLower.startsWith(queryLower)) {
+    return 80;
+  }
 
   // Contains query as substring
-  if (textLower.includes(queryLower)) {return 60;}
+  if (textLower.includes(queryLower)) {
+    return 60;
+  }
 
   // Character-by-character fuzzy match
   let queryIndex = 0;
@@ -153,7 +161,9 @@ export const fuzzyMatch = (query, text) => {
  * @returns {Command[]} Filtered and sorted commands
  */
 export const searchCommands = (commands, query) => {
-  if (!query) {return commands;}
+  if (!query) {
+    return commands;
+  }
 
   const results = commands
     .map((cmd) => {
@@ -213,7 +223,9 @@ export class CommandPalette {
     const focusManager = getFocusManager();
     focusManager.pop();
 
-    if (this.onClose) {this.onClose();}
+    if (this.onClose) {
+      this.onClose();
+    }
   }
 
   /**
@@ -249,9 +261,7 @@ export class CommandPalette {
   moveUp() {
     if (this.filteredCommands.length > 0) {
       this.selectedIndex =
-        this.selectedIndex > 0 ?
-          this.selectedIndex - 1 :
-          this.filteredCommands.length - 1;
+        this.selectedIndex > 0 ? this.selectedIndex - 1 : this.filteredCommands.length - 1;
     }
   }
 
@@ -261,9 +271,7 @@ export class CommandPalette {
   moveDown() {
     if (this.filteredCommands.length > 0) {
       this.selectedIndex =
-        this.selectedIndex < this.filteredCommands.length - 1 ?
-          this.selectedIndex + 1 :
-          0;
+        this.selectedIndex < this.filteredCommands.length - 1 ? this.selectedIndex + 1 : 0;
     }
   }
 
@@ -276,7 +284,9 @@ export class CommandPalette {
       const command = this.filteredCommands[this.selectedIndex];
       const result = command.action();
       this.close();
-      if (this.onSelect) {this.onSelect(command, result);}
+      if (this.onSelect) {
+        this.onSelect(command, result);
+      }
       return result;
     }
     return null;
@@ -289,7 +299,9 @@ export class CommandPalette {
    * @returns {boolean} True if event was handled
    */
   handleKeypress(str, key) {
-    if (!this.isOpen) {return false;}
+    if (!this.isOpen) {
+      return false;
+    }
 
     // Escape to close
     if (matchesBinding(key, "cancel", defaultBindings)) {
@@ -334,7 +346,9 @@ export class CommandPalette {
    * @returns {string} Rendered palette string
    */
   render(maxHeight = 10) {
-    if (!this.isOpen) {return "";}
+    if (!this.isOpen) {
+      return "";
+    }
 
     const lines = [];
     const width = 50;
@@ -344,7 +358,9 @@ export class CommandPalette {
     // Header with search input
     lines.push("");
     lines.push(
-      `  ${borderColor(box.topLeft)}${borderColor(box.horizontal.repeat(innerWidth))}${borderColor(box.topRight)}`
+      `  ${borderColor(box.topLeft)}${borderColor(box.horizontal.repeat(innerWidth))}${borderColor(
+        box.topRight
+      )}`
     );
 
     // Search input line
@@ -352,13 +368,16 @@ export class CommandPalette {
     const queryDisplay = this.query || colors.dim("Type to search...");
     const cursor = colors.primary("_");
     lines.push(
-      `  ${borderColor(box.vertical)} ${searchIcon} ${queryDisplay}${this.query ? cursor : ""} `.padEnd(innerWidth + 3) +
-        `${borderColor(box.vertical)}`
+      `  ${borderColor(box.vertical)} ${searchIcon} ${queryDisplay}${
+        this.query ? cursor : ""
+      } `.padEnd(innerWidth + 3) + `${borderColor(box.vertical)}`
     );
 
     // Divider
     lines.push(
-      `  ${borderColor(box.vertical)}${colors.dim(box.horizontal.repeat(innerWidth))}${borderColor(box.vertical)}`
+      `  ${borderColor(box.vertical)}${colors.dim(box.horizontal.repeat(innerWidth))}${borderColor(
+        box.vertical
+      )}`
     );
 
     // Commands list
@@ -398,7 +417,9 @@ export class CommandPalette {
 
     // Footer
     lines.push(
-      `  ${borderColor(box.bottomLeft)}${borderColor(box.horizontal.repeat(innerWidth))}${borderColor(box.bottomRight)}`
+      `  ${borderColor(box.bottomLeft)}${borderColor(
+        box.horizontal.repeat(innerWidth)
+      )}${borderColor(box.bottomRight)}`
     );
 
     // Help text

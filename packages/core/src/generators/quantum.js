@@ -74,7 +74,9 @@ export const generateQuantumPassword = async (config, randomGenerator) => {
   const totalEntropy = calculateQuantumPasswordEntropy(config);
   if (totalEntropy < QUANTUM_ENTROPY_TARGET_BITS) {
     console.warn(
-      `Warning: Total entropy (${totalEntropy.toFixed(1)} bits) is below quantum-resistant target (${QUANTUM_ENTROPY_TARGET_BITS} bits).`
+      `Warning: Total entropy (${totalEntropy.toFixed(
+        1
+      )} bits) is below quantum-resistant target (${QUANTUM_ENTROPY_TARGET_BITS} bits).`
     );
   }
 

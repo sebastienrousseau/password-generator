@@ -17,7 +17,7 @@ export class LoggerPort {
    * @param {Object} [metadata] - Additional context.
    * @abstract
    */
-  debug(message, metadata = {}) {
+  debug(_message, _metadata = {}) {
     throw new Error("LoggerPort.debug() must be implemented");
   }
 
@@ -28,7 +28,7 @@ export class LoggerPort {
    * @param {Object} [metadata] - Additional context.
    * @abstract
    */
-  info(message, metadata = {}) {
+  info(_message, _metadata = {}) {
     throw new Error("LoggerPort.info() must be implemented");
   }
 
@@ -39,7 +39,7 @@ export class LoggerPort {
    * @param {Object} [metadata] - Additional context.
    * @abstract
    */
-  warn(message, metadata = {}) {
+  warn(_message, _metadata = {}) {
     throw new Error("LoggerPort.warn() must be implemented");
   }
 
@@ -50,7 +50,7 @@ export class LoggerPort {
    * @param {Error} [error] - The error object.
    * @abstract
    */
-  error(message, error = null) {
+  error(_message, _error = null) {
     throw new Error("LoggerPort.error() must be implemented");
   }
 }

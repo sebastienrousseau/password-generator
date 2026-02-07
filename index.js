@@ -16,7 +16,7 @@ import {
   displayCommandLearningPanel,
   startAuditSession,
   completeAuditSession,
-  executeWithAudit
+  executeWithAudit,
 } from "./src/bin/password-generator.js";
 
 // Export PasswordGenerator as the default export for backward compatibility
@@ -35,5 +35,5 @@ export {
   displayCommandLearningPanel,
   startAuditSession,
   completeAuditSession,
-  executeWithAudit
+  executeWithAudit,
 };

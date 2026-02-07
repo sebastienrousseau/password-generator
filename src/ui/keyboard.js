@@ -36,50 +36,22 @@
  */
 export const defaultBindings = {
   // Navigation
-  up: [
-    { key: "up" },
-    { key: "k" },
-  ],
-  down: [
-    { key: "down" },
-    { key: "j" },
-  ],
-  left: [
-    { key: "left" },
-    { key: "h" },
-  ],
-  right: [
-    { key: "right" },
-    { key: "l" },
-  ],
+  up: [{ key: "up" }, { key: "k" }],
+  down: [{ key: "down" }, { key: "j" }],
+  left: [{ key: "left" }, { key: "h" }],
+  right: [{ key: "right" }, { key: "l" }],
 
   // Selection
-  select: [
-    { key: "return" },
-    { key: "space" },
-  ],
-  selectNumber: [
-    { key: ["1", "2", "3", "4", "5", "6", "7", "8", "9"] },
-  ],
+  select: [{ key: "return" }, { key: "space" }],
+  selectNumber: [{ key: ["1", "2", "3", "4", "5", "6", "7", "8", "9"] }],
 
   // Exit / Cancel
-  cancel: [
-    { key: "escape" },
-    { key: "q" },
-  ],
-  quit: [
-    { key: "c", ctrl: true },
-  ],
+  cancel: [{ key: "escape" }, { key: "q" }],
+  quit: [{ key: "c", ctrl: true }],
 
   // Actions
-  back: [
-    { key: "escape" },
-    { key: "backspace" },
-  ],
-  help: [
-    { key: "?" },
-    { key: "h", shift: true },
-  ],
+  back: [{ key: "escape" }, { key: "backspace" }],
+  help: [{ key: "?" }, { key: "h", shift: true }],
 
   // Command palette
   commandPalette: [
@@ -88,22 +60,10 @@ export const defaultBindings = {
   ],
 
   // Page navigation
-  pageUp: [
-    { key: "pageup" },
-    { key: "u", ctrl: true },
-  ],
-  pageDown: [
-    { key: "pagedown" },
-    { key: "d", ctrl: true },
-  ],
-  home: [
-    { key: "home" },
-    { key: "g" },
-  ],
-  end: [
-    { key: "end" },
-    { key: "g", shift: true },
-  ],
+  pageUp: [{ key: "pageup" }, { key: "u", ctrl: true }],
+  pageDown: [{ key: "pagedown" }, { key: "d", ctrl: true }],
+  home: [{ key: "home" }, { key: "g" }],
+  end: [{ key: "end" }, { key: "g", shift: true }],
 };
 
 /**
@@ -113,18 +73,28 @@ export const defaultBindings = {
  * @returns {boolean} True if the key matches the binding
  */
 const matchesSingleBinding = (key, binding) => {
-  if (!key) {return false;}
+  if (!key) {
+    return false;
+  }
 
   // Check key name
   const keyNames = Array.isArray(binding.key) ? binding.key : [binding.key];
   const keyMatches = keyNames.includes(key.name);
 
-  if (!keyMatches) {return false;}
+  if (!keyMatches) {
+    return false;
+  }
 
   // Check modifiers (only if specified in binding)
-  if (binding.ctrl !== undefined && binding.ctrl !== !!key.ctrl) {return false;}
-  if (binding.meta !== undefined && binding.meta !== !!key.meta) {return false;}
-  if (binding.shift !== undefined && binding.shift !== !!key.shift) {return false;}
+  if (binding.ctrl !== undefined && binding.ctrl !== !!key.ctrl) {
+    return false;
+  }
+  if (binding.meta !== undefined && binding.meta !== !!key.meta) {
+    return false;
+  }
+  if (binding.shift !== undefined && binding.shift !== !!key.shift) {
+    return false;
+  }
 
   return true;
 };
@@ -138,7 +108,9 @@ const matchesSingleBinding = (key, binding) => {
  */
 export const matchesBinding = (key, action, bindings = defaultBindings) => {
   const actionBindings = bindings[action];
-  if (!actionBindings) {return false;}
+  if (!actionBindings) {
+    return false;
+  }
 
   return actionBindings.some((binding) => matchesSingleBinding(key, binding));
 };
@@ -151,9 +123,15 @@ export const matchesBinding = (key, action, bindings = defaultBindings) => {
 export const formatBinding = (binding) => {
   const parts = [];
 
-  if (binding.ctrl) {parts.push("Ctrl");}
-  if (binding.meta) {parts.push("Alt");}
-  if (binding.shift) {parts.push("Shift");}
+  if (binding.ctrl) {
+    parts.push("Ctrl");
+  }
+  if (binding.meta) {
+    parts.push("Alt");
+  }
+  if (binding.shift) {
+    parts.push("Shift");
+  }
 
   const keyNames = Array.isArray(binding.key) ? binding.key : [binding.key];
   const keyDisplay = keyNames[0].charAt(0).toUpperCase() + keyNames[0].slice(1);
@@ -170,7 +148,9 @@ export const formatBinding = (binding) => {
  */
 export const getBindingDisplays = (action, bindings = defaultBindings) => {
   const actionBindings = bindings[action];
-  if (!actionBindings) {return [];}
+  if (!actionBindings) {
+    return [];
+  }
 
   return actionBindings.map(formatBinding);
 };
@@ -183,7 +163,9 @@ export const getBindingDisplays = (action, bindings = defaultBindings) => {
  */
 export const createKeyHandler = (actionHandlers, bindings = defaultBindings) => {
   return (str, key) => {
-    if (!key) {return;}
+    if (!key) {
+      return;
+    }
 
     // Check each action for a match
     for (const [action, handler] of Object.entries(actionHandlers)) {

@@ -8,12 +8,7 @@
  */
 
 // Character sets
-export {
-  BASE64_CHARSET,
-  VOWELS,
-  CONSONANTS,
-  CHARACTER_SET_METADATA,
-} from "./charset.js";
+export { BASE64_CHARSET, VOWELS, CONSONANTS, CHARACTER_SET_METADATA } from "./charset.js";
 
 // Entropy calculations
 export {

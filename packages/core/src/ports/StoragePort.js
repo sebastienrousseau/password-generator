@@ -17,7 +17,7 @@ export class StoragePort {
    * @returns {Promise<string|null>} The contents or null if not found.
    * @abstract
    */
-  async read(key) {
+  async read(_key) {
     throw new Error("StoragePort.read() must be implemented");
   }
 
@@ -29,7 +29,7 @@ export class StoragePort {
    * @returns {Promise<void>}
    * @abstract
    */
-  async write(key, content) {
+  async write(_key, _content) {
     throw new Error("StoragePort.write() must be implemented");
   }
 
@@ -40,7 +40,7 @@ export class StoragePort {
    * @returns {Promise<boolean>} True if the key exists.
    * @abstract
    */
-  async exists(key) {
+  async exists(_key) {
     throw new Error("StoragePort.exists() must be implemented");
   }
 
@@ -51,7 +51,7 @@ export class StoragePort {
    * @returns {Promise<boolean>} True if the key was deleted.
    * @abstract
    */
-  async delete(key) {
+  async delete(_key) {
     throw new Error("StoragePort.delete() must be implemented");
   }
 }

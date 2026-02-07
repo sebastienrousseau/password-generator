@@ -82,10 +82,18 @@ export class CLIController {
     // Start with user options, filtering out undefined values
     const config = {};
 
-    if (userOptions.type !== undefined) {config.type = userOptions.type;}
-    if (userOptions.length !== undefined) {config.length = userOptions.length;}
-    if (userOptions.iteration !== undefined) {config.iteration = userOptions.iteration;}
-    if (userOptions.separator !== undefined) {config.separator = userOptions.separator;}
+    if (userOptions.type !== undefined) {
+      config.type = userOptions.type;
+    }
+    if (userOptions.length !== undefined) {
+      config.length = userOptions.length;
+    }
+    if (userOptions.iteration !== undefined) {
+      config.iteration = userOptions.iteration;
+    }
+    if (userOptions.separator !== undefined) {
+      config.separator = userOptions.separator;
+    }
 
     // If preset provided, use as base and override with user options
     if (preset) {

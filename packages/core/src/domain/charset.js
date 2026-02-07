@@ -9,8 +9,7 @@
  */
 
 /** Base64 character set (64 characters, no padding bias). */
-export const BASE64_CHARSET =
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+export const BASE64_CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
 /** Vowel characters for syllable generation. */
 export const VOWELS = "aeiou";
@@ -26,18 +25,18 @@ export const CHARACTER_SET_METADATA = {
     charset: BASE64_CHARSET,
     size: 64,
     bitsPerCharacter: Math.log2(64), // 6 bits
-    description: "Base64 character set (RFC 4648)"
+    description: "Base64 character set (RFC 4648)",
   },
   VOWELS: {
     charset: VOWELS,
     size: 5,
     bitsPerCharacter: Math.log2(5), // ~2.32 bits
-    description: "English vowels for syllable generation"
+    description: "English vowels for syllable generation",
   },
   CONSONANTS: {
     charset: CONSONANTS,
     size: 21,
     bitsPerCharacter: Math.log2(21), // ~4.39 bits
-    description: "English consonants for syllable generation"
-  }
+    description: "English consonants for syllable generation",
+  },
 };
