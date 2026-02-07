@@ -4,5 +4,8 @@
   "node": true,
   "mocha": true,
   "expr": true,
-  "strict": false
+  "strict": false,
+  "globals": {
+    "performance": true
+  }
 }
