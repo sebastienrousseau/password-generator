@@ -3,15 +3,15 @@
 
 /**
  * Centralized constants for character sets used across password generators.
- * Re-exports from the core domain module for backward compatibility.
+ * Re-exports from the core package for backward compatibility.
  *
  * @module constants
  */
 
-// Re-export character sets from domain layer
+// Re-export character sets from core package
 export {
   BASE64_CHARSET,
   VOWELS,
   CONSONANTS,
-  CHARACTER_SET_METADATA
-} from "./core/domain/charset.js";
+  CHARACTER_SET_METADATA,
+} from "../packages/core/src/domain/charset.js";

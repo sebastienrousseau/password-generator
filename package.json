@@ -58,6 +58,9 @@
         "src": "./src",
         "test": "./test"
     },
+    "workspaces": [
+        "packages/*"
+    ],
     "engines": {
         "node": ">=18.0.0"
     },
