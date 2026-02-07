@@ -1,6 +1,7 @@
 // Copyright © 2022-2024 Password Generator. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
+import { resolve } from "path";
 import { createCLIController } from "../cli/CLIController.js";
 import PasswordGeneratorFactory from "../core/PasswordGeneratorFactory.js";
 
@@ -42,11 +43,13 @@ export const PasswordGenerator = async (data) => {
 
 // Only execute CLI logic when running as CLI (not when imported as a module)
 // Check if this file is being run directly (not imported)
+const resolvedArg = process.argv[1] ? resolve(process.argv[1]) : "";
 const isMainModule =
-  process.argv[1] &&
-  (process.argv[1].endsWith("password-generator.js") ||
-    process.argv[1].endsWith("index.js") ||
-    process.argv[1].includes("bin/password-generator"));
+  resolvedArg &&
+  (resolvedArg.endsWith("password-generator.js") ||
+    resolvedArg.endsWith("index.js") ||
+    resolvedArg.includes("bin/password-generator") ||
+    resolvedArg.endsWith("password-generator")); // Handle `node .` from project root
 
 if (isMainModule) {
   // Create CLI controller with the password generator function
