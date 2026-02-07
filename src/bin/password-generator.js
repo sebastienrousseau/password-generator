@@ -5,6 +5,7 @@ import { resolve } from "path";
 import { createCLIController } from "../cli/CLIController.js";
 import { createService } from "../../packages/core/src/index.js";
 import { NodeCryptoRandom } from "../adapters/node/crypto-random.js";
+import { EFFDicewareDictionary } from "../adapters/node/eff-diceware-dictionary.js";
 
 // Re-export services for programmatic use (backward compatibility)
 export {
@@ -34,12 +35,14 @@ export { createService } from "../../packages/core/src/index.js";
  */
 function createCoreService() {
   const randomGenerator = new NodeCryptoRandom();
+  const dictionary = new EFFDicewareDictionary();
 
   return createService(
     {},
     {
       randomGenerator,
-      // Optional ports use defaults from core
+      dictionary,
+      // Optional ports use defaults from core (logger, storage, clock)
     }
   );
 }

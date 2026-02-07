@@ -23,8 +23,8 @@ function escapeCSVValue(value) {
   const str = String(value);
 
   // If value contains comma, newline, or quote, wrap in quotes and escape quotes
-  if (str.includes(',') || str.includes('\n') || str.includes('\r') || str.includes('"')) {
-    return `"${str.replace(/"/g, '""')}"`;
+  if (str.includes(",") || str.includes("\n") || str.includes("\r") || str.includes("\"")) {
+    return `"${str.replace(/"/g, "\"\"")}"`;
   }
 
   return str;
@@ -43,9 +43,9 @@ export function formatAsJSON(passwordData, options = {}) {
     metadata: {
       count: passwordData.length,
       generated_at: new Date().toISOString(),
-      format: "json"
+      format: "json",
     },
-    passwords: passwordData
+    passwords: passwordData,
   };
 
   return JSON.stringify(output, null, pretty ? 2 : 0);
@@ -57,30 +57,33 @@ export function formatAsJSON(passwordData, options = {}) {
  * @param {Object} options - Formatting options
  * @returns {string} YAML formatted string
  */
-export function formatAsYAML(passwordData, options = {}) {
+export function formatAsYAML(passwordData) {
   // Simple YAML formatter - handles basic data structures
   function toYAML(obj, indent = 0) {
-    const spaces = '  '.repeat(indent);
-    let result = '';
+    const spaces = "  ".repeat(indent);
+    let result = "";
 
     if (Array.isArray(obj)) {
       for (const item of obj) {
-        if (typeof item === 'object' && item !== null) {
+        if (typeof item === "object" && item !== null) {
           result += `${spaces}-\n${toYAML(item, indent + 1)}`;
         } else {
           result += `${spaces}- ${item}\n`;
         }
       }
-    } else if (typeof obj === 'object' && obj !== null) {
+    } else if (typeof obj === "object" && obj !== null) {
       for (const [key, value] of Object.entries(obj)) {
-        if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+        if (typeof value === "object" && value !== null && !Array.isArray(value)) {
           result += `${spaces}${key}:\n${toYAML(value, indent + 1)}`;
         } else if (Array.isArray(value)) {
           result += `${spaces}${key}:\n${toYAML(value, indent + 1)}`;
         } else {
-          const valueStr = typeof value === 'string' ?
-            (value.includes(':') || value.includes('\n') ? `"${value}"` : value) :
-            value;
+          const valueStr =
+            typeof value === "string" ?
+              value.includes(":") || value.includes("\n") ?
+                `"${value}"` :
+                value :
+              value;
           result += `${spaces}${key}: ${valueStr}\n`;
         }
       }
@@ -93,9 +96,9 @@ export function formatAsYAML(passwordData, options = {}) {
     metadata: {
       count: passwordData.length,
       generated_at: new Date().toISOString(),
-      format: "yaml"
+      format: "yaml",
     },
-    passwords: passwordData
+    passwords: passwordData,
   };
 
   return toYAML(output);
@@ -111,22 +114,21 @@ export function formatAsCSV(passwordData, options = {}) {
   const { includeHeaders = true } = options;
 
   if (!passwordData.length) {
-    return includeHeaders ? 'password,type,length,iteration,separator,strength,entropy\n' : '';
+    return includeHeaders ? "password,type,length,iteration,separator,strength,entropy\n" : "";
   }
 
-  // Determine headers from first object
-  const firstPassword = passwordData[0];
-  const headers = ['password', 'type', 'length', 'iteration', 'separator', 'strength', 'entropy'];
+  // Define CSV headers
+  const headers = ["password", "type", "length", "iteration", "separator", "strength", "entropy"];
 
-  let csv = '';
+  let csv = "";
 
   if (includeHeaders) {
-    csv += headers.join(',') + '\n';
+    csv += headers.join(",") + "\n";
   }
 
   for (const item of passwordData) {
-    const row = headers.map(header => escapeCSVValue(item[header]));
-    csv += row.join(',') + '\n';
+    const row = headers.map((header) => escapeCSVValue(item[header]));
+    csv += row.join(",") + "\n";
   }
 
   return csv;
@@ -146,7 +148,7 @@ export function formatAsText(passwordData, options = {}) {
     return passwordData[0].password;
   }
 
-  let output = '';
+  let output = "";
 
   if (showMetadata) {
     output += `Generated ${passwordData.length} passwords at ${new Date().toISOString()}\n\n`;
@@ -156,7 +158,7 @@ export function formatAsText(passwordData, options = {}) {
     const item = passwordData[i];
     output += item.password;
     if (i < passwordData.length - 1) {
-      output += '\n';
+      output += "\n";
     }
   }
 
@@ -170,16 +172,16 @@ export function formatAsText(passwordData, options = {}) {
  * @param {Object} options - Formatting options
  * @returns {string} Formatted output string
  */
-export function formatOutput(passwordData, format = 'text', options = {}) {
+export function formatOutput(passwordData, format = "text", options = {}) {
   switch (format.toLowerCase()) {
-    case 'json':
+    case "json":
       return formatAsJSON(passwordData, options);
-    case 'yaml':
-    case 'yml':
+    case "yaml":
+    case "yml":
       return formatAsYAML(passwordData, options);
-    case 'csv':
+    case "csv":
       return formatAsCSV(passwordData, options);
-    case 'text':
+    case "text":
     default:
       return formatAsText(passwordData, options);
   }
@@ -237,7 +239,7 @@ export function preparePasswordData(passwords, config) {
       iteration: config.iteration,
       separator: config.separator,
       strength: analysis.strength,
-      entropy: analysis.entropy
+      entropy: analysis.entropy,
     };
   });
 }

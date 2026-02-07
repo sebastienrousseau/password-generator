@@ -13,11 +13,16 @@
 import { PASSWORD_ERRORS } from "../errors.js";
 import { createService } from "../../packages/core/src/index.js";
 import { NodeCryptoRandom } from "../adapters/node/crypto-random.js";
-import { analyzePasswordStrength, quickStrengthCheck } from "../utils/password-strength-analyzer.js";
+import { EFFDicewareDictionary } from "../adapters/node/eff-diceware-dictionary.js";
+import {
+  analyzePasswordStrength,
+  quickStrengthCheck,
+} from "../utils/password-strength-analyzer.js";
 
-// Create shared service instance
+// Create shared service instance with EFF diceware dictionary
 const randomGenerator = new NodeCryptoRandom();
-const coreService = createService({}, { randomGenerator });
+const dictionary = new EFFDicewareDictionary();
+const coreService = createService({}, { randomGenerator, dictionary });
 
 /**
  * Generates a password of the specified type using the appropriate generator module.
@@ -107,9 +112,9 @@ export const generatePasswordWithStrength = async (config) => {
   const result = await generatePassword(config);
 
   // Handle both new object format and legacy string format
-  const password = typeof result === 'string' ? result : result.password;
-  const entropy = typeof result === 'object' ? result.entropy : undefined;
-  const securityLevel = typeof result === 'object' ? result.securityLevel : undefined;
+  const password = typeof result === "string" ? result : result.password;
+  const entropy = typeof result === "object" ? result.entropy : undefined;
+  const securityLevel = typeof result === "object" ? result.securityLevel : undefined;
 
   const strengthAnalysis = analyzePasswordStrength(password);
 
@@ -122,8 +127,8 @@ export const generatePasswordWithStrength = async (config) => {
       type: config.type,
       length: password.length,
       generatedAt: new Date().toISOString(),
-      ...(typeof result === 'object' && result.metadata ? result.metadata : {})
-    }
+      ...(typeof result === "object" && result.metadata ? result.metadata : {}),
+    },
   };
 };
 

@@ -138,5 +138,5 @@
 
 ---
 **Epic:** Web UI Implementation
-**Release Target:** v1.2.0
+**Release Target:** v1.1.5
 **Stakeholder:** Product Team, UX Team, Engineering Team

@@ -1,9 +1,0 @@
-{
-  "diff": true,
-  "exit": true,
-  "extension": ["js"],
-  "package": "./package.json",
-  "ignore": ["./test/**/coverage/**/*"],
-  "slow": "75",
-  "timeout": "60000"
-}

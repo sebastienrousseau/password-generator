@@ -31,7 +31,9 @@ async function copyToClipboard(text) {
     return true;
   } catch (error) {
     // Clipboard functionality is not available - this is not a fatal error
-    console.warn("Warning: Clipboard functionality not available. Password generated but not copied.");
+    console.warn(
+      "Warning: Clipboard functionality not available. Password generated but not copied."
+    );
     console.warn(`Reason: ${error.message}`);
     return false;
   }
@@ -158,7 +160,9 @@ export class CLIController {
     try {
       // Validate format option
       if (opts.format && !VALID_OUTPUT_FORMATS.includes(opts.format)) {
-        throw new Error(`Invalid format '${opts.format}'. Valid formats: ${VALID_OUTPUT_FORMATS.join(", ")}`);
+        throw new Error(
+          `Invalid format '${opts.format}'. Valid formats: ${VALID_OUTPUT_FORMATS.join(", ")}`
+        );
       }
 
       // Enable audit mode if requested
@@ -189,9 +193,9 @@ export class CLIController {
 
       // Step 3: Handle bulk generation vs single password
       const count = opts.count || 1;
-      const format = opts.format || 'text';
+      const format = opts.format || "text";
 
-      if (count > 1 || format !== 'text') {
+      if (count > 1 || format !== "text") {
         // Bulk operation with structured output
         const passwords = [];
         for (let i = 0; i < count; i++) {
@@ -210,9 +214,8 @@ export class CLIController {
           showLearning: opts.learn,
           showAudit: opts.audit,
           preset: opts.preset,
-          opts: opts
+          opts: opts,
         });
-
       } else {
         // Single password generation (legacy behavior)
         const password = await this.service.generate(config);

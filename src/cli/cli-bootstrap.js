@@ -21,6 +21,7 @@ import { resolve } from "path";
 import { createCLIController } from "./CLIController.js";
 import { createService } from "../../packages/core/src/index.js";
 import { NodeCryptoRandom } from "../adapters/node/crypto-random.js";
+import { EFFDicewareDictionary } from "../adapters/node/eff-diceware-dictionary.js";
 
 /**
  * Creates the core password generation service with Node.js adapters.
@@ -29,16 +30,17 @@ import { NodeCryptoRandom } from "../adapters/node/crypto-random.js";
  */
 function createCoreService() {
   const randomGenerator = new NodeCryptoRandom();
+  const dictionary = new EFFDicewareDictionary();
 
   return createService(
     {},
     {
       randomGenerator,
+      dictionary,
       // Optional ports use defaults from core:
       // - logger: NoOpLogger
       // - storage: MemoryStorage
       // - clock: FixedClock
-      // - dictionary: MemoryDictionary with DEFAULT_WORD_LIST
     }
   );
 }

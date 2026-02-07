@@ -211,7 +211,7 @@ export class PasswordViewModel {
    * @returns {string} Formatted crack time estimate.
    */
   getCrackTimeEstimate() {
-    if (!this.crackTime) return "Unknown";
+    if (!this.crackTime) {return "Unknown";}
 
     // Prioritize offline attack scenarios as they're most relevant for leaked passwords
     return this.crackTime.offline_slow || this.crackTime.online_unthrottled || "Unknown";
