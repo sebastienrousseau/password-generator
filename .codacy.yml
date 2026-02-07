@@ -1,20 +1,17 @@
 ---
+# Disable JSHint as it's deprecated and doesn't support ES2022+ features
+# The project uses ESLint for linting which fully supports modern JavaScript
 engines:
   jshint:
+    enabled: false
+  duplication:
     exclude_paths:
-      - "src/core/PasswordGeneratorFactory.js"
-      - "src/core/PasswordGeneratorOrchestrator.js"
-      - "src/cli/CLIController.js"
-      - "src/services/ConfigurationService.js"
-      - "src/presenters/CommandLearningPresenter.js"
-      - "node_modules/**"
-      - "dist/**"
-      - "coverage/**"
-      - "docs/**"
       - "test/**"
+      - "docs/**"
 
 exclude_paths:
   - "node_modules/**"
   - "dist/**"
   - "coverage/**"
   - "docs/**"
+  - "**/*.min.js"
