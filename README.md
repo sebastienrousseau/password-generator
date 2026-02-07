@@ -1,53 +1,76 @@
-[![npm version](https://img.shields.io/npm/v/@sebastienrousseau/password-generator.svg?style=flat&color=success)](https://www.npmjs.com/package/@sebastienrousseau/password-generator)
-[![Build Status](https://github.com/sebastienrousseau/password-generator/workflows/release/badge.svg)](https://github.com/sebastienrousseau/password-generator/actions)
+<!-- markdownlint-disable MD033 MD041 -->
+<img
+  src="https://kura.pro/password-generator-pro/images/logos/password-generator-pro.webp"
+  alt="Password Generator Logo"
+  width="261"
+  align="right"
+/>
+<!-- markdownlint-enable MD033 MD041 -->
+
+# Password Generator
+
+Fast, powerful open-source utility generating cryptographically secure passwords. Supports 8 password types: strong, base64, memorable, quantum-resistant, diceware, honeyword, pronounceable, and custom with template support.
+
+[![Getting Started](https://kura.pro/common/images/buttons/button-primary.svg)](#quick-start)
+[![Download v1.2.0](https://kura.pro/common/images/buttons/button-secondary.svg)](https://github.com/sebastienrousseau/password-generator/archive/refs/tags/1.2.0.zip)
+
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/0acb169c95e443729551979e0fd86eaf)](https://www.codacy.com?utm_source=github.com&utm_medium=referral&utm_content=sebastienrousseau/password-generator&utm_campaign=Badge_Grade)
-[![Node.js](https://img.shields.io/badge/node-%3E%3D20.0.0-brightgreen.svg)](https://nodejs.org/en/)
+[![npm](https://img.shields.io/npm/v/@sebastienrousseau/password-generator.svg?style=flat&color=success)](https://www.npmjs.com/package/@sebastienrousseau/password-generator)
+[![Release Notes](https://img.shields.io/badge/release-notes-success.svg)](https://github.com/sebastienrousseau/password-generator/releases/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-success.svg?style=flat)](https://opensource.org/licenses/MIT)
 
-<div align="center">
+## Get Started in 30 Seconds
 
-```
- ██████╗  █████╗ ███████╗███████╗██╗    ██╗ ██████╗ ██████╗ ██████╗     ██████╗ ███████╗███╗   ██╗
-██╔══██╗██╔══██╗██╔════╝██╔════╝██║    ██║██╔═══██╗██╔══██╗██╔══██╗   ██╔════╝ ██╔════╝████╗  ██║
-██████╔╝███████║███████╗███████╗██║ █╗ ██║██║   ██║██████╔╝██║  ██║   ██║  ███╗█████╗  ██╔██╗ ██║
-██╔═══╝ ██╔══██║╚════██║╚════██║██║███╗██║██║   ██║██╔══██╗██║  ██║   ██║   ██║██╔══╝  ██║╚██╗██║
-██║     ██║  ██║███████║███████║╚███╔███╔╝╚██████╔╝██║  ██║██████╔╝   ╚██████╔╝███████╗██║ ╚████║
-╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝ ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═╝╚═════╝     ╚═════╝ ╚══════╝╚═╝  ╚═══╝
-```
+### Quick Install & First Password
 
-**Fast, powerful open-source utility for generating cryptographically secure passwords**
-
-*Supports 8 password types: strong, base64, memorable, quantum-resistant, diceware, honeyword, pronounceable, and custom with template support.*
-
-</div>
-
-<details>
-<summary><b>📚 Table of Contents</b></summary>
-
-- [🚀 One-Liner Installation](#-one-liner-installation)
-- [🌟 Features](#-features)
-- [📋 Prerequisites](#-prerequisites)
-- [🏗️ Project Structure](#️-project-structure)
-- [📖 Usage Guide](#-usage-guide)
-- [🔐 Password Types](#-password-types)
-- [🛡️ Quantum-Resistant Mode](#️-quantum-resistant-mode)
-- [🔧 API Reference](#-api-reference)
-- [🌐 Web UI Demo](#-web-ui-demo)
-- [🚀 Development](#-development)
-- [🤝 Contributing](#-contributing)
-- [📄 License](#-license)
-- [👨‍💻 Author](#-author)
-
-</details>
-
-## 🚀 One-Liner Installation
+**Requirements:** Node.js 20+
 
 ```bash
-# Instant password generation - no installation required
+# Install and generate password instantly
 npx @sebastienrousseau/password-generator
 ```
 
-## 🌟 Features
+Interactive setup guides password creation.
+
+### Direct Commands
+
+```bash
+# Strong password for important accounts
+npx @sebastienrousseau/password-generator -t strong -l 12 -i 3 -s '-'
+# Output: aB3dEf+/gH1i-Kl2MnOpQr3s-tU4vWxYz5A
+
+# Memorable password for daily use
+npx @sebastienrousseau/password-generator -t memorable -i 4 -s '-'
+# Output: Apple-Breeze-Castle-Diamond
+```
+
+**Code Integration:**
+```javascript
+import PasswordGenerator from "@sebastienrousseau/password-generator";
+
+const password = await PasswordGenerator({
+  type: "strong", length: 12, iteration: 3, separator: "-"
+});
+```
+
+## Storage Security
+
+**Critical:** Store passwords securely with proper hashing.
+
+### Application Security
+
+Database storage requires secure Key Derivation Functions. **Never store plain text passwords.**
+
+- **Recommended**: Argon2id with NIST SP 800-132 parameters
+- **Alternative**: scrypt or PBKDF2 with high iteration counts
+- **Prohibited**: MD5, SHA-1, plain SHA-256 for password hashing
+
+### References
+
+- [OWASP Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)
+- [NIST SP 800-63B](https://pages.nist.gov/800-63-3/sp800-63b.html) - Digital Identity Guidelines
+
+### Features
 
 ✅ **Cryptographically secure** passwords using Node.js crypto module
 ✅ **Interactive guided setup** for first-time users
@@ -60,97 +83,33 @@ npx @sebastienrousseau/password-generator
 ✅ **Instant clipboard copy** option
 ✅ **Zero configuration** required to start
 
-## 📋 Prerequisites
+## Interactive Onboarding
 
-| Requirement | Version | Purpose |
-|-------------|---------|---------|
-| **Node.js** | ≥ 20.0.0 | Runtime environment |
-| **npm** | ≥ 9.0.0 | Package management |
-| **Modern Browser** | Chrome 90+, Firefox 88+, Safari 14+ | Web UI support |
+Launch `npx @sebastienrousseau/password-generator` without options for 4-step setup:
 
-## 🏗️ Project Structure
+**Step 1: Choose Password Type** → Select strong, memorable, or base64
+**Step 2: Security Level** → Choose quick, secure, memorable, or custom
+**Step 3: Clipboard Settings** → Enable auto-copy or display only
+**Step 4: Generate** → Receive password plus command-line recreation command
 
+**Navigation:** Arrow keys, numbers (1-3), Space for examples, ESC to return
+
+**Interface Example:**
 ```
-password-generator/
-├── 📦 packages/
-│   └── core/                    # Platform-agnostic core (zero dependencies)
-│       ├── src/
-│       ├── test/
-│       └── README.md
-├── 📁 src/
-│   ├── adapters/                # Node.js & Web adapters
-│   │   ├── node/               # Node.js crypto & clipboard
-│   │   └── web/                # Browser Web Crypto API
-│   ├── cli/                    # Command-line interface
-│   │   ├── cli-bootstrap.js
-│   │   ├── CLIController.js
-│   │   └── onboarding.js
-│   ├── dictionaries/           # Word lists for memorable passwords
-│   │   ├── adjectives.json
-│   │   ├── animals.json
-│   │   ├── eff-diceware.json
-│   │   └── ...
-│   ├── ui/web/                 # Web interface
-│   │   ├── demo/              # Standalone web demo
-│   │   ├── controllers/       # Web UI controllers
-│   │   └── adapters/          # Browser adapters
-│   ├── services/              # Business logic services
-│   ├── utils/                 # Utility functions
-│   └── workers/               # Web Workers for bulk operations
-├── 🧪 test/                    # Comprehensive test suite
-├── 🚀 benchmarks/              # Performance benchmarks
-├── 📚 docs/                    # Documentation
-├── 🔧 scripts/                 # Build & deployment scripts
-├── 📄 index.js                 # Main entry point
-└── 📋 package.json             # Project configuration
+🔐 Welcome to Password Generator!
+●○○○ (1/4)
+
+📋 Choose password type:
+▶ 1. 🔐 strong - Maximum security for important accounts
+  2. 🧠 memorable - Easy to remember for daily use
+  3. ⚙️ base64 - For API keys and system integration
+
+Controls: Arrow Keys: Navigate • Enter: Select • Space: Show examples
 ```
 
-## 📖 Usage Guide
+Onboarding displays examples, security implications, and command-line commands for future reference.
 
-### Quick Start Examples
-
-```bash
-# Strong password for important accounts
-npx @sebastienrousseau/password-generator -t strong -l 12 -i 3 -s '-'
-# Output: aB3dEf+/gH1i-Kl2MnOpQr3s-tU4vWxYz5A
-
-# Memorable password for daily use
-npx @sebastienrousseau/password-generator -t memorable -i 4 -s '-'
-# Output: Apple-Breeze-Castle-Diamond
-
-# API key generation
-npx @sebastienrousseau/password-generator -t base64 -l 32 -i 1 -s ''
-# Output: YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXo
-```
-
-### Interactive Mode
-
-Launch without arguments for guided setup:
-
-```bash
-npx @sebastienrousseau/password-generator
-```
-
-**4-Step Process:**
-1. **Choose Password Type** → strong, memorable, base64, quantum-resistant
-2. **Security Level** → quick, secure, memorable, custom
-3. **Clipboard Settings** → auto-copy or display only
-4. **Generate** → receive password + CLI command for future use
-
-### JavaScript Integration
-
-```javascript
-import PasswordGenerator from "@sebastienrousseau/password-generator";
-
-const password = await PasswordGenerator({
-  type: "strong",
-  length: 12,
-  iteration: 3,
-  separator: "-"
-});
-```
-
-## 🔐 Password Types
+## Password Types
 
 | Type | Description | Use Case | Example Output |
 |------|-------------|----------|----------------|
@@ -163,7 +122,7 @@ const password = await PasswordGenerator({
 | **honeyword** | Deceptive passwords for security honeypots | Intrusion detection systems | `trap-word-honey-pot` |
 | **custom** | User-defined character sets and patterns | Specific compliance requirements | Custom charset output |
 
-## 🛡️ Quantum-Resistant Mode
+## Quantum-Resistant Mode
 
 Quantum-resistant password generation withstands classical and quantum computational attacks.
 
@@ -428,7 +387,7 @@ const apiKey = await PasswordGenerator({
 });
 ```
 
-## 🔧 API Reference
+## API Reference
 
 ### PasswordGenerator(options) → Promise\<string>
 
@@ -481,7 +440,7 @@ console.log(`Entropy: ${entropy.totalBits} bits (${entropy.securityLevel})`);
 
 Core package uses zero dependencies and port/adapter pattern for I/O, supporting any JavaScript runtime. See [packages/core/README.md](packages/core/README.md) for details.
 
-## 🌐 Web UI Demo
+## Web UI Demo
 
 Modern web interface provides real-time feedback and accessibility features.
 
@@ -619,7 +578,7 @@ password-generator/
 └── docs/                 # Documentation
 ```
 
-## 🚀 Development
+## Development
 
 **Setup:**
 ```bash
@@ -636,7 +595,7 @@ npm run lint       # Check code style
 npm run lint:fix   # Fix code style issues
 ```
 
-## 🤝 Contributing
+## Contributing
 
 Contributions welcome. See [Contributing Guidelines](.github/CONTRIBUTING.md) for details.
 
@@ -648,11 +607,11 @@ Contributions welcome. See [Contributing Guidelines](.github/CONTRIBUTING.md) fo
 - [ ] Follow existing code style
 - [ ] Submit pull request
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🆘 Support
+## Support
 
 - 📖 **Documentation**: [API Reference](docs/)
 - 🧑‍💻 **Practical Recipes**: [Common Use Cases & Examples](docs/RECIPES.md)
@@ -660,21 +619,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - 💬 **Questions**: [GitHub Discussions](https://github.com/sebastienrousseau/password-generator/discussions)
 - 📦 **Releases**: [GitHub Releases](https://github.com/sebastienrousseau/password-generator/releases)
 
-## 👨‍💻 Author
-
-**[Sebastien Rousseau](https://github.com/sebastienrousseau)**
-
-- 🌐 Website: [password-generator.pro](https://password-generator.pro)
-- 📧 Email: [hello@password-generator.pro](mailto:hello@password-generator.pro)
-- 🐦 Twitter: [@wwdseb](https://twitter.com/wwdseb)
-- 💻 GitHub: [@sebastienrousseau](https://github.com/sebastienrousseau)
-
 ---
 
-<div align="center">
-
 **Designed by Sebastien Rousseau — Engineered with Euxis**
-
-*Made with ❤️ for developers who value security*
-
-</div>
