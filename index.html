@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags -->
+  <title>Password Generator - Strong, Secure Passwords Online | Free Tool</title>
+  <meta name="title" content="Password Generator - Strong, Secure Passwords Online | Free Tool">
+  <meta name="description" content="Generate strong, unique passwords with customizable options. Open-source password generator with enterprise-grade security. Create secure passwords, passphrases, and Base64 tokens instantly.">
+  <meta name="keywords" content="password generator, strong passwords, secure passwords, random password, password security, cryptography, open source, enterprise security, password tool">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+  <meta name="author" content="Sebastien Rousseau">
+  <meta name="theme-color" content="#FF6B9D">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://password-generator.pro/demo/">
+  <meta property="og:title" content="Password Generator - Strong, Secure Passwords Online">
+  <meta property="og:description" content="Generate strong, unique passwords with customizable options. Open-source password generator with enterprise-grade security.">
+  <meta property="og:image" content="https://password-generator.pro/images/password-generator-og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Password Generator - Secure password creation tool">
+  <meta property="og:site_name" content="Password Generator">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://password-generator.pro/demo/">
+  <meta property="twitter:title" content="Password Generator - Strong, Secure Passwords Online">
+  <meta property="twitter:description" content="Generate strong, unique passwords with customizable options. Open-source password generator with enterprise-grade security.">
+  <meta property="twitter:image" content="https://password-generator.pro/images/password-generator-twitter.png">
+  <meta property="twitter:image:alt" content="Password Generator - Secure password creation tool">
+  <meta property="twitter:creator" content="@sebastienrousseau">
+  <meta property="twitter:site" content="@sebastienrousseau">
+
+  <!-- Additional Security Headers -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://password-generator.pro/demo/">
+
+  <!-- Preconnect to external domains -->
+  <link rel="preconnect" href="https://github.com">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Password Generator",
+    "description": "A fast, simple and powerful open-source utility tool for generating strong, unique and random passwords with enterprise-grade security.",
+    "url": "https://password-generator.pro/demo/",
+    "author": {
+      "@type": "Person",
+      "name": "Sebastien Rousseau",
+      "url": "https://github.com/sebastienrousseau"
+    },
+    "applicationCategory": "SecurityApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "features": [
+      "Strong password generation",
+      "Customizable length and complexity",
+      "Multiple password types (Strong, Base64, Memorable, Quantum)",
+      "Open source and secure",
+      "No data collection",
+      "Instant generation"
+    ],
+    "softwareRequirements": "Modern web browser with JavaScript enabled",
+    "screenshot": "https://password-generator.pro/images/password-generator-screenshot.png",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "reviewCount": "1000",
+      "bestRating": "5",
+      "worstRating": "1"
+    }
+  }
+  </script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+  <!-- Skip to main content (accessibility) -->
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <!-- Theme Toggle -->
+  <div class="theme-toggle">
+    <button
+      type="button"
+      class="theme-toggle__btn"
+      id="theme-toggle"
+      aria-label="Toggle dark/light theme"
+    >
+      <span class="theme-toggle__icon" aria-hidden="true">🌙</span>
+    </button>
+  </div>
+
+  <main id="main" class="container">
+    <!-- Header -->
+    <header class="header header--compact">
+      <h1 class="header__logo">Password Generator</h1>
+    </header>
+
+    <!-- Main Card -->
+    <div class="card card--elevated card--compact">
+      <!-- Presets -->
+      <div class="presets" role="group" aria-label="Quick presets">
+        <button type="button" class="preset-btn" data-preset="quick">
+          <span class="preset-btn__name">Quick</span>
+          <span class="preset-btn__desc">14 chars, fast</span>
+        </button>
+        <button type="button" class="preset-btn" data-preset="secure">
+          <span class="preset-btn__name">Secure</span>
+          <span class="preset-btn__desc">64 chars, no sep</span>
+        </button>
+        <button type="button" class="preset-btn" data-preset="memorable">
+          <span class="preset-btn__name">Memorable</span>
+          <span class="preset-btn__desc">4 words, easy</span>
+        </button>
+        <button type="button" class="preset-btn" data-preset="quantum-resistant">
+          <span class="preset-btn__name">Quantum</span>
+          <span class="preset-btn__desc">256-bit entropy</span>
+        </button>
+      </div>
+
+      <!-- Password Form -->
+      <form id="password-form" class="form--compact" novalidate>
+        <!-- Password Type -->
+        <fieldset class="form-fieldset">
+          <legend class="form-legend">Type</legend>
+          <div class="select-group select-group--inline">
+            <div class="select-option">
+              <input type="radio" name="type" value="strong" id="type-strong" class="select-option__input" checked>
+              <label for="type-strong" class="select-option__label">Strong</label>
+            </div>
+            <div class="select-option">
+              <input type="radio" name="type" value="base64" id="type-base64" class="select-option__input">
+              <label for="type-base64" class="select-option__label">Base64</label>
+            </div>
+            <div class="select-option">
+              <input type="radio" name="type" value="memorable" id="type-memorable" class="select-option__input">
+              <label for="type-memorable" class="select-option__label">Memorable</label>
+            </div>
+            <div class="select-option">
+              <input type="radio" name="type" value="quantum-resistant" id="type-quantum" class="select-option__input">
+              <label for="type-quantum" class="select-option__label" title="Post-quantum security with enhanced entropy">Quantum</label>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Inline fields -->
+        <div class="form-row form-row--inline">
+          <div class="form-group form-group--inline" id="length-group">
+            <label for="length" class="form-label">Length</label>
+            <input type="number" id="length" name="length" class="form-input form-input--sm" value="16" min="1" max="256">
+          </div>
+          <div class="form-group form-group--inline">
+            <label for="iteration" class="form-label" id="iteration-label">Chunks</label>
+            <input type="number" id="iteration" name="iteration" class="form-input form-input--sm" value="4" min="1" max="20">
+          </div>
+          <div class="form-group form-group--inline">
+            <label for="separator" class="form-label">Separator</label>
+            <input type="text" id="separator" name="separator" class="form-input form-input--sm" value="-" maxlength="5">
+          </div>
+        </div>
+
+        <!-- Generate Button -->
+        <button type="submit" class="btn btn--primary btn--block" id="generate-btn">
+          <span id="generate-text">Generate</span>
+          <span id="generate-loading" class="loading hidden">...</span>
+        </button>
+      </form>
+
+      <!-- Password Display -->
+      <div class="password-display" id="password-display">
+        <div class="password-display__value" id="password-value" aria-live="polite">
+          <span class="password-display__placeholder">Your password will appear here</span>
+        </div>
+
+        <!-- Strength Indicator -->
+        <div class="strength hidden" id="strength-indicator" role="meter" aria-label="Password strength meter" aria-valuemin="0" aria-valuemax="4" aria-valuenow="0" aria-valuetext="No password generated">
+          <div class="strength__dots" role="presentation" aria-hidden="true">
+            <span class="strength__dot" data-dot="1"></span>
+            <span class="strength__dot" data-dot="2"></span>
+            <span class="strength__dot" data-dot="3"></span>
+            <span class="strength__dot" data-dot="4"></span>
+          </div>
+          <span class="strength__label" id="strength-label" aria-hidden="true"></span>
+          <span class="strength__bits" id="strength-bits" aria-hidden="true"></span>
+          <span class="sr-only" id="strength-description"></span>
+        </div>
+
+        <!-- Actions -->
+        <div class="password-display__actions hidden" id="password-actions">
+          <button type="button" class="btn btn--ghost" id="copy-btn" aria-label="Copy password to clipboard">
+            <span aria-hidden="true">📋</span> Copy
+          </button>
+          <button type="button" class="btn btn--ghost" id="toggle-visibility-btn" aria-label="Toggle password visibility" aria-pressed="true">
+            <span aria-hidden="true">👁️</span> <span id="visibility-text">Hide</span>
+          </button>
+          <button type="button" class="btn btn--ghost" id="regenerate-btn" aria-label="Generate a new password">
+            <span aria-hidden="true">🔄</span> Regenerate
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p class="footer__text">
+        &copy; 2022-2026 Password Generator. All rights reserved. &middot;
+        <a href="https://github.com/sebastienrousseau/password-generator" class="footer__link" target="_blank" rel="noopener">
+          View on GitHub
+        </a>
+      </p>
+    </footer>
+  </main>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- Screen Reader Announcements (WCAG 2.2 AAA) -->
+  <div id="sr-announcements" class="sr-only" aria-live="assertive" aria-atomic="true" role="status"></div>
+
+  <!-- No JavaScript Fallback -->
+  <noscript>
+    <style>
+      .card { display: none; }
+    </style>
+    <div class="container">
+      <div class="card">
+        <h2>JavaScript Required</h2>
+        <p>This password generator requires JavaScript to function. Please enable JavaScript in your browser settings.</p>
+        <p>Alternatively, use the CLI version:</p>
+        <pre><code>npx @sebastienrousseau/password-generator -p quick</code></pre>
+      </div>
+    </div>
+  </noscript>
+
+  <!-- Scripts -->
+  <script type="module" src="bundle.js"></script>
+</body>
+</html>
