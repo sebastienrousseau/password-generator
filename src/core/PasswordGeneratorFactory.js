@@ -3,6 +3,7 @@
 
 import { PASSWORD_ERRORS } from "../errors.js";
 import { isValidPasswordType } from "../config.js";
+import { DefaultCryptoAdapter } from "../adapters/CryptoAdapter.js";
 
 /**
  * Factory class for dynamically loading and managing password generator modules.
@@ -18,6 +19,12 @@ export class PasswordGeneratorFactory {
    * @type {Map<string, Object>} Cache of loaded generator modules
    */
   static #moduleCache = new Map();
+
+  /**
+   * @private
+   * @type {Object} Default crypto adapter instance
+   */
+  static #defaultCryptoAdapter = new DefaultCryptoAdapter();
 
   /**
    * @private
@@ -101,13 +108,17 @@ export class PasswordGeneratorFactory {
    *
    * @private
    * @param {string} type - The password type to load module for
+   * @param {Object} [cryptoAdapter] - Optional crypto adapter to inject
    * @returns {Promise<Object>} The loaded generator module
    * @throws {Error} If module loading fails or module is invalid
    */
-  static async #loadModule(type) {
-    // Check cache first
-    if (this.#moduleCache.has(type)) {
-      return this.#moduleCache.get(type);
+  static async #loadModule(type, cryptoAdapter = null) {
+    // Create cache key that includes adapter identity for proper caching
+    const cacheKey = cryptoAdapter ? `${type}_custom` : type;
+
+    // Check cache first (only use cached modules for default adapter)
+    if (!cryptoAdapter && this.#moduleCache.has(cacheKey)) {
+      return this.#moduleCache.get(cacheKey);
     }
 
     const modulePath = this.#modulePathMap.get(type);
@@ -123,10 +134,17 @@ export class PasswordGeneratorFactory {
       // Validate the loaded module
       this.#validateModuleInterface(module, type);
 
-      // Cache the module
-      this.#moduleCache.set(type, module);
+      // Create wrapped module with injected crypto adapter if provided
+      const wrappedModule = cryptoAdapter
+        ? this.#wrapModuleWithAdapter(module, cryptoAdapter, type)
+        : module;
 
-      return module;
+      // Cache the module only for default adapter
+      if (!cryptoAdapter) {
+        this.#moduleCache.set(cacheKey, wrappedModule);
+      }
+
+      return wrappedModule;
       /* c8 ignore start - Error handling for various import failures */
     } catch (error) {
       // Handle different types of import errors
@@ -159,13 +177,39 @@ export class PasswordGeneratorFactory {
   }
 
   /**
+   * Wraps a generator module to inject crypto adapter dependencies.
+   *
+   * @private
+   * @param {Object} module - The generator module to wrap
+   * @param {Object} cryptoAdapter - The crypto adapter instance to inject
+   * @param {string} type - The password type for error reporting
+   * @returns {Object} Wrapped module with injected dependencies
+   */
+  static #wrapModuleWithAdapter(module, cryptoAdapter, type) {
+    return {
+      ...module,
+      generatePassword: (config) => {
+        // Inject crypto adapter into the configuration
+        const configWithAdapter = {
+          ...config,
+          cryptoAdapter,
+        };
+
+        // Call original function with injected adapter
+        return module.generatePassword(configWithAdapter);
+      },
+    };
+  }
+
+  /**
    * Creates a password generator for the specified type.
    *
    * @param {string} type - The type of password generator to create
+   * @param {Object} [cryptoAdapter] - Optional crypto adapter to inject (uses default if not provided)
    * @returns {Promise<Object>} Password generator instance with generate method
    * @throws {Error} If type is invalid or module loading fails
    */
-  static async createGenerator(type) {
+  static async createGenerator(type, cryptoAdapter = null) {
     if (!type) {
       throw new Error(PASSWORD_ERRORS.TYPE_REQUIRED);
     }
@@ -175,7 +219,7 @@ export class PasswordGeneratorFactory {
     }
 
     try {
-      const module = await this.#loadModule(type);
+      const module = await this.#loadModule(type, cryptoAdapter);
       const isAsync = this.#asyncTypes.has(type);
 
       return {
@@ -225,14 +269,16 @@ export class PasswordGeneratorFactory {
    * @param {number} [config.length] - Length of each password chunk (for strong/base64 types)
    * @param {number} config.iteration - Number of password chunks or words
    * @param {string} config.separator - Separator between password chunks
+   * @param {Object} [config.cryptoAdapter] - Optional crypto adapter to use
    * @returns {Promise<string>} Generated password
    * @throws {Error} If generation fails
    */
   static async generate(config) {
     this.#validateConfig(config);
 
-    const generator = await this.createGenerator(config.type);
-    return generator.generate(config);
+    const { cryptoAdapter, ...generationConfig } = config;
+    const generator = await this.createGenerator(config.type, cryptoAdapter);
+    return generator.generate(generationConfig);
   }
 
   /**

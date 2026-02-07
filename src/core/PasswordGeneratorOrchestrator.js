@@ -1,14 +1,7 @@
 // Copyright © 2022-2024 Password Generator. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-import { ConfigurationService } from "../services/ConfigurationService.js";
-import PasswordGeneratorFactory from "./PasswordGeneratorFactory.js";
-import {
-  setAuditMode,
-  resetAuditSession,
-  finishAuditSession,
-  generateAuditReport,
-} from "../utils/security-audit.js";
+import { PasswordGenerationApplicationService } from "./app/PasswordGenerationApplicationService.js";
 
 /**
  * Core orchestration class for password generation business logic.
@@ -16,8 +9,11 @@ import {
  */
 export class PasswordGeneratorOrchestrator {
   /**
-   * Orchestrates the complete password generation process including configuration merging,
-   * validation, audit management, and password generation.
+   * Orchestrates the complete password generation process by delegating to the
+   * PasswordGenerationApplicationService.
+   *
+   * This method now serves as a simple facade that delegates all work to the
+   * application service layer, removing direct infrastructure dependencies.
    *
    * @param {Object} options - CLI options and configuration.
    * @param {string} [options.preset] - The preset to use.
@@ -29,42 +25,6 @@ export class PasswordGeneratorOrchestrator {
    * @returns {Promise<Object>} Generation result with password, config, and optional auditReport.
    */
   static async orchestrateGeneration(options) {
-    try {
-      // Enable audit mode if requested
-      if (options.audit) {
-        setAuditMode(true);
-        resetAuditSession();
-      }
-
-      // Resolve and validate configuration using ConfigurationService
-      const config = ConfigurationService.resolveConfiguration(options.preset, {
-        type: options.type,
-        length: options.length,
-        iteration: options.iteration,
-        separator: options.separator,
-      });
-
-      // Create clean generation configuration
-      const generationConfig = ConfigurationService.createGenerationConfig(config);
-
-      // Generate the password using the factory
-      const password = await PasswordGeneratorFactory.generate(generationConfig);
-
-      // Finalize audit session if enabled
-      if (options.audit) {
-        finishAuditSession();
-      }
-
-      const result = { password, config };
-
-      // Include audit report if audit mode was enabled
-      if (options.audit) {
-        result.auditReport = generateAuditReport();
-      }
-
-      return result;
-    } catch (error) {
-      throw error;
-    }
+    return await PasswordGenerationApplicationService.generatePassword(options);
   }
 }

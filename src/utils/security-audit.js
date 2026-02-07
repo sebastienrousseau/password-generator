@@ -11,6 +11,15 @@
  * @module security-audit
  */
 
+import {
+  ENTROPY_CONSTANTS,
+  calculateBase64Entropy,
+  calculateBase64ChunkEntropy,
+  calculateDictionaryEntropy,
+  getSecurityLevel,
+  getSecurityRecommendation,
+} from "../core/domain/entropy-calculator.js";
+
 /**
  * Global audit state - disabled by default for zero-overhead operation
  * @type {boolean}
@@ -39,15 +48,8 @@ let performanceMetrics = {
   auditOverhead: 0,
 };
 
-/**
- * Entropy calculation constants
- */
-const ENTROPY_CONSTANTS = {
-  // Base64 charset has 64 possible values = 6 bits per character
-  BASE64_BITS_PER_CHAR: Math.log2(64),
-  // Dictionary entropy depends on dictionary size
-  DICTIONARY_ENTRIES: null, // Will be set when dictionary is loaded
-};
+// Re-export entropy constants from domain layer
+export { ENTROPY_CONSTANTS } from "../core/domain/entropy-calculator.js";
 
 /**
  * Resets audit session state for new password generation
@@ -127,43 +129,19 @@ export const recordAlgorithmUsage = (algorithm, config = {}) => {
   performanceMetrics.auditOverhead += performance.now() - auditStart;
 };
 
-/**
- * Calculates entropy for base64 password generation
- * @param {number} byteLength - Number of random bytes generated
- * @return {number} Estimated entropy in bits
- */
-export const calculateBase64Entropy = (byteLength) => {
-  // Each random byte provides 8 bits of entropy
-  return byteLength * 8;
-};
-
-/**
- * Calculates entropy for base64 chunk generation
- * @param {number} characterLength - Number of characters in the chunk
- * @return {number} Estimated entropy in bits
- */
-export const calculateBase64ChunkEntropy = (characterLength) => {
-  // Each base64 character provides log2(64) = 6 bits of entropy
-  return characterLength * ENTROPY_CONSTANTS.BASE64_BITS_PER_CHAR;
-};
-
-/**
- * Calculates entropy for dictionary-based password generation
- * @param {number} dictionarySize - Number of entries in the dictionary
- * @param {number} wordCount - Number of words selected
- * @return {number} Estimated entropy in bits
- */
-export const calculateDictionaryEntropy = (dictionarySize, wordCount) => {
-  // Each word selection provides log2(dictionarySize) bits of entropy
-  const bitsPerWord = Math.log2(dictionarySize);
-  return wordCount * bitsPerWord;
-};
+// Re-export entropy calculation functions from domain layer
+export {
+  calculateBase64Entropy,
+  calculateBase64ChunkEntropy,
+  calculateDictionaryEntropy,
+} from "../core/domain/entropy-calculator.js";
 
 /**
  * Sets dictionary size for entropy calculations
  * @param {number} size - Number of entries in the dictionary
  */
 export const setDictionarySize = (size) => {
+  // Use the already-imported ENTROPY_CONSTANTS
   ENTROPY_CONSTANTS.DICTIONARY_ENTRIES = size;
 };
 
@@ -178,26 +156,7 @@ export const finishAuditSession = () => {
   performanceMetrics.generationEnd = performance.now();
 };
 
-/**
- * Determines security level based on total entropy
- * @param {number} entropyBits - Total entropy in bits
- * @return {string} Security level classification
- */
-const getSecurityLevel = (entropyBits) => {
-  if (entropyBits >= 256) {
-    return "EXCELLENT (256+ bits)";
-  }
-  if (entropyBits >= 128) {
-    return "STRONG (128-255 bits)";
-  }
-  if (entropyBits >= 80) {
-    return "GOOD (80-127 bits)";
-  }
-  if (entropyBits >= 64) {
-    return "MODERATE (64-79 bits)";
-  }
-  return "WEAK (<64 bits)";
-};
+// Use domain logic for security level classification
 
 /**
  * Creates entropy breakdown by source type
@@ -214,21 +173,6 @@ const getEntropyBreakdown = () => {
   }
 
   return breakdown;
-};
-
-/**
- * Provides security recommendations based on entropy level
- * @param {number} entropyBits - Total entropy in bits
- * @return {string} Security recommendation
- */
-const getSecurityRecommendation = (entropyBits) => {
-  if (entropyBits >= 128) {
-    return "Excellent security. Suitable for high-security applications.";
-  } else if (entropyBits >= 80) {
-    return "Good security for most applications. Consider increasing length for high-security needs.";
-  } else {
-    return "Consider increasing password length or iteration count for better security.";
-  }
 };
 
 /**

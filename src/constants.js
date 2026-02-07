@@ -3,16 +3,15 @@
 
 /**
  * Centralized constants for character sets used across password generators.
+ * Re-exports from the core domain module for backward compatibility.
  *
  * @module constants
  */
 
-/** Base64 character set (64 characters, no padding bias). */
-export const BASE64_CHARSET =
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-
-/** Vowel characters for syllable generation. */
-export const VOWELS = "aeiou";
-
-/** Consonant characters for syllable generation. */
-export const CONSONANTS = "bcdfhgjklmnpqrstvwxyz";
+// Re-export character sets from domain layer
+export {
+  BASE64_CHARSET,
+  VOWELS,
+  CONSONANTS,
+  CHARACTER_SET_METADATA
+} from "./core/domain/charset.js";

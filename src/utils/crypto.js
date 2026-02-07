@@ -7,22 +7,18 @@ import { CRYPTO_ERRORS } from "../errors.js";
 import {
   recordEntropyUsage,
   recordAlgorithmUsage,
+} from "./security-audit.js";
+import {
   calculateBase64Entropy,
   calculateBase64ChunkEntropy,
-} from "./security-audit.js";
+} from "../core/domain/entropy-calculator.js";
+import {
+  validatePositiveInteger,
+  splitString,
+} from "../core/domain/base64-generation.js";
 
-/**
- * Validates that a value is a positive integer, throwing a RangeError if not.
- *
- * @param {*} value The value to validate.
- * @param {string} name The parameter name for the error message.
- * @throws {RangeError} If value is not a positive integer.
- */
-export const validatePositiveInteger = (value, name) => {
-  if (!Number.isInteger(value) || value < 1) {
-    throw new RangeError(CRYPTO_ERRORS.MUST_BE_POSITIVE_INTEGER(name));
-  }
-};
+// Re-export domain logic for backward compatibility
+export { validatePositiveInteger } from "../core/domain/base64-generation.js";
 
 /**
  * Generates a random base64 string of the specified byte length.
@@ -80,16 +76,5 @@ export const generateBase64Chunk = (length) => {
   return result;
 };
 
-/**
- * Splits a string into substrings of the specified length.
- *
- * @param {string} str The string to split.
- * @param {number} length The length of each substring.
- * @return {Array<string>} The array of substrings.
- * @throws {RangeError} If length is not a positive integer.
- */
-export const splitString = (str, length) => {
-  validatePositiveInteger(length, "length");
-  const substrings = str.match(new RegExp(`.{1,${length}}`, "g"));
-  return substrings || [];
-};
+// Re-export domain logic for backward compatibility
+export { splitString } from "../core/domain/base64-generation.js";
