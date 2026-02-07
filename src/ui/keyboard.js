@@ -40,25 +40,20 @@ export const defaultBindings = {
   down: [{ key: 'down' }, { key: 'j' }],
   left: [{ key: 'left' }, { key: 'h' }],
   right: [{ key: 'right' }, { key: 'l' }],
-
   // Selection
   select: [{ key: 'return' }, { key: 'space' }],
   selectNumber: [{ key: ['1', '2', '3', '4', '5', '6', '7', '8', '9'] }],
-
   // Exit / Cancel
   cancel: [{ key: 'escape' }, { key: 'q' }],
   quit: [{ key: 'c', ctrl: true }],
-
   // Actions
   back: [{ key: 'escape' }, { key: 'backspace' }],
   help: [{ key: '?' }, { key: 'h', shift: true }],
-
   // Command palette
   commandPalette: [
     { key: 'k', ctrl: true },
     { key: 'p', ctrl: true },
   ],
-
   // Page navigation
   pageUp: [{ key: 'pageup' }, { key: 'u', ctrl: true }],
   pageDown: [{ key: 'pagedown' }, { key: 'd', ctrl: true }],

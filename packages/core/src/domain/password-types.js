@@ -128,7 +128,7 @@ export const PASSWORD_TYPE_METADATA = {
     maxLength: 50,
     entropyPerUnit: 13.42, // bits per CVVC syllable (log2(21*5*5*21))
     unitType: 'syllable',
-    pattern: /^[bcdfghjklmnpqrstvwxyzaeiou]+$/,
+    pattern: /^[a-z]+$/,
     useCases: ['Human-readable passwords', 'Verbal password sharing', 'Easy typing'],
   },
   [PASSWORD_TYPES.CUSTOM]: {

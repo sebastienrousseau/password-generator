@@ -199,7 +199,7 @@ export function calculatePasswordStrength(password) {
   if (/[A-Z]/.test(password)) {
     charsetSize += 26;
   }
-  if (/[0-9]/.test(password)) {
+  if (/\d/.test(password)) {
     charsetSize += 10;
   }
   if (/[^a-zA-Z0-9]/.test(password)) {

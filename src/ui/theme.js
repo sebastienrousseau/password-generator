@@ -59,7 +59,6 @@ const palette = {
   hotPink: '#FF4785',
   purple: '#9D4EDD',
   violet: '#7B2CBF',
-
   // Accent colors
   cyan: '#00D9FF',
   mint: '#3DFFA3',
@@ -124,7 +123,6 @@ export const colors = {
   primary: chalk.hex(palette.pink),
   secondary: chalk.hex(palette.purple),
   accent: chalk.hex(palette.cyan),
-
   // Status colors
   success: chalk.hex(palette.mint),
   warning: chalk.hex(palette.peach),
@@ -133,7 +131,6 @@ export const colors = {
   text: chalk.hex(palette.white),
   muted: chalk.hex(palette.gray),
   dim: chalk.hex(palette.dimGray),
-
   // Semantic shortcuts
   password: chalk.hex(palette.cyan).bold,
   command: chalk.hex(palette.peach),
@@ -180,18 +177,15 @@ export const icons = {
   error: getIcon(statusIcons.error, useUnicode),
   warning: getIcon(statusIcons.warning, useUnicode),
   info: getIcon(statusIcons.info, useUnicode),
-
   // Arrows and pointers
   arrow: getIcon(navigationIcons.arrow, useUnicode),
   pointer: getIcon(navigationIcons.pointer, useUnicode),
   bullet: getIcon(navigationIcons.bullet, useUnicode),
-
   // Minimal decorative
   sparkle: getIcon(decorativeIcons.sparkle, useUnicode),
   diamond: getIcon(decorativeIcons.diamond, useUnicode),
   circle: getIcon(decorativeIcons.circle, useUnicode),
   filledCircle: getIcon(decorativeIcons.filledCircle, useUnicode),
-
   // Progress
   filled: getIcon(progressIcons.filled, useUnicode),
   light: getIcon(progressIcons.light, useUnicode),

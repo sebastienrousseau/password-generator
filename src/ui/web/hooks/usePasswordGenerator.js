@@ -176,18 +176,15 @@ export function usePasswordGenerator(options = {}) {
     validation,
     isLoading,
     error,
-
     // Field actions
     setField,
     setFields,
-
     // Main actions
     validate,
     generate,
     reset,
     applyPreset,
     getEntropy,
-
     // Utilities
     supportedTypes: controller.getSupportedTypes(),
     controller,

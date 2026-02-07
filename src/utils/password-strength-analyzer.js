@@ -19,18 +19,15 @@ const COMMON_PATTERNS = {
     /(?:abc|bcd|cde|def|efg|fgh|ghi|hij|ijk|jkl|klm|lmn|mno|nop|opq|pqr|qrs|rst|stu|tuv|uvw|vwx|wxy|xyz|012|123|234|345|456|567|678|789)/gi,
   reverseSequence:
     /(?:zyx|yxw|xwv|wvu|vut|uts|tsr|srq|rqp|qpo|pon|onm|nml|mlk|lkj|kji|jih|ihg|hgf|gfe|fed|edc|dcb|cba|987|876|765|654|543|432|321|210)/gi,
-
   // Keyboard patterns
   qwertyRow:
     /(?:qwer|wert|erty|rtyu|tyui|yuio|uiop|asdf|sdfg|dfgh|fghj|ghjk|hjkl|zxcv|xcvb|cvbn|vbnm)/gi,
   qwertyCol: /(?:qaz|wsx|edc|rfv|tgb|yhn|ujm|ik)/gi,
-
   // Repetition patterns
   repeated: /(.)\1{2,}/g,
   alternating: /(.)(.)(\1\2){2,}/g,
-
   // Common substitutions
-  leetSpeak: /[4@][sS]|[3€][eE]|[1!][iI]|[0Oo]|[5$][sS]|[7][tT]/g,
+  leetSpeak: /[4@][sS]|[3€][eE]|[1!][iI]|[0Oo]|[5$][sS]|7[tT]/g,
 };
 
 /**
@@ -354,26 +351,33 @@ function calculateCrackTime(entropy) {
   return estimates;
 }
 
+// Time constants (in seconds)
+const SECONDS_PER_MINUTE = 60;
+const SECONDS_PER_HOUR = 3600;
+const SECONDS_PER_DAY = 86400;
+const SECONDS_PER_YEAR = 31536000;
+const SECONDS_PER_CENTURY = 3153600000;
+
 /**
  * Formats time duration in human-readable format
  * @param {number} seconds - Time in seconds
  * @returns {string} Formatted time
  */
 function formatTime(seconds) {
-  if (seconds < 60) {
+  if (seconds < SECONDS_PER_MINUTE) {
     return `${Math.round(seconds)} seconds`;
   }
-  if (seconds < 3600) {
-    return `${Math.round(seconds / 60)} minutes`;
+  if (seconds < SECONDS_PER_HOUR) {
+    return `${Math.round(seconds / SECONDS_PER_MINUTE)} minutes`;
   }
-  if (seconds < 86400) {
-    return `${Math.round(seconds / 3600)} hours`;
+  if (seconds < SECONDS_PER_DAY) {
+    return `${Math.round(seconds / SECONDS_PER_HOUR)} hours`;
   }
-  if (seconds < 31536000) {
-    return `${Math.round(seconds / 86400)} days`;
+  if (seconds < SECONDS_PER_YEAR) {
+    return `${Math.round(seconds / SECONDS_PER_DAY)} days`;
   }
-  if (seconds < 31536000 * 100) {
-    return `${Math.round(seconds / 31536000)} years`;
+  if (seconds < SECONDS_PER_CENTURY) {
+    return `${Math.round(seconds / SECONDS_PER_YEAR)} years`;
   }
   return 'centuries';
 }

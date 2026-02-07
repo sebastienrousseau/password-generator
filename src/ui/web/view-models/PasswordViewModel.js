@@ -247,25 +247,21 @@ export class PasswordViewModel {
       password: this.password,
       maskedPassword: this.maskedPassword,
       length: this.length,
-
       // Legacy entropy info
       entropyBits: this.entropyBits,
       securityLevel: this.securityLevel,
       securityRecommendation: this.securityRecommendation,
-
       // Advanced strength analysis
       strengthScore: this.strengthScore,
       strengthLabel: this.strengthLabel,
       strengthColor: this.strengthColor,
       effectiveEntropy: this.effectiveEntropy,
       strengthIndicator: this.strengthIndicator,
-
       // Detailed analysis
       feedback: this.feedback,
       patterns: this.patterns,
       dictionaries: this.dictionaries,
       crackTime: this.crackTime,
-
       // Metadata
       type: this.type,
       configSummary: this.configSummary,

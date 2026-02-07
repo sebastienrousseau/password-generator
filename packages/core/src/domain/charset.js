@@ -161,8 +161,8 @@ export const validateCharset = (charset) => {
     errors.push('Character set must contain at least 2 characters for security');
   }
 
-  // Check for potentially problematic characters
-  const problematicChars = charset.match(/[\x00-\x1f\x7f-\x9f]/g);
+  // Check for potentially problematic characters (control characters)
+  const problematicChars = charset.match(/\p{Cc}/gu);
   if (problematicChars) {
     errors.push(`Character set contains control characters: ${problematicChars.join(', ')}`);
   }
