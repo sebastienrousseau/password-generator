@@ -125,7 +125,7 @@ describe("Index exports", () => {
 
       it("should export VALID_PASSWORD_TYPES", () => {
         expect(Core.VALID_PASSWORD_TYPES).to.be.an("array");
-        expect(Core.VALID_PASSWORD_TYPES).to.have.lengthOf(3);
+        expect(Core.VALID_PASSWORD_TYPES).to.have.lengthOf(4);
       });
 
       it("should export isValidPasswordType", () => {

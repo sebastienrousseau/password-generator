@@ -62,8 +62,14 @@ describe("Generators: index", () => {
       expect(GENERATOR_REGISTRY.memorable.calculateEntropy).to.be.a("function");
     });
 
-    it("should have exactly 3 generators", () => {
-      expect(Object.keys(GENERATOR_REGISTRY)).to.have.lengthOf(3);
+    it("should have quantum-resistant generator", () => {
+      expect(GENERATOR_REGISTRY["quantum-resistant"]).to.be.an("object");
+      expect(GENERATOR_REGISTRY["quantum-resistant"].generate).to.be.a("function");
+      expect(GENERATOR_REGISTRY["quantum-resistant"].calculateEntropy).to.be.a("function");
+    });
+
+    it("should have exactly 4 generators", () => {
+      expect(Object.keys(GENERATOR_REGISTRY)).to.have.lengthOf(4);
     });
   });
 
@@ -76,6 +82,11 @@ describe("Generators: index", () => {
     it("should return base64 generator", () => {
       const generator = getGenerator("base64");
       expect(generator).to.equal(GENERATOR_REGISTRY.base64);
+    });
+
+    it("should return quantum-resistant generator", () => {
+      const generator = getGenerator("quantum-resistant");
+      expect(generator).to.equal(GENERATOR_REGISTRY["quantum-resistant"]);
     });
 
     it("should return memorable generator", () => {

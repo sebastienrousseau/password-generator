@@ -27,8 +27,12 @@ describe("Domain: password-types", () => {
       expect(PASSWORD_TYPES.MEMORABLE).to.equal("memorable");
     });
 
-    it("should have exactly 3 types", () => {
-      expect(Object.keys(PASSWORD_TYPES)).to.have.lengthOf(3);
+    it("should have QUANTUM type", () => {
+      expect(PASSWORD_TYPES.QUANTUM).to.equal("quantum-resistant");
+    });
+
+    it("should have exactly 4 types", () => {
+      expect(Object.keys(PASSWORD_TYPES)).to.have.lengthOf(4);
     });
   });
 
@@ -55,14 +59,15 @@ describe("Domain: password-types", () => {
       expect(VALID_PASSWORD_TYPES).to.be.an("array");
     });
 
-    it("should contain strong, base64, and memorable", () => {
+    it("should contain strong, base64, memorable, and quantum-resistant", () => {
       expect(VALID_PASSWORD_TYPES).to.include("strong");
       expect(VALID_PASSWORD_TYPES).to.include("base64");
       expect(VALID_PASSWORD_TYPES).to.include("memorable");
+      expect(VALID_PASSWORD_TYPES).to.include("quantum-resistant");
     });
 
-    it("should have exactly 3 types", () => {
-      expect(VALID_PASSWORD_TYPES).to.have.lengthOf(3);
+    it("should have exactly 4 types", () => {
+      expect(VALID_PASSWORD_TYPES).to.have.lengthOf(4);
     });
   });
 
@@ -77,6 +82,10 @@ describe("Domain: password-types", () => {
 
     it("should return true for 'memorable'", () => {
       expect(isValidPasswordType("memorable")).to.be.true;
+    });
+
+    it("should return true for 'quantum-resistant'", () => {
+      expect(isValidPasswordType("quantum-resistant")).to.be.true;
     });
 
     it("should return false for 'invalid'", () => {
@@ -194,6 +203,45 @@ describe("Domain: password-types", () => {
 
       it("should have null pattern", () => {
         expect(metadata.pattern).to.be.null;
+      });
+    });
+
+    describe("QUANTUM metadata", () => {
+      const metadata = PASSWORD_TYPE_METADATA["quantum-resistant"];
+
+      it("should have a name", () => {
+        expect(metadata.name).to.equal("Quantum-Resistant Password");
+      });
+
+      it("should have a description", () => {
+        expect(metadata.description).to.be.a("string");
+        expect(metadata.description.length).to.be.greaterThan(0);
+      });
+
+      it("should have minLength of 32", () => {
+        expect(metadata.minLength).to.equal(32);
+      });
+
+      it("should have maxLength of 128", () => {
+        expect(metadata.maxLength).to.equal(128);
+      });
+
+      it("should have entropyPerUnit of 6", () => {
+        expect(metadata.entropyPerUnit).to.equal(6);
+      });
+
+      it("should have unitType of 'character'", () => {
+        expect(metadata.unitType).to.equal("character");
+      });
+
+      it("should have a valid pattern regex", () => {
+        expect(metadata.pattern).to.be.instanceOf(RegExp);
+        expect(metadata.pattern.test("ABCabc123+/")).to.be.true;
+      });
+
+      it("should have useCases array", () => {
+        expect(metadata.useCases).to.be.an("array");
+        expect(metadata.useCases.length).to.be.greaterThan(0);
       });
     });
   });
@@ -330,6 +378,50 @@ describe("Domain: password-types", () => {
       });
     });
 
+    describe("length validation for quantum-resistant", () => {
+      it("should accept valid length for quantum-resistant", () => {
+        const result = validatePasswordTypeConfig("quantum-resistant", {
+          length: 43,
+          iteration: 1,
+        });
+        expect(result.isValid).to.be.true;
+      });
+
+      it("should accept minimum length of 32", () => {
+        const result = validatePasswordTypeConfig("quantum-resistant", {
+          length: 32,
+          iteration: 1,
+        });
+        expect(result.isValid).to.be.true;
+      });
+
+      it("should accept maximum length of 128", () => {
+        const result = validatePasswordTypeConfig("quantum-resistant", {
+          length: 128,
+          iteration: 1,
+        });
+        expect(result.isValid).to.be.true;
+      });
+
+      it("should reject length below minimum of 32", () => {
+        const result = validatePasswordTypeConfig("quantum-resistant", {
+          length: 16,
+          iteration: 1,
+        });
+        expect(result.isValid).to.be.false;
+        expect(result.errors.some(e => e.includes("at least"))).to.be.true;
+      });
+
+      it("should reject length exceeding maximum of 128", () => {
+        const result = validatePasswordTypeConfig("quantum-resistant", {
+          length: 200,
+          iteration: 1,
+        });
+        expect(result.isValid).to.be.false;
+        expect(result.errors.some(e => e.includes("exceed"))).to.be.true;
+      });
+    });
+
     describe("multiple errors", () => {
       it("should collect multiple validation errors", () => {
         const result = validatePasswordTypeConfig("strong", {
@@ -401,6 +493,24 @@ describe("Domain: password-types", () => {
         });
         const expected = 4 * Math.log2(10000);
         expect(entropy).to.be.closeTo(expected, 0.0001);
+      });
+    });
+
+    describe("quantum-resistant type", () => {
+      it("should calculate entropy correctly", () => {
+        const entropy = getExpectedEntropy("quantum-resistant", {
+          length: 43,
+          iteration: 1,
+        });
+        expect(entropy).to.equal(258); // 43 * 6 * 1
+      });
+
+      it("should scale with iteration", () => {
+        const entropy = getExpectedEntropy("quantum-resistant", {
+          length: 43,
+          iteration: 2,
+        });
+        expect(entropy).to.equal(516); // 43 * 6 * 2
       });
     });
 
