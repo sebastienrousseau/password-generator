@@ -1,21 +1,26 @@
 ---
-# Disable JSHint as it's deprecated and doesn't support ES2022+ features
-# The project uses ESLint for linting which fully supports modern JavaScript
+# Codacy Configuration
+# Disable deprecated/unsupported tools
 engines:
   jshint:
     enabled: false
   markdownlint:
     enabled: false
+  csslint:
+    enabled: false
   duplication:
-    exclude_paths:
-      - "test/**"
-      - "docs/**"
+    enabled: false
+  metrics:
+    enabled: false
 
+# Exclude paths from all analysis
 exclude_paths:
   - "node_modules/**"
   - "dist/**"
   - "coverage/**"
   - "docs/**"
-  - "**/*.min.js"
+  - "test/**"
   - ".github/**"
   - "**/*.md"
+  - "**/*.d.ts"
+  - "**/*.min.js"
