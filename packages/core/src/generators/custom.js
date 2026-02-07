@@ -9,12 +9,7 @@
  */
 
 import { createCustomCharset, validateCharset } from "../domain/charset.js";
-import {
-  parseTemplate,
-  validateTemplate,
-  calculateTemplateEntropy,
-  TOKEN_TYPES,
-} from "../domain/template.js";
+import { validateTemplate, calculateTemplateEntropy, TOKEN_TYPES } from "../domain/template.js";
 import { validatePositiveInteger } from "../domain/base64-generation.js";
 
 /**

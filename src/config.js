@@ -13,7 +13,16 @@
 /**
  * Valid password types supported by the generator.
  */
-export const VALID_PASSWORD_TYPES = ["strong", "base64", "memorable", "quantum-resistant", "diceware", "honeyword", "pronounceable", "custom"];
+export const VALID_PASSWORD_TYPES = [
+  "strong",
+  "base64",
+  "memorable",
+  "quantum-resistant",
+  "diceware",
+  "honeyword",
+  "pronounceable",
+  "custom",
+];
 
 /**
  * Valid output formats for bulk operations.
@@ -92,7 +101,8 @@ export const CLI_DEFAULTS = {
  */
 export const CLI_OPTIONS = {
   name: "password-generator",
-  description: "A fast, simple and powerful utility for generating strong, unique and quantum-resistant passwords",
+  description:
+    "A fast, simple and powerful utility for generating strong, unique and quantum-resistant passwords",
   options: {
     preset: {
       flags: "-p, --preset <preset>",

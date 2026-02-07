@@ -58,12 +58,7 @@ import {
   generatePronounceablePassword,
   calculatePronounceablePasswordEntropy,
 } from "./pronounceable.js";
-import {
-  generateCustomPassword,
-  calculateCustomPasswordEntropy,
-  generateTemplatePassword,
-  calculateTemplatePasswordEntropy,
-} from "./custom.js";
+import { generateCustomPassword, calculateCustomPasswordEntropy } from "./custom.js";
 import { generateDicewarePassword, calculateDicewarePasswordEntropy } from "./diceware.js";
 import { PASSWORD_TYPES, isValidPasswordType } from "../domain/password-types.js";
 import { PASSWORD_ERRORS } from "../errors.js";

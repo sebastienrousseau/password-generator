@@ -27,7 +27,10 @@ import {
   getSecurityLevel,
   getSecurityRecommendation,
 } from "./domain/entropy-calculator.js";
-import { normalizeEntropy, getSecurityLevel as getSecurityLevelFromNormalizer } from "./domain/entropy-normalizer.js";
+import {
+  normalizeEntropy,
+  getSecurityLevel as getSecurityLevelFromNormalizer,
+} from "./domain/entropy-normalizer.js";
 import { PASSWORD_ERRORS } from "./errors.js";
 
 /**
@@ -77,7 +80,14 @@ export function createService(config = {}, ports) {
      * @returns {Promise<string|Object>} The generated password (string) or with entropy info (object if includeEntropy=true).
      */
     async generate(options) {
-      const { type, length = 16, iteration = 1, separator = "-", includeEntropy = false, ...restOptions } = options;
+      const {
+        type,
+        length = 16,
+        iteration = 1,
+        separator = "-",
+        includeEntropy = false,
+        ...restOptions
+      } = options;
 
       // Validate type
       if (!type) {
@@ -117,7 +127,9 @@ export function createService(config = {}, ports) {
           entropy = calculateTotalEntropy(generatedConfig);
           securityLevel = getSecurityLevel(entropy);
         } catch (fallbackError) {
-          resolvedPorts.logger.warn(`Failed to calculate fallback entropy: ${fallbackError.message}`);
+          resolvedPorts.logger.warn(
+            `Failed to calculate fallback entropy: ${fallbackError.message}`
+          );
         }
       }
 
@@ -129,8 +141,8 @@ export function createService(config = {}, ports) {
           type,
           length: password.length,
           config: generatedConfig,
-          generatedAt: await resolvedPorts.clock.now()
-        }
+          generatedAt: await resolvedPorts.clock.now(),
+        },
       };
     },
 
@@ -176,7 +188,7 @@ export function createService(config = {}, ports) {
           legacy: {
             totalBits: legacyEntropy,
             securityLevel: getSecurityLevel(legacyEntropy),
-          }
+          },
         };
       } catch (error) {
         // Fallback to legacy calculation
@@ -189,7 +201,7 @@ export function createService(config = {}, ports) {
           securityLevel,
           recommendation,
           perUnit: type === "memorable" ? totalEntropy / iteration : length * Math.log2(64),
-          error: error.message
+          error: error.message,
         };
       }
     },
@@ -210,12 +222,14 @@ export function createService(config = {}, ports) {
         case "strong":
         case "base64":
         case "quantum-resistant":
-        case "honeyword":
+        case "honeyword": {
           const totalChars = length * iteration;
           return totalChars > 0 ? totalEntropy / totalChars : 0; // per character
-        case "custom":
+        }
+        case "custom": {
           const customTotalChars = (length || 1) * iteration;
           return customTotalChars > 0 ? totalEntropy / customTotalChars : 0; // per character
+        }
         default:
           return 0;
       }

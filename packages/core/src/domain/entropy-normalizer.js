@@ -11,7 +11,6 @@
  */
 
 import { PASSWORD_TYPES } from "./password-types.js";
-import { BASE64_CHARSET } from "./charset.js";
 
 /**
  * Constants for entropy calculations
