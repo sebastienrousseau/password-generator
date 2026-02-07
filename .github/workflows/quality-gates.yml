@@ -118,6 +118,27 @@ jobs:
           echo "Core package coverage: $STATEMENTS%"
 
   # ============================================
+  # Web UI Tests
+  # ============================================
+  test-web:
+    name: Test Web UI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run web UI tests
+        run: npm run test:web
+
+  # ============================================
   # Parity Tests
   # ============================================
   parity:
@@ -245,7 +266,7 @@ jobs:
   # ============================================
   gate:
     name: Quality Gate
-    needs: [lint, test, test-core, parity, isolation, security, build]
+    needs: [lint, test, test-core, test-web, parity, isolation, security, build]
     runs-on: ubuntu-latest
     steps:
       - name: All checks passed

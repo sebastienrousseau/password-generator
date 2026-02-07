@@ -182,19 +182,54 @@ const password = await PasswordGenerator({
 
 **Security:** Cryptographically secure using Node.js `crypto.randomInt()`. No predictable patterns. Configurable entropy via length × iteration.
 
+## Programmatic API (Core Package)
+
+For programmatic usage in Node.js or browser environments, use the platform-agnostic core package:
+
+```javascript
+import { createQuickService } from '@password-generator/core';
+import { NodeCryptoRandom } from './src/adapters/node/crypto-random.js';
+
+// Create service with a random generator adapter
+const service = createQuickService(new NodeCryptoRandom());
+
+// Generate passwords
+const strongPassword = await service.generate({
+  type: 'strong',
+  length: 16,
+  iteration: 3,
+  separator: '-'
+});
+
+const memorablePassword = await service.generate({
+  type: 'memorable',
+  iteration: 4,
+  separator: '-'
+});
+
+// Calculate entropy before generating
+const entropy = service.calculateEntropy({
+  type: 'strong',
+  length: 16,
+  iteration: 3
+});
+console.log(`Entropy: ${entropy.totalBits} bits (${entropy.securityLevel})`);
+```
+
+The core package has zero dependencies and uses a port/adapter pattern for I/O, making it suitable for any JavaScript runtime. See [packages/core/README.md](packages/core/README.md) for details.
+
 ## Project Structure
 
 ```
 password-generator/
-├── index.js              # Main entry point
-├── package.json           # Package configuration
+├── packages/
+│   └── core/             # Platform-agnostic core (zero dependencies)
 ├── src/
-│   ├── bin/              # CLI implementation
-│   ├── lib/              # Core password generators
-│   ├── dictionaries/     # Word lists for memorable passwords
-│   └── utils/            # Utility functions
-├── docs/                 # Auto-generated API docs (JSDoc)
-└── .github/              # GitHub templates and workflows
+│   ├── adapters/         # Node.js adapters (crypto, clipboard)
+│   ├── cli/              # CLI controller (thin adapter)
+│   └── ui/web/           # Web UI (thin adapter)
+├── benchmarks/           # Performance benchmarks
+└── docs/                 # Documentation
 ```
 
 ## Development
