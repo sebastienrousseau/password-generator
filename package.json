@@ -128,7 +128,7 @@
         "release": "npm run build && npm run publish:all",
         "start": "node index.js",
         "test": "npm run clean && c8 mocha 'test/**/*.js'",
-        "test:core": "c8 mocha 'packages/core/test/**/*.test.js'",
+        "test:core": "c8 --include='packages/core/src/**' mocha 'packages/core/test/**/*.test.js'",
         "test:parity": "mocha 'packages/core/test/parity/**/*.test.js'",
         "test:web": "mocha 'src/ui/web/test/**/*.test.js'",
         "verify:core": "npm run verify:core:sh && npm run verify:core:js && npm run lint:core",
