@@ -1,0 +1,20 @@
+---
+engines:
+  jshint:
+    exclude_paths:
+      - "src/core/PasswordGeneratorFactory.js"
+      - "src/core/PasswordGeneratorOrchestrator.js"
+      - "src/cli/CLIController.js"
+      - "src/services/ConfigurationService.js"
+      - "src/presenters/CommandLearningPresenter.js"
+      - "node_modules/**"
+      - "dist/**"
+      - "coverage/**"
+      - "docs/**"
+      - "test/**"
+
+exclude_paths:
+  - "node_modules/**"
+  - "dist/**"
+  - "coverage/**"
+  - "docs/**"
