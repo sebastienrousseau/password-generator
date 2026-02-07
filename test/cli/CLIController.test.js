@@ -5,16 +5,29 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import { CLIController, createCLIController } from '../../src/cli/CLIController.js';
 
+/**
+ * Creates a mock service that mimics the core service API.
+ * @returns {Object} Mock service with generate and validateConfig methods.
+ */
+function createMockService() {
+  return {
+    generate: sinon.stub().resolves('mock-password'),
+    validateConfig: sinon.stub().returns({ isValid: true, errors: [] }),
+    getSupportedTypes: sinon.stub().returns(['strong', 'base64', 'memorable']),
+    calculateEntropy: sinon.stub().returns({ totalBits: 128, securityLevel: 'strong' }),
+  };
+}
+
 describe('CLIController', () => {
   let controller;
-  let mockPasswordGenerator;
+  let mockService;
   let originalExit;
   let originalConsoleLog;
   let originalConsoleError;
 
   beforeEach(() => {
-    mockPasswordGenerator = sinon.stub().resolves('mock-password');
-    controller = new CLIController(mockPasswordGenerator);
+    mockService = createMockService();
+    controller = new CLIController(mockService);
 
     // Mock process.exit
     originalExit = process.exit;
@@ -35,8 +48,8 @@ describe('CLIController', () => {
   });
 
   describe('Constructor', () => {
-    it('should initialize with a password generator function', () => {
-      expect(controller.passwordGenerator).to.equal(mockPasswordGenerator);
+    it('should initialize with a service', () => {
+      expect(controller.service).to.equal(mockService);
       expect(controller.program).to.exist;
     });
 
@@ -47,19 +60,35 @@ describe('CLIController', () => {
     });
   });
 
-  describe('processConfiguration', () => {
-    it('should delegate to config service', () => {
+  describe('resolveConfiguration', () => {
+    it('should resolve preset to configuration', () => {
       // Test that the method exists and can be called
-      expect(controller.processConfiguration).to.be.a('function');
+      expect(controller.resolveConfiguration).to.be.a('function');
 
       // Test with valid preset
-      const result = controller.processConfiguration('quick', {
+      const result = controller.resolveConfiguration('quick', {
         type: 'strong'
       });
 
-      // Should return a valid configuration object
+      // Should return a valid configuration object with user override
       expect(result).to.be.an('object');
       expect(result.type).to.equal('strong');
+    });
+
+    it('should use preset defaults when no user options provided', () => {
+      const result = controller.resolveConfiguration('quick', {});
+
+      expect(result).to.be.an('object');
+      expect(result.type).to.equal('strong');
+      expect(result.length).to.equal(14);
+      expect(result.iteration).to.equal(4);
+      expect(result.separator).to.equal('-');
+    });
+
+    it('should throw error for invalid preset', () => {
+      expect(() => controller.resolveConfiguration('invalid', {})).to.throw(
+        "Invalid preset 'invalid'. Valid presets: quick, secure, memorable"
+      );
     });
   });
 
@@ -74,7 +103,8 @@ describe('CLIController', () => {
 
       await controller.handleCliAction(opts);
 
-      expect(mockPasswordGenerator.called).to.be.true;
+      expect(mockService.validateConfig.called).to.be.true;
+      expect(mockService.generate.called).to.be.true;
     });
 
     it('should handle learn option', async () => {
@@ -87,11 +117,11 @@ describe('CLIController', () => {
 
       await controller.handleCliAction(opts);
 
-      expect(mockPasswordGenerator.called).to.be.true;
+      expect(mockService.generate.called).to.be.true;
     });
 
     it('should handle errors gracefully', async () => {
-      mockPasswordGenerator.rejects(new Error('Test error'));
+      mockService.generate.rejects(new Error('Test error'));
 
       const opts = {
         type: 'strong',
@@ -102,6 +132,24 @@ describe('CLIController', () => {
       await controller.handleCliAction(opts);
 
       expect(console.error.calledWith('Error: Test error')).to.be.true;
+      expect(process.exit.calledWith(1)).to.be.true;
+    });
+
+    it('should handle validation errors from service', async () => {
+      mockService.validateConfig.returns({
+        isValid: false,
+        errors: ['Invalid type']
+      });
+
+      const opts = {
+        type: 'invalid',
+        iteration: 3,
+        separator: '-'
+      };
+
+      await controller.handleCliAction(opts);
+
+      expect(console.error.called).to.be.true;
       expect(process.exit.calledWith(1)).to.be.true;
     });
   });
@@ -143,14 +191,21 @@ describe('CLIController', () => {
       expect(program.name()).to.equal('password-generator');
     });
   });
+
+  describe('getService', () => {
+    it('should return the core service instance', () => {
+      const service = controller.getService();
+      expect(service).to.equal(mockService);
+    });
+  });
 });
 
 describe('createCLIController', () => {
   it('should create a new CLIController instance', () => {
-    const mockGenerator = () => {};
-    const controller = createCLIController(mockGenerator);
+    const mockService = createMockService();
+    const controller = createCLIController(mockService);
 
     expect(controller).to.be.instanceOf(CLIController);
-    expect(controller.passwordGenerator).to.equal(mockGenerator);
+    expect(controller.service).to.equal(mockService);
   });
 });

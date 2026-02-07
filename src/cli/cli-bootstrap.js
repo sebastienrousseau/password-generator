@@ -7,66 +7,37 @@
  * CLI Bootstrap - Node.js Adapter to Core Wiring
  *
  * This module serves as the primary bootstrap for the CLI interface,
- * wiring Node.js specific adapters to the core password generation engine.
+ * wiring Node.js specific adapters to the core password generation service.
  * It provides a clean separation between CLI concerns and business logic.
+ *
+ * The CLI is a thin adapter that:
+ * 1. Parses CLI arguments
+ * 2. Wires Node.js adapters to core service
+ * 3. Delegates all business logic to core
+ * 4. Renders output
  */
 
 import { resolve } from "path";
 import { createCLIController } from "./CLIController.js";
-import { PasswordGeneratorOrchestrator } from "../core/PasswordGeneratorOrchestrator.js";
-import PasswordGeneratorFactory from "../core/PasswordGeneratorFactory.js";
+import { createService } from "../../packages/core/src/index.js";
 import { NodeCryptoRandom } from "../adapters/node/crypto-random.js";
 
 /**
- * Node.js CLI Adapter
- * Wraps the core password generation orchestrator with CLI-specific functionality.
- * This adapter handles the bridge between CLI arguments and core business logic.
+ * Creates the core password generation service with Node.js adapters.
+ *
+ * @returns {Object} The configured password generation service.
  */
-class NodeCLIAdapter {
-  constructor() {
-    this.orchestrator = PasswordGeneratorOrchestrator;
-    this.factory = PasswordGeneratorFactory;
-    this.cryptoRandom = new NodeCryptoRandom();
-  }
+function createCoreService() {
+  const randomGenerator = new NodeCryptoRandom();
 
-  /**
-   * Generates a password using the core factory with CLI-friendly error handling.
-   *
-   * @param {Object} config - Password generation configuration
-   * @returns {Promise<string>} Generated password
-   */
-  async generatePassword(config) {
-    try {
-      return await this.factory.generate(config);
-    } catch (error) {
-      // Add CLI-specific error context
-      throw new Error(`Password generation failed: ${error.message}`);
-    }
-  }
-
-  /**
-   * Orchestrates complete generation flow including configuration processing.
-   *
-   * @param {Object} options - CLI options and configuration
-   * @returns {Promise<Object>} Generation result with password, config, and optional audit report
-   */
-  async orchestrateGeneration(options) {
-    try {
-      return await this.orchestrator.orchestrateGeneration(options);
-    } catch (error) {
-      // Add CLI-specific error context
-      throw new Error(`Generation orchestration failed: ${error.message}`);
-    }
-  }
-
-  /**
-   * Gets the NodeCryptoRandom adapter instance for Node.js-specific crypto operations.
-   *
-   * @returns {NodeCryptoRandom} The crypto random adapter instance
-   */
-  getCryptoRandom() {
-    return this.cryptoRandom;
-  }
+  return createService({}, {
+    randomGenerator,
+    // Optional ports use defaults from core:
+    // - logger: NoOpLogger
+    // - storage: MemoryStorage
+    // - clock: FixedClock
+    // - dictionary: MemoryDictionary with DEFAULT_WORD_LIST
+  });
 }
 
 /**
@@ -75,18 +46,21 @@ class NodeCLIAdapter {
  */
 export class CLIBootstrap {
   constructor() {
-    this.adapter = new NodeCLIAdapter();
+    this.service = null;
     this.controller = null;
   }
 
   /**
-   * Initializes the CLI controller with the Node.js adapter.
+   * Initializes the CLI controller with the core service.
    *
    * @returns {CLIBootstrap} This instance for method chaining
    */
   initialize() {
-    // Create the CLI controller with the adapter's generatePassword method
-    this.controller = createCLIController(this.adapter.generatePassword.bind(this.adapter));
+    // Create the core service with Node.js adapters
+    this.service = createCoreService();
+
+    // Create the CLI controller with the service
+    this.controller = createCLIController(this.service);
     return this;
   }
 
@@ -120,13 +94,13 @@ export class CLIBootstrap {
   }
 
   /**
-   * Gets the Node.js adapter instance.
+   * Gets the core service instance.
    * Useful for direct access to core functionality.
    *
-   * @returns {NodeCLIAdapter} The adapter instance
+   * @returns {Object} The core service instance
    */
-  getAdapter() {
-    return this.adapter;
+  getService() {
+    return this.service;
   }
 }
 

@@ -3,9 +3,10 @@
 
 import { resolve } from "path";
 import { createCLIController } from "../cli/CLIController.js";
-import PasswordGeneratorFactory from "../core/PasswordGeneratorFactory.js";
+import { createService } from "../../packages/core/src/index.js";
+import { NodeCryptoRandom } from "../adapters/node/crypto-random.js";
 
-// Export services for programmatic use
+// Re-export services for programmatic use (backward compatibility)
 export {
   generatePassword,
   safeGeneratePassword,
@@ -23,12 +24,28 @@ export {
   executeWithAudit,
 } from "../services/audit-service.js";
 
+// Re-export core service factory for advanced usage
+export { createService } from "../../packages/core/src/index.js";
+
 /**
- * Generates a password of the specified type using the PasswordGeneratorFactory.
+ * Creates the core password generation service with Node.js adapters.
  *
- * This function serves as a bridge between the CLI and the factory pattern,
- * providing the same interface as the previous implementation while leveraging
- * improved error handling and module management.
+ * @returns {Object} The configured password generation service.
+ */
+function createCoreService() {
+  const randomGenerator = new NodeCryptoRandom();
+
+  return createService({}, {
+    randomGenerator,
+    // Optional ports use defaults from core
+  });
+}
+
+/**
+ * Generates a password using the core service.
+ *
+ * This function provides backward compatibility with the previous API
+ * while using the new thin adapter architecture internally.
  *
  * @param {Object} data - Configuration options for password generation.
  * @param {string} data.type - The type of password to generate (strong, base64, memorable).
@@ -38,7 +55,8 @@ export {
  * @return {Promise<string>} The generated password.
  */
 export const PasswordGenerator = async (data) => {
-  return await PasswordGeneratorFactory.generate(data);
+  const service = createCoreService();
+  return service.generate(data);
 };
 
 // Only execute CLI logic when running as CLI (not when imported as a module)
@@ -52,8 +70,11 @@ const isMainModule =
     resolvedArg.endsWith("password-generator")); // Handle `node .` from project root
 
 if (isMainModule) {
-  // Create CLI controller with the password generator function
-  const cliController = createCLIController(PasswordGenerator);
+  // Create core service with Node.js adapters
+  const service = createCoreService();
+
+  // Create CLI controller with the service (thin adapter pattern)
+  const cliController = createCLIController(service);
 
   // Run the CLI controller
   /* c8 ignore start - Error handler for unexpected CLI failures */
