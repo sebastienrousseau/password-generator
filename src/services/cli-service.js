@@ -24,10 +24,7 @@ import {
   renderHeader,
 } from "../ui/theme.js";
 
-import {
-  formatOutput,
-  preparePasswordData,
-} from "./output-formatter.js";
+import { formatOutput, preparePasswordData } from "./output-formatter.js";
 
 /**
  * Generates the equivalent CLI command string based on the configuration used.
@@ -228,12 +225,7 @@ export const displaySecurityAuditReport = (auditReport, config = {}) => {
  * Displays formatted output for bulk operations and structured exports
  */
 export const displayFormattedOutput = (passwords, config, format, options = {}) => {
-  const {
-    clipboardSuccess = false,
-    showLearning = false,
-    preset = null,
-    opts = {},
-  } = options;
+  const { clipboardSuccess = false, showLearning = false, preset = null, opts = {} } = options;
 
   // Prepare password data with metadata
   const passwordData = preparePasswordData(passwords, config);

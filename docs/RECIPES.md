@@ -1,6 +1,6 @@
 # Password Generator Recipes
 
-A collection of practical command-line recipes for common password generation use cases. Each recipe includes the exact command, expected output format, and security considerations.
+Practical command-line recipes for common password generation use cases. Each recipe includes exact command, expected output format, and security considerations.
 
 ## Table of Contents
 
@@ -29,7 +29,7 @@ npx @sebastienrousseau/password-generator -t strong -l 12 -i 3 -s '-' -c
 **Entropy:** ~237 bits | **Strength:** Very Strong
 
 ### Standard Web Password (No Clipboard)
-**Use Case:** When clipboard access is restricted or shared terminals
+**Use Case:** Restricted clipboard access or shared terminals
 
 ```bash
 npx @sebastienrousseau/password-generator -t strong -l 12 -i 3 -s '-'
@@ -64,7 +64,7 @@ npx @sebastienrousseau/password-generator -t strong -l 14 -i 3 -s '_'
 npx @sebastienrousseau/password-generator -t strong -l 18 -i 2 -s '' -a
 ```
 **Output:** `aB3dEf+/gH1iKl2MnOpQr3stU4vWxYz5A6bC7dEf+/gH1iKl2M`
-**Note:** `-a` flag shows security audit with entropy calculation
+**Note:** `-a` flag displays security audit with entropy calculation
 
 ### Docker Container Secret
 **Use Case:** Container environment variables, secrets management
@@ -149,7 +149,7 @@ npx @sebastienrousseau/password-generator -t strong -l 24 -i 2 -s '_'
 npx @sebastienrousseau/password-generator -t memorable -i 4 -s '-'
 ```
 **Output:** `Apple-Bridge-Castle-Dragon`
-**Note:** Memorable type for easier sharing among development team
+**Note:** Memorable type enables easier development team sharing
 
 ### Local Development Secret
 **Use Case:** `.env` files, development configuration
@@ -220,7 +220,7 @@ npx @sebastienrousseau/password-generator -t quantum-resistant -l 32 -i 4 -s ''
 npx @sebastienrousseau/password-generator -t memorable -i 4 -s '-' -c
 ```
 **Output:** `Apple-Bridge-Castle-Dragon`
-**Note:** Easy to remember, suitable for passwords you type often
+**Note:** Easy recall, suitable for frequently typed passwords
 
 ### High-Security Personal Password
 **Use Case:** Password managers, financial accounts
@@ -323,7 +323,7 @@ npx @sebastienrousseau/password-generator --preset quantum
 
 ### Password Storage
 
-**Important:** Always store these passwords securely:
+**Critical:** Store passwords securely:
 
 - **Recommended KDF:** Argon2id with NIST SP 800-132 parameters
 - **Minimum memory:** 64MB (65536 KB)

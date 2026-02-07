@@ -141,7 +141,9 @@ export class PasswordWorkerPool {
     }
 
     const task = this.activeTasks.get(data.id);
-    if (!task) {return;}
+    if (!task) {
+      return;
+    }
 
     clearTimeout(task.timeoutId);
     this.activeTasks.delete(data.id);
@@ -197,7 +199,9 @@ export class PasswordWorkerPool {
   _processQueue() {
     while (this.taskQueue.length > 0) {
       const availableWorker = this.workers.find((w) => !w.busy);
-      if (!availableWorker) {break;}
+      if (!availableWorker) {
+        break;
+      }
 
       const task = this.taskQueue.shift();
       this._executeTask(availableWorker, task);

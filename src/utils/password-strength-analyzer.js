@@ -310,10 +310,18 @@ function analyzeComposition(password) {
 
   // Calculate character set size
   let charsetSize = 0;
-  if (analysis.hasLowercase) {charsetSize += 26;}
-  if (analysis.hasUppercase) {charsetSize += 26;}
-  if (analysis.hasNumbers) {charsetSize += 10;}
-  if (analysis.hasSymbols) {charsetSize += 32;} // Approximate
+  if (analysis.hasLowercase) {
+    charsetSize += 26;
+  }
+  if (analysis.hasUppercase) {
+    charsetSize += 26;
+  }
+  if (analysis.hasNumbers) {
+    charsetSize += 10;
+  }
+  if (analysis.hasSymbols) {
+    charsetSize += 32;
+  } // Approximate
 
   analysis.charsetSize = charsetSize;
   analysis.entropy = Math.log2(charsetSize) * password.length;
@@ -352,11 +360,21 @@ function calculateCrackTime(entropy) {
  * @returns {string} Formatted time
  */
 function formatTime(seconds) {
-  if (seconds < 60) {return `${Math.round(seconds)} seconds`;}
-  if (seconds < 3600) {return `${Math.round(seconds / 60)} minutes`;}
-  if (seconds < 86400) {return `${Math.round(seconds / 3600)} hours`;}
-  if (seconds < 31536000) {return `${Math.round(seconds / 86400)} days`;}
-  if (seconds < 31536000 * 100) {return `${Math.round(seconds / 31536000)} years`;}
+  if (seconds < 60) {
+    return `${Math.round(seconds)} seconds`;
+  }
+  if (seconds < 3600) {
+    return `${Math.round(seconds / 60)} minutes`;
+  }
+  if (seconds < 86400) {
+    return `${Math.round(seconds / 3600)} hours`;
+  }
+  if (seconds < 31536000) {
+    return `${Math.round(seconds / 86400)} days`;
+  }
+  if (seconds < 31536000 * 100) {
+    return `${Math.round(seconds / 31536000)} years`;
+  }
   return "centuries";
 }
 
