@@ -1,103 +1,34 @@
 {
+    "name": "@sebastienrousseau/password-generator",
+    "version": "1.1.5",
+    "description": "A fast, simple and powerful open-source utility tool for generating strong, unique and random passwords.",
     "author": "Sebastien Rousseau <hello@password-generator.pro> (https://github.com/sebastienrousseau/password-generator)",
-    "autoupdate": {
-        "fileMap": [
-            {
-                "basePath": "dist",
-                "files": [
-                    "**/*"
-                ]
-            }
-        ],
-        "source": "git",
-        "target": "git://github.com/sebastienrousseau/password-generator.git"
-    },
+    "license": "MIT",
+    "type": "module",
+    "main": "index.js",
+    "types": "types/index.d.ts",
     "bin": {
         "password-generator": "index.js"
     },
     "bugs": {
         "url": "https://github.com/sebastienrousseau/password-generator/issues"
     },
-    "dependencies": {
-        "chalk": "5.6.2",
-        "commander": "^11.1.0"
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/sebastienrousseau/password-generator.git"
     },
-    "optionalDependencies": {
-        "clipboardy": "^4.0.0"
-    },
-    "description": "A fast, simple and powerful open-source utility tool for generating strong, unique and random passwords.",
-    "devDependencies": {
-        "@babel/cli": "^7.23.0",
-        "@babel/core": "^7.23.3",
-        "@babel/eslint-parser": "^7.23.3",
-        "@babel/preset-env": "^7.23.3",
-        "@babel/preset-typescript": "^7.23.3",
-        "@babel/register": "^7.22.15",
-        "babel-plugin-istanbul": "^6.1.1",
-        "c8": "^8.0.1",
-        "chai": "^5.0.0",
-        "chai-as-promised": "8.0.2",
-        "esbuild": "0.27.3",
-        "eslint": "^8.53.0",
-        "eslint-plugin-import": "^2.29.0",
-        "eslint-plugin-prettier": "^5.0.1",
-        "esmock": "2.7.3",
-        "filesizes": "^0.1.2",
-        "jest": "^29.7.0",
-        "jsdoc": "^4.0.2",
-        "jsdom": "28.0.0",
-        "jshint": "^2.13.6",
-        "mkdirp": "^3.0.1",
-        "mocha": "^10.2.0",
-        "prettier": "3.1.1",
-        "react": "19.2.4",
-        "remark-cli": "^12.0.0",
-        "remark-footnotes": "^4.0.1",
-        "remark-preset-lint-consistent": "^5.1.2",
-        "remark-preset-lint-markdown-style-guide": "^5.1.3",
-        "remark-preset-lint-recommended": "^6.1.3",
-        "rimraf": "^5.0.5",
-        "sinon": "21.0.1"
-    },
-    "directories": {
-        "bin": "./bin",
-        "src": "./src",
-        "test": "./test"
-    },
-    "workspaces": [
-        "packages/*"
-    ],
+    "homepage": "https://password-generator.pro",
     "engines": {
         "node": ">=18.0.0"
     },
-    "files": [
-        "/COPYRIGHT",
-        "/index.js",
-        "/index.d.ts",
-        "/Makefile",
-        "/packages/core",
-        "/src",
-        "/types"
-    ],
-    "funding": [
-        {
-            "type": "github",
-            "url": "https://github.com/sponsors/sebastienrousseau"
-        },
-        {
-            "type": "paypal",
-            "url": "https://paypal.me/wwdseb"
-        }
-    ],
-    "homepage": "https://password-generator.pro",
     "keywords": [
         "base64",
         "complex",
         "crypto",
         "cryptography",
         "dictionary",
-        "entropy",
         "encryption",
+        "entropy",
         "memorable",
         "mit-license",
         "open-source",
@@ -111,41 +42,68 @@
         "secure",
         "security"
     ],
-    "license": "MIT",
-    "license_URI": "http://www.opensource.org/licenses/mit-license.php",
-    "lockfileVersion": 1,
-    "main": "index.js",
-    "types": "types/index.d.ts",
-    "name": "@sebastienrousseau/password-generator",
-    "publishConfig": {
-        "access": "public",
-        "registry": "https://npm.pkg.github.com"
+    "files": [
+        "/COPYRIGHT",
+        "/index.d.ts",
+        "/index.js",
+        "/Makefile",
+        "/packages/core",
+        "/src",
+        "/types"
+    ],
+    "directories": {
+        "bin": "./bin",
+        "src": "./src",
+        "test": "./test"
     },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/sebastienrousseau/password-generator.git"
+    "workspaces": [
+        "packages/*"
+    ],
+    "dependencies": {
+        "chalk": "^5.6.2",
+        "commander": "^11.1.0"
     },
-    "rules": {
-        "node/no-unpublished-import": [
-            "error",
-            {
-                "convertPath": [
-                    {
-                        "include": [
-                            "src/**/*.js"
-                        ],
-                        "replace": [
-                            "^src/(.+)$",
-                            "lib/$1"
-                        ]
-                    }
-                ]
-            }
-        ]
+    "optionalDependencies": {
+        "clipboardy": "^4.0.0"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.23.0",
+        "@babel/core": "^7.23.3",
+        "@babel/eslint-parser": "^7.23.3",
+        "@babel/preset-env": "^7.23.3",
+        "@babel/preset-typescript": "^7.23.3",
+        "@babel/register": "^7.22.15",
+        "babel-plugin-istanbul": "^6.1.1",
+        "c8": "^8.0.1",
+        "chai": "^5.0.0",
+        "chai-as-promised": "^8.0.2",
+        "esbuild": "^0.27.3",
+        "eslint": "^8.53.0",
+        "eslint-plugin-import": "^2.29.0",
+        "eslint-plugin-prettier": "^5.0.1",
+        "esmock": "^2.7.3",
+        "filesizes": "^0.1.2",
+        "jest": "^29.7.0",
+        "jsdoc": "^4.0.2",
+        "jsdom": "^28.0.0",
+        "jshint": "^2.13.6",
+        "mkdirp": "^3.0.1",
+        "mocha": "^10.2.0",
+        "prettier": "^3.1.1",
+        "react": "^19.2.4",
+        "remark-cli": "^12.0.0",
+        "remark-footnotes": "^4.0.1",
+        "remark-preset-lint-consistent": "^5.1.2",
+        "remark-preset-lint-markdown-style-guide": "^5.1.3",
+        "remark-preset-lint-recommended": "^6.1.3",
+        "rimraf": "^5.0.5",
+        "sinon": "^21.0.1"
     },
     "scripts": {
+        "benchmark": "node benchmarks/password-generation.bench.js && node benchmarks/entropy-calculation.bench.js",
         "build": "npm run format && npm run lint:fix && npm run lint:markdown && npm run build:password:generator && cat ./package.json | grep -v '\"private\":' > dist/package.json && npm pack ./dist",
         "build:password:generator": "npm run clean:dist && npm run create:directory && npm run create:docs && npm run copy:index && npm run copy:src && npm run copy:readme && npm run copy:license && npm run copy:makefile && npm run copy:copyright && npm run filesize:distribution",
+        "check:core-isolation": "npm run verify:core",
         "clean": "rimraf .nyc_output coverage",
         "clean:dist": "rimraf \"dist/\"",
         "copy:copyright": "cp COPYRIGHT dist/",
@@ -160,29 +118,51 @@
         "filesize:distribution": "filesizes dist/ > dist/Report.txt",
         "format": "prettier --write src/**/*.js",
         "lint": "eslint --config=.eslintrc.json \"./*.js\" \"./src/**/*.js\"",
+        "lint:core": "eslint packages/core/src --config packages/core/.eslintrc.json",
         "lint:fix": "eslint --config=.eslintrc.json \"./*.js\" \"./src/**/*.js\" --fix",
         "lint:markdown": "remark \"./*.md\" \"./src/**/*.md\" \"./.github/**/*.md\"",
-        "lint:core": "eslint packages/core/src --config packages/core/.eslintrc.json",
         "lint:web": "eslint src/ui/web --config src/ui/web/.eslintrc.json",
-        "release:prepare": "npm publish $(node -p \"p=require('./package.json');p.name+'-'+p.version+'.tgz'\") --no-git-checks",
-        "release:publish": "npm publish --access public --ignore-scripts --@OWNER:registry='https://registry.npmjs.org'",
-        "release": "npm run build && npm run release:prepare && npm run release:publish",
+        "publish:all": "npm run publish:npm && npm run publish:github",
+        "publish:github": "npm publish --access public --registry=https://npm.pkg.github.com",
+        "publish:npm": "npm publish --access public",
+        "release": "npm run build && npm run publish:all",
         "start": "node index.js",
         "test": "npm run clean && c8 mocha",
-        "verify:core": "npm run verify:core:sh && npm run verify:core:js && npm run lint:core",
-        "verify:core:sh": "./scripts/verify-core-isolation.sh",
-        "verify:core:js": "node scripts/verify-core-deps.js",
         "test:core": "c8 mocha 'packages/core/test/**/*.test.js'",
         "test:parity": "mocha 'packages/core/test/parity/**/*.test.js'",
         "test:web": "mocha 'src/ui/web/test/**/*.test.js'",
+        "verify:core": "npm run verify:core:sh && npm run verify:core:js && npm run lint:core",
+        "verify:core:js": "node scripts/verify-core-deps.js",
+        "verify:core:sh": "./scripts/verify-core-isolation.sh",
         "web": "npx serve . -l ${PORT:-4173}",
-        "web:windows": "npx serve . -l 4173",
         "web:build": "node scripts/build-web-demo.js",
-        "web:preview": "npm run web:build && npx serve dist/web -l ${PORT:-4173}",
         "web:deploy": "node scripts/deploy-gh-pages.js",
-        "check:core-isolation": "npm run verify:core",
-        "benchmark": "node benchmarks/password-generation.bench.js && node benchmarks/entropy-calculation.bench.js"
+        "web:preview": "npm run web:build && npx serve dist/web -l ${PORT:-4173}",
+        "web:windows": "npx serve . -l 4173"
     },
-    "type": "module",
-    "version": "1.1.5"
+    "publishConfig": {
+        "access": "public"
+    },
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/sebastienrousseau"
+        },
+        {
+            "type": "paypal",
+            "url": "https://paypal.me/wwdseb"
+        }
+    ],
+    "autoupdate": {
+        "fileMap": [
+            {
+                "basePath": "dist",
+                "files": [
+                    "**/*"
+                ]
+            }
+        ],
+        "source": "git",
+        "target": "git://github.com/sebastienrousseau/password-generator.git"
+    }
 }
