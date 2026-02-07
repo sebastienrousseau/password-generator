@@ -1,0 +1,273 @@
+# Quality Gates CI Workflow
+# Enforces quality standards before merge
+
+name: Quality Gates
+
+on:
+  push:
+    branches: [master, main, 'feat/**']
+  pull_request:
+    branches: [master, main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ============================================
+  # Lint & Format Check
+  # ============================================
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+  # ============================================
+  # Unit Tests with Coverage
+  # ============================================
+  test:
+    name: Test (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ['18', '20', '22']
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests with coverage
+        run: npm run coverage
+
+      - name: Check coverage thresholds
+        run: |
+          # Extract coverage percentages from coverage summary
+          COVERAGE=$(cat coverage/coverage-summary.json)
+          LINES=$(echo $COVERAGE | jq '.total.lines.pct')
+          BRANCHES=$(echo $COVERAGE | jq '.total.branches.pct')
+          FUNCTIONS=$(echo $COVERAGE | jq '.total.functions.pct')
+
+          echo "Lines: $LINES%"
+          echo "Branches: $BRANCHES%"
+          echo "Functions: $FUNCTIONS%"
+
+          # Fail if below thresholds (80% minimum)
+          if (( $(echo "$LINES < 80" | bc -l) )); then
+            echo "Line coverage below 80%"
+            exit 1
+          fi
+
+      - name: Upload coverage to Coveralls
+        if: matrix.node == '20'
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  # ============================================
+  # Core Package Tests (100% coverage required)
+  # ============================================
+  test-core:
+    name: Test Core Package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run core tests
+        run: npm run test:core
+
+      - name: Verify high coverage
+        run: |
+          # Core package must maintain high coverage (95%+)
+          COVERAGE=$(cat coverage/coverage-summary.json)
+          STATEMENTS=$(echo $COVERAGE | jq '.total.statements.pct')
+
+          if (( $(echo "$STATEMENTS < 95" | bc -l) )); then
+            echo "Core package coverage dropped below 95%: $STATEMENTS%"
+            exit 1
+          fi
+
+          echo "Core package coverage: $STATEMENTS%"
+
+  # ============================================
+  # Web UI Tests
+  # ============================================
+  test-web:
+    name: Test Web UI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run web UI tests
+        run: npm run test:web
+
+  # ============================================
+  # Parity Tests
+  # ============================================
+  parity:
+    name: Cross-Interface Parity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run parity tests
+        run: npm run test:parity
+
+  # ============================================
+  # Core Isolation Check
+  # ============================================
+  isolation:
+    name: Core Isolation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check core isolation
+        run: npm run check:core-isolation
+
+  # ============================================
+  # Security Audit
+  # ============================================
+  security:
+    name: Security Audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run security audit
+        run: npm audit --audit-level=moderate
+        continue-on-error: true
+
+      - name: Check for known vulnerabilities
+        run: |
+          # Count high/critical vulnerabilities
+          VULNS=$(npm audit --json 2>/dev/null | jq '.metadata.vulnerabilities.high + .metadata.vulnerabilities.critical' || echo "0")
+          if [ "$VULNS" -gt 0 ]; then
+            echo "Found $VULNS high/critical vulnerabilities"
+            npm audit
+            exit 1
+          fi
+          echo "No high/critical vulnerabilities found"
+
+  # ============================================
+  # Build Check
+  # ============================================
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify package structure
+        run: |
+          # Check that main entry points exist (using ESM)
+          node --input-type=module -e "import './index.js'"
+          node --input-type=module -e "import './packages/core/src/index.js'"
+          echo "Package structure valid"
+
+  # ============================================
+  # Benchmarks (informational)
+  # ============================================
+  benchmark:
+    name: Benchmarks
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run benchmarks
+        run: npm run benchmark --if-present
+        continue-on-error: true
+
+  # ============================================
+  # Quality Gate Summary
+  # ============================================
+  gate:
+    name: Quality Gate
+    needs: [lint, test, test-core, test-web, parity, isolation, security, build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: All checks passed
+        run: echo "All quality gates passed!"

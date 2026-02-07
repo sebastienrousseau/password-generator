@@ -1,0 +1,48 @@
+---
+# Codacy Configuration
+# Disable deprecated/unsupported tools and configure analysis
+
+engines:
+  jshint:
+    enabled: false
+  markdownlint:
+    enabled: false
+  remark-lint:
+    enabled: false
+  csslint:
+    enabled: false
+  duplication:
+    enabled: false
+  metrics:
+    enabled: false
+  eslint:
+    enabled: true
+    # Use project's ESLint config
+    plugins:
+      - eslint-plugin-import
+    base_sub_dir: ""
+  prettier:
+    enabled: false
+
+# Exclude paths from all analysis
+exclude_paths:
+  - "node_modules/**"
+  - "dist/**"
+  - "coverage/**"
+  - "docs/**"
+  - "test/**"
+  - "benchmarks/**"
+  - "scripts/**"
+  - ".github/**"
+  - "packages/core/test/**"
+  - "src/**/test/**"
+  - "src/**/*.test.js"
+  - "**/*.md"
+  - "**/*.d.ts"
+  - "**/*.min.js"
+  - "*.md"
+  - "*.d.ts"
+  - "CHANGELOG.md"
+  - "README.md"
+  - "SECURITY.md"
+  - "index.d.ts"

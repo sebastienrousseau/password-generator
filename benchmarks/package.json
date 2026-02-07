@@ -1,0 +1,13 @@
+{
+  "name": "password-generator-benchmarks",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Performance benchmarks for password-generator",
+  "type": "module",
+  "scripts": {
+    "bench": "node password-generation.bench.js && node entropy-calculation.bench.js",
+    "bench:generation": "node password-generation.bench.js",
+    "bench:entropy": "node entropy-calculation.bench.js"
+  },
+  "devDependencies": {}
+}

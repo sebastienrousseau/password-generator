@@ -1,0 +1,13 @@
+# Ignore files using ES2022+ features (private class fields)
+# These are already linted by ESLint which supports modern syntax
+src/core/PasswordGeneratorFactory.js
+src/core/PasswordGeneratorOrchestrator.js
+src/cli/CLIController.js
+src/services/ConfigurationService.js
+src/presenters/CommandLearningPresenter.js
+
+# Ignore generated files
+node_modules/
+dist/
+coverage/
+docs/

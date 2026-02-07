@@ -1,4 +1,4 @@
-import { toTitleCase } from "../../src/utils/toTitleCase/toTitleCase.js";
+import { toTitleCase } from "../../src/utils/strings.js";
 import { expect } from 'chai';
 
 let toTitleCaseArray = [

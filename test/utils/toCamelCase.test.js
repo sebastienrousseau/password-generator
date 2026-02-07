@@ -1,4 +1,4 @@
-import { toCamelCase } from "../../src/utils/toCamelCase/toCamelCase.js";
+import { toCamelCase } from "../../src/utils/strings.js";
 import { assert, expect } from 'chai';
 
 const strings = {

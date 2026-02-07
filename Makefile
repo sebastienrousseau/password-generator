@@ -23,16 +23,16 @@ install:
 	@echo "Installing..."
 	install-deps
 
-# @HELP Install npx dependencies.
+# @HELP Install npm dependencies.
 install-deps:
 	@echo
-	@echo "Installing npx dependencies..."
-	npx ci
+	@echo "Installing npm dependencies..."
+	npm ci
 
-# @HELP npx check updates.
+# @HELP npm check updates.
 update-deps:
 	@echo
-	@echo "Checking npx updates..."
+	@echo "Checking npm updates..."
 	npx npm-check-updates -u
 
 # @HELP Build.
@@ -40,13 +40,13 @@ build:
 	@echo
 	@echo "Building..."
 	rm -rf dist
-	npx run build
+	npm run build
 
 # @HELP Publish.
 publish:
 	@echo
 	@echo "Publishing password-generator..."
-	npx publish
+	npm publish
 
 
 #
@@ -69,19 +69,19 @@ run: run-base64 run-strong run-memorable
 run-base64:
 	@echo
 	@echo "Running an example of a base64 password-generator..."
-	npx node . -t base64 -l 8 -i 4 -s -
+	node . -t base64 -l 8 -i 4 -s -
 
 # @HELP Run strong password-generator.
 run-strong:
 	@echo
 	@echo "Running an example of a strong password-generator..."
-	npx node . -t strong -l 8 -i 4 -s -
+	node . -t strong -l 8 -i 4 -s -
 
 # @HELP Run base64 password-generator.
 run-memorable:
 	@echo
 	@echo "Running an example of a memorable password-generator..."
-	npx node . -t memorable -i 4 -s -
+	node . -t memorable -i 4 -s -
 
 
 #

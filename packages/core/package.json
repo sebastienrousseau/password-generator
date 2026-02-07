@@ -1,0 +1,35 @@
+{
+  "name": "@password-generator/core",
+  "version": "0.0.1",
+  "description": "Platform-agnostic core logic for password generation",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./domain": "./src/domain/index.js",
+    "./domain/*": "./src/domain/*.js",
+    "./ports": "./src/ports/index.js",
+    "./ports/*": "./src/ports/*.js",
+    "./generators": "./src/generators/index.js",
+    "./generators/*": "./src/generators/*.js"
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "test": "mocha 'test/**/*.test.js'",
+    "test:watch": "mocha 'test/**/*.test.js' --watch",
+    "coverage": "c8 --all --src src --100 mocha 'test/**/*.test.js'",
+    "coverage:html": "c8 --all --src src --100 --reporter html mocha 'test/**/*.test.js'"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "password",
+    "generator",
+    "core",
+    "platform-agnostic"
+  ],
+  "license": "MIT"
+}

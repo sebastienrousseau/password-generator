@@ -1,4 +1,4 @@
-import { toCurrency } from "../../src/utils/toCurrency/toCurrency.js";
+import { toCurrency } from "../../src/utils/strings.js";
 import { expect } from 'chai';
 
 // toCurrency() test

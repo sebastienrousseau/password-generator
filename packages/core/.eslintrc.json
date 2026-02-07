@@ -1,0 +1,391 @@
+{
+  "root": true,
+  "env": {
+    "es2022": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "module"
+  },
+  "plugins": ["import"],
+  "extends": ["plugin:import/recommended"],
+  "rules": {
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": [
+          {
+            "name": "crypto",
+            "message": "Node.js crypto is forbidden in core. Use RandomGeneratorPort instead."
+          },
+          {
+            "name": "node:crypto",
+            "message": "Node.js crypto is forbidden in core. Use RandomGeneratorPort instead."
+          },
+          {
+            "name": "fs",
+            "message": "Node.js fs is forbidden in core. Use StoragePort instead."
+          },
+          {
+            "name": "node:fs",
+            "message": "Node.js fs is forbidden in core. Use StoragePort instead."
+          },
+          {
+            "name": "fs/promises",
+            "message": "Node.js fs is forbidden in core. Use StoragePort instead."
+          },
+          {
+            "name": "node:fs/promises",
+            "message": "Node.js fs is forbidden in core. Use StoragePort instead."
+          },
+          {
+            "name": "path",
+            "message": "Node.js path is forbidden in core. Keep paths platform-agnostic."
+          },
+          {
+            "name": "node:path",
+            "message": "Node.js path is forbidden in core. Keep paths platform-agnostic."
+          },
+          {
+            "name": "http",
+            "message": "Node.js http is forbidden in core."
+          },
+          {
+            "name": "node:http",
+            "message": "Node.js http is forbidden in core."
+          },
+          {
+            "name": "https",
+            "message": "Node.js https is forbidden in core."
+          },
+          {
+            "name": "node:https",
+            "message": "Node.js https is forbidden in core."
+          },
+          {
+            "name": "process",
+            "message": "Node.js process is forbidden in core."
+          },
+          {
+            "name": "node:process",
+            "message": "Node.js process is forbidden in core."
+          },
+          {
+            "name": "child_process",
+            "message": "Node.js child_process is forbidden in core."
+          },
+          {
+            "name": "node:child_process",
+            "message": "Node.js child_process is forbidden in core."
+          },
+          {
+            "name": "os",
+            "message": "Node.js os is forbidden in core."
+          },
+          {
+            "name": "node:os",
+            "message": "Node.js os is forbidden in core."
+          },
+          {
+            "name": "net",
+            "message": "Node.js net is forbidden in core."
+          },
+          {
+            "name": "node:net",
+            "message": "Node.js net is forbidden in core."
+          },
+          {
+            "name": "tls",
+            "message": "Node.js tls is forbidden in core."
+          },
+          {
+            "name": "node:tls",
+            "message": "Node.js tls is forbidden in core."
+          },
+          {
+            "name": "stream",
+            "message": "Node.js stream is forbidden in core."
+          },
+          {
+            "name": "node:stream",
+            "message": "Node.js stream is forbidden in core."
+          },
+          {
+            "name": "buffer",
+            "message": "Node.js buffer is forbidden in core."
+          },
+          {
+            "name": "node:buffer",
+            "message": "Node.js buffer is forbidden in core."
+          },
+          {
+            "name": "util",
+            "message": "Node.js util is forbidden in core."
+          },
+          {
+            "name": "node:util",
+            "message": "Node.js util is forbidden in core."
+          },
+          {
+            "name": "events",
+            "message": "Node.js events is forbidden in core."
+          },
+          {
+            "name": "node:events",
+            "message": "Node.js events is forbidden in core."
+          },
+          {
+            "name": "url",
+            "message": "Node.js url is forbidden in core."
+          },
+          {
+            "name": "node:url",
+            "message": "Node.js url is forbidden in core."
+          },
+          {
+            "name": "querystring",
+            "message": "Node.js querystring is forbidden in core."
+          },
+          {
+            "name": "node:querystring",
+            "message": "Node.js querystring is forbidden in core."
+          },
+          {
+            "name": "readline",
+            "message": "Node.js readline is forbidden in core."
+          },
+          {
+            "name": "node:readline",
+            "message": "Node.js readline is forbidden in core."
+          },
+          {
+            "name": "tty",
+            "message": "Node.js tty is forbidden in core."
+          },
+          {
+            "name": "node:tty",
+            "message": "Node.js tty is forbidden in core."
+          },
+          {
+            "name": "cluster",
+            "message": "Node.js cluster is forbidden in core."
+          },
+          {
+            "name": "node:cluster",
+            "message": "Node.js cluster is forbidden in core."
+          },
+          {
+            "name": "worker_threads",
+            "message": "Node.js worker_threads is forbidden in core."
+          },
+          {
+            "name": "node:worker_threads",
+            "message": "Node.js worker_threads is forbidden in core."
+          },
+          {
+            "name": "perf_hooks",
+            "message": "Node.js perf_hooks is forbidden in core."
+          },
+          {
+            "name": "node:perf_hooks",
+            "message": "Node.js perf_hooks is forbidden in core."
+          },
+          {
+            "name": "v8",
+            "message": "Node.js v8 is forbidden in core."
+          },
+          {
+            "name": "node:v8",
+            "message": "Node.js v8 is forbidden in core."
+          },
+          {
+            "name": "vm",
+            "message": "Node.js vm is forbidden in core."
+          },
+          {
+            "name": "node:vm",
+            "message": "Node.js vm is forbidden in core."
+          },
+          {
+            "name": "repl",
+            "message": "Node.js repl is forbidden in core."
+          },
+          {
+            "name": "node:repl",
+            "message": "Node.js repl is forbidden in core."
+          },
+          {
+            "name": "dgram",
+            "message": "Node.js dgram is forbidden in core."
+          },
+          {
+            "name": "node:dgram",
+            "message": "Node.js dgram is forbidden in core."
+          },
+          {
+            "name": "dns",
+            "message": "Node.js dns is forbidden in core."
+          },
+          {
+            "name": "node:dns",
+            "message": "Node.js dns is forbidden in core."
+          },
+          {
+            "name": "zlib",
+            "message": "Node.js zlib is forbidden in core."
+          },
+          {
+            "name": "node:zlib",
+            "message": "Node.js zlib is forbidden in core."
+          },
+          {
+            "name": "commander",
+            "message": "CLI libraries are forbidden in core. Keep core platform-agnostic."
+          },
+          {
+            "name": "chalk",
+            "message": "CLI libraries are forbidden in core. Keep core platform-agnostic."
+          },
+          {
+            "name": "clipboardy",
+            "message": "CLI libraries are forbidden in core. Keep core platform-agnostic."
+          },
+          {
+            "name": "inquirer",
+            "message": "CLI libraries are forbidden in core. Keep core platform-agnostic."
+          },
+          {
+            "name": "ora",
+            "message": "CLI libraries are forbidden in core. Keep core platform-agnostic."
+          },
+          {
+            "name": "yargs",
+            "message": "CLI libraries are forbidden in core. Keep core platform-agnostic."
+          },
+          {
+            "name": "react",
+            "message": "UI frameworks are forbidden in core. Keep core platform-agnostic."
+          },
+          {
+            "name": "vue",
+            "message": "UI frameworks are forbidden in core. Keep core platform-agnostic."
+          },
+          {
+            "name": "angular",
+            "message": "UI frameworks are forbidden in core. Keep core platform-agnostic."
+          },
+          {
+            "name": "@angular/core",
+            "message": "UI frameworks are forbidden in core. Keep core platform-agnostic."
+          },
+          {
+            "name": "svelte",
+            "message": "UI frameworks are forbidden in core. Keep core platform-agnostic."
+          },
+          {
+            "name": "solid-js",
+            "message": "UI frameworks are forbidden in core. Keep core platform-agnostic."
+          },
+          {
+            "name": "electron",
+            "message": "Electron is forbidden in core. Keep core platform-agnostic."
+          }
+        ],
+        "patterns": [
+          {
+            "group": ["react-*", "react/*"],
+            "message": "React packages are forbidden in core."
+          },
+          {
+            "group": ["vue-*", "vue/*", "@vue/*"],
+            "message": "Vue packages are forbidden in core."
+          },
+          {
+            "group": ["@angular/*"],
+            "message": "Angular packages are forbidden in core."
+          },
+          {
+            "group": ["svelte/*", "svelte-*"],
+            "message": "Svelte packages are forbidden in core."
+          },
+          {
+            "group": ["solid-js/*"],
+            "message": "Solid packages are forbidden in core."
+          },
+          {
+            "group": ["electron-*", "electron/*"],
+            "message": "Electron packages are forbidden in core."
+          }
+        ]
+      }
+    ],
+    "no-restricted-globals": [
+      "error",
+      {
+        "name": "window",
+        "message": "Browser global 'window' is forbidden in core. Keep core platform-agnostic."
+      },
+      {
+        "name": "document",
+        "message": "Browser global 'document' is forbidden in core. Keep core platform-agnostic."
+      },
+      {
+        "name": "localStorage",
+        "message": "Browser global 'localStorage' is forbidden in core. Use StoragePort instead."
+      },
+      {
+        "name": "sessionStorage",
+        "message": "Browser global 'sessionStorage' is forbidden in core. Use StoragePort instead."
+      },
+      {
+        "name": "fetch",
+        "message": "Browser global 'fetch' is forbidden in core. Inject network dependencies via ports."
+      },
+      {
+        "name": "XMLHttpRequest",
+        "message": "Browser global 'XMLHttpRequest' is forbidden in core."
+      },
+      {
+        "name": "navigator",
+        "message": "Browser global 'navigator' is forbidden in core."
+      },
+      {
+        "name": "location",
+        "message": "Browser global 'location' is forbidden in core."
+      },
+      {
+        "name": "history",
+        "message": "Browser global 'history' is forbidden in core."
+      },
+      {
+        "name": "process",
+        "message": "Node.js global 'process' is forbidden in core. Keep core platform-agnostic."
+      },
+      {
+        "name": "__dirname",
+        "message": "Node.js global '__dirname' is forbidden in core."
+      },
+      {
+        "name": "__filename",
+        "message": "Node.js global '__filename' is forbidden in core."
+      },
+      {
+        "name": "require",
+        "message": "CommonJS 'require' is forbidden in core. Use ES modules."
+      },
+      {
+        "name": "Buffer",
+        "message": "Node.js global 'Buffer' is forbidden in core."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["**/*.test.js", "**/*.spec.js", "test/**/*.js"],
+      "rules": {
+        "no-restricted-imports": "off",
+        "no-restricted-globals": "off"
+      }
+    }
+  ]
+}

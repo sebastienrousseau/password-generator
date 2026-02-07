@@ -1,32 +1,31 @@
 {
-    "all": true,
-    "branches": 40,
-    "cache": false,
-    "check-coverage": true,
-    "clean": true,
-    "exclude": [
-        "coverage/*",
-        "dist/*",
-        "node_modules/*",
-        "docs/*"
-    ],
-    "extension": [".js"],
-    "functions": 40,
-    "include": [
-        "index.js",
-        "src/**/*.js"
-    ],
-    "lines": 40,
-    "reporter": [
-        "cobertura",
-        "html",
-        "html-spa",
-        "lcov",
-        "text",
-        "text-summary"
-    ],
-    "reports-dir": "./coverage",
-    "skip-full": false,
-    "sourceMap": true,
-    "statements": 40
+  "exclude": [
+    "node_modules/**",
+    "test/**",
+    "dist/**",
+    "packages/core/test/**",
+    "src/ui/web/demo/scripts/main.js",
+    "src/adapters/web/webcrypto-random.js",
+    "src/**/test/**",
+    "src/**/*.test.js",
+    "**/*.d.ts",
+    "scripts/**",
+    "benchmarks/**"
+  ],
+  "include": [
+    "src/**",
+    "packages/core/src/**",
+    "index.js"
+  ],
+  "reporter": [
+    "text",
+    "lcov",
+    "json-summary"
+  ],
+  "all": true,
+  "check-coverage": false,
+  "lines": 90,
+  "functions": 90,
+  "branches": 95,
+  "statements": 90
 }

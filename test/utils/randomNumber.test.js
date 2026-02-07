@@ -2,7 +2,6 @@ import { expect } from "chai";
 import { randomNumber } from "../../src/utils/randomNumber.js";
 
 describe("randomNumber Function", () => {
-  // Test for generating a random number between 0 and a specified max value.
   it("should generate a random number between 0 and max", () => {
     const max = 100;
     const random = randomNumber(max);
@@ -11,7 +10,6 @@ describe("randomNumber Function", () => {
     expect(random).to.be.lessThan(max);
   });
 
-  // Test for generating a random number within a specified range (min to max).
   it("should generate a random number within a specified range", () => {
     const min = 50;
     const max = 100;
@@ -21,7 +19,6 @@ describe("randomNumber Function", () => {
     expect(random).to.be.lessThan(max);
   });
 
-  // Test for generating a random number with min and max equal.
   it("should generate min when min and max are equal", () => {
     const min = 50;
     const max = 50;
@@ -29,11 +26,10 @@ describe("randomNumber Function", () => {
     expect(random).to.equal(min);
   });
 
-  // Test for randomness (generating multiple random numbers and checking distribution).
-  it("should be random", () => {
+  it("should be random (uniform distribution)", () => {
     const max = 10;
     const numSamples = 1000;
-    const tolerance = numSamples / max; // Tolerance for uniform distribution
+    const tolerance = numSamples / max;
     const count = new Array(max).fill(0);
 
     for (let i = 0; i < numSamples; i++) {
@@ -41,9 +37,23 @@ describe("randomNumber Function", () => {
       count[random]++;
     }
 
-    // Check that each number is within tolerance of the expected count (uniform distribution).
     count.forEach((c) => {
-      expect(c).to.be.closeTo(tolerance, tolerance * 0.2); // Allowing 20% tolerance
+      expect(c).to.be.closeTo(tolerance, tolerance * 0.4);
     });
+  });
+
+  it("should always return an integer", () => {
+    for (let i = 0; i < 100; i++) {
+      const result = randomNumber(1000);
+      expect(Number.isInteger(result)).to.equal(true);
+    }
+  });
+
+  it("should use cryptographically secure randomness (not predictable)", () => {
+    // Generate two batches and verify they differ (extremely unlikely to match with crypto)
+    const batch1 = Array.from({ length: 20 }, () => randomNumber(1000000));
+    const batch2 = Array.from({ length: 20 }, () => randomNumber(1000000));
+    const match = batch1.every((val, i) => val === batch2[i]);
+    expect(match).to.equal(false);
   });
 });

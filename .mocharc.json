@@ -4,6 +4,7 @@
   "extension": ["js"],
   "package": "./package.json",
   "spec": ["./test/*.js", "./test/**/*.js"],
+  "ignore": ["./test/**/coverage/**/*"],
   "slow": "75",
   "timeout": "60000"
 }
