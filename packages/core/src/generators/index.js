@@ -28,10 +28,38 @@ export {
   validateQuantumSecurity,
 } from "./quantum.js";
 
+export {
+  generateHoneywordSet,
+  generateHoneywordPassword,
+  calculateHoneywordPasswordEntropy,
+} from "./honeyword.js";
+
+export {
+  generatePronounceablePassword,
+  calculatePronounceablePasswordEntropy,
+  generateCVVCSyllable,
+} from "./pronounceable.js";
+
+export {
+  generateCustomPassword,
+  generateTemplatePassword,
+  calculateCustomPasswordEntropy,
+  calculateTemplatePasswordEntropy,
+} from "./custom.js";
+
+export {
+  generateDicewarePassword,
+  calculateDicewarePasswordEntropy,
+} from "./diceware.js";
+
 import { generateStrongPassword, calculateStrongPasswordEntropy } from "./strong.js";
 import { generateBase64Password, calculateBase64PasswordEntropy } from "./base64.js";
 import { generateMemorablePassword, calculateMemorablePasswordEntropy } from "./memorable.js";
 import { generateQuantumPassword, calculateQuantumPasswordEntropy } from "./quantum.js";
+import { generateHoneywordPassword, calculateHoneywordPasswordEntropy } from "./honeyword.js";
+import { generatePronounceablePassword, calculatePronounceablePasswordEntropy } from "./pronounceable.js";
+import { generateCustomPassword, calculateCustomPasswordEntropy, generateTemplatePassword, calculateTemplatePasswordEntropy } from "./custom.js";
+import { generateDicewarePassword, calculateDicewarePasswordEntropy } from "./diceware.js";
 import { PASSWORD_TYPES, isValidPasswordType } from "../domain/password-types.js";
 import { PASSWORD_ERRORS } from "../errors.js";
 
@@ -55,6 +83,22 @@ export const GENERATOR_REGISTRY = {
     generate: generateQuantumPassword,
     calculateEntropy: calculateQuantumPasswordEntropy,
   },
+  [PASSWORD_TYPES.HONEYWORD]: {
+    generate: generateHoneywordPassword,
+    calculateEntropy: calculateHoneywordPasswordEntropy,
+  },
+  [PASSWORD_TYPES.PRONOUNCEABLE]: {
+    generate: generatePronounceablePassword,
+    calculateEntropy: calculatePronounceablePasswordEntropy,
+  },
+  [PASSWORD_TYPES.CUSTOM]: {
+    generate: generateCustomPassword,
+    calculateEntropy: calculateCustomPasswordEntropy,
+  },
+  [PASSWORD_TYPES.DICEWARE]: {
+    generate: generateDicewarePassword,
+    calculateEntropy: calculateDicewarePasswordEntropy,
+  },
 };
 
 /**
@@ -75,22 +119,22 @@ export const getGenerator = (type) => {
  * Generates a password of the specified type.
  *
  * @param {Object} config - Password configuration.
- * @param {string} config.type - Password type (strong, base64, memorable, quantum).
+ * @param {string} config.type - Password type (strong, base64, memorable, quantum, diceware).
  * @param {number} [config.length] - Length of each chunk (for strong/base64).
  * @param {number} config.iteration - Number of chunks/words.
  * @param {string} config.separator - Separator between chunks/words.
  * @param {Object} ports - Port implementations.
  * @param {Object} ports.randomGenerator - RandomGeneratorPort implementation.
- * @param {Object} [ports.dictionary] - DictionaryPort implementation (for memorable).
+ * @param {Object} [ports.dictionary] - DictionaryPort implementation (for memorable and diceware).
  * @returns {Promise<string>} The generated password.
  */
 export const generate = async (config, ports) => {
   const { type } = config;
   const generator = getGenerator(type);
 
-  if (type === PASSWORD_TYPES.MEMORABLE) {
+  if (type === PASSWORD_TYPES.MEMORABLE || type === PASSWORD_TYPES.DICEWARE) {
     if (!ports.dictionary) {
-      throw new Error("DictionaryPort is required for memorable passwords");
+      throw new Error("DictionaryPort is required for memorable and diceware passwords");
     }
     return generator.generate(config, ports.randomGenerator, ports.dictionary);
   }

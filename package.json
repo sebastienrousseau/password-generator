@@ -101,6 +101,7 @@
     },
     "scripts": {
         "benchmark": "node benchmarks/password-generation.bench.js && node benchmarks/entropy-calculation.bench.js",
+        "benchmark:all": "node benchmarks/run-all.js",
         "build": "npm run format && npm run lint:fix && npm run lint:markdown && npm run build:password:generator && cat ./package.json | grep -v '\"private\":' > dist/package.json && npm pack ./dist",
         "build:password:generator": "npm run clean:dist && npm run create:directory && npm run create:docs && npm run copy:index && npm run copy:src && npm run copy:readme && npm run copy:license && npm run copy:makefile && npm run copy:copyright && npm run filesize:distribution",
         "check:core-isolation": "npm run verify:core",

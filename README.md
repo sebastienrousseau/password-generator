@@ -297,6 +297,8 @@ const password = await PasswordGenerator({
 
 ## Usage Guide
 
+For practical examples of common use cases, see our [**📖 Recipes Guide**](docs/RECIPES.md) with ready-to-use commands for web passwords, database secrets, API keys, and more.
+
 ### Command-Line Interface
 
 **Basic syntax:**
@@ -592,6 +594,7 @@ This project operates under the MIT License. See the [LICENSE](LICENSE) file for
 ## Support
 
 - 📖 **Documentation**: [API Reference](docs/)
+- 🧑‍💻 **Practical Recipes**: [Common Use Cases & Examples](docs/RECIPES.md)
 - 🐛 **Bug Reports**: [GitHub Issues](https://github.com/sebastienrousseau/password-generator/issues)
 - 💬 **Questions**: [GitHub Discussions](https://github.com/sebastienrousseau/password-generator/discussions)
 - 📦 **Releases**: [GitHub Releases](https://github.com/sebastienrousseau/password-generator/releases)
