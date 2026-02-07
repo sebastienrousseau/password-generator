@@ -94,10 +94,10 @@ export class PasswordViewModel {
     }
 
     const parts = [];
-    if (config.type) parts.push(`Type: ${config.type}`);
-    if (config.length) parts.push(`Length: ${config.length}`);
-    if (config.iteration) parts.push(`Iterations: ${config.iteration}`);
-    if (config.separator) parts.push(`Separator: "${config.separator}"`);
+    if (config.type) {parts.push(`Type: ${config.type}`);}
+    if (config.length) {parts.push(`Length: ${config.length}`);}
+    if (config.iteration) {parts.push(`Iterations: ${config.iteration}`);}
+    if (config.separator) {parts.push(`Separator: "${config.separator}"`);}
     return parts.join(" | ");
   }
 

@@ -29,7 +29,7 @@ const DEFAULT_CONFIG = {
   level: LogLevel.INFO,
   timestamp: true,
   colors: true,
-  prefix: 'PwdGen',
+  prefix: "PwdGen",
 };
 
 /**
@@ -45,7 +45,7 @@ export class WebConsoleLogger {
    * @returns {string} Formatted timestamp.
    */
   _formatTimestamp() {
-    if (!this.config.timestamp) return '';
+    if (!this.config.timestamp) {return "";}
     return `[${new Date().toISOString()}] `;
   }
 
@@ -57,7 +57,7 @@ export class WebConsoleLogger {
    */
   _formatMessage(level, message) {
     const timestamp = this._formatTimestamp();
-    const prefix = this.config.prefix ? `[${this.config.prefix}] ` : '';
+    const prefix = this.config.prefix ? `[${this.config.prefix}] ` : "";
     return `${timestamp}${prefix}${level}: ${message}`;
   }
 
@@ -76,12 +76,12 @@ export class WebConsoleLogger {
    * @param {...any} args Additional arguments to pass to console.
    */
   debug(message, ...args) {
-    if (!this._shouldLog(LogLevel.DEBUG)) return;
+    if (!this._shouldLog(LogLevel.DEBUG)) {return;}
 
-    if (this.config.colors && typeof console !== 'undefined' && console.debug) {
-      console.debug(`%c${this._formatMessage('DEBUG', message)}`, 'color: gray', ...args);
+    if (this.config.colors && typeof console !== "undefined" && console.debug) {
+      console.debug(`%c${this._formatMessage("DEBUG", message)}`, "color: gray", ...args);
     } else {
-      this.log(this._formatMessage('DEBUG', message), ...args);
+      this.log(this._formatMessage("DEBUG", message), ...args);
     }
   }
 
@@ -91,12 +91,12 @@ export class WebConsoleLogger {
    * @param {...any} args Additional arguments to pass to console.
    */
   info(message, ...args) {
-    if (!this._shouldLog(LogLevel.INFO)) return;
+    if (!this._shouldLog(LogLevel.INFO)) {return;}
 
-    if (this.config.colors && typeof console !== 'undefined' && console.info) {
-      console.info(`%c${this._formatMessage('INFO', message)}`, 'color: blue', ...args);
+    if (this.config.colors && typeof console !== "undefined" && console.info) {
+      console.info(`%c${this._formatMessage("INFO", message)}`, "color: blue", ...args);
     } else {
-      this.log(this._formatMessage('INFO', message), ...args);
+      this.log(this._formatMessage("INFO", message), ...args);
     }
   }
 
@@ -106,16 +106,16 @@ export class WebConsoleLogger {
    * @param {...any} args Additional arguments to pass to console.
    */
   warn(message, ...args) {
-    if (!this._shouldLog(LogLevel.WARN)) return;
+    if (!this._shouldLog(LogLevel.WARN)) {return;}
 
-    if (typeof console !== 'undefined' && console.warn) {
+    if (typeof console !== "undefined" && console.warn) {
       if (this.config.colors) {
-        console.warn(`%c${this._formatMessage('WARN', message)}`, 'color: orange', ...args);
+        console.warn(`%c${this._formatMessage("WARN", message)}`, "color: orange", ...args);
       } else {
-        console.warn(this._formatMessage('WARN', message), ...args);
+        console.warn(this._formatMessage("WARN", message), ...args);
       }
     } else {
-      this.log(this._formatMessage('WARN', message), ...args);
+      this.log(this._formatMessage("WARN", message), ...args);
     }
   }
 
@@ -125,16 +125,16 @@ export class WebConsoleLogger {
    * @param {...any} args Additional arguments to pass to console.
    */
   error(message, ...args) {
-    if (!this._shouldLog(LogLevel.ERROR)) return;
+    if (!this._shouldLog(LogLevel.ERROR)) {return;}
 
-    if (typeof console !== 'undefined' && console.error) {
+    if (typeof console !== "undefined" && console.error) {
       if (this.config.colors) {
-        console.error(`%c${this._formatMessage('ERROR', message)}`, 'color: red; font-weight: bold', ...args);
+        console.error(`%c${this._formatMessage("ERROR", message)}`, "color: red; font-weight: bold", ...args);
       } else {
-        console.error(this._formatMessage('ERROR', message), ...args);
+        console.error(this._formatMessage("ERROR", message), ...args);
       }
     } else {
-      this.log(this._formatMessage('ERROR', message), ...args);
+      this.log(this._formatMessage("ERROR", message), ...args);
     }
   }
 
@@ -144,7 +144,7 @@ export class WebConsoleLogger {
    * @param {...any} args Additional arguments to pass to console.
    */
   log(message, ...args) {
-    if (typeof console !== 'undefined' && console.log) {
+    if (typeof console !== "undefined" && console.log) {
       console.log(message, ...args);
     }
     // In environments without console, this becomes a no-op
@@ -156,8 +156,8 @@ export class WebConsoleLogger {
    * @param {Function} callback Function that contains the grouped logs.
    */
   group(groupName, callback) {
-    if (typeof console !== 'undefined' && console.group) {
-      console.group(this._formatMessage('GROUP', groupName));
+    if (typeof console !== "undefined" && console.group) {
+      console.group(this._formatMessage("GROUP", groupName));
       try {
         callback();
       } finally {

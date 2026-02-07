@@ -15,17 +15,17 @@
  * Storage keys used by the password generator.
  */
 export const StorageKeys = {
-  USER_PREFERENCES: 'pwd_gen_preferences',
-  LAST_CONFIG: 'pwd_gen_last_config',
-  AUDIT_HISTORY: 'pwd_gen_audit_history',
-  THEME_SETTINGS: 'pwd_gen_theme',
+  USER_PREFERENCES: "pwd_gen_preferences",
+  LAST_CONFIG: "pwd_gen_last_config",
+  AUDIT_HISTORY: "pwd_gen_audit_history",
+  THEME_SETTINGS: "pwd_gen_theme",
 };
 
 /**
  * Default storage configuration.
  */
 const DEFAULT_CONFIG = {
-  prefix: 'pwd_gen_',
+  prefix: "pwd_gen_",
   maxHistoryEntries: 50,
   compressionThreshold: 1024, // bytes
   encryptSensitiveData: false,
@@ -47,12 +47,12 @@ export class WebLocalStorage {
    */
   _checkAvailability() {
     try {
-      if (typeof localStorage === 'undefined') {
+      if (typeof localStorage === "undefined") {
         return false;
       }
 
       const testKey = `${this.config.prefix}test`;
-      localStorage.setItem(testKey, 'test');
+      localStorage.setItem(testKey, "test");
       localStorage.removeItem(testKey);
       return true;
     } catch (error) {
@@ -79,7 +79,7 @@ export class WebLocalStorage {
     try {
       return JSON.stringify(data);
     } catch (error) {
-      console.warn('Failed to serialize data for storage:', error);
+      console.warn("Failed to serialize data for storage:", error);
       return null;
     }
   }
@@ -93,7 +93,7 @@ export class WebLocalStorage {
     try {
       return JSON.parse(jsonString);
     } catch (error) {
-      console.warn('Failed to deserialize data from storage:', error);
+      console.warn("Failed to deserialize data from storage:", error);
       return null;
     }
   }
@@ -131,7 +131,7 @@ export class WebLocalStorage {
       return true;
     } catch (error) {
       // Storage quota exceeded or other error
-      console.warn('Failed to store data:', error);
+      console.warn("Failed to store data:", error);
 
       if (options.fallbackToMemory !== false) {
         this.fallbackStorage.set(prefixedKey, { value, timestamp: Date.now() });
@@ -159,7 +159,7 @@ export class WebLocalStorage {
         }
 
         const storageData = this._deserialize(item);
-        if (storageData && typeof storageData === 'object' && 'value' in storageData) {
+        if (storageData && typeof storageData === "object" && "value" in storageData) {
           return storageData.value;
         }
 
@@ -171,7 +171,7 @@ export class WebLocalStorage {
         return fallbackData ? fallbackData.value : defaultValue;
       }
     } catch (error) {
-      console.warn('Failed to retrieve data:', error);
+      console.warn("Failed to retrieve data:", error);
       return defaultValue;
     }
   }
@@ -192,7 +192,7 @@ export class WebLocalStorage {
       }
       return true;
     } catch (error) {
-      console.warn('Failed to remove data:', error);
+      console.warn("Failed to remove data:", error);
       return false;
     }
   }
@@ -240,7 +240,7 @@ export class WebLocalStorage {
 
       return true;
     } catch (error) {
-      console.warn('Failed to clear storage:', error);
+      console.warn("Failed to clear storage:", error);
       return false;
     }
   }
@@ -268,7 +268,7 @@ export class WebLocalStorage {
         }
       }
     } catch (error) {
-      console.warn('Failed to get keys:', error);
+      console.warn("Failed to get keys:", error);
     }
 
     return keys;

@@ -42,6 +42,7 @@ export class ValidationViewModel {
    * @param {FormState} [formState] - Optional form state for context.
    * @returns {ValidationViewModel} New view model instance.
    */
+  // eslint-disable-next-line no-unused-vars
   static fromValidationResult(validation, formState = null) {
     const fieldErrors = {
       type: null,

@@ -190,7 +190,7 @@ describe("PasswordViewModel", () => {
         },
       });
 
-      expect(vm.configSummary).to.equal('Type: strong | Length: 16 | Iterations: 4 | Separator: "-"');
+      expect(vm.configSummary).to.equal("Type: strong | Length: 16 | Iterations: 4 | Separator: \"-\"");
     });
 
     it("should handle partial config", () => {

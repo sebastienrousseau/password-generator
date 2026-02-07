@@ -13,9 +13,6 @@
 
 import {
   ENTROPY_CONSTANTS,
-  calculateBase64Entropy,
-  calculateBase64ChunkEntropy,
-  calculateDictionaryEntropy,
   getSecurityLevel,
   getSecurityRecommendation,
 } from "../../packages/core/src/domain/index.js";

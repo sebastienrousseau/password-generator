@@ -55,11 +55,11 @@ export class EntropyViewModel {
    * @private
    */
   _getStrengthLabel(bits) {
-    if (bits >= 256) return "Excellent";
-    if (bits >= 128) return "Strong";
-    if (bits >= 80) return "Good";
-    if (bits >= 64) return "Moderate";
-    if (bits >= 40) return "Weak";
+    if (bits >= 256) {return "Excellent";}
+    if (bits >= 128) {return "Strong";}
+    if (bits >= 80) {return "Good";}
+    if (bits >= 64) {return "Moderate";}
+    if (bits >= 40) {return "Weak";}
     return "Very Weak";
   }
 
@@ -71,10 +71,10 @@ export class EntropyViewModel {
    * @private
    */
   _getStrengthColor(bits) {
-    if (bits >= 128) return "green";
-    if (bits >= 80) return "blue";
-    if (bits >= 64) return "yellow";
-    if (bits >= 40) return "orange";
+    if (bits >= 128) {return "green";}
+    if (bits >= 80) {return "blue";}
+    if (bits >= 64) {return "yellow";}
+    if (bits >= 40) {return "orange";}
     return "red";
   }
 

@@ -21,11 +21,11 @@
  */
 export const randomBytes = (size) => {
   if (!Number.isInteger(size) || size < 1) {
-    throw new RangeError('size must be a positive integer');
+    throw new RangeError("size must be a positive integer");
   }
 
-  if (typeof crypto === 'undefined' || !crypto.getRandomValues) {
-    throw new Error('Web Crypto API is not available in this environment');
+  if (typeof crypto === "undefined" || !crypto.getRandomValues) {
+    throw new Error("Web Crypto API is not available in this environment");
   }
 
   const bytes = new Uint8Array(size);
@@ -44,11 +44,11 @@ export const randomBytes = (size) => {
  */
 export const randomInt = (max) => {
   if (!Number.isInteger(max) || max < 1) {
-    throw new RangeError('max must be a positive integer');
+    throw new RangeError("max must be a positive integer");
   }
 
-  if (typeof crypto === 'undefined' || !crypto.getRandomValues) {
-    throw new Error('Web Crypto API is not available in this environment');
+  if (typeof crypto === "undefined" || !crypto.getRandomValues) {
+    throw new Error("Web Crypto API is not available in this environment");
   }
 
   // Calculate the number of bytes needed to represent max
@@ -80,14 +80,14 @@ export const randomInt = (max) => {
  * @return {string} The base64 encoded string.
  */
 export const bytesToBase64 = (bytes) => {
-  if (typeof btoa !== 'undefined') {
+  if (typeof btoa !== "undefined") {
     // Use built-in btoa if available (modern browsers)
     return btoa(String.fromCharCode.apply(null, bytes));
   }
 
   // Fallback implementation for environments without btoa
-  const base64Chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
-  let result = '';
+  const base64Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+  let result = "";
   let i = 0;
 
   while (i < bytes.length) {
@@ -99,8 +99,8 @@ export const bytesToBase64 = (bytes) => {
 
     result += base64Chars[(group >> 18) & 63];
     result += base64Chars[(group >> 12) & 63];
-    result += i - 2 < bytes.length ? base64Chars[(group >> 6) & 63] : '=';
-    result += i - 1 < bytes.length ? base64Chars[group & 63] : '=';
+    result += i - 2 < bytes.length ? base64Chars[(group >> 6) & 63] : "=";
+    result += i - 1 < bytes.length ? base64Chars[group & 63] : "=";
   }
 
   return result;

@@ -3,7 +3,6 @@
 
 import { randomBytes, randomInt } from "crypto";
 import { BASE64_CHARSET } from "../constants.js";
-import { CRYPTO_ERRORS } from "../errors.js";
 import {
   recordEntropyUsage,
   recordAlgorithmUsage,
@@ -12,7 +11,6 @@ import {
   calculateBase64Entropy,
   calculateBase64ChunkEntropy,
   validatePositiveInteger,
-  splitString,
 } from "../../packages/core/src/domain/index.js";
 
 // Re-export domain logic for backward compatibility

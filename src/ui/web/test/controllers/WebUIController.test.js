@@ -5,13 +5,13 @@ import { expect } from "chai";
 import { describe, it, beforeEach } from "mocha";
 
 // Mock Web Crypto API for Node.js test environment
-if (typeof global !== 'undefined' && !global.crypto) {
-  const { webcrypto } = await import('crypto');
+if (typeof global !== "undefined" && !global.crypto) {
+  const { webcrypto } = await import("crypto");
   global.crypto = webcrypto;
 }
 
 // Mock localStorage for Node.js test environment
-if (typeof global !== 'undefined' && !global.localStorage) {
+if (typeof global !== "undefined" && !global.localStorage) {
   const storage = new Map();
   global.localStorage = {
     getItem: (key) => storage.get(key) || null,

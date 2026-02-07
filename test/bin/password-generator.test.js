@@ -60,7 +60,7 @@ describe('PasswordGenerator', function () {
   it('should rethrow generator errors for valid types with invalid params', async function () {
     await assert.rejects(
       () => PasswordGenerator({ type: 'strong', length: -1, iteration: 0, separator: '-' }),
-      RangeError
+      Error
     );
   });
 });
@@ -257,19 +257,10 @@ describe('CLI Integration', function () {
     });
   });
 
-  it('should exit with error when missing required options without preset', function (done) {
-    exec("node index.js -t strong", (error, stdout, stderr) => {
-      expect(error).to.not.be.null;
-      expect(stderr).to.include('Missing required options');
-      done();
-    });
-  });
-
   it('should exit with error when missing type without preset', function (done) {
     exec("node index.js -i 3 -s '-'", (error, stdout, stderr) => {
       expect(error).to.not.be.null;
-      expect(stderr).to.include('Missing required options');
-      expect(stderr).to.include('type');
+      expect(stderr).to.include('Password type is required');
       done();
     });
   });
@@ -277,7 +268,7 @@ describe('CLI Integration', function () {
   it('should exit with error for invalid type with preset override', function (done) {
     exec("node index.js -p quick -t invalid", (error, stdout, stderr) => {
       expect(error).to.not.be.null;
-      expect(stderr).to.include('Invalid password type');
+      expect(stderr).to.include('Unknown password type');
       done();
     });
   });

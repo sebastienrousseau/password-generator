@@ -11,6 +11,12 @@
  */
 
 import { PASSWORD_ERRORS } from "../errors.js";
+import { createService } from "../../packages/core/src/index.js";
+import { NodeCryptoRandom } from "../adapters/node/crypto-random.js";
+
+// Create shared service instance
+const randomGenerator = new NodeCryptoRandom();
+const coreService = createService({}, { randomGenerator });
 
 /**
  * Generates a password of the specified type using the appropriate generator module.
@@ -28,19 +34,11 @@ export const generatePassword = async (config) => {
     throw new Error(PASSWORD_ERRORS.TYPE_REQUIRED);
   }
 
-  const modulePath = `../lib/${config.type}-password.js`;
-
   try {
-    const generatorModule = await import(modulePath);
-    return await generatorModule.generatePassword(config);
+    return await coreService.generate(config);
   } catch (error) {
-    if (error.code === "ERR_MODULE_NOT_FOUND") {
-      throw new Error(PASSWORD_ERRORS.UNKNOWN_TYPE(config.type));
-    }
-    /* c8 ignore start - Re-throw non-module errors */
     throw error;
   }
-  /* c8 ignore stop */
 };
 
 /**
