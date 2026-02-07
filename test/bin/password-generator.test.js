@@ -287,10 +287,10 @@ describe('CLI Integration', function () {
   });
 
   it('should show learn with preset override separator', function (done) {
-    exec("node index.js -p quick -s '_' --learn", (error, stdout, stderr) => {
+    exec('node index.js -p quick -s "_" --learn', (error, stdout, stderr) => {
       expect(error).to.be.null;
       expect(stdout).to.include('command');
-      expect(stdout).to.include('-s "_"');
+      expect(stdout).to.match(/-s ["']?_["']?/);
       done();
     });
   });

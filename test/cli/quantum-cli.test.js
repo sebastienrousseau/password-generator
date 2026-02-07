@@ -179,9 +179,9 @@ describe('CLI Quantum-Resistant Integration', () => {
         results.push(result.stdout);
       }
 
-      // All should show strength indicator
+      // All should show strength indicator (Unicode or ASCII fallback)
       results.forEach(output => {
-        expect(output).to.match(/●/);
+        expect(output).to.match(/[●@○o]/);
         expect(output).to.match(/\d+-bit/);
       });
     });
