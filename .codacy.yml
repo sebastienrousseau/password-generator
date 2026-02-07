@@ -4,6 +4,8 @@
 engines:
   jshint:
     enabled: false
+  markdownlint:
+    enabled: false
   duplication:
     exclude_paths:
       - "test/**"
@@ -15,3 +17,5 @@ exclude_paths:
   - "coverage/**"
   - "docs/**"
   - "**/*.min.js"
+  - ".github/**"
+  - "**/*.md"
