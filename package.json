@@ -127,7 +127,7 @@
         "publish:npm": "npm publish --access public",
         "release": "npm run build && npm run publish:all",
         "start": "node index.js",
-        "test": "npm run clean && c8 mocha",
+        "test": "npm run clean && c8 mocha 'test/**/*.js'",
         "test:core": "c8 mocha 'packages/core/test/**/*.test.js'",
         "test:parity": "mocha 'packages/core/test/parity/**/*.test.js'",
         "test:web": "mocha 'src/ui/web/test/**/*.test.js'",
