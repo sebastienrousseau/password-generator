@@ -158,17 +158,30 @@ function checkDictionaries(password) {
     });
   }
 
-  // Check for dictionary words
+  // Check for dictionary words (both split words and embedded words)
   const words = lowerPassword.split(/[^a-z]/);
+  const foundWords = new Set();
+
   for (const word of words) {
     if (word.length > 3 && COMMON_DICTIONARY.has(word)) {
-      matches.push({
-        dictionary: 'english_words',
-        word: word,
-        score: 0.3,
-        description: `Contains dictionary word: ${word}`
-      });
+      foundWords.add(word);
     }
+  }
+
+  // Also check for embedded dictionary words (e.g., 'lovetime' contains 'love' and 'time')
+  for (const dictWord of COMMON_DICTIONARY) {
+    if (dictWord.length >= 4 && lowerPassword.includes(dictWord)) {
+      foundWords.add(dictWord);
+    }
+  }
+
+  for (const word of foundWords) {
+    matches.push({
+      dictionary: 'english_words',
+      word: word,
+      score: 0.3,
+      description: `Contains dictionary word: ${word}`
+    });
   }
 
   // Check for reversed dictionary words
@@ -369,8 +382,11 @@ export function analyzePasswordStrength(password) {
     finalScore = Math.max(0, finalScore - 2);
   }
 
-  // Moderate penalties for patterns
-  const patternPenalty = patterns.reduce((sum, p) => sum + (1 - p.score), 0);
+  // Moderate penalties for patterns (count individual matches, not just pattern types)
+  const patternPenalty = patterns.reduce((sum, p) => {
+    const matchCount = p.matches ? p.matches.length : 1;
+    return sum + matchCount * (1 - p.score);
+  }, 0);
   finalScore = Math.max(0, finalScore - Math.floor(patternPenalty / 2));
 
   // Ensure score is within bounds

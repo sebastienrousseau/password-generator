@@ -23,7 +23,11 @@ describe("Config Module", function () {
       expect(VALID_PASSWORD_TYPES).to.include("base64");
       expect(VALID_PASSWORD_TYPES).to.include("memorable");
       expect(VALID_PASSWORD_TYPES).to.include("quantum-resistant");
-      expect(VALID_PASSWORD_TYPES).to.have.length(4);
+      expect(VALID_PASSWORD_TYPES).to.include("diceware");
+      expect(VALID_PASSWORD_TYPES).to.include("honeyword");
+      expect(VALID_PASSWORD_TYPES).to.include("pronounceable");
+      expect(VALID_PASSWORD_TYPES).to.include("custom");
+      expect(VALID_PASSWORD_TYPES).to.have.length(8);
     });
   });
 
