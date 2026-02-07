@@ -129,13 +129,11 @@ export const getExpectedEntropy = (type, config) => {
 
   const { length = 16, iteration = 1, dictionarySize = 7776 } = config;
 
-  switch (type) {
-    case PASSWORD_TYPES.STRONG:
-    case PASSWORD_TYPES.BASE64:
-      return length * metadata.entropyPerUnit * iteration;
-    case PASSWORD_TYPES.MEMORABLE:
-      return iteration * Math.log2(dictionarySize);
-    default:
-      return 0;
+  // Handle memorable type (uses dictionary size, not entropyPerUnit)
+  if (type === PASSWORD_TYPES.MEMORABLE) {
+    return iteration * Math.log2(dictionarySize);
   }
+
+  // Strong and Base64 types use entropyPerUnit from metadata
+  return length * metadata.entropyPerUnit * iteration;
 };

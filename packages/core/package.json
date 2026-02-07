@@ -16,6 +16,12 @@
   "files": [
     "src"
   ],
+  "scripts": {
+    "test": "mocha 'test/**/*.test.js'",
+    "test:watch": "mocha 'test/**/*.test.js' --watch",
+    "coverage": "c8 --all --src src --100 mocha 'test/**/*.test.js'",
+    "coverage:html": "c8 --all --src src --100 --reporter html mocha 'test/**/*.test.js'"
+  },
   "engines": {
     "node": ">=18.0.0"
   },

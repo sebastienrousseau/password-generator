@@ -12,6 +12,12 @@
 
 import { PORT_ERRORS } from "../errors.js";
 
+// Import default implementations for use in createPortsWithDefaults
+import { NoOpLogger } from "./LoggerPort.js";
+import { MemoryStorage } from "./StoragePort.js";
+import { FixedClock } from "./ClockPort.js";
+import { MemoryDictionary, DEFAULT_WORD_LIST } from "./DictionaryPort.js";
+
 // Port interfaces
 export {
   RandomGeneratorPort,

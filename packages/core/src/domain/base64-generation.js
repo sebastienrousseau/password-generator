@@ -31,24 +31,14 @@ export const validatePositiveInteger = (value, name) => {
 export const isValidBase64 = (str) => {
   if (typeof str !== "string") return false;
 
-  // Base64 pattern: alphanumeric + / + = for padding
+  // Base64 pattern: alphanumeric + / + = for padding (max 2 = at end)
+  // This regex validates:
+  // - Only base64 characters (A-Za-z0-9+/)
+  // - Padding (=) only at the end
+  // - Maximum 2 padding characters
   const base64Pattern = /^[A-Za-z0-9+/]*={0,2}$/;
 
-  if (!base64Pattern.test(str)) return false;
-
-  // Check padding rules: only at the end, max 2 characters
-  const paddingIndex = str.indexOf("=");
-  if (paddingIndex !== -1) {
-    // If padding exists, it should only be at the end
-    const afterPadding = str.substring(paddingIndex).replace(/=/g, "");
-    if (afterPadding.length > 0) return false;
-
-    // Max 2 padding characters
-    const paddingCount = str.length - paddingIndex;
-    if (paddingCount > 2) return false;
-  }
-
-  return true;
+  return base64Pattern.test(str);
 };
 
 /**
