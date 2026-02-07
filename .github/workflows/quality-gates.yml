@@ -235,7 +235,7 @@ jobs:
         run: |
           # Check that main entry points exist (using ESM)
           node --input-type=module -e "import './index.js'"
-          node --input-type=module -e "import './packages/core/index.js'"
+          node --input-type=module -e "import './packages/core/src/index.js'"
           echo "Package structure valid"
 
   # ============================================
