@@ -24,7 +24,7 @@ export class PasswordViewModel {
     // Password display
     this.password = data.password;
     this.maskedPassword = this._maskPassword(data.password);
-    this.length = data.password.length;
+    this.length = data.password?.length ?? 0;
 
     // Entropy display
     this.entropyBits = data.entropyInfo?.totalBits ?? 0;

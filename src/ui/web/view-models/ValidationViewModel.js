@@ -108,7 +108,7 @@ export class ValidationViewModel {
    * @returns {boolean} True if field has error.
    */
   hasFieldError(fieldName) {
-    return this.fieldErrors[fieldName] !== null;
+    return fieldName in this.fieldErrors && this.fieldErrors[fieldName] !== null;
   }
 
   /**

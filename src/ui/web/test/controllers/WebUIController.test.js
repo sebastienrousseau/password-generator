@@ -53,38 +53,36 @@ class MockRandomGenerator {
 }
 
 /**
- * Mock Storage for testing
+ * Mock Storage for testing - implements StoragePort interface
  */
 class MockStorage {
   constructor() {
     this.data = new Map();
   }
 
-  get(key, defaultValue = null) {
-    return this.data.has(key) ? this.data.get(key) : defaultValue;
+  async read(key) {
+    return this.data.has(key) ? this.data.get(key) : null;
   }
 
-  set(key, value) {
+  async write(key, value) {
     this.data.set(key, value);
-    return true;
   }
 
-  remove(key) {
+  async delete(key) {
     return this.data.delete(key);
   }
 
-  clear() {
+  async clear() {
     this.data.clear();
-    return true;
   }
 
-  has(key) {
+  async exists(key) {
     return this.data.has(key);
   }
 }
 
 /**
- * Mock Clock for testing
+ * Mock Clock for testing - implements ClockPort interface
  */
 class MockClock {
   constructor(fixedTime = new Date("2024-01-01T00:00:00Z")) {
@@ -92,11 +90,26 @@ class MockClock {
   }
 
   now() {
-    return this.fixedTime;
+    return this.fixedTime.getTime();
   }
 
-  timestamp() {
+  performanceNow() {
     return this.fixedTime.getTime();
+  }
+
+  toISOString() {
+    return this.fixedTime.toISOString();
+  }
+
+  async measure(asyncFn) {
+    const start = this.performanceNow();
+    const result = await asyncFn();
+    const elapsed = this.performanceNow() - start;
+    return { result, elapsed };
+  }
+
+  async delay(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 }
 
@@ -119,9 +132,11 @@ describe("WebUIController", () => {
 
   describe("constructor", () => {
     it("should create controller with default adapters when no options provided", () => {
-      // This will use browser adapters which may not work in Node, so we test with mocks
+      // Browser adapters don't work in Node.js, so test with all mocks provided
       const ctrl = new WebUIController({
         randomGenerator: mockRandomGenerator,
+        storage: new MockStorage(),
+        clock: new MockClock(),
       });
 
       expect(ctrl).to.be.instanceOf(WebUIController);
