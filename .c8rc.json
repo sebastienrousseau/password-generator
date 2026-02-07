@@ -19,7 +19,8 @@
   ],
   "reporter": [
     "text",
-    "lcov"
+    "lcov",
+    "json-summary"
   ],
   "all": true,
   "check-coverage": false,
