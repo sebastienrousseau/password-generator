@@ -185,10 +185,10 @@ const resolveCharacterSet = (charSetDef) => {
 
   // Handle common aliases
   const aliases = {
-    "ALPHA": "UPPERCASE,LOWERCASE",
-    "ALPHANUMERIC": "UPPERCASE,LOWERCASE,DIGITS",
-    "HEX": "HEX_UPPERCASE",
-    "HEXADECIMAL": "HEX_UPPERCASE",
+    ALPHA: "UPPERCASE,LOWERCASE",
+    ALPHANUMERIC: "UPPERCASE,LOWERCASE,DIGITS",
+    HEX: "HEX_UPPERCASE",
+    HEXADECIMAL: "HEX_UPPERCASE",
   };
 
   if (aliases[upperDef]) {
@@ -203,7 +203,9 @@ const resolveCharacterSet = (charSetDef) => {
     const endCode = end.charCodeAt(0);
 
     if (startCode > endCode) {
-      throw new Error(`Invalid range: ${charSetDef}. Start character must come before end character.`);
+      throw new Error(
+        `Invalid range: ${charSetDef}. Start character must come before end character.`
+      );
     }
 
     let rangeChars = "";
@@ -267,11 +269,15 @@ export const validateTemplate = (template) => {
     }
 
     if (totalLength > 1000) {
-      errors.push(`Template generates passwords that are too long: ${totalLength} characters (max: 1000)`);
+      errors.push(
+        `Template generates passwords that are too long: ${totalLength} characters (max: 1000)`
+      );
     }
 
     if (totalEntropy < 20) {
-      errors.push(`Template provides insufficient entropy: ${totalEntropy.toFixed(1)} bits (minimum: 20 bits)`);
+      errors.push(
+        `Template provides insufficient entropy: ${totalEntropy.toFixed(1)} bits (minimum: 20 bits)`
+      );
     }
 
     return {
@@ -284,7 +290,6 @@ export const validateTemplate = (template) => {
         hasRandomContent,
       },
     };
-
   } catch (error) {
     errors.push(`Template syntax error: ${error.message}`);
     return {

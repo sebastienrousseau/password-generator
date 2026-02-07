@@ -108,13 +108,13 @@ describe('Password Strength Analyzer', () => {
     it('should calculate crack time estimates', () => {
       const result = analyzePasswordStrength('StrongP@ssw0rd123');
 
-      expect(result.crackTime).to.have.property('online_throttled');
-      expect(result.crackTime).to.have.property('online_unthrottled');
-      expect(result.crackTime).to.have.property('offline_slow');
-      expect(result.crackTime).to.have.property('offline_fast');
+      expect(result.crackTime).to.have.property('onlineThrottled');
+      expect(result.crackTime).to.have.property('onlineUnthrottled');
+      expect(result.crackTime).to.have.property('offlineSlow');
+      expect(result.crackTime).to.have.property('offlineFast');
 
       // Crack times should be strings with time units
-      expect(result.crackTime.online_throttled).to.match(/seconds|minutes|hours|days|years|centuries/);
+      expect(result.crackTime.onlineThrottled).to.match(/seconds|minutes|hours|days|years|centuries/);
     });
 
     it('should handle edge cases gracefully', () => {

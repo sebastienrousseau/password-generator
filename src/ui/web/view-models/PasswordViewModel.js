@@ -106,7 +106,7 @@ export class PasswordViewModel {
       1: { level: "weak", label: "Weak", dots: 2, color: "error" },
       2: { level: "fair", label: "Fair", dots: 3, color: "warning" },
       3: { level: "good", label: "Good", dots: 4, color: "success" },
-      4: { level: "strong", label: "Strong", dots: 5, color: "excellent" }
+      4: { level: "strong", label: "Strong", dots: 5, color: "excellent" },
     };
 
     return scoreToLevel[score] || scoreToLevel[0];
@@ -147,10 +147,18 @@ export class PasswordViewModel {
     }
 
     const parts = [];
-    if (config.type) {parts.push(`Type: ${config.type}`);}
-    if (config.length) {parts.push(`Length: ${config.length}`);}
-    if (config.iteration) {parts.push(`Iterations: ${config.iteration}`);}
-    if (config.separator) {parts.push(`Separator: "${config.separator}"`);}
+    if (config.type) {
+      parts.push(`Type: ${config.type}`);
+    }
+    if (config.length) {
+      parts.push(`Length: ${config.length}`);
+    }
+    if (config.iteration) {
+      parts.push(`Iterations: ${config.iteration}`);
+    }
+    if (config.separator) {
+      parts.push(`Separator: "${config.separator}"`);
+    }
     return parts.join(" | ");
   }
 
@@ -211,7 +219,9 @@ export class PasswordViewModel {
    * @returns {string} Formatted crack time estimate.
    */
   getCrackTimeEstimate() {
-    if (!this.crackTime) {return "Unknown";}
+    if (!this.crackTime) {
+      return "Unknown";
+    }
 
     // Prioritize offline attack scenarios as they're most relevant for leaked passwords
     return this.crackTime.offline_slow || this.crackTime.online_unthrottled || "Unknown";

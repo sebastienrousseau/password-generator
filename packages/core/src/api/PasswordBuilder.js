@@ -8,7 +8,7 @@
  * @module PasswordBuilder
  */
 
-import { createCustomCharset, CHARACTER_SET_METADATA } from "../domain/charset.js";
+import { createCustomCharset } from "../domain/charset.js";
 import { PASSWORD_TYPES } from "../domain/password-types.js";
 
 /**
@@ -74,7 +74,7 @@ export class PasswordBuilder {
    */
   includeUppercase() {
     if (!this.allowedChars.includes("UPPERCASE")) {
-      this.allowedChars += (this.allowedChars ? ",UPPERCASE" : "UPPERCASE");
+      this.allowedChars += this.allowedChars ? ",UPPERCASE" : "UPPERCASE";
     }
     this.config.type = PASSWORD_TYPES.CUSTOM;
     return this;
@@ -86,7 +86,7 @@ export class PasswordBuilder {
    */
   includeLowercase() {
     if (!this.allowedChars.includes("LOWERCASE")) {
-      this.allowedChars += (this.allowedChars ? ",LOWERCASE" : "LOWERCASE");
+      this.allowedChars += this.allowedChars ? ",LOWERCASE" : "LOWERCASE";
     }
     this.config.type = PASSWORD_TYPES.CUSTOM;
     return this;
@@ -98,7 +98,7 @@ export class PasswordBuilder {
    */
   includeDigits() {
     if (!this.allowedChars.includes("DIGITS")) {
-      this.allowedChars += (this.allowedChars ? ",DIGITS" : "DIGITS");
+      this.allowedChars += this.allowedChars ? ",DIGITS" : "DIGITS";
     }
     this.config.type = PASSWORD_TYPES.CUSTOM;
     return this;
@@ -110,7 +110,7 @@ export class PasswordBuilder {
    */
   includeSymbols() {
     if (!this.allowedChars.includes("SPECIAL")) {
-      this.allowedChars += (this.allowedChars ? ",SPECIAL" : "SPECIAL");
+      this.allowedChars += this.allowedChars ? ",SPECIAL" : "SPECIAL";
     }
     this.config.type = PASSWORD_TYPES.CUSTOM;
     return this;
@@ -144,7 +144,7 @@ export class PasswordBuilder {
    * @returns {PasswordBuilder} Builder instance for chaining
    */
   include(chars) {
-    this.allowedChars += (this.allowedChars ? "," + chars : chars);
+    this.allowedChars += this.allowedChars ? "," + chars : chars;
     this.config.type = PASSWORD_TYPES.CUSTOM;
     return this;
   }
@@ -315,9 +315,7 @@ export const PasswordPresets = {
    * @returns {PasswordBuilder} Configured builder
    */
   pin(service) {
-    return new PasswordBuilder(service)
-      .includeDigits()
-      .length(6);
+    return new PasswordBuilder(service).includeDigits().length(6);
   },
 
   /**
@@ -326,10 +324,7 @@ export const PasswordPresets = {
    * @returns {PasswordBuilder} Configured builder
    */
   passphrase(service) {
-    return new PasswordBuilder(service)
-      .memorable()
-      .iterations(4)
-      .separator("-");
+    return new PasswordBuilder(service).memorable().iterations(4).separator("-");
   },
 
   /**
@@ -338,8 +333,6 @@ export const PasswordPresets = {
    * @returns {PasswordBuilder} Configured builder
    */
   maxSecurity(service) {
-    return new PasswordBuilder(service)
-      .quantumResistant()
-      .length(64);
-  }
+    return new PasswordBuilder(service).quantumResistant().length(64);
+  },
 };

@@ -62,13 +62,14 @@ export const calculateCustomEntropy = (config) => {
 
     if (config.allowedChars) {
       // This is a simplified calculation - in practice we'd use createCustomCharset
-      if (typeof config.allowedChars === 'string') {
+      if (typeof config.allowedChars === "string") {
         // Remove forbidden chars if specified
         let effectiveChars = config.allowedChars;
         if (config.forbiddenChars) {
-          effectiveChars = effectiveChars.split('').filter(char =>
-            !config.forbiddenChars.includes(char)
-          ).join('');
+          effectiveChars = effectiveChars
+            .split("")
+            .filter((char) => !config.forbiddenChars.includes(char))
+            .join("");
         }
         charsetSize = new Set(effectiveChars).size;
       }
@@ -266,25 +267,25 @@ export const getSecurityLevel = (entropyBits) => {
 export const validateEntropyInputs = (password, type, config) => {
   const errors = [];
 
-  if (typeof password !== 'string') {
+  if (typeof password !== "string") {
     errors.push("Password must be a string");
   }
 
-  if (typeof type !== 'string') {
+  if (typeof type !== "string") {
     errors.push("Type must be a string");
   }
 
-  if (!config || typeof config !== 'object') {
+  if (!config || typeof config !== "object") {
     errors.push("Config must be an object");
   }
 
   // Only check registry if type is a valid string
-  if (typeof type === 'string' && !ENTROPY_CALCULATOR_REGISTRY[type]) {
+  if (typeof type === "string" && !ENTROPY_CALCULATOR_REGISTRY[type]) {
     errors.push(`Unsupported password type: ${type}`);
   }
 
   return {
     isValid: errors.length === 0,
-    errors
+    errors,
   };
 };

@@ -47,18 +47,23 @@ export {
   calculateTemplatePasswordEntropy,
 } from "./custom.js";
 
-export {
-  generateDicewarePassword,
-  calculateDicewarePasswordEntropy,
-} from "./diceware.js";
+export { generateDicewarePassword, calculateDicewarePasswordEntropy } from "./diceware.js";
 
 import { generateStrongPassword, calculateStrongPasswordEntropy } from "./strong.js";
 import { generateBase64Password, calculateBase64PasswordEntropy } from "./base64.js";
 import { generateMemorablePassword, calculateMemorablePasswordEntropy } from "./memorable.js";
 import { generateQuantumPassword, calculateQuantumPasswordEntropy } from "./quantum.js";
 import { generateHoneywordPassword, calculateHoneywordPasswordEntropy } from "./honeyword.js";
-import { generatePronounceablePassword, calculatePronounceablePasswordEntropy } from "./pronounceable.js";
-import { generateCustomPassword, calculateCustomPasswordEntropy, generateTemplatePassword, calculateTemplatePasswordEntropy } from "./custom.js";
+import {
+  generatePronounceablePassword,
+  calculatePronounceablePasswordEntropy,
+} from "./pronounceable.js";
+import {
+  generateCustomPassword,
+  calculateCustomPasswordEntropy,
+  generateTemplatePassword,
+  calculateTemplatePasswordEntropy,
+} from "./custom.js";
 import { generateDicewarePassword, calculateDicewarePasswordEntropy } from "./diceware.js";
 import { PASSWORD_TYPES, isValidPasswordType } from "../domain/password-types.js";
 import { PASSWORD_ERRORS } from "../errors.js";

@@ -69,7 +69,7 @@ export const calculatePronounceablePasswordEntropy = (config) => {
   // Total per syllable: ~13.42 bits
   const consonantEntropy = Math.log2(CONSONANTS.length); // ~4.39 bits
   const vowelEntropy = Math.log2(VOWELS.length); // ~2.32 bits
-  const syllableEntropy = consonantEntropy + (2 * vowelEntropy) + consonantEntropy; // ~13.42 bits
+  const syllableEntropy = consonantEntropy + 2 * vowelEntropy + consonantEntropy; // ~13.42 bits
 
   return iteration * syllableEntropy;
 };

@@ -337,10 +337,10 @@ function analyzeComposition(password) {
 function calculateCrackTime(entropy) {
   // Guesses per second for different attack scenarios
   const guessesPerSecond = {
-    online_throttled: 100, // Online attack with rate limiting
-    online_unthrottled: 10000, // Online attack without rate limiting
-    offline_slow: 10000000, // Offline attack with slow hashing
-    offline_fast: 100000000000, // Offline attack with fast hashing
+    onlineThrottled: 100, // Online attack with rate limiting
+    onlineUnthrottled: 10000, // Online attack without rate limiting
+    offlineSlow: 10000000, // Offline attack with slow hashing
+    offlineFast: 100000000000, // Offline attack with fast hashing
   };
 
   const totalGuesses = Math.pow(2, entropy - 1); // Average case

@@ -35,7 +35,16 @@ export const GENERATION_STRATEGIES = {
 /**
  * Valid password types for user-facing API
  */
-export const VALID_PASSWORD_TYPES = ["strong", "base64", "memorable", "quantum-resistant", "diceware", "honeyword", "pronounceable", "custom"];
+export const VALID_PASSWORD_TYPES = [
+  "strong",
+  "base64",
+  "memorable",
+  "quantum-resistant",
+  "diceware",
+  "honeyword",
+  "pronounceable",
+  "custom",
+];
 
 /**
  * Checks if a password type is valid
@@ -92,7 +101,8 @@ export const PASSWORD_TYPE_METADATA = {
   },
   [PASSWORD_TYPES.DICEWARE]: {
     name: "Diceware Passphrase",
-    description: "Secure passphrases using the EFF large wordlist (7776 words) based on diceware methodology",
+    description:
+      "Secure passphrases using the EFF large wordlist (7776 words) based on diceware methodology",
     minLength: 1,
     maxLength: 20,
     entropyPerUnit: 12.925, // bits per word (log2(7776))
@@ -112,7 +122,8 @@ export const PASSWORD_TYPE_METADATA = {
   },
   [PASSWORD_TYPES.PRONOUNCEABLE]: {
     name: "Pronounceable Password",
-    description: "Easy-to-pronounce passwords using CVVC (consonant-vowel-vowel-consonant) syllable patterns",
+    description:
+      "Easy-to-pronounce passwords using CVVC (consonant-vowel-vowel-consonant) syllable patterns",
     minLength: 1,
     maxLength: 50,
     entropyPerUnit: 13.42, // bits per CVVC syllable (log2(21*5*5*21))
@@ -157,7 +168,12 @@ export const validatePasswordTypeConfig = (type, config) => {
   }
 
   // Validate length for types that require it (skip memorable, diceware, and custom types)
-  if (type !== PASSWORD_TYPES.MEMORABLE && type !== PASSWORD_TYPES.DICEWARE && type !== PASSWORD_TYPES.CUSTOM && length !== undefined) {
+  if (
+    type !== PASSWORD_TYPES.MEMORABLE &&
+    type !== PASSWORD_TYPES.DICEWARE &&
+    type !== PASSWORD_TYPES.CUSTOM &&
+    length !== undefined
+  ) {
     if (!Number.isInteger(length) || length < metadata.minLength) {
       errors.push(`Length must be at least ${metadata.minLength}`);
     }

@@ -42,7 +42,7 @@ export function formatAsJSON(passwordData, options = {}) {
   const output = {
     metadata: {
       count: passwordData.length,
-      generated_at: new Date().toISOString(),
+      generatedAt: new Date().toISOString(),
       format: "json",
     },
     passwords: passwordData,
@@ -95,7 +95,7 @@ export function formatAsYAML(passwordData) {
   const output = {
     metadata: {
       count: passwordData.length,
-      generated_at: new Date().toISOString(),
+      generatedAt: new Date().toISOString(),
       format: "yaml",
     },
     passwords: passwordData,

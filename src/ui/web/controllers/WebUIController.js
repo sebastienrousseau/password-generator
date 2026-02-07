@@ -37,11 +37,14 @@ export class WebUIController {
    */
   constructor(options = {}) {
     // Wire browser adapters to core service
-    this.service = createService({}, {
-      randomGenerator: options.randomGenerator ?? new BrowserCryptoRandom(),
-      storage: options.storage ?? new BrowserStorage(),
-      clock: options.clock ?? new BrowserClock(),
-    });
+    this.service = createService(
+      {},
+      {
+        randomGenerator: options.randomGenerator ?? new BrowserCryptoRandom(),
+        storage: options.storage ?? new BrowserStorage(),
+        clock: options.clock ?? new BrowserClock(),
+      }
+    );
 
     this.stateToCoreMapper = new StateToCoreMapper();
   }
@@ -89,7 +92,7 @@ export class WebUIController {
     const entropyInfo = {
       totalBits: result.entropy,
       securityLevel: result.securityLevel,
-      recommendation: result.metadata?.recommendation || ""
+      recommendation: result.metadata?.recommendation || "",
     };
 
     // Step 5: Transform to view model

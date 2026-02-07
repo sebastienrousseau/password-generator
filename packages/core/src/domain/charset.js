@@ -96,7 +96,7 @@ export const createCustomCharset = (allowedChars, forbiddenChars = "") => {
   let charset = "";
 
   // Parse allowed characters - can be predefined sets or literal characters
-  const allowedSpecs = allowedChars.split(",").map(s => s.trim().toUpperCase());
+  const allowedSpecs = allowedChars.split(",").map((s) => s.trim().toUpperCase());
 
   for (const spec of allowedSpecs) {
     if (CHARACTER_SET_METADATA[spec]) {
@@ -104,7 +104,11 @@ export const createCustomCharset = (allowedChars, forbiddenChars = "") => {
       charset += CHARACTER_SET_METADATA[spec].charset;
     } else {
       // Literal characters
-      charset += allowedChars.split(",").find(s => s.trim().toUpperCase() === spec)?.trim() || "";
+      charset +=
+        allowedChars
+          .split(",")
+          .find((s) => s.trim().toUpperCase() === spec)
+          ?.trim() || "";
     }
   }
 
@@ -116,7 +120,10 @@ export const createCustomCharset = (allowedChars, forbiddenChars = "") => {
   // Remove forbidden characters
   if (forbiddenChars) {
     const forbiddenSet = new Set(forbiddenChars);
-    charset = charset.split("").filter(char => !forbiddenSet.has(char)).join("");
+    charset = charset
+      .split("")
+      .filter((char) => !forbiddenSet.has(char))
+      .join("");
   }
 
   // Remove duplicates while preserving order
@@ -124,7 +131,9 @@ export const createCustomCharset = (allowedChars, forbiddenChars = "") => {
   const finalCharset = uniqueChars.join("");
 
   if (finalCharset.length === 0) {
-    throw new Error("Custom character set cannot be empty after applying forbidden character filter");
+    throw new Error(
+      "Custom character set cannot be empty after applying forbidden character filter"
+    );
   }
 
   return {

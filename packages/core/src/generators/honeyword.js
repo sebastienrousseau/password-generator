@@ -28,7 +28,9 @@ export const generateHoneywordSet = async (config, randomGenerator) => {
   validatePositiveInteger(iteration, "iteration");
 
   if (iteration < 2) {
-    throw new Error("Honeyword generation requires at least 2 passwords (1 real + 1 decoy minimum)");
+    throw new Error(
+      "Honeyword generation requires at least 2 passwords (1 real + 1 decoy minimum)"
+    );
   }
 
   // Generate all passwords using strong password generation
