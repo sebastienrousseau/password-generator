@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Generate strong, unique passwords with customizable options. Open-source password generator with enterprise-grade security.">
+  <meta name="theme-color" content="#FF6B9D">
+  <title>Password Generator</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles/tokens.css">
+  <link rel="stylesheet" href="styles/base.css">
+  <link rel="stylesheet" href="styles/components.css">
+  <link rel="stylesheet" href="styles/utilities.css">
+</head>
+<body>
+  <!-- Skip to main content (accessibility) -->
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <!-- Theme Toggle -->
+  <div class="theme-toggle">
+    <button
+      type="button"
+      class="theme-toggle__btn"
+      id="theme-toggle"
+      aria-label="Toggle dark/light theme"
+    >
+      <span class="theme-toggle__icon" aria-hidden="true">🌙</span>
+    </button>
+  </div>
+
+  <main id="main" class="container">
+    <!-- Header -->
+    <header class="header">
+      <h1 class="header__logo">Password Generator</h1>
+      <p class="header__tagline">Strong, unique passwords in seconds</p>
+    </header>
+
+    <!-- Main Card -->
+    <div class="card card--elevated">
+      <!-- Presets -->
+      <div class="presets" role="group" aria-label="Quick presets">
+        <button type="button" class="preset-btn" data-preset="quick">
+          <div class="preset-btn__name">Quick</div>
+          <div class="preset-btn__desc">Fast &amp; simple</div>
+        </button>
+        <button type="button" class="preset-btn" data-preset="secure">
+          <div class="preset-btn__name">Secure</div>
+          <div class="preset-btn__desc">Maximum protection</div>
+        </button>
+        <button type="button" class="preset-btn" data-preset="memorable">
+          <div class="preset-btn__name">Memorable</div>
+          <div class="preset-btn__desc">Easy to remember</div>
+        </button>
+      </div>
+
+      <!-- Password Form -->
+      <form id="password-form" novalidate>
+        <!-- Password Type -->
+        <div class="form-group">
+          <label class="form-label" id="type-label">Password Type</label>
+          <div class="select-group" role="radiogroup" aria-labelledby="type-label">
+            <div class="select-option">
+              <input type="radio" name="type" value="strong" id="type-strong" class="select-option__input" checked>
+              <label for="type-strong" class="select-option__label">Strong</label>
+            </div>
+            <div class="select-option">
+              <input type="radio" name="type" value="base64" id="type-base64" class="select-option__input">
+              <label for="type-base64" class="select-option__label">Base64</label>
+            </div>
+            <div class="select-option">
+              <input type="radio" name="type" value="memorable" id="type-memorable" class="select-option__input">
+              <label for="type-memorable" class="select-option__label">Memorable</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Length (for strong/base64) -->
+        <div class="form-group" id="length-group">
+          <label for="length" class="form-label">Length per chunk</label>
+          <input
+            type="number"
+            id="length"
+            name="length"
+            class="form-input"
+            value="16"
+            min="1"
+            max="256"
+            aria-describedby="length-hint"
+          >
+          <div id="length-hint" class="form-hint">Characters per password segment</div>
+          <div id="length-error" class="form-error hidden" role="alert"></div>
+        </div>
+
+        <!-- Iterations -->
+        <div class="form-group">
+          <label for="iteration" class="form-label" id="iteration-label">
+            <span id="iteration-label-text">Chunks</span>
+          </label>
+          <input
+            type="number"
+            id="iteration"
+            name="iteration"
+            class="form-input"
+            value="4"
+            min="1"
+            max="20"
+            aria-describedby="iteration-hint"
+          >
+          <div id="iteration-hint" class="form-hint">Number of segments to generate</div>
+          <div id="iteration-error" class="form-error hidden" role="alert"></div>
+        </div>
+
+        <!-- Separator -->
+        <div class="form-group">
+          <label for="separator" class="form-label">Separator</label>
+          <input
+            type="text"
+            id="separator"
+            name="separator"
+            class="form-input"
+            value="-"
+            maxlength="5"
+            aria-describedby="separator-hint"
+          >
+          <div id="separator-hint" class="form-hint">Character(s) between segments</div>
+        </div>
+
+        <!-- Generate Button -->
+        <button type="submit" class="btn btn--primary btn--block btn--lg" id="generate-btn">
+          <span id="generate-text">Generate Password</span>
+          <span id="generate-loading" class="loading hidden">
+            <span class="loading__spinner" aria-hidden="true"></span>
+            Generating...
+          </span>
+        </button>
+      </form>
+
+      <!-- Password Display -->
+      <div class="password-display" id="password-display">
+        <div class="password-display__value" id="password-value" aria-live="polite">
+          <span class="password-display__placeholder">Your password will appear here</span>
+        </div>
+
+        <!-- Strength Indicator -->
+        <div class="strength hidden" id="strength-indicator" role="status" aria-label="Password strength">
+          <div class="strength__dots">
+            <span class="strength__dot" data-dot="1"></span>
+            <span class="strength__dot" data-dot="2"></span>
+            <span class="strength__dot" data-dot="3"></span>
+            <span class="strength__dot" data-dot="4"></span>
+          </div>
+          <span class="strength__label" id="strength-label"></span>
+          <span class="strength__bits" id="strength-bits"></span>
+        </div>
+
+        <!-- Actions -->
+        <div class="password-display__actions hidden" id="password-actions">
+          <button type="button" class="btn btn--secondary btn--sm" id="copy-btn">
+            <span aria-hidden="true">📋</span> Copy
+          </button>
+          <button type="button" class="btn btn--ghost btn--sm" id="toggle-visibility-btn">
+            <span aria-hidden="true">👁️</span> <span id="visibility-text">Hide</span>
+          </button>
+          <button type="button" class="btn btn--ghost btn--sm" id="regenerate-btn">
+            <span aria-hidden="true">🔄</span> Regenerate
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p class="footer__text">
+        Open source &middot;
+        <a href="https://github.com/sebastienrousseau/password-generator" class="footer__link" target="_blank" rel="noopener">
+          View on GitHub
+        </a>
+      </p>
+    </footer>
+  </main>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- No JavaScript Fallback -->
+  <noscript>
+    <style>
+      .card { display: none; }
+    </style>
+    <div class="container">
+      <div class="card">
+        <h2>JavaScript Required</h2>
+        <p>This password generator requires JavaScript to function. Please enable JavaScript in your browser settings.</p>
+        <p>Alternatively, use the CLI version:</p>
+        <pre><code>npx @sebastienrousseau/password-generator -p quick</code></pre>
+      </div>
+    </div>
+  </noscript>
+
+  <!-- Scripts -->
+  <script type="module" src="scripts/main.js"></script>
+</body>
+</html>

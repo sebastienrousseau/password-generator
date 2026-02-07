@@ -164,7 +164,11 @@
         "test": "npm run clean && c8 mocha",
         "verify:core": "npm run verify:core:sh && npm run verify:core:js && npm run lint:core",
         "verify:core:sh": "./scripts/verify-core-isolation.sh",
-        "verify:core:js": "node scripts/verify-core-deps.js"
+        "verify:core:js": "node scripts/verify-core-deps.js",
+        "test:core": "c8 mocha 'packages/core/test/**/*.test.js'",
+        "test:parity": "mocha 'packages/core/test/parity/**/*.test.js'",
+        "check:core-isolation": "npm run verify:core",
+        "benchmark": "node benchmarks/password-generation.bench.js && node benchmarks/entropy-calculation.bench.js"
     },
     "type": "module",
     "version": "1.1.4"
