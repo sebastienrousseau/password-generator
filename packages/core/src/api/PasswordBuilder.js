@@ -8,8 +8,8 @@
  * @module PasswordBuilder
  */
 
-import { createCustomCharset } from "../domain/charset.js";
-import { PASSWORD_TYPES } from "../domain/password-types.js";
+import { createCustomCharset } from '../domain/charset.js';
+import { PASSWORD_TYPES } from '../domain/password-types.js';
 
 /**
  * Fluent builder for creating passwords with method chaining.
@@ -22,10 +22,10 @@ export class PasswordBuilder {
       type: PASSWORD_TYPES.STRONG, // Default to strong passwords
       length: 16,
       iteration: 1,
-      separator: "-",
+      separator: '-',
     };
-    this.allowedChars = "";
-    this.forbiddenChars = "";
+    this.allowedChars = '';
+    this.forbiddenChars = '';
   }
 
   /**
@@ -73,8 +73,8 @@ export class PasswordBuilder {
    * @returns {PasswordBuilder} Builder instance for chaining
    */
   includeUppercase() {
-    if (!this.allowedChars.includes("UPPERCASE")) {
-      this.allowedChars += this.allowedChars ? ",UPPERCASE" : "UPPERCASE";
+    if (!this.allowedChars.includes('UPPERCASE')) {
+      this.allowedChars += this.allowedChars ? ',UPPERCASE' : 'UPPERCASE';
     }
     this.config.type = PASSWORD_TYPES.CUSTOM;
     return this;
@@ -85,8 +85,8 @@ export class PasswordBuilder {
    * @returns {PasswordBuilder} Builder instance for chaining
    */
   includeLowercase() {
-    if (!this.allowedChars.includes("LOWERCASE")) {
-      this.allowedChars += this.allowedChars ? ",LOWERCASE" : "LOWERCASE";
+    if (!this.allowedChars.includes('LOWERCASE')) {
+      this.allowedChars += this.allowedChars ? ',LOWERCASE' : 'LOWERCASE';
     }
     this.config.type = PASSWORD_TYPES.CUSTOM;
     return this;
@@ -97,8 +97,8 @@ export class PasswordBuilder {
    * @returns {PasswordBuilder} Builder instance for chaining
    */
   includeDigits() {
-    if (!this.allowedChars.includes("DIGITS")) {
-      this.allowedChars += this.allowedChars ? ",DIGITS" : "DIGITS";
+    if (!this.allowedChars.includes('DIGITS')) {
+      this.allowedChars += this.allowedChars ? ',DIGITS' : 'DIGITS';
     }
     this.config.type = PASSWORD_TYPES.CUSTOM;
     return this;
@@ -109,8 +109,8 @@ export class PasswordBuilder {
    * @returns {PasswordBuilder} Builder instance for chaining
    */
   includeSymbols() {
-    if (!this.allowedChars.includes("SPECIAL")) {
-      this.allowedChars += this.allowedChars ? ",SPECIAL" : "SPECIAL";
+    if (!this.allowedChars.includes('SPECIAL')) {
+      this.allowedChars += this.allowedChars ? ',SPECIAL' : 'SPECIAL';
     }
     this.config.type = PASSWORD_TYPES.CUSTOM;
     return this;
@@ -144,7 +144,7 @@ export class PasswordBuilder {
    * @returns {PasswordBuilder} Builder instance for chaining
    */
   include(chars) {
-    this.allowedChars += this.allowedChars ? "," + chars : chars;
+    this.allowedChars += this.allowedChars ? ',' + chars : chars;
     this.config.type = PASSWORD_TYPES.CUSTOM;
     return this;
   }
@@ -205,7 +205,7 @@ export class PasswordBuilder {
     if (finalConfig.type === PASSWORD_TYPES.CUSTOM && (this.allowedChars || this.forbiddenChars)) {
       try {
         const charsetMeta = createCustomCharset(
-          this.allowedChars || "UPPERCASE,LOWERCASE,DIGITS,SPECIAL",
+          this.allowedChars || 'UPPERCASE,LOWERCASE,DIGITS,SPECIAL',
           this.forbiddenChars
         );
         finalConfig.charset = charsetMeta.charset;
@@ -309,7 +309,7 @@ export const PasswordPresets = {
   },
   /** Passphrase with multiple words */
   passphrase(service) {
-    return new PasswordBuilder(service).memorable().iterations(4).separator("-");
+    return new PasswordBuilder(service).memorable().iterations(4).separator('-');
   },
   /** Maximum security quantum-resistant password */
   maxSecurity(service) {

@@ -37,114 +37,114 @@ const COMMON_PATTERNS = {
  * Common weak passwords and patterns
  */
 const COMMON_PASSWORDS = new Set([
-  "password",
-  "password1",
-  "password123",
-  "123456",
-  "123456789",
-  "qwerty",
-  "abc123",
-  "Password1",
-  "welcome",
-  "admin",
-  "letmein",
-  "monkey",
-  "dragon",
-  "master",
-  "hello",
-  "freedom",
-  "whatever",
-  "qazwsx",
-  "trustno1",
-  "jordan",
-  "iloveyou",
-  "princess",
-  "starwars",
-  "shadow",
-  "superman",
-  "sunshine",
-  "michael",
-  "computer",
-  "football",
-  "pepper",
-  "mustang",
-  "charlie",
+  'password',
+  'password1',
+  'password123',
+  '123456',
+  '123456789',
+  'qwerty',
+  'abc123',
+  'Password1',
+  'welcome',
+  'admin',
+  'letmein',
+  'monkey',
+  'dragon',
+  'master',
+  'hello',
+  'freedom',
+  'whatever',
+  'qazwsx',
+  'trustno1',
+  'jordan',
+  'iloveyou',
+  'princess',
+  'starwars',
+  'shadow',
+  'superman',
+  'sunshine',
+  'michael',
+  'computer',
+  'football',
+  'pepper',
+  'mustang',
+  'charlie',
 ]);
 
 /**
  * Common dictionary words (subset for demonstration)
  */
 const COMMON_DICTIONARY = new Set([
-  "the",
-  "and",
-  "for",
-  "are",
-  "but",
-  "not",
-  "you",
-  "all",
-  "can",
-  "had",
-  "her",
-  "was",
-  "one",
-  "our",
-  "out",
-  "day",
-  "get",
-  "has",
-  "him",
-  "his",
-  "how",
-  "man",
-  "new",
-  "now",
-  "old",
-  "see",
-  "two",
-  "way",
-  "who",
-  "boy",
-  "did",
-  "its",
-  "let",
-  "put",
-  "say",
-  "she",
-  "too",
-  "use",
-  "love",
-  "time",
-  "very",
-  "when",
-  "come",
-  "here",
-  "just",
-  "like",
-  "long",
-  "make",
-  "many",
-  "over",
-  "such",
-  "take",
-  "than",
-  "them",
-  "well",
-  "were",
-  "what",
-  "year",
-  "your",
-  "work",
-  "life",
-  "only",
-  "think",
-  "first",
-  "after",
-  "back",
-  "other",
-  "good",
-  "want",
-  "give",
+  'the',
+  'and',
+  'for',
+  'are',
+  'but',
+  'not',
+  'you',
+  'all',
+  'can',
+  'had',
+  'her',
+  'was',
+  'one',
+  'our',
+  'out',
+  'day',
+  'get',
+  'has',
+  'him',
+  'his',
+  'how',
+  'man',
+  'new',
+  'now',
+  'old',
+  'see',
+  'two',
+  'way',
+  'who',
+  'boy',
+  'did',
+  'its',
+  'let',
+  'put',
+  'say',
+  'she',
+  'too',
+  'use',
+  'love',
+  'time',
+  'very',
+  'when',
+  'come',
+  'here',
+  'just',
+  'like',
+  'long',
+  'make',
+  'many',
+  'over',
+  'such',
+  'take',
+  'than',
+  'them',
+  'well',
+  'were',
+  'what',
+  'year',
+  'your',
+  'work',
+  'life',
+  'only',
+  'think',
+  'first',
+  'after',
+  'back',
+  'other',
+  'good',
+  'want',
+  'give',
 ]);
 
 /**
@@ -159,20 +159,20 @@ function detectPatterns(password) {
   let matches = password.match(COMMON_PATTERNS.sequence);
   if (matches) {
     patterns.push({
-      pattern: "sequence",
+      pattern: 'sequence',
       matches: matches,
       score: 0.1,
-      description: "Contains alphabetic or numeric sequences",
+      description: 'Contains alphabetic or numeric sequences',
     });
   }
 
   matches = password.match(COMMON_PATTERNS.reverseSequence);
   if (matches) {
     patterns.push({
-      pattern: "reverse_sequence",
+      pattern: 'reverse_sequence',
       matches: matches,
       score: 0.1,
-      description: "Contains reverse sequences",
+      description: 'Contains reverse sequences',
     });
   }
 
@@ -180,20 +180,20 @@ function detectPatterns(password) {
   matches = password.match(COMMON_PATTERNS.qwertyRow);
   if (matches) {
     patterns.push({
-      pattern: "keyboard_row",
+      pattern: 'keyboard_row',
       matches: matches,
       score: 0.15,
-      description: "Contains keyboard row patterns",
+      description: 'Contains keyboard row patterns',
     });
   }
 
   matches = password.match(COMMON_PATTERNS.qwertyCol);
   if (matches) {
     patterns.push({
-      pattern: "keyboard_column",
+      pattern: 'keyboard_column',
       matches: matches,
       score: 0.15,
-      description: "Contains keyboard column patterns",
+      description: 'Contains keyboard column patterns',
     });
   }
 
@@ -201,20 +201,20 @@ function detectPatterns(password) {
   matches = password.match(COMMON_PATTERNS.repeated);
   if (matches) {
     patterns.push({
-      pattern: "repetition",
+      pattern: 'repetition',
       matches: matches,
       score: 0.2,
-      description: "Contains character repetition",
+      description: 'Contains character repetition',
     });
   }
 
   matches = password.match(COMMON_PATTERNS.alternating);
   if (matches) {
     patterns.push({
-      pattern: "alternating",
+      pattern: 'alternating',
       matches: matches,
       score: 0.3,
-      description: "Contains alternating patterns",
+      description: 'Contains alternating patterns',
     });
   }
 
@@ -222,10 +222,10 @@ function detectPatterns(password) {
   matches = password.match(COMMON_PATTERNS.leetSpeak);
   if (matches) {
     patterns.push({
-      pattern: "leet_speak",
+      pattern: 'leet_speak',
       matches: matches,
       score: 0.5,
-      description: "Uses common character substitutions",
+      description: 'Uses common character substitutions',
     });
   }
 
@@ -244,10 +244,10 @@ function checkDictionaries(password) {
   // Check against common passwords
   if (COMMON_PASSWORDS.has(lowerPassword)) {
     matches.push({
-      dictionary: "common_passwords",
+      dictionary: 'common_passwords',
       word: password,
       score: 0.0,
-      description: "Found in common passwords list",
+      description: 'Found in common passwords list',
     });
   }
 
@@ -270,7 +270,7 @@ function checkDictionaries(password) {
 
   for (const word of foundWords) {
     matches.push({
-      dictionary: "english_words",
+      dictionary: 'english_words',
       word: word,
       score: 0.3,
       description: `Contains dictionary word: ${word}`,
@@ -279,10 +279,10 @@ function checkDictionaries(password) {
 
   // Check for reversed dictionary words
   for (const word of words) {
-    const reversed = word.split("").reverse().join("");
+    const reversed = word.split('').reverse().join('');
     if (reversed.length > 3 && COMMON_DICTIONARY.has(reversed)) {
       matches.push({
-        dictionary: "reversed_words",
+        dictionary: 'reversed_words',
         word: word,
         score: 0.2,
         description: `Contains reversed dictionary word: ${reversed}`,
@@ -375,7 +375,7 @@ function formatTime(seconds) {
   if (seconds < 31536000 * 100) {
     return `${Math.round(seconds / 31536000)} years`;
   }
-  return "centuries";
+  return 'centuries';
 }
 
 /**
@@ -395,59 +395,59 @@ function generateFeedback(score, patterns, dictionaries, composition) {
 
   // Length recommendations
   if (composition.length < 8) {
-    feedback.suggestions.push("Use at least 8 characters");
+    feedback.suggestions.push('Use at least 8 characters');
   } else if (composition.length < 12) {
-    feedback.suggestions.push("Consider using 12 or more characters for better security");
+    feedback.suggestions.push('Consider using 12 or more characters for better security');
   }
 
   // Character set recommendations
   if (!composition.hasLowercase) {
-    feedback.suggestions.push("Add lowercase letters");
+    feedback.suggestions.push('Add lowercase letters');
   }
   if (!composition.hasUppercase) {
-    feedback.suggestions.push("Add uppercase letters");
+    feedback.suggestions.push('Add uppercase letters');
   }
   if (!composition.hasNumbers) {
-    feedback.suggestions.push("Add numbers");
+    feedback.suggestions.push('Add numbers');
   }
   if (!composition.hasSymbols) {
-    feedback.suggestions.push("Add symbols");
+    feedback.suggestions.push('Add symbols');
   }
 
   // Pattern-specific feedback
-  if (patterns.some((p) => p.pattern === "sequence" || p.pattern === "reverse_sequence")) {
-    feedback.suggestions.push("Avoid sequences (e.g., abc, 123)");
+  if (patterns.some((p) => p.pattern === 'sequence' || p.pattern === 'reverse_sequence')) {
+    feedback.suggestions.push('Avoid sequences (e.g., abc, 123)');
   }
 
-  if (patterns.some((p) => p.pattern.includes("keyboard"))) {
-    feedback.suggestions.push("Avoid keyboard patterns (e.g., qwerty, asdf)");
+  if (patterns.some((p) => p.pattern.includes('keyboard'))) {
+    feedback.suggestions.push('Avoid keyboard patterns (e.g., qwerty, asdf)');
   }
 
-  if (patterns.some((p) => p.pattern === "repetition")) {
-    feedback.suggestions.push("Avoid repeated characters (e.g., aaa, 111)");
+  if (patterns.some((p) => p.pattern === 'repetition')) {
+    feedback.suggestions.push('Avoid repeated characters (e.g., aaa, 111)');
   }
 
-  if (patterns.some((p) => p.pattern === "leet_speak")) {
-    feedback.suggestions.push("Predictable substitutions like @ for a are easy to guess");
+  if (patterns.some((p) => p.pattern === 'leet_speak')) {
+    feedback.suggestions.push('Predictable substitutions like @ for a are easy to guess');
   }
 
   // Dictionary-specific feedback
-  if (dictionaries.some((d) => d.dictionary === "common_passwords")) {
-    feedback.warning = "This is a very common password";
-    feedback.suggestions.push("Avoid common passwords");
+  if (dictionaries.some((d) => d.dictionary === 'common_passwords')) {
+    feedback.warning = 'This is a very common password';
+    feedback.suggestions.push('Avoid common passwords');
   }
 
-  if (dictionaries.some((d) => d.dictionary === "english_words")) {
-    feedback.suggestions.push("Avoid dictionary words");
+  if (dictionaries.some((d) => d.dictionary === 'english_words')) {
+    feedback.suggestions.push('Avoid dictionary words');
   }
 
   // Overall recommendations
   if (score <= 1) {
-    feedback.recommendations.push("Consider using a password manager");
-    feedback.recommendations.push("Use a passphrase with multiple random words");
+    feedback.recommendations.push('Consider using a password manager');
+    feedback.recommendations.push('Use a passphrase with multiple random words');
   } else if (score <= 2) {
-    feedback.recommendations.push("Consider adding more complexity");
-    feedback.recommendations.push("Avoid predictable patterns");
+    feedback.recommendations.push('Consider adding more complexity');
+    feedback.recommendations.push('Avoid predictable patterns');
   }
 
   return feedback;
@@ -459,14 +459,14 @@ function generateFeedback(score, patterns, dictionaries, composition) {
  * @returns {Object} Complete strength analysis
  */
 export function analyzePasswordStrength(password) {
-  if (!password || typeof password !== "string") {
+  if (!password || typeof password !== 'string') {
     return {
       score: 0,
       entropy: 0,
       crackTime: null,
       feedback: {
-        warning: "Password is required",
-        suggestions: ["Enter a password"],
+        warning: 'Password is required',
+        suggestions: ['Enter a password'],
         recommendations: [],
       },
       patterns: [],
@@ -487,7 +487,7 @@ export function analyzePasswordStrength(password) {
   let finalScore = baseScore;
 
   // Heavy penalties for dictionary matches
-  if (dictionaries.some((d) => d.dictionary === "common_passwords")) {
+  if (dictionaries.some((d) => d.dictionary === 'common_passwords')) {
     finalScore = 0;
   } else if (dictionaries.length > 0) {
     finalScore = Math.max(0, finalScore - 2);
@@ -505,7 +505,7 @@ export function analyzePasswordStrength(password) {
 
   // Calculate effective entropy (reduced by patterns and dictionary matches)
   let effectiveEntropy = composition.entropy;
-  if (dictionaries.some((d) => d.dictionary === "common_passwords")) {
+  if (dictionaries.some((d) => d.dictionary === 'common_passwords')) {
     effectiveEntropy = 1; // Extremely weak
   } else {
     const reductionFactor = Math.min(0.8, patternPenalty * 0.2 + dictionaries.length * 0.1);
@@ -532,7 +532,7 @@ export function analyzePasswordStrength(password) {
       reductionFactors: {
         patterns: patterns.length,
         dictionaries: dictionaries.length,
-        commonPassword: dictionaries.some((d) => d.dictionary === "common_passwords"),
+        commonPassword: dictionaries.some((d) => d.dictionary === 'common_passwords'),
       },
     },
   };
@@ -544,8 +544,8 @@ export function analyzePasswordStrength(password) {
  * @returns {string} Strength label
  */
 export function getStrengthLabel(score) {
-  const labels = ["Very Weak", "Weak", "Fair", "Good", "Strong"];
-  return labels[score] || "Unknown";
+  const labels = ['Very Weak', 'Weak', 'Fair', 'Good', 'Strong'];
+  return labels[score] || 'Unknown';
 }
 
 /**
@@ -555,13 +555,13 @@ export function getStrengthLabel(score) {
  */
 export function getStrengthColor(score) {
   const colors = [
-    "#d73502", // Very Weak - Red
-    "#f56500", // Weak - Orange-Red
-    "#f7a800", // Fair - Orange
-    "#8bc34a", // Good - Light Green
-    "#4caf50", // Strong - Green
+    '#d73502', // Very Weak - Red
+    '#f56500', // Weak - Orange-Red
+    '#f7a800', // Fair - Orange
+    '#8bc34a', // Good - Light Green
+    '#4caf50', // Strong - Green
   ];
-  return colors[score] || "#666";
+  return colors[score] || '#666';
 }
 
 /**

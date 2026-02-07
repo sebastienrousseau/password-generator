@@ -44,10 +44,7 @@ describe('PasswordGenerator', function () {
   });
 
   it('should throw an error when type is missing', async function () {
-    await assert.rejects(
-      () => PasswordGenerator({}),
-      { message: 'Password type is required' }
-    );
+    await assert.rejects(() => PasswordGenerator({}), { message: 'Password type is required' });
   });
 
   it('should throw an error for an unknown type', async function () {
@@ -208,7 +205,7 @@ describe('CLI Integration', function () {
   });
 
   it('should allow preset override with custom type', function (done) {
-    exec("node index.js -p quick -t base64", (error, stdout, stderr) => {
+    exec('node index.js -p quick -t base64', (error, stdout, stderr) => {
       expect(error).to.be.null;
       expect(stdout).to.include('password generator');
       done();
@@ -216,7 +213,7 @@ describe('CLI Integration', function () {
   });
 
   it('should allow preset override with custom iteration', function (done) {
-    exec("node index.js -p quick -i 5", (error, stdout, stderr) => {
+    exec('node index.js -p quick -i 5', (error, stdout, stderr) => {
       expect(error).to.be.null;
       expect(stdout).to.include('password generator');
       done();
@@ -224,7 +221,7 @@ describe('CLI Integration', function () {
   });
 
   it('should allow preset override with custom length', function (done) {
-    exec("node index.js -p quick -l 20", (error, stdout, stderr) => {
+    exec('node index.js -p quick -l 20', (error, stdout, stderr) => {
       expect(error).to.be.null;
       expect(stdout).to.include('password generator');
       done();
@@ -270,7 +267,7 @@ describe('CLI Integration', function () {
   });
 
   it('should exit with error for invalid type with preset override', function (done) {
-    exec("node index.js -p quick -t invalid", (error, stdout, stderr) => {
+    exec('node index.js -p quick -t invalid', (error, stdout, stderr) => {
       expect(error).to.not.be.null;
       expect(stderr).to.include('Unknown password type');
       done();
@@ -278,7 +275,7 @@ describe('CLI Integration', function () {
   });
 
   it('should show learn with preset override iteration', function (done) {
-    exec("node index.js -p quick -i 5 --learn", (error, stdout, stderr) => {
+    exec('node index.js -p quick -i 5 --learn', (error, stdout, stderr) => {
       expect(error).to.be.null;
       expect(stdout).to.include('command');
       expect(stdout).to.include('-i 5');
@@ -296,7 +293,7 @@ describe('CLI Integration', function () {
   });
 
   it('should show learn with preset override type', function (done) {
-    exec("node index.js -p quick -t base64 --learn", (error, stdout, stderr) => {
+    exec('node index.js -p quick -t base64 --learn', (error, stdout, stderr) => {
       expect(error).to.be.null;
       expect(stdout).to.include('command');
       expect(stdout).to.include('-t base64');
@@ -305,7 +302,7 @@ describe('CLI Integration', function () {
   });
 
   it('should show learn with preset override length', function (done) {
-    exec("node index.js -p quick -l 20 --learn", (error, stdout, stderr) => {
+    exec('node index.js -p quick -l 20 --learn', (error, stdout, stderr) => {
       expect(error).to.be.null;
       expect(stdout).to.include('command');
       expect(stdout).to.include('-l 20');

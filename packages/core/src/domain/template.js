@@ -8,16 +8,16 @@
  * @module template
  */
 
-import { CHARACTER_SET_METADATA, createCustomCharset } from "./charset.js";
+import { CHARACTER_SET_METADATA, createCustomCharset } from './charset.js';
 
 /**
  * Template token types for parsing
  */
 export const TOKEN_TYPES = {
-  LITERAL: "literal",
-  CHARACTER_SET: "character_set",
-  CUSTOM_SET: "custom_set",
-  QUANTITY: "quantity",
+  LITERAL: 'literal',
+  CHARACTER_SET: 'character_set',
+  CUSTOM_SET: 'custom_set',
+  QUANTITY: 'quantity',
 };
 
 /**
@@ -28,15 +28,15 @@ export const TOKEN_TYPES = {
  * @throws {Error} If template syntax is invalid
  */
 export const parseTemplate = (template) => {
-  if (!template || typeof template !== "string") {
-    throw new Error("Template must be a non-empty string");
+  if (!template || typeof template !== 'string') {
+    throw new Error('Template must be a non-empty string');
   }
 
   const instructions = [];
   let i = 0;
 
   while (i < template.length) {
-    if (template[i] === "[") {
+    if (template[i] === '[') {
       // Parse character set definition
       const { instruction, nextIndex } = parseCharacterSetInstruction(template, i);
       instructions.push(instruction);
@@ -50,7 +50,7 @@ export const parseTemplate = (template) => {
   }
 
   if (instructions.length === 0) {
-    throw new Error("Template cannot be empty");
+    throw new Error('Template cannot be empty');
   }
 
   return instructions;
@@ -64,7 +64,7 @@ export const parseTemplate = (template) => {
  * @returns {Object} Parsed instruction and next index
  */
 const parseCharacterSetInstruction = (template, startIndex) => {
-  const closeBracket = template.indexOf("]", startIndex);
+  const closeBracket = template.indexOf(']', startIndex);
   if (closeBracket === -1) {
     throw new Error(`Unmatched '[' at position ${startIndex}`);
   }
@@ -78,7 +78,7 @@ const parseCharacterSetInstruction = (template, startIndex) => {
   let nextIndex = closeBracket + 1;
   let quantity = 1;
 
-  if (nextIndex < template.length && template[nextIndex] === "{") {
+  if (nextIndex < template.length && template[nextIndex] === '{') {
     const { parsedQuantity, endIndex } = parseQuantity(template, nextIndex);
     quantity = parsedQuantity;
     nextIndex = endIndex;
@@ -110,7 +110,7 @@ const parseLiteralInstruction = (template, startIndex) => {
   let endIndex = startIndex;
 
   // Find the end of literal characters (stop at '[' or end of string)
-  while (endIndex < template.length && template[endIndex] !== "[") {
+  while (endIndex < template.length && template[endIndex] !== '[') {
     endIndex++;
   }
 
@@ -139,7 +139,7 @@ const parseLiteralInstruction = (template, startIndex) => {
  * @returns {Object} Parsed quantity and next index
  */
 const parseQuantity = (template, startIndex) => {
-  const closeBrace = template.indexOf("}", startIndex);
+  const closeBrace = template.indexOf('}', startIndex);
   if (closeBrace === -1) {
     throw new Error(`Unmatched '{' at position ${startIndex}`);
   }
@@ -150,7 +150,7 @@ const parseQuantity = (template, startIndex) => {
   }
 
   // Handle range quantities like {1,5} (future enhancement)
-  if (quantityDef.includes(",")) {
+  if (quantityDef.includes(',')) {
     throw new Error(`Range quantities not yet supported: {${quantityDef}}`);
   }
 
@@ -185,10 +185,10 @@ const resolveCharacterSet = (charSetDef) => {
 
   // Handle common aliases
   const aliases = {
-    ALPHA: "UPPERCASE,LOWERCASE",
-    ALPHANUMERIC: "UPPERCASE,LOWERCASE,DIGITS",
-    HEX: "HEX_UPPERCASE",
-    HEXADECIMAL: "HEX_UPPERCASE",
+    ALPHA: 'UPPERCASE,LOWERCASE',
+    ALPHANUMERIC: 'UPPERCASE,LOWERCASE,DIGITS',
+    HEX: 'HEX_UPPERCASE',
+    HEXADECIMAL: 'HEX_UPPERCASE',
   };
 
   if (aliases[upperDef]) {
@@ -208,7 +208,7 @@ const resolveCharacterSet = (charSetDef) => {
       );
     }
 
-    let rangeChars = "";
+    let rangeChars = '';
     for (let code = startCode; code <= endCode; code++) {
       rangeChars += String.fromCharCode(code);
     }
@@ -224,7 +224,7 @@ const resolveCharacterSet = (charSetDef) => {
   // Handle literal character set
   if (charSetDef.length > 0) {
     const uniqueChars = [...new Set(charSetDef)];
-    const charset = uniqueChars.join("");
+    const charset = uniqueChars.join('');
 
     return {
       charset,
@@ -265,7 +265,7 @@ export const validateTemplate = (template) => {
 
     // Security validations
     if (!hasRandomContent) {
-      errors.push("Template must contain at least one random character set [...]");
+      errors.push('Template must contain at least one random character set [...]');
     }
 
     if (totalLength > 1000) {

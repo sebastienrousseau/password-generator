@@ -13,10 +13,10 @@
  * @module ui/theme
  */
 
-import chalk from "chalk";
-import { createRequire } from "module";
-import { capabilities, ColorDepth } from "./capabilities.js";
-import { strengthLabels } from "./tokens.js";
+import chalk from 'chalk';
+import { createRequire } from 'module';
+import { capabilities, ColorDepth } from './capabilities.js';
+import { strengthLabels } from './tokens.js';
 import {
   statusIcons,
   navigationIcons,
@@ -24,11 +24,11 @@ import {
   progressIcons,
   strengthIcons,
   getIcon,
-} from "./icons.js";
+} from './icons.js';
 
 // Get version from package.json
 const require = createRequire(import.meta.url);
-const { version } = require("../../package.json");
+const { version } = require('../../package.json');
 
 // Get terminal capabilities
 const caps = capabilities();
@@ -42,10 +42,10 @@ const caps = capabilities();
  */
 export const brand = {
   mini: () =>
-    `  ✦ ${chalk.hex("#FF6B9D")("password")} ${chalk.hex("#9D4EDD")("generator")} ${chalk.hex(
-      "#4B5563"
+    `  ✦ ${chalk.hex('#FF6B9D')('password')} ${chalk.hex('#9D4EDD')('generator')} ${chalk.hex(
+      '#4B5563'
     )(`v${version}`)}`,
-  inline: () => chalk.hex("#FF6B9D")("✦") + " " + chalk.hex("#9D4EDD")("pwgen"),
+  inline: () => chalk.hex('#FF6B9D')('✦') + ' ' + chalk.hex('#9D4EDD')('pwgen'),
   version: () => version,
 };
 
@@ -55,21 +55,21 @@ export const brand = {
 
 const palette = {
   // Primary gradient (pink to purple)
-  pink: "#FF6B9D",
-  hotPink: "#FF4785",
-  purple: "#9D4EDD",
-  violet: "#7B2CBF",
+  pink: '#FF6B9D',
+  hotPink: '#FF4785',
+  purple: '#9D4EDD',
+  violet: '#7B2CBF',
 
   // Accent colors
-  cyan: "#00D9FF",
-  mint: "#3DFFA3",
-  peach: "#FFB86C",
-  coral: "#FF6B6B",
+  cyan: '#00D9FF',
+  mint: '#3DFFA3',
+  peach: '#FFB86C',
+  coral: '#FF6B6B',
   // Neutrals - Updated gray for better contrast (accessibility fix)
-  white: "#FAFAFA",
-  gray: "#9CA3AF", // was #6B7280, now meets WCAG AA contrast
-  dimGray: "#4B5563",
-  darkGray: "#374151",
+  white: '#FAFAFA',
+  gray: '#9CA3AF', // was #6B7280, now meets WCAG AA contrast
+  dimGray: '#4B5563',
+  darkGray: '#374151',
 };
 
 /**
@@ -90,7 +90,7 @@ export const unicodeEnabled = () => caps.unicode;
 export const gradient = {
   // Pink to purple gradient effect (simulated with alternating colors)
   primary: (text) => {
-    const chars = text.split("");
+    const chars = text.split('');
     return chars
       .map((char, i) => {
         const ratio = i / Math.max(chars.length - 1, 1);
@@ -99,11 +99,11 @@ export const gradient = {
         }
         return chalk.hex(palette.purple)(char);
       })
-      .join("");
+      .join('');
   },
   // Cyan to mint
   success: (text) => {
-    const chars = text.split("");
+    const chars = text.split('');
     return chars
       .map((char, i) => {
         const ratio = i / Math.max(chars.length - 1, 1);
@@ -112,7 +112,7 @@ export const gradient = {
         }
         return chalk.hex(palette.mint)(char);
       })
-      .join("");
+      .join('');
   },
 };
 
@@ -159,14 +159,14 @@ export const typography = {
  * Soft rounded box characters
  */
 export const box = {
-  topLeft: "╭",
-  topRight: "╮",
-  bottomLeft: "╰",
-  bottomRight: "╯",
-  horizontal: "─",
-  vertical: "│",
+  topLeft: '╭',
+  topRight: '╮',
+  bottomLeft: '╰',
+  bottomRight: '╯',
+  horizontal: '─',
+  vertical: '│',
   // Minimal divider
-  dot: "·",
+  dot: '·',
 };
 
 /**
@@ -206,7 +206,7 @@ export const icons = {
  */
 export const stripAnsi = (str) => {
   // eslint-disable-next-line no-control-regex
-  return str.replace(/\x1b\[[0-9;]*m/g, "");
+  return str.replace(/\x1b\[[0-9;]*m/g, '');
 };
 
 /**
@@ -222,13 +222,13 @@ export const getTerminalWidth = () => {
 export const center = (text, width) => {
   const textLen = stripAnsi(text).length;
   const padding = Math.max(0, Math.floor((width - textLen) / 2));
-  return " ".repeat(padding) + text;
+  return ' '.repeat(padding) + text;
 };
 
 /**
  * Create a soft horizontal divider
  */
-export const divider = (width = 40, char = "─") => {
+export const divider = (width = 40, char = '─') => {
   return colors.dim(char.repeat(width));
 };
 
@@ -236,7 +236,7 @@ export const divider = (width = 40, char = "─") => {
  * Create a dotted divider (more minimal)
  */
 export const dottedDivider = (width = 40) => {
-  return colors.dim("·".repeat(width));
+  return colors.dim('·'.repeat(width));
 };
 
 // ============================================================================
@@ -282,7 +282,7 @@ export const renderStrengthIndicator = (strength, options = {}) => {
  * Render a soft rounded box
  */
 export const renderBox = (content, options = {}) => {
-  const { width = 50, title = "", borderColor = palette.dimGray } = options;
+  const { width = 50, title = '', borderColor = palette.dimGray } = options;
   const innerWidth = width - 2;
   const border = chalk.hex(borderColor);
 
@@ -308,20 +308,20 @@ export const renderBox = (content, options = {}) => {
   for (const line of contentLines) {
     const lineLen = stripAnsi(line).length;
     const padding = Math.max(0, innerWidth - lineLen);
-    lines.push(border(box.vertical) + " " + line + " ".repeat(padding) + border(box.vertical));
+    lines.push(border(box.vertical) + ' ' + line + ' '.repeat(padding) + border(box.vertical));
   }
 
   // Bottom border
   lines.push(border(box.bottomLeft + box.horizontal.repeat(innerWidth) + box.bottomRight));
 
-  return lines.join("\n");
+  return lines.join('\n');
 };
 
 /**
  * Render minimal password output with branding
  */
 export const renderPassword = (password, options = {}) => {
-  const { copied = false, strength = "strong", entropy = 0 } = options;
+  const { copied = false, strength = 'strong', entropy = 0 } = options;
 
   // Calculate box width based on password length (min 30, with 4 chars padding on each side)
   const minWidth = 30;
@@ -331,9 +331,9 @@ export const renderPassword = (password, options = {}) => {
   const lines = [];
 
   // Brand
-  lines.push("");
+  lines.push('');
   lines.push(brand.mini());
-  lines.push("");
+  lines.push('');
 
   // Password in a soft box
   const borderColor = chalk.hex(palette.dimGray);
@@ -349,9 +349,9 @@ export const renderPassword = (password, options = {}) => {
   const rightPad = totalPadding - leftPad;
   lines.push(
     borderColor(`  ${box.vertical}`) +
-      " ".repeat(leftPad) +
+      ' '.repeat(leftPad) +
       pwDisplay +
-      " ".repeat(rightPad) +
+      ' '.repeat(rightPad) +
       borderColor(box.vertical)
   );
 
@@ -361,7 +361,7 @@ export const renderPassword = (password, options = {}) => {
   );
 
   // Status line (minimal, below the box)
-  lines.push("");
+  lines.push('');
 
   const statusParts = [];
 
@@ -376,10 +376,10 @@ export const renderPassword = (password, options = {}) => {
     statusParts.push(colors.success(`${icons.success} copied`));
   }
 
-  lines.push(statusParts.join(colors.dim("  ·  ")));
-  lines.push("");
+  lines.push(statusParts.join(colors.dim('  ·  ')));
+  lines.push('');
 
-  return lines.join("\n");
+  return lines.join('\n');
 };
 
 /**
@@ -388,24 +388,24 @@ export const renderPassword = (password, options = {}) => {
 export const renderCommandPanel = (command, shortcuts = []) => {
   const lines = [];
 
-  lines.push("");
-  lines.push(`  ${gradient.primary("command")}`);
-  lines.push("");
+  lines.push('');
+  lines.push(`  ${gradient.primary('command')}`);
+  lines.push('');
   lines.push(`  ${colors.command(command)}`);
-  lines.push("");
+  lines.push('');
 
   if (shortcuts.length > 0) {
-    lines.push(`  ${colors.dim("shortcuts")}`);
-    lines.push("");
+    lines.push(`  ${colors.dim('shortcuts')}`);
+    lines.push('');
     for (const { flag, desc } of shortcuts) {
       lines.push(
         `  ${colors.muted(icons.pointer)} ${colors.command(flag.padEnd(14))} ${colors.dim(desc)}`
       );
     }
-    lines.push("");
+    lines.push('');
   }
 
-  return lines.join("\n");
+  return lines.join('\n');
 };
 
 /**
@@ -427,22 +427,22 @@ export const renderProgress = (current, total) => {
 export const renderMenu = (title, options, selectedIndex) => {
   const lines = [];
 
-  lines.push("");
+  lines.push('');
   lines.push(`  ${gradient.primary(title)}`);
-  lines.push("");
+  lines.push('');
 
   for (let i = 0; i < options.length; i++) {
     const isSelected = i === selectedIndex;
-    const pointer = isSelected ? colors.primary(icons.pointer) : " ";
+    const pointer = isSelected ? colors.primary(icons.pointer) : ' ';
     const option = isSelected ? colors.text(options[i]) : colors.muted(options[i]);
     lines.push(`  ${pointer} ${option}`);
   }
 
-  lines.push("");
-  lines.push(`  ${colors.dim("↑↓ navigate  enter select  esc back")}`);
-  lines.push("");
+  lines.push('');
+  lines.push(`  ${colors.dim('↑↓ navigate  enter select  esc back')}`);
+  lines.push('');
 
-  return lines.join("\n");
+  return lines.join('\n');
 };
 
 /**
@@ -464,10 +464,10 @@ export const renderInfo = (message) => {
  */
 export const renderHeader = (title) => {
   const lines = [];
-  lines.push("");
+  lines.push('');
   lines.push(`  ${icons.sparkle} ${gradient.primary(title)}`);
-  lines.push("");
-  return lines.join("\n");
+  lines.push('');
+  return lines.join('\n');
 };
 
 export default {

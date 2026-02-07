@@ -7,10 +7,10 @@
  * @module adapters/node
  */
 
-export { NodeCryptoRandom } from "./crypto-random.js";
-export { NodeConsoleLogger, LogLevel } from "./console-logger.js";
-export { NodeFsStorage } from "./fs-storage.js";
-export { NodeSystemClock } from "./system-clock.js";
+export { NodeCryptoRandom } from './crypto-random.js';
+export { NodeConsoleLogger, LogLevel } from './console-logger.js';
+export { NodeFsStorage } from './fs-storage.js';
+export { NodeSystemClock } from './system-clock.js';
 
 /**
  * Creates a complete set of Node.js adapters for dependency injection.
@@ -21,10 +21,10 @@ export { NodeSystemClock } from "./system-clock.js";
  * @returns {Object} An object containing all adapter instances.
  */
 export function createNodeAdapters(options = {}) {
-  const { NodeCryptoRandom } = require("./crypto-random.js");
-  const { NodeConsoleLogger } = require("./console-logger.js");
-  const { NodeFsStorage } = require("./fs-storage.js");
-  const { NodeSystemClock } = require("./system-clock.js");
+  const { NodeCryptoRandom } = require('./crypto-random.js');
+  const { NodeConsoleLogger } = require('./console-logger.js');
+  const { NodeFsStorage } = require('./fs-storage.js');
+  const { NodeSystemClock } = require('./system-clock.js');
 
   return {
     randomGenerator: new NodeCryptoRandom(),

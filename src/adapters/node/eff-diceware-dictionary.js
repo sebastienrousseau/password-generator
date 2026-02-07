@@ -8,8 +8,8 @@
  * @module adapters/node/eff-diceware-dictionary
  */
 
-import { DictionaryPort } from "../../../packages/core/src/ports/DictionaryPort.js";
-import { createRequire } from "module";
+import { DictionaryPort } from '../../../packages/core/src/ports/DictionaryPort.js';
+import { createRequire } from 'module';
 
 const require = createRequire(import.meta.url);
 
@@ -25,7 +25,7 @@ export class EFFDicewareDictionary extends DictionaryPort {
 
   async loadDictionary() {
     if (this.words === null) {
-      const dictionary = require("../../dictionaries/eff-diceware.json");
+      const dictionary = require('../../dictionaries/eff-diceware.json');
       this.words = dictionary.words || [];
     }
     return this.words;
@@ -39,7 +39,7 @@ export class EFFDicewareDictionary extends DictionaryPort {
   async selectRandomWord(randomIntFn) {
     await this.loadDictionary();
     if (this.words.length === 0) {
-      throw new Error("EFF Diceware dictionary is empty");
+      throw new Error('EFF Diceware dictionary is empty');
     }
     const index = await randomIntFn(this.words.length);
     return this.words[index];

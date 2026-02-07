@@ -26,10 +26,10 @@ export class FormState {
    */
   constructor(data = {}) {
     // Form field values (as strings from UI inputs)
-    this.type = data.type ?? "";
-    this.length = data.length ?? "";
-    this.iteration = data.iteration ?? "";
-    this.separator = data.separator ?? "-";
+    this.type = data.type ?? '';
+    this.length = data.length ?? '';
+    this.iteration = data.iteration ?? '';
+    this.separator = data.separator ?? '-';
 
     // UI-only state (not sent to core)
     this.preset = data.preset ?? null;
@@ -85,7 +85,7 @@ export class FormState {
    * @returns {boolean} True if required fields are set.
    */
   hasRequiredFields() {
-    return this.type !== "" && this.iteration !== "";
+    return this.type !== '' && this.iteration !== '';
   }
 
   /**

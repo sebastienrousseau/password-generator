@@ -17,7 +17,7 @@ export class DictionaryPort {
    * @abstract
    */
   async loadDictionary() {
-    throw new Error("DictionaryPort.loadDictionary() must be implemented");
+    throw new Error('DictionaryPort.loadDictionary() must be implemented');
   }
 
   /**
@@ -27,7 +27,7 @@ export class DictionaryPort {
    * @abstract
    */
   async getWordCount() {
-    throw new Error("DictionaryPort.getWordCount() must be implemented");
+    throw new Error('DictionaryPort.getWordCount() must be implemented');
   }
 
   /**
@@ -38,14 +38,14 @@ export class DictionaryPort {
    * @abstract
    */
   async selectRandomWord(_randomIntFn) {
-    throw new Error("DictionaryPort.selectRandomWord() must be implemented");
+    throw new Error('DictionaryPort.selectRandomWord() must be implemented');
   }
 }
 
 /**
  * Required methods for DictionaryPort implementations.
  */
-export const DICTIONARY_REQUIRED_METHODS = ["loadDictionary", "getWordCount", "selectRandomWord"];
+export const DICTIONARY_REQUIRED_METHODS = ['loadDictionary', 'getWordCount', 'selectRandomWord'];
 
 /**
  * In-memory dictionary implementation for testing or bundled dictionaries.
@@ -66,7 +66,7 @@ export class MemoryDictionary extends DictionaryPort {
 
   async selectRandomWord(randomIntFn) {
     if (this.words.length === 0) {
-      throw new Error("Dictionary is empty");
+      throw new Error('Dictionary is empty');
     }
     const index = await randomIntFn(this.words.length);
     return this.words[index];
@@ -82,52 +82,52 @@ export class MemoryDictionary extends DictionaryPort {
  * This is a small sample - real implementations should use the full EFF list.
  */
 export const DEFAULT_WORD_LIST = [
-  "abandon",
-  "ability",
-  "able",
-  "about",
-  "above",
-  "absent",
-  "absorb",
-  "abstract",
-  "absurd",
-  "abuse",
-  "access",
-  "accident",
-  "account",
-  "accuse",
-  "achieve",
-  "acid",
-  "acoustic",
-  "acquire",
-  "across",
-  "act",
-  "action",
-  "actor",
-  "actress",
-  "actual",
-  "adapt",
-  "add",
-  "addict",
-  "address",
-  "adjust",
-  "admit",
-  "adult",
-  "advance",
-  "advice",
-  "aerobic",
-  "affair",
-  "afford",
-  "afraid",
-  "again",
-  "age",
-  "agent",
-  "agree",
-  "ahead",
-  "aim",
-  "air",
-  "airport",
-  "aisle",
-  "alarm",
-  "album",
+  'abandon',
+  'ability',
+  'able',
+  'about',
+  'above',
+  'absent',
+  'absorb',
+  'abstract',
+  'absurd',
+  'abuse',
+  'access',
+  'accident',
+  'account',
+  'accuse',
+  'achieve',
+  'acid',
+  'acoustic',
+  'acquire',
+  'across',
+  'act',
+  'action',
+  'actor',
+  'actress',
+  'actual',
+  'adapt',
+  'add',
+  'addict',
+  'address',
+  'adjust',
+  'admit',
+  'adult',
+  'advance',
+  'advice',
+  'aerobic',
+  'affair',
+  'afford',
+  'afraid',
+  'again',
+  'age',
+  'agent',
+  'agree',
+  'ahead',
+  'aim',
+  'air',
+  'airport',
+  'aisle',
+  'alarm',
+  'album',
 ];

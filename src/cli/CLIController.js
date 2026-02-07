@@ -1,9 +1,9 @@
 // Copyright © 2022-2024 Password Generator. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-import { Command } from "commander";
-import { CLI_OPTIONS, PRESET_PROFILES, VALID_PRESETS, VALID_OUTPUT_FORMATS } from "../config.js";
-import { startOnboarding } from "../onboarding.js";
+import { Command } from 'commander';
+import { CLI_OPTIONS, PRESET_PROFILES, VALID_PRESETS, VALID_OUTPUT_FORMATS } from '../config.js';
+import { startOnboarding } from '../onboarding.js';
 
 // Import CLI rendering services (output only, no business logic)
 import {
@@ -13,8 +13,8 @@ import {
   displaySecurityAuditReport,
   displayNonTTYHelp,
   displayFormattedOutput,
-} from "../services/cli-service.js";
-import { startAuditSession, completeAuditSession } from "../services/audit-service.js";
+} from '../services/cli-service.js';
+import { startAuditSession, completeAuditSession } from '../services/audit-service.js';
 
 /**
  * Dynamically imports and uses clipboardy with graceful fallback.
@@ -26,13 +26,13 @@ import { startAuditSession, completeAuditSession } from "../services/audit-servi
 async function copyToClipboard(text) {
   try {
     // Dynamic import of clipboardy to handle optional dependency
-    const { default: clipboardy } = await import("clipboardy");
+    const { default: clipboardy } = await import('clipboardy');
     await clipboardy.write(text);
     return true;
   } catch (error) {
     // Clipboard functionality is not available - this is not a fatal error
     console.warn(
-      "Warning: Clipboard functionality not available. Password generated but not copied."
+      'Warning: Clipboard functionality not available. Password generated but not copied.'
     );
     console.warn(`Reason: ${error.message}`);
     return false;
@@ -153,7 +153,7 @@ export class CLIController {
     if (preset) {
       // Basic input validation: check if preset exists
       if (!VALID_PRESETS.includes(preset)) {
-        throw new Error(`Invalid preset '${preset}'. Valid presets: ${VALID_PRESETS.join(", ")}`);
+        throw new Error(`Invalid preset '${preset}'. Valid presets: ${VALID_PRESETS.join(', ')}`);
       }
 
       const presetConfig = PRESET_PROFILES[preset];
@@ -186,7 +186,7 @@ export class CLIController {
       // Validate format option
       if (opts.format && !VALID_OUTPUT_FORMATS.includes(opts.format)) {
         throw new Error(
-          `Invalid format '${opts.format}'. Valid formats: ${VALID_OUTPUT_FORMATS.join(", ")}`
+          `Invalid format '${opts.format}'. Valid formats: ${VALID_OUTPUT_FORMATS.join(', ')}`
         );
       }
 
@@ -210,7 +210,7 @@ export class CLIController {
       const validation = this.service.validateConfig(config);
       if (!validation.isValid) {
         // Provide helpful error message
-        const errorMsg = validation.errors.join("; ");
+        const errorMsg = validation.errors.join('; ');
         if (!opts.preset && (!config.type || config.iteration === undefined)) {
           throw new Error(
             `${errorMsg}. Either provide all required options (-t, -i, -s) or use a preset (-p quick)`
@@ -221,9 +221,9 @@ export class CLIController {
 
       // Step 3: Handle bulk generation vs single password
       const count = opts.count || 1;
-      const format = opts.format || "text";
+      const format = opts.format || 'text';
 
-      if (count > 1 || format !== "text") {
+      if (count > 1 || format !== 'text') {
         // Bulk operation with structured output
         const passwords = [];
         for (let i = 0; i < count; i++) {
@@ -287,7 +287,7 @@ export class CLIController {
         // Validate and generate via core service
         const validation = this.service.validateConfig(config);
         if (!validation.isValid) {
-          throw new Error(validation.errors.join("; "));
+          throw new Error(validation.errors.join('; '));
         }
 
         const password = await this.service.generate(config);

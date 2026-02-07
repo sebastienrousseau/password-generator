@@ -8,6 +8,6 @@
  * They contain no business logic, only data transformation.
  */
 
-export { PasswordViewModel } from "./PasswordViewModel.js";
-export { ValidationViewModel } from "./ValidationViewModel.js";
-export { EntropyViewModel } from "./EntropyViewModel.js";
+export { PasswordViewModel } from './PasswordViewModel.js';
+export { ValidationViewModel } from './ValidationViewModel.js';
+export { EntropyViewModel } from './EntropyViewModel.js';

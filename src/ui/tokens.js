@@ -18,42 +18,42 @@
  */
 export const palette = {
   // Primary gradient (pink to purple)
-  pink: "#FF6B9D",
-  hotPink: "#FF4785",
-  purple: "#9D4EDD",
-  violet: "#7B2CBF",
+  pink: '#FF6B9D',
+  hotPink: '#FF4785',
+  purple: '#9D4EDD',
+  violet: '#7B2CBF',
 
   // Accent colors
-  cyan: "#00D9FF",
-  mint: "#3DFFA3",
-  peach: "#FFB86C",
-  coral: "#FF6B6B",
+  cyan: '#00D9FF',
+  mint: '#3DFFA3',
+  peach: '#FFB86C',
+  coral: '#FF6B6B',
 
   // Neutrals - Updated gray for better contrast (#9CA3AF instead of #6B7280)
-  white: "#FAFAFA",
+  white: '#FAFAFA',
   gray: {
-    50: "#FAFAFA",
-    100: "#F4F4F5",
-    200: "#E4E4E7",
-    300: "#D4D4D8",
-    400: "#9CA3AF", // Improved contrast for accessibility
-    500: "#71717A",
-    600: "#52525B",
-    700: "#4B5563", // dimGray
-    800: "#374151", // darkGray
-    900: "#18181B",
+    50: '#FAFAFA',
+    100: '#F4F4F5',
+    200: '#E4E4E7',
+    300: '#D4D4D8',
+    400: '#9CA3AF', // Improved contrast for accessibility
+    500: '#71717A',
+    600: '#52525B',
+    700: '#4B5563', // dimGray
+    800: '#374151', // darkGray
+    900: '#18181B',
   },
 
   // Light theme variants (inverted for light backgrounds)
   light: {
-    pink: "#D14671",
-    purple: "#7B2CBF",
-    cyan: "#0891B2",
-    mint: "#059669",
-    peach: "#C2410C",
-    coral: "#DC2626",
-    text: "#18181B",
-    muted: "#52525B",
+    pink: '#D14671',
+    purple: '#7B2CBF',
+    cyan: '#0891B2',
+    mint: '#059669',
+    peach: '#C2410C',
+    coral: '#DC2626',
+    text: '#18181B',
+    muted: '#52525B',
   },
 };
 
@@ -164,49 +164,49 @@ export const lightTheme = {
  */
 export const highContrastTheme = {
   brand: {
-    primary: "#FFFFFF",
-    secondary: "#FFFFFF",
-    gradient: ["#FFFFFF", "#FFFFFF"],
+    primary: '#FFFFFF',
+    secondary: '#FFFFFF',
+    gradient: ['#FFFFFF', '#FFFFFF'],
   },
 
   feedback: {
-    success: "#00FF00",
-    warning: "#FFFF00",
-    error: "#FF0000",
-    info: "#00FFFF",
+    success: '#00FF00',
+    warning: '#FFFF00',
+    error: '#FF0000',
+    info: '#00FFFF',
   },
 
   text: {
-    primary: "#FFFFFF",
-    secondary: "#FFFFFF",
-    muted: "#CCCCCC",
-    disabled: "#666666",
+    primary: '#FFFFFF',
+    secondary: '#FFFFFF',
+    muted: '#CCCCCC',
+    disabled: '#666666',
   },
 
   background: {
-    primary: "#000000",
-    secondary: "#000000",
-    elevated: "#333333",
+    primary: '#000000',
+    secondary: '#000000',
+    elevated: '#333333',
   },
 
   border: {
-    default: "#FFFFFF",
-    focus: "#FFFF00",
-    error: "#FF0000",
+    default: '#FFFFFF',
+    focus: '#FFFF00',
+    error: '#FF0000',
   },
 
   interactive: {
-    default: "#00FFFF",
-    hover: "#FFFF00",
-    active: "#FF00FF",
-    focus: "#FFFF00",
+    default: '#00FFFF',
+    hover: '#FFFF00',
+    active: '#FF00FF',
+    focus: '#FFFF00',
   },
 
   strength: {
-    weak: "#FF0000",
-    medium: "#FFFF00",
-    strong: "#00FF00",
-    maximum: "#00FF00",
+    weak: '#FF0000',
+    medium: '#FFFF00',
+    strong: '#00FF00',
+    maximum: '#00FF00',
   },
 };
 
@@ -215,13 +215,13 @@ export const highContrastTheme = {
  * @param {"dark" | "light" | "high-contrast"} mode - Theme mode
  * @returns {Object} Theme tokens
  */
-export const getTheme = (mode = "dark") => {
+export const getTheme = (mode = 'dark') => {
   switch (mode) {
-    case "light":
+    case 'light':
       return lightTheme;
-    case "high-contrast":
+    case 'high-contrast':
       return highContrastTheme;
-    case "dark":
+    case 'dark':
     default:
       return darkTheme;
   }
@@ -234,28 +234,28 @@ export const getTheme = (mode = "dark") => {
  * @returns {string | null} Resolved color value
  */
 export const resolveToken = (theme, path) => {
-  const parts = path.split(".");
+  const parts = path.split('.');
   let value = theme;
 
   for (const part of parts) {
-    if (value && typeof value === "object" && part in value) {
+    if (value && typeof value === 'object' && part in value) {
       value = value[part];
     } else {
       return null;
     }
   }
 
-  return typeof value === "string" ? value : null;
+  return typeof value === 'string' ? value : null;
 };
 
 /**
  * Strength level labels for accessibility
  */
 export const strengthLabels = {
-  weak: "weak",
-  medium: "medium",
-  strong: "strong",
-  maximum: "maximum",
+  weak: 'weak',
+  medium: 'medium',
+  strong: 'strong',
+  maximum: 'maximum',
 };
 
 export default {

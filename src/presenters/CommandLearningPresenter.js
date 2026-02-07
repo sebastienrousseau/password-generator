@@ -5,14 +5,14 @@
  * CommandLearningPresenter - Minimal Crush-inspired design
  */
 
-import { colors, gradient, icons } from "../ui/theme.js";
+import { colors, gradient, icons } from '../ui/theme.js';
 
 export class CommandLearningPresenter {
   /**
    * Generate equivalent CLI command
    */
   static generateEquivalentCommand(config, preset, clipboard) {
-    let cliCommand = "password-generator";
+    let cliCommand = 'password-generator';
 
     if (preset) {
       cliCommand += ` -p ${preset}`;
@@ -22,13 +22,13 @@ export class CommandLearningPresenter {
         cliCommand += ` --length ${config.length}`;
       }
       cliCommand += ` --iteration ${config.iteration}`;
-      if (config.separator && config.separator !== "-") {
+      if (config.separator && config.separator !== '-') {
         cliCommand += ` --separator "${config.separator}"`;
       }
     }
 
     if (clipboard) {
-      cliCommand += " -c";
+      cliCommand += ' -c';
     }
 
     return cliCommand;
@@ -43,21 +43,21 @@ export class CommandLearningPresenter {
     if (preset) {
       breakdown.push({ flag: `-p ${preset}`, desc: `${preset} preset` });
     } else {
-      breakdown.push({ flag: `--type ${config.type}`, desc: "password type" });
+      breakdown.push({ flag: `--type ${config.type}`, desc: 'password type' });
       if (config.length) {
-        breakdown.push({ flag: `--length ${config.length}`, desc: "chunk length" });
+        breakdown.push({ flag: `--length ${config.length}`, desc: 'chunk length' });
       }
       breakdown.push({
         flag: `--iteration ${config.iteration}`,
-        desc: `${config.type === "memorable" ? "words" : "chunks"}`,
+        desc: `${config.type === 'memorable' ? 'words' : 'chunks'}`,
       });
-      if (config.separator && config.separator !== "-") {
-        breakdown.push({ flag: `--separator "${config.separator}"`, desc: "separator" });
+      if (config.separator && config.separator !== '-') {
+        breakdown.push({ flag: `--separator "${config.separator}"`, desc: 'separator' });
       }
     }
 
     if (clipboard) {
-      breakdown.push({ flag: "-c", desc: "copy to clipboard" });
+      breakdown.push({ flag: '-c', desc: 'copy to clipboard' });
     }
 
     return breakdown;
@@ -70,21 +70,21 @@ export class CommandLearningPresenter {
     const command = this.generateEquivalentCommand(config, preset, clipboard);
     const breakdown = this.generateCommandBreakdown(config, preset, clipboard);
 
-    console.log("");
-    console.log(`  ${gradient.primary("command")}`);
-    console.log("");
+    console.log('');
+    console.log(`  ${gradient.primary('command')}`);
+    console.log('');
     console.log(`  ${colors.command(command)}`);
-    console.log("");
+    console.log('');
 
     if (breakdown.length > 0) {
-      console.log(`  ${colors.dim("breakdown")}`);
-      console.log("");
+      console.log(`  ${colors.dim('breakdown')}`);
+      console.log('');
       for (const { flag, desc } of breakdown) {
         console.log(
           `  ${colors.muted(icons.pointer)} ${colors.command(flag.padEnd(24))} ${colors.dim(desc)}`
         );
       }
-      console.log("");
+      console.log('');
     }
   }
 
@@ -92,26 +92,26 @@ export class CommandLearningPresenter {
    * Display next steps (minimal)
    */
   static displayNextSteps(preset) {
-    console.log(`  ${colors.dim("next")}`);
-    console.log("");
+    console.log(`  ${colors.dim('next')}`);
+    console.log('');
     console.log(
-      `  ${colors.muted(icons.pointer)} ${colors.dim("use")} ${colors.command(
-        "--help"
-      )} ${colors.dim("for all options")}`
+      `  ${colors.muted(icons.pointer)} ${colors.dim('use')} ${colors.command(
+        '--help'
+      )} ${colors.dim('for all options')}`
     );
     console.log(
-      `  ${colors.muted(icons.pointer)} ${colors.dim("use")} ${colors.command(
-        "--audit"
-      )} ${colors.dim("for security details")}`
+      `  ${colors.muted(icons.pointer)} ${colors.dim('use')} ${colors.command(
+        '--audit'
+      )} ${colors.dim('for security details')}`
     );
     if (preset) {
       console.log(
-        `  ${colors.muted(icons.pointer)} ${colors.dim("use")} ${colors.command(
+        `  ${colors.muted(icons.pointer)} ${colors.dim('use')} ${colors.command(
           `-p ${preset}`
-        )} ${colors.dim("for quick access")}`
+        )} ${colors.dim('for quick access')}`
       );
     }
-    console.log("");
+    console.log('');
   }
 
   /**

@@ -26,7 +26,7 @@ export class PasswordWorkerPool {
   constructor(options = {}) {
     const {
       size = navigator?.hardwareConcurrency || 4,
-      workerScript = new URL("./password-worker.js", import.meta.url).href,
+      workerScript = new URL('./password-worker.js', import.meta.url).href,
       maxRetries = 3,
       timeout = 30000,
     } = options;
@@ -82,7 +82,7 @@ export class PasswordWorkerPool {
    */
   async _createWorker() {
     return new Promise((resolve, reject) => {
-      const worker = new Worker(this.workerScript, { type: "module" });
+      const worker = new Worker(this.workerScript, { type: 'module' });
 
       const workerData = {
         worker,
@@ -94,28 +94,28 @@ export class PasswordWorkerPool {
       let onReady, onError;
 
       onError = (error) => {
-        worker.removeEventListener("message", onReady);
-        worker.removeEventListener("error", onError);
+        worker.removeEventListener('message', onReady);
+        worker.removeEventListener('error', onError);
         reject(new Error(`Worker failed to initialize: ${error.message}`));
       };
 
       onReady = (event) => {
-        if (event.data.type === "ready") {
-          worker.removeEventListener("message", onReady);
-          worker.removeEventListener("error", onError);
+        if (event.data.type === 'ready') {
+          worker.removeEventListener('message', onReady);
+          worker.removeEventListener('error', onError);
           resolve(workerData);
         }
       };
 
-      worker.addEventListener("message", onReady);
-      worker.addEventListener("error", onError);
+      worker.addEventListener('message', onReady);
+      worker.addEventListener('error', onError);
 
       // Handle worker messages
-      worker.addEventListener("message", (event) => {
+      worker.addEventListener('message', (event) => {
         this._handleWorkerMessage(workerData, event);
       });
 
-      worker.addEventListener("error", (error) => {
+      worker.addEventListener('error', (error) => {
         this._handleWorkerError(workerData, error);
       });
     });
@@ -131,7 +131,7 @@ export class PasswordWorkerPool {
   _handleWorkerMessage(workerData, event) {
     const data = event.data;
 
-    if (data.type === "progress") {
+    if (data.type === 'progress') {
       // Forward progress events
       const task = this.activeTasks.get(data.id);
       if (task && task.onProgress) {
@@ -223,7 +223,7 @@ export class PasswordWorkerPool {
     task.timeoutId = setTimeout(() => {
       this.activeTasks.delete(task.id);
       workerData.busy = false;
-      task.reject(new Error("Task timeout"));
+      task.reject(new Error('Task timeout'));
     }, this.timeout);
 
     this.activeTasks.set(task.id, task);
@@ -245,7 +245,7 @@ export class PasswordWorkerPool {
       await this.initialize();
     }
 
-    return this._queueTask("generate", { config });
+    return this._queueTask('generate', { config });
   }
 
   /**
@@ -276,7 +276,7 @@ export class PasswordWorkerPool {
     // Create tasks for each batch
     const batchTasks = batches.map((batch, index) => {
       return this._queueTask(
-        "generateBatch",
+        'generateBatch',
         {
           configs: batch,
           batchId: index,
@@ -316,7 +316,7 @@ export class PasswordWorkerPool {
       await this.initialize();
     }
 
-    return this._queueTask("validateConfig", { config });
+    return this._queueTask('validateConfig', { config });
   }
 
   /**
@@ -330,7 +330,7 @@ export class PasswordWorkerPool {
       await this.initialize();
     }
 
-    return this._queueTask("calculateEntropy", { config });
+    return this._queueTask('calculateEntropy', { config });
   }
 
   /**
@@ -343,7 +343,7 @@ export class PasswordWorkerPool {
       await this.initialize();
     }
 
-    return this._queueTask("getSupportedTypes", {});
+    return this._queueTask('getSupportedTypes', {});
   }
 
   /**
@@ -357,7 +357,7 @@ export class PasswordWorkerPool {
    */
   _queueTask(action, payload, options = {}) {
     if (this.isTerminated) {
-      return Promise.reject(new Error("Worker pool has been terminated"));
+      return Promise.reject(new Error('Worker pool has been terminated'));
     }
 
     return new Promise((resolve, reject) => {
@@ -407,14 +407,14 @@ export class PasswordWorkerPool {
 
     // Cancel all pending tasks
     for (const task of this.taskQueue) {
-      task.reject(new Error("Worker pool terminated"));
+      task.reject(new Error('Worker pool terminated'));
     }
     this.taskQueue = [];
 
     // Cancel all active tasks
     for (const task of this.activeTasks.values()) {
       clearTimeout(task.timeoutId);
-      task.reject(new Error("Worker pool terminated"));
+      task.reject(new Error('Worker pool terminated'));
     }
     this.activeTasks.clear();
 

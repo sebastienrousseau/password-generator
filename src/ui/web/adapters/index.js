@@ -8,6 +8,6 @@
  * using browser-native APIs.
  */
 
-export { BrowserCryptoRandom } from "./BrowserCryptoRandom.js";
-export { BrowserStorage } from "./BrowserStorage.js";
-export { BrowserClock } from "./BrowserClock.js";
+export { BrowserCryptoRandom } from './BrowserCryptoRandom.js';
+export { BrowserStorage } from './BrowserStorage.js';
+export { BrowserClock } from './BrowserClock.js';

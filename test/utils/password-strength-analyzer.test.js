@@ -7,7 +7,7 @@ import {
   analyzePasswordStrength,
   getStrengthLabel,
   getStrengthColor,
-  quickStrengthCheck
+  quickStrengthCheck,
 } from '../../src/utils/password-strength-analyzer.js';
 
 describe('Password Strength Analyzer', () => {
@@ -32,7 +32,7 @@ describe('Password Strength Analyzer', () => {
         const result = analyzePasswordStrength(pwd);
         expect(result.score).to.equal(0, `Password "${pwd}" should score 0`);
         expect(result.dictionaries).to.have.length.greaterThan(0);
-        expect(result.dictionaries.some(d => d.dictionary === 'common_passwords')).to.be.true;
+        expect(result.dictionaries.some((d) => d.dictionary === 'common_passwords')).to.be.true;
       }
     });
 
@@ -40,7 +40,7 @@ describe('Password Strength Analyzer', () => {
       const result = analyzePasswordStrength('abc123def456');
 
       expect(result.patterns).to.have.length.greaterThan(0);
-      expect(result.patterns.some(p => p.pattern === 'sequence')).to.be.true;
+      expect(result.patterns.some((p) => p.pattern === 'sequence')).to.be.true;
       expect(result.score).to.be.lessThan(3); // Should be penalized
     });
 
@@ -48,7 +48,7 @@ describe('Password Strength Analyzer', () => {
       const result = analyzePasswordStrength('qwertyasdf');
 
       expect(result.patterns).to.have.length.greaterThan(0);
-      expect(result.patterns.some(p => p.pattern === 'keyboard_row')).to.be.true;
+      expect(result.patterns.some((p) => p.pattern === 'keyboard_row')).to.be.true;
       expect(result.score).to.be.lessThan(3); // Should be penalized
     });
 
@@ -56,7 +56,7 @@ describe('Password Strength Analyzer', () => {
       const result = analyzePasswordStrength('aaaaaa1111');
 
       expect(result.patterns).to.have.length.greaterThan(0);
-      expect(result.patterns.some(p => p.pattern === 'repetition')).to.be.true;
+      expect(result.patterns.some((p) => p.pattern === 'repetition')).to.be.true;
       expect(result.score).to.be.lessThan(3); // Should be penalized
     });
 
@@ -64,14 +64,14 @@ describe('Password Strength Analyzer', () => {
       const result = analyzePasswordStrength('p@ssw0rd');
 
       expect(result.patterns).to.have.length.greaterThan(0);
-      expect(result.patterns.some(p => p.pattern === 'leet_speak')).to.be.true;
+      expect(result.patterns.some((p) => p.pattern === 'leet_speak')).to.be.true;
     });
 
     it('should detect dictionary words', () => {
       const result = analyzePasswordStrength('lovetime123');
 
       expect(result.dictionaries).to.have.length.greaterThan(0);
-      expect(result.dictionaries.some(d => d.dictionary === 'english_words')).to.be.true;
+      expect(result.dictionaries.some((d) => d.dictionary === 'english_words')).to.be.true;
     });
 
     it('should analyze password composition correctly', () => {
@@ -114,7 +114,9 @@ describe('Password Strength Analyzer', () => {
       expect(result.crackTime).to.have.property('offlineFast');
 
       // Crack times should be strings with time units
-      expect(result.crackTime.onlineThrottled).to.match(/seconds|minutes|hours|days|years|centuries/);
+      expect(result.crackTime.onlineThrottled).to.match(
+        /seconds|minutes|hours|days|years|centuries/
+      );
     });
 
     it('should handle edge cases gracefully', () => {
@@ -190,42 +192,34 @@ describe('Password Strength Analyzer', () => {
         { pwd: 'qwerty123', expectedScore: 2, reason: 'keyboard pattern' },
         { pwd: 'abc123def', expectedScore: 2, reason: 'sequential pattern' },
         { pwd: 'aaaa1111', expectedScore: 2, reason: 'repetition' },
-        { pwd: '12345678', expectedScore: 1, reason: 'pure sequence' }
+        { pwd: '12345678', expectedScore: 1, reason: 'pure sequence' },
       ];
 
       for (const { pwd, expectedScore, reason } of weakPasswords) {
         const result = analyzePasswordStrength(pwd);
-        expect(result.score).to.be.lessThanOrEqual(expectedScore,
-          `Password "${pwd}" should score <= ${expectedScore} (${reason})`);
+        expect(result.score).to.be.lessThanOrEqual(
+          expectedScore,
+          `Password "${pwd}" should score <= ${expectedScore} (${reason})`
+        );
       }
     });
 
     it('should correctly evaluate moderately strong passwords', () => {
       // Use passwords without common dictionary words to avoid false penalties
-      const moderatePasswords = [
-        'Kx7$mP!qR2vN',
-        'Zephyr$Nyx2024',
-        'Brix&Flux42!'
-      ];
+      const moderatePasswords = ['Kx7$mP!qR2vN', 'Zephyr$Nyx2024', 'Brix&Flux42!'];
 
       for (const pwd of moderatePasswords) {
         const result = analyzePasswordStrength(pwd);
-        expect(result.score).to.be.greaterThanOrEqual(2,
-          `Password "${pwd}" should score >= 2`);
+        expect(result.score).to.be.greaterThanOrEqual(2, `Password "${pwd}" should score >= 2`);
       }
     });
 
     it('should correctly evaluate strong passwords', () => {
-      const strongPasswords = [
-        'X9$mQ#8pL&vN2!k',
-        'Butterfly$Moon97#',
-        'Complex&Unique8*Password'
-      ];
+      const strongPasswords = ['X9$mQ#8pL&vN2!k', 'Butterfly$Moon97#', 'Complex&Unique8*Password'];
 
       for (const pwd of strongPasswords) {
         const result = analyzePasswordStrength(pwd);
-        expect(result.score).to.be.greaterThanOrEqual(3,
-          `Password "${pwd}" should score >= 3`);
+        expect(result.score).to.be.greaterThanOrEqual(3, `Password "${pwd}" should score >= 3`);
         expect(result.entropy).to.be.greaterThan(40);
       }
     });
@@ -236,13 +230,15 @@ describe('Password Strength Analyzer', () => {
         { pwd: 'lowercase', expectedSuggestion: 'Add uppercase letters' },
         { pwd: 'UPPERCASE', expectedSuggestion: 'Add lowercase letters' },
         { pwd: 'NoNumbers!', expectedSuggestion: 'Add numbers' },
-        { pwd: 'NoSymbols123', expectedSuggestion: 'Add symbols' }
+        { pwd: 'NoSymbols123', expectedSuggestion: 'Add symbols' },
       ];
 
       for (const { pwd, expectedSuggestion } of testCases) {
         const result = analyzePasswordStrength(pwd);
-        expect(result.feedback.suggestions).to.include(expectedSuggestion,
-          `Password "${pwd}" should suggest: ${expectedSuggestion}`);
+        expect(result.feedback.suggestions).to.include(
+          expectedSuggestion,
+          `Password "${pwd}" should suggest: ${expectedSuggestion}`
+        );
       }
     });
   });

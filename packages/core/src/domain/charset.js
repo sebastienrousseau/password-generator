@@ -9,21 +9,21 @@
  */
 
 /** Base64 character set (64 characters, no padding bias). */
-export const BASE64_CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+export const BASE64_CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
 /** Vowel characters for syllable generation. */
-export const VOWELS = "aeiou";
+export const VOWELS = 'aeiou';
 
 /** Consonant characters for syllable generation. */
-export const CONSONANTS = "bcdfhgjklmnpqrstvwxyz";
+export const CONSONANTS = 'bcdfhgjklmnpqrstvwxyz';
 
 /** Standard character set categories for custom generation. */
-export const UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-export const LOWERCASE = "abcdefghijklmnopqrstuvwxyz";
-export const DIGITS = "0123456789";
-export const SPECIAL = "!@#$%^&*()_+-=[]{}|;:,.<>?";
-export const HEX_UPPERCASE = "0123456789ABCDEF";
-export const HEX_LOWERCASE = "0123456789abcdef";
+export const UPPERCASE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+export const LOWERCASE = 'abcdefghijklmnopqrstuvwxyz';
+export const DIGITS = '0123456789';
+export const SPECIAL = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+export const HEX_UPPERCASE = '0123456789ABCDEF';
+export const HEX_LOWERCASE = '0123456789abcdef';
 
 /**
  * Character set metadata for entropy calculations and validation.
@@ -33,55 +33,55 @@ export const CHARACTER_SET_METADATA = {
     charset: BASE64_CHARSET,
     size: 64,
     bitsPerCharacter: Math.log2(64), // 6 bits
-    description: "Base64 character set (RFC 4648)",
+    description: 'Base64 character set (RFC 4648)',
   },
   VOWELS: {
     charset: VOWELS,
     size: 5,
     bitsPerCharacter: Math.log2(5), // ~2.32 bits
-    description: "English vowels for syllable generation",
+    description: 'English vowels for syllable generation',
   },
   CONSONANTS: {
     charset: CONSONANTS,
     size: 21,
     bitsPerCharacter: Math.log2(21), // ~4.39 bits
-    description: "English consonants for syllable generation",
+    description: 'English consonants for syllable generation',
   },
   UPPERCASE: {
     charset: UPPERCASE,
     size: 26,
     bitsPerCharacter: Math.log2(26), // ~4.70 bits
-    description: "Uppercase letters A-Z",
+    description: 'Uppercase letters A-Z',
   },
   LOWERCASE: {
     charset: LOWERCASE,
     size: 26,
     bitsPerCharacter: Math.log2(26), // ~4.70 bits
-    description: "Lowercase letters a-z",
+    description: 'Lowercase letters a-z',
   },
   DIGITS: {
     charset: DIGITS,
     size: 10,
     bitsPerCharacter: Math.log2(10), // ~3.32 bits
-    description: "Digits 0-9",
+    description: 'Digits 0-9',
   },
   SPECIAL: {
     charset: SPECIAL,
     size: 25,
     bitsPerCharacter: Math.log2(25), // ~4.64 bits
-    description: "Special characters and symbols",
+    description: 'Special characters and symbols',
   },
   HEX_UPPERCASE: {
     charset: HEX_UPPERCASE,
     size: 16,
     bitsPerCharacter: Math.log2(16), // 4 bits
-    description: "Hexadecimal digits with uppercase letters",
+    description: 'Hexadecimal digits with uppercase letters',
   },
   HEX_LOWERCASE: {
     charset: HEX_LOWERCASE,
     size: 16,
     bitsPerCharacter: Math.log2(16), // 4 bits
-    description: "Hexadecimal digits with lowercase letters",
+    description: 'Hexadecimal digits with lowercase letters',
   },
 };
 
@@ -92,11 +92,11 @@ export const CHARACTER_SET_METADATA = {
  * @param {string} [forbiddenChars] - Characters to exclude
  * @returns {Object} Custom character set metadata with charset string and metadata
  */
-export const createCustomCharset = (allowedChars, forbiddenChars = "") => {
-  let charset = "";
+export const createCustomCharset = (allowedChars, forbiddenChars = '') => {
+  let charset = '';
 
   // Parse allowed characters - can be predefined sets or literal characters
-  const allowedSpecs = allowedChars.split(",").map((s) => s.trim().toUpperCase());
+  const allowedSpecs = allowedChars.split(',').map((s) => s.trim().toUpperCase());
 
   for (const spec of allowedSpecs) {
     if (CHARACTER_SET_METADATA[spec]) {
@@ -106,14 +106,14 @@ export const createCustomCharset = (allowedChars, forbiddenChars = "") => {
       // Literal characters
       charset +=
         allowedChars
-          .split(",")
+          .split(',')
           .find((s) => s.trim().toUpperCase() === spec)
-          ?.trim() || "";
+          ?.trim() || '';
     }
   }
 
   // If no predefined sets matched, treat the entire string as literal characters
-  if (charset === "") {
+  if (charset === '') {
     charset = allowedChars;
   }
 
@@ -121,18 +121,18 @@ export const createCustomCharset = (allowedChars, forbiddenChars = "") => {
   if (forbiddenChars) {
     const forbiddenSet = new Set(forbiddenChars);
     charset = charset
-      .split("")
+      .split('')
       .filter((char) => !forbiddenSet.has(char))
-      .join("");
+      .join('');
   }
 
   // Remove duplicates while preserving order
   const uniqueChars = [...new Set(charset)];
-  const finalCharset = uniqueChars.join("");
+  const finalCharset = uniqueChars.join('');
 
   if (finalCharset.length === 0) {
     throw new Error(
-      "Custom character set cannot be empty after applying forbidden character filter"
+      'Custom character set cannot be empty after applying forbidden character filter'
     );
   }
 
@@ -153,18 +153,18 @@ export const createCustomCharset = (allowedChars, forbiddenChars = "") => {
 export const validateCharset = (charset) => {
   const errors = [];
 
-  if (!charset || typeof charset !== "string") {
-    errors.push("Character set must be a non-empty string");
+  if (!charset || typeof charset !== 'string') {
+    errors.push('Character set must be a non-empty string');
   } else if (charset.length === 0) {
-    errors.push("Character set cannot be empty");
+    errors.push('Character set cannot be empty');
   } else if (charset.length < 2) {
-    errors.push("Character set must contain at least 2 characters for security");
+    errors.push('Character set must contain at least 2 characters for security');
   }
 
   // Check for potentially problematic characters
   const problematicChars = charset.match(/[\x00-\x1f\x7f-\x9f]/g);
   if (problematicChars) {
-    errors.push(`Character set contains control characters: ${problematicChars.join(", ")}`);
+    errors.push(`Character set contains control characters: ${problematicChars.join(', ')}`);
   }
 
   return {

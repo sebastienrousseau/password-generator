@@ -8,4 +8,4 @@
  * For vanilla JS or other frameworks, use controllers directly.
  */
 
-export { usePasswordGenerator } from "./usePasswordGenerator.js";
+export { usePasswordGenerator } from './usePasswordGenerator.js';

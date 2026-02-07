@@ -8,7 +8,7 @@
  * using localStorage or sessionStorage.
  */
 
-import { StoragePort } from "../../../../packages/core/src/ports/StoragePort.js";
+import { StoragePort } from '../../../../packages/core/src/ports/StoragePort.js';
 
 /**
  * Browser-based storage adapter using Web Storage API.
@@ -24,13 +24,13 @@ export class BrowserStorage extends StoragePort {
    */
   constructor(options = {}) {
     super();
-    this.prefix = options.prefix ?? "pwdgen_";
+    this.prefix = options.prefix ?? 'pwdgen_';
 
     // Determine which storage to use
     if (options.sessionOnly) {
-      this.storage = typeof sessionStorage !== "undefined" ? sessionStorage : null;
+      this.storage = typeof sessionStorage !== 'undefined' ? sessionStorage : null;
     } else {
-      this.storage = typeof localStorage !== "undefined" ? localStorage : null;
+      this.storage = typeof localStorage !== 'undefined' ? localStorage : null;
     }
   }
 
@@ -57,7 +57,7 @@ export class BrowserStorage extends StoragePort {
     }
 
     try {
-      const testKey = "__storage_test__";
+      const testKey = '__storage_test__';
       this.storage.setItem(testKey, testKey);
       this.storage.removeItem(testKey);
       return true;
@@ -94,14 +94,14 @@ export class BrowserStorage extends StoragePort {
    */
   async write(key, content) {
     if (!this._isAvailable()) {
-      throw new Error("Browser storage is not available");
+      throw new Error('Browser storage is not available');
     }
 
     try {
       this.storage.setItem(this._key(key), content);
     } catch (error) {
-      if (error.name === "QuotaExceededError") {
-        throw new Error("Storage quota exceeded");
+      if (error.name === 'QuotaExceededError') {
+        throw new Error('Storage quota exceeded');
       }
       throw error;
     }

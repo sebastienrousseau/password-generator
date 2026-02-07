@@ -15,7 +15,7 @@ import {
   resetAuditSession,
   finishAuditSession,
   generateAuditReport,
-} from "../utils/security-audit.js";
+} from '../utils/security-audit.js';
 
 /**
  * Starts a new audit session and enables audit mode.

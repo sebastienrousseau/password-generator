@@ -8,7 +8,7 @@
  * using Date and Performance APIs.
  */
 
-import { ClockPort } from "../../../../packages/core/src/ports/ClockPort.js";
+import { ClockPort } from '../../../../packages/core/src/ports/ClockPort.js';
 
 /**
  * Browser-based clock adapter.
@@ -30,7 +30,7 @@ export class BrowserClock extends ClockPort {
    * @returns {number} High-resolution timestamp in milliseconds.
    */
   performanceNow() {
-    if (typeof performance !== "undefined" && performance.now) {
+    if (typeof performance !== 'undefined' && performance.now) {
       return performance.now();
     }
     // Fallback to Date.now() if Performance API not available

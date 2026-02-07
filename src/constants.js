@@ -14,4 +14,4 @@ export {
   VOWELS,
   CONSONANTS,
   CHARACTER_SET_METADATA,
-} from "../packages/core/src/domain/charset.js";
+} from '../packages/core/src/domain/charset.js';

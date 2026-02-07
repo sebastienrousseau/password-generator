@@ -1,8 +1,8 @@
 // Copyright © 2022-2024 Password Generator. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-import { expect } from "chai";
-import { describe, it } from "mocha";
+import { expect } from 'chai';
+import { describe, it } from 'mocha';
 
 /**
  * Test suite for diceware password generation.
@@ -13,37 +13,37 @@ import { describe, it } from "mocha";
  * diceware generator is implemented.
  */
 
-describe.skip("Diceware Generator (Not Implemented)", () => {
-  describe("generateDicewarePassword", () => {
-    it("should be implemented", () => {
+describe.skip('Diceware Generator (Not Implemented)', () => {
+  describe('generateDicewarePassword', () => {
+    it('should be implemented', () => {
       // Placeholder test - diceware generator not yet implemented
       expect(true).to.be.true;
     });
   });
 
-  describe("calculateDicewarePasswordEntropy", () => {
-    it("should be implemented", () => {
+  describe('calculateDicewarePasswordEntropy', () => {
+    it('should be implemented', () => {
       // Placeholder test - diceware generator not yet implemented
       expect(true).to.be.true;
     });
   });
 
-  describe("Entropy Validation", () => {
-    it("should validate diceware entropy calculations", () => {
+  describe('Entropy Validation', () => {
+    it('should validate diceware entropy calculations', () => {
       // Placeholder test - diceware generator not yet implemented
       expect(true).to.be.true;
     });
   });
 
-  describe("Pattern Verification", () => {
-    it("should verify diceware word patterns", () => {
+  describe('Pattern Verification', () => {
+    it('should verify diceware word patterns', () => {
       // Placeholder test - diceware generator not yet implemented
       expect(true).to.be.true;
     });
   });
 
-  describe("Edge Cases", () => {
-    it("should handle edge cases", () => {
+  describe('Edge Cases', () => {
+    it('should handle edge cases', () => {
       // Placeholder test - diceware generator not yet implemented
       expect(true).to.be.true;
     });

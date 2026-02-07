@@ -11,9 +11,9 @@
  * For vanilla JS or other frameworks, use WebUIController directly.
  */
 
-import { useState, useCallback, useMemo } from "react";
-import { createWebUIController } from "../controllers/WebUIController.js";
-import { FormState } from "../state/FormState.js";
+import { useState, useCallback, useMemo } from 'react';
+import { createWebUIController } from '../controllers/WebUIController.js';
+import { FormState } from '../state/FormState.js';
 
 /**
  * React hook that encapsulates the thin adapter pattern.

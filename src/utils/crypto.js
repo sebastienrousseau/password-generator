@@ -1,17 +1,17 @@
 // Copyright © 2022-2024 Password Generator. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-import { randomBytes, randomInt } from "crypto";
-import { BASE64_CHARSET } from "../constants.js";
-import { recordEntropyUsage, recordAlgorithmUsage } from "./security-audit.js";
+import { randomBytes, randomInt } from 'crypto';
+import { BASE64_CHARSET } from '../constants.js';
+import { recordEntropyUsage, recordAlgorithmUsage } from './security-audit.js';
 import {
   calculateBase64Entropy,
   calculateBase64ChunkEntropy,
   validatePositiveInteger,
-} from "../../packages/core/src/domain/index.js";
+} from '../../packages/core/src/domain/index.js';
 
 // Re-export domain logic for backward compatibility
-export { validatePositiveInteger } from "../../packages/core/src/domain/index.js";
+export { validatePositiveInteger } from '../../packages/core/src/domain/index.js';
 
 /**
  * Generates a random base64 string of the specified byte length.
@@ -21,18 +21,18 @@ export { validatePositiveInteger } from "../../packages/core/src/domain/index.js
  * @throws {RangeError} If byteLength is not a positive integer.
  */
 export const generateRandomBase64 = (byteLength) => {
-  validatePositiveInteger(byteLength, "byteLength");
-  const result = randomBytes(byteLength).toString("base64");
+  validatePositiveInteger(byteLength, 'byteLength');
+  const result = randomBytes(byteLength).toString('base64');
 
   // Record entropy usage for audit
-  recordEntropyUsage("crypto.randomBytes", 1, calculateBase64Entropy(byteLength), {
+  recordEntropyUsage('crypto.randomBytes', 1, calculateBase64Entropy(byteLength), {
     byteLength,
     outputLength: result.length,
-    method: "base64-encoding",
+    method: 'base64-encoding',
   });
-  recordAlgorithmUsage("base64-password-generation", {
+  recordAlgorithmUsage('base64-password-generation', {
     byteLength,
-    encoding: "base64",
+    encoding: 'base64',
   });
 
   return result;
@@ -49,19 +49,19 @@ export const generateRandomBase64 = (byteLength) => {
  * @throws {RangeError} If length is not a positive integer.
  */
 export const generateBase64Chunk = (length) => {
-  validatePositiveInteger(length, "length");
-  let result = "";
+  validatePositiveInteger(length, 'length');
+  let result = '';
   for (let i = 0; i < length; i++) {
     result += BASE64_CHARSET[randomInt(BASE64_CHARSET.length)];
   }
 
   // Record entropy usage for audit
-  recordEntropyUsage("crypto.randomInt", length, calculateBase64ChunkEntropy(length), {
+  recordEntropyUsage('crypto.randomInt', length, calculateBase64ChunkEntropy(length), {
     charsetSize: BASE64_CHARSET.length,
     outputLength: length,
-    method: "character-by-character",
+    method: 'character-by-character',
   });
-  recordAlgorithmUsage("base64-chunk-generation", {
+  recordAlgorithmUsage('base64-chunk-generation', {
     charsetSize: BASE64_CHARSET.length,
     outputLength: length,
   });
@@ -70,4 +70,4 @@ export const generateBase64Chunk = (length) => {
 };
 
 // Re-export domain logic for backward compatibility
-export { splitString } from "../../packages/core/src/domain/index.js";
+export { splitString } from '../../packages/core/src/domain/index.js';

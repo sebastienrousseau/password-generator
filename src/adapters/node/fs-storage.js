@@ -9,9 +9,9 @@
  * @module NodeFsStorage
  */
 
-import { readFile, writeFile, unlink, mkdir, access } from "fs/promises";
-import { dirname, join } from "path";
-import { StoragePort } from "../../../packages/core/src/ports/index.js";
+import { readFile, writeFile, unlink, mkdir, access } from 'fs/promises';
+import { dirname, join } from 'path';
+import { StoragePort } from '../../../packages/core/src/ports/index.js';
 
 /**
  * Node.js implementation of StoragePort using the file system.
@@ -27,7 +27,7 @@ export class NodeFsStorage extends StoragePort {
   constructor(options = {}) {
     super();
     this.basePath = options.basePath ?? process.cwd();
-    this.encoding = options.encoding ?? "utf8";
+    this.encoding = options.encoding ?? 'utf8';
   }
 
   /**
@@ -41,8 +41,8 @@ export class NodeFsStorage extends StoragePort {
     // Sanitize key to prevent path traversal
     // First replace ".." to prevent directory traversal, then sanitize other chars
     const sanitized = key
-      .replace(/\.\./g, "__") // Replace ".." with "__" to prevent traversal
-      .replace(/[^\w.-]/g, "_");
+      .replace(/\.\./g, '__') // Replace ".." with "__" to prevent traversal
+      .replace(/[^\w.-]/g, '_');
     return join(this.basePath, sanitized);
   }
 
@@ -72,7 +72,7 @@ export class NodeFsStorage extends StoragePort {
       const filePath = this._resolvePath(path);
       return await readFile(filePath, this.encoding);
     } catch (error) {
-      if (error.code === "ENOENT") {
+      if (error.code === 'ENOENT') {
         return null;
       }
       throw error;
@@ -120,7 +120,7 @@ export class NodeFsStorage extends StoragePort {
       await unlink(filePath);
       return true;
     } catch (error) {
-      if (error.code === "ENOENT") {
+      if (error.code === 'ENOENT') {
         return false;
       }
       throw error;

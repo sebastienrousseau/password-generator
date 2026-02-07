@@ -9,8 +9,8 @@
  * @module generators/quantum
  */
 
-import { BASE64_CHARSET } from "../domain/charset.js";
-import { validatePositiveInteger } from "../domain/base64-generation.js";
+import { BASE64_CHARSET } from '../domain/charset.js';
+import { validatePositiveInteger } from '../domain/base64-generation.js';
 
 /**
  * Minimum entropy target for quantum-resistant passwords (256 bits).
@@ -37,7 +37,7 @@ export const QUANTUM_MIN_LENGTH = Math.ceil(QUANTUM_ENTROPY_TARGET_BITS / ENTROP
  * @returns {Promise<string>} A random string of the specified length.
  */
 export const generateQuantumChunk = async (length, randomGenerator) => {
-  validatePositiveInteger(length, "length");
+  validatePositiveInteger(length, 'length');
 
   if (length < QUANTUM_MIN_LENGTH) {
     console.warn(
@@ -45,7 +45,7 @@ export const generateQuantumChunk = async (length, randomGenerator) => {
     );
   }
 
-  let result = "";
+  let result = '';
   for (let i = 0; i < length; i++) {
     const index = await randomGenerator.generateRandomInt(BASE64_CHARSET.length);
     result += BASE64_CHARSET[index];
@@ -67,8 +67,8 @@ export const generateQuantumChunk = async (length, randomGenerator) => {
 export const generateQuantumPassword = async (config, randomGenerator) => {
   const { length, iteration, separator } = config;
 
-  validatePositiveInteger(length, "length");
-  validatePositiveInteger(iteration, "iteration");
+  validatePositiveInteger(length, 'length');
+  validatePositiveInteger(iteration, 'iteration');
 
   // Ensure total entropy meets quantum-resistant requirements
   const totalEntropy = calculateQuantumPasswordEntropy(config);

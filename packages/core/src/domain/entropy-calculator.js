@@ -81,18 +81,18 @@ export const calculateSyllableEntropy = (syllableCount) => {
  */
 export const getSecurityLevel = (entropyBits) => {
   if (entropyBits >= 256) {
-    return "EXCELLENT (256+ bits)";
+    return 'EXCELLENT (256+ bits)';
   }
   if (entropyBits >= 128) {
-    return "STRONG (128-255 bits)";
+    return 'STRONG (128-255 bits)';
   }
   if (entropyBits >= 80) {
-    return "GOOD (80-127 bits)";
+    return 'GOOD (80-127 bits)';
   }
   if (entropyBits >= 64) {
-    return "MODERATE (64-79 bits)";
+    return 'MODERATE (64-79 bits)';
   }
-  return "WEAK (<64 bits)";
+  return 'WEAK (<64 bits)';
 };
 
 /**
@@ -102,11 +102,11 @@ export const getSecurityLevel = (entropyBits) => {
  */
 export const getSecurityRecommendation = (entropyBits) => {
   if (entropyBits >= 128) {
-    return "Excellent security. Suitable for high-security applications.";
+    return 'Excellent security. Suitable for high-security applications.';
   } else if (entropyBits >= 80) {
-    return "Good security for most applications. Consider increasing length for high-security needs.";
+    return 'Good security for most applications. Consider increasing length for high-security needs.';
   } else {
-    return "Consider increasing password length or iteration count for better security.";
+    return 'Consider increasing password length or iteration count for better security.';
   }
 };
 
@@ -123,11 +123,11 @@ export const calculateTotalEntropy = (config) => {
   const { type, length = 16, iteration = 1, dictionarySize = 7776 } = config;
 
   switch (type) {
-    case "strong":
-    case "base64":
-    case "quantum-resistant":
+    case 'strong':
+    case 'base64':
+    case 'quantum-resistant':
       return calculateBase64ChunkEntropy(length) * iteration;
-    case "memorable":
+    case 'memorable':
       return calculateDictionaryEntropy(dictionarySize, iteration);
     default:
       return 0;

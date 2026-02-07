@@ -24,65 +24,65 @@
  * Status icons
  */
 export const statusIcons = {
-  success: { visual: "✓", label: "success", fallback: "[OK]" },
-  error: { visual: "✗", label: "error", fallback: "[ERROR]" },
-  warning: { visual: "!", label: "warning", fallback: "[WARN]" },
-  info: { visual: "i", label: "info", fallback: "[INFO]" },
+  success: { visual: '✓', label: 'success', fallback: '[OK]' },
+  error: { visual: '✗', label: 'error', fallback: '[ERROR]' },
+  warning: { visual: '!', label: 'warning', fallback: '[WARN]' },
+  info: { visual: 'i', label: 'info', fallback: '[INFO]' },
 };
 
 /**
  * Navigation icons
  */
 export const navigationIcons = {
-  arrow: { visual: "→", label: "arrow", fallback: "->" },
-  pointer: { visual: "›", label: "pointer", fallback: ">" },
-  bullet: { visual: "•", label: "bullet", fallback: "*" },
-  back: { visual: "←", label: "back", fallback: "<-" },
-  up: { visual: "↑", label: "up", fallback: "^" },
-  down: { visual: "↓", label: "down", fallback: "v" },
+  arrow: { visual: '→', label: 'arrow', fallback: '->' },
+  pointer: { visual: '›', label: 'pointer', fallback: '>' },
+  bullet: { visual: '•', label: 'bullet', fallback: '*' },
+  back: { visual: '←', label: 'back', fallback: '<-' },
+  up: { visual: '↑', label: 'up', fallback: '^' },
+  down: { visual: '↓', label: 'down', fallback: 'v' },
 };
 
 /**
  * Decorative icons
  */
 export const decorativeIcons = {
-  sparkle: { visual: "✦", label: "sparkle", fallback: "*" },
-  diamond: { visual: "◇", label: "diamond", fallback: "<>" },
-  circle: { visual: "○", label: "empty circle", fallback: "o" },
-  filledCircle: { visual: "●", label: "filled circle", fallback: "@" },
-  star: { visual: "★", label: "star", fallback: "*" },
+  sparkle: { visual: '✦', label: 'sparkle', fallback: '*' },
+  diamond: { visual: '◇', label: 'diamond', fallback: '<>' },
+  circle: { visual: '○', label: 'empty circle', fallback: 'o' },
+  filledCircle: { visual: '●', label: 'filled circle', fallback: '@' },
+  star: { visual: '★', label: 'star', fallback: '*' },
 };
 
 /**
  * Progress icons
  */
 export const progressIcons = {
-  filled: { visual: "█", label: "filled block", fallback: "#" },
-  light: { visual: "░", label: "light block", fallback: "." },
-  half: { visual: "▓", label: "half block", fallback: "=" },
+  filled: { visual: '█', label: 'filled block', fallback: '#' },
+  light: { visual: '░', label: 'light block', fallback: '.' },
+  half: { visual: '▓', label: 'half block', fallback: '=' },
 };
 
 /**
  * Box drawing characters
  */
 export const boxIcons = {
-  topLeft: { visual: "╭", label: "top left corner", fallback: "+" },
-  topRight: { visual: "╮", label: "top right corner", fallback: "+" },
-  bottomLeft: { visual: "╰", label: "bottom left corner", fallback: "+" },
-  bottomRight: { visual: "╯", label: "bottom right corner", fallback: "+" },
-  horizontal: { visual: "─", label: "horizontal line", fallback: "-" },
-  vertical: { visual: "│", label: "vertical line", fallback: "|" },
-  dot: { visual: "·", label: "center dot", fallback: "." },
+  topLeft: { visual: '╭', label: 'top left corner', fallback: '+' },
+  topRight: { visual: '╮', label: 'top right corner', fallback: '+' },
+  bottomLeft: { visual: '╰', label: 'bottom left corner', fallback: '+' },
+  bottomRight: { visual: '╯', label: 'bottom right corner', fallback: '+' },
+  horizontal: { visual: '─', label: 'horizontal line', fallback: '-' },
+  vertical: { visual: '│', label: 'vertical line', fallback: '|' },
+  dot: { visual: '·', label: 'center dot', fallback: '.' },
 };
 
 /**
  * Strength indicator icons
  */
 export const strengthIcons = {
-  weak: { visual: "●○○○", label: "weak", fallback: "[#...]" },
-  medium: { visual: "●●○○", label: "medium", fallback: "[##..]" },
-  strong: { visual: "●●●○", label: "strong", fallback: "[###.]" },
-  maximum: { visual: "●●●●", label: "maximum", fallback: "[####]" },
+  weak: { visual: '●○○○', label: 'weak', fallback: '[#...]' },
+  medium: { visual: '●●○○', label: 'medium', fallback: '[##..]' },
+  strong: { visual: '●●●○', label: 'strong', fallback: '[###.]' },
+  maximum: { visual: '●●●●', label: 'maximum', fallback: '[####]' },
 };
 
 /**

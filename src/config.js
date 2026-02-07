@@ -14,52 +14,52 @@
  * Valid password types supported by the generator.
  */
 export const VALID_PASSWORD_TYPES = [
-  "strong",
-  "base64",
-  "memorable",
-  "quantum-resistant",
-  "diceware",
-  "honeyword",
-  "pronounceable",
-  "custom",
+  'strong',
+  'base64',
+  'memorable',
+  'quantum-resistant',
+  'diceware',
+  'honeyword',
+  'pronounceable',
+  'custom',
 ];
 
 /**
  * Valid output formats for bulk operations.
  */
-export const VALID_OUTPUT_FORMATS = ["text", "json", "yaml", "csv"];
+export const VALID_OUTPUT_FORMATS = ['text', 'json', 'yaml', 'csv'];
 
 /**
  * Valid preset profile names.
  */
-export const VALID_PRESETS = ["quick", "secure", "memorable", "quantum"];
+export const VALID_PRESETS = ['quick', 'secure', 'memorable', 'quantum'];
 
 /**
  * Preset profile configurations for zero-config CLI usage.
  */
 export const PRESET_PROFILES = {
   quick: {
-    type: "strong",
+    type: 'strong',
     length: 14,
     iteration: 4,
-    separator: "-",
+    separator: '-',
   },
   secure: {
-    type: "strong",
+    type: 'strong',
     length: 16,
     iteration: 4,
-    separator: "",
+    separator: '',
   },
   memorable: {
-    type: "memorable",
+    type: 'memorable',
     iteration: 4,
-    separator: "-",
+    separator: '-',
   },
   quantum: {
-    type: "quantum-resistant",
+    type: 'quantum-resistant',
     length: 43,
     iteration: 1,
-    separator: "",
+    separator: '',
   },
 };
 
@@ -91,7 +91,7 @@ export const CLI_DEFAULTS = {
   /** Default number of password chunks or words */
   iteration: 3,
   /** Default separator between password chunks */
-  separator: "-",
+  separator: '-',
   /** Default clipboard option state */
   clipboard: false,
 };
@@ -100,82 +100,82 @@ export const CLI_DEFAULTS = {
  * CLI option configurations for the commander program.
  */
 export const CLI_OPTIONS = {
-  name: "password-generator",
+  name: 'password-generator',
   description:
-    "A fast, simple and powerful utility for generating strong, unique and quantum-resistant passwords",
+    'A fast, simple and powerful utility for generating strong, unique and quantum-resistant passwords',
   options: {
     preset: {
-      flags: "-p, --preset <preset>",
-      description: `use a preset configuration (${VALID_PRESETS.join(", ")})`,
+      flags: '-p, --preset <preset>',
+      description: `use a preset configuration (${VALID_PRESETS.join(', ')})`,
     },
     type: {
-      flags: "-t, --type <type>",
-      description: `password type (${VALID_PASSWORD_TYPES.join(", ")})`,
+      flags: '-t, --type <type>',
+      description: `password type (${VALID_PASSWORD_TYPES.join(', ')})`,
       required: true,
     },
     length: {
-      flags: "-l, --length <number>",
-      description: "length of each password chunk",
+      flags: '-l, --length <number>',
+      description: 'length of each password chunk',
       parser: (val) => parseInt(val, 10),
       // Note: No default value here - defaults are handled by presets or in service layer
     },
     iteration: {
-      flags: "-i, --iteration <number>",
-      description: "number of password chunks or words",
+      flags: '-i, --iteration <number>',
+      description: 'number of password chunks or words',
       parser: (val) => parseInt(val, 10),
       required: true,
     },
     separator: {
-      flags: "-s, --separator <char>",
-      description: "separator between password chunks",
+      flags: '-s, --separator <char>',
+      description: 'separator between password chunks',
       required: true,
     },
     clipboard: {
-      flags: "-c, --clipboard",
-      description: "copy the generated password to clipboard",
+      flags: '-c, --clipboard',
+      description: 'copy the generated password to clipboard',
       defaultValue: CLI_DEFAULTS.clipboard,
     },
     audit: {
-      flags: "-a, --audit",
-      description: "show security audit with entropy sources and algorithms used",
+      flags: '-a, --audit',
+      description: 'show security audit with entropy sources and algorithms used',
       defaultValue: false,
     },
     learn: {
-      flags: "--learn",
-      description: "show equivalent CLI command to help graduate from guided mode",
+      flags: '--learn',
+      description: 'show equivalent CLI command to help graduate from guided mode',
       defaultValue: false,
     },
     format: {
-      flags: "-f, --format <format>",
-      description: "output format for bulk operations (json, yaml, csv, text)",
-      defaultValue: "text",
+      flags: '-f, --format <format>',
+      description: 'output format for bulk operations (json, yaml, csv, text)',
+      defaultValue: 'text',
     },
     count: {
-      flags: "-n, --count <number>",
-      description: "number of passwords to generate for bulk operations",
+      flags: '-n, --count <number>',
+      description: 'number of passwords to generate for bulk operations',
       parser: (val) => parseInt(val, 10),
       defaultValue: 1,
     },
     interactive: {
-      flags: "--interactive",
-      description: "start interactive guided setup for password generation",
+      flags: '--interactive',
+      description: 'start interactive guided setup for password generation',
       defaultValue: false,
     },
     kdfMemory: {
-      flags: "--kdf-memory <number>",
-      description: "Argon2id memory parameter in KB (default: 65536 KB = 64 MB)",
+      flags: '--kdf-memory <number>',
+      description: 'Argon2id memory parameter in KB (default: 65536 KB = 64 MB)',
       parser: (val) => parseInt(val, 10),
       defaultValue: 65536,
     },
     kdfTime: {
-      flags: "--kdf-time <number>",
-      description: "Argon2id time cost parameter (default: 3 iterations)",
+      flags: '--kdf-time <number>',
+      description: 'Argon2id time cost parameter (default: 3 iterations)',
       parser: (val) => parseInt(val, 10),
       defaultValue: 3,
     },
     kdfParallelism: {
-      flags: "--kdf-parallelism <number>",
-      description: "Argon2id parallelism parameter (default: 4 threads)",
+      flags: '--kdf-parallelism <number>',
+      description: 'Argon2id parallelism parameter (default: 4 threads)',
       parser: (val) => parseInt(val, 10),
       defaultValue: 4,
     },
@@ -198,7 +198,7 @@ export const isValidPasswordType = (type) => {
  * @returns {string} Comma-separated list of valid password types.
  */
 export const getValidTypesString = () => {
-  return VALID_PASSWORD_TYPES.join(", ");
+  return VALID_PASSWORD_TYPES.join(', ');
 };
 
 /**
@@ -227,5 +227,5 @@ export const getPresetConfig = (preset) => {
  * @returns {string} Comma-separated list of valid preset names.
  */
 export const getValidPresetsString = () => {
-  return VALID_PRESETS.join(", ");
+  return VALID_PRESETS.join(', ');
 };

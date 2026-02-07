@@ -8,11 +8,11 @@
  * @module generators/pronounceable
  */
 
-import { validatePositiveInteger } from "../domain/base64-generation.js";
+import { validatePositiveInteger } from '../domain/base64-generation.js';
 
 // Character sets for pronounceable password generation
-const CONSONANTS = "bcdfghjklmnpqrstvwxyz";
-const VOWELS = "aeiou";
+const CONSONANTS = 'bcdfghjklmnpqrstvwxyz';
+const VOWELS = 'aeiou';
 
 /**
  * Generates a single CVVC (consonant-vowel-vowel-consonant) syllable.
@@ -41,7 +41,7 @@ export const generateCVVCSyllable = async (randomGenerator) => {
 export const generatePronounceablePassword = async (config, randomGenerator) => {
   const { iteration, separator } = config;
 
-  validatePositiveInteger(iteration, "iteration");
+  validatePositiveInteger(iteration, 'iteration');
 
   const syllables = [];
   for (let i = 0; i < iteration; i++) {

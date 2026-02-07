@@ -8,7 +8,7 @@
  * @module generators/memorable
  */
 
-import { validatePositiveInteger } from "../domain/base64-generation.js";
+import { validatePositiveInteger } from '../domain/base64-generation.js';
 
 /**
  * Generates a memorable password using dictionary words.
@@ -23,12 +23,12 @@ import { validatePositiveInteger } from "../domain/base64-generation.js";
 export const generateMemorablePassword = async (config, randomGenerator, dictionary) => {
   const { iteration, separator } = config;
 
-  validatePositiveInteger(iteration, "iteration");
+  validatePositiveInteger(iteration, 'iteration');
 
   // Ensure dictionary is loaded
   const words = await dictionary.loadDictionary();
   if (!words || words.length === 0) {
-    throw new Error("Dictionary is empty or not loaded");
+    throw new Error('Dictionary is empty or not loaded');
   }
 
   const selectedWords = [];

@@ -14,8 +14,8 @@ import {
   validateTemplate,
   calculateTemplateEntropy,
   TOKEN_TYPES,
-} from "../domain/template.js";
-import { validatePositiveInteger } from "../domain/base64-generation.js";
+} from '../domain/template.js';
+import { validatePositiveInteger } from '../domain/base64-generation.js';
 
 /**
  * Generates a password using a template specification.
@@ -30,12 +30,12 @@ import { validatePositiveInteger } from "../domain/base64-generation.js";
 export const generateTemplatePassword = async (config, randomGenerator) => {
   const { template, iteration, separator } = config;
 
-  validatePositiveInteger(iteration, "iteration");
+  validatePositiveInteger(iteration, 'iteration');
 
   // Validate and parse template
   const templateValidation = validateTemplate(template);
   if (!templateValidation.isValid) {
-    throw new Error(`Invalid template: ${templateValidation.errors.join("; ")}`);
+    throw new Error(`Invalid template: ${templateValidation.errors.join('; ')}`);
   }
 
   const instructions = templateValidation.metadata.instructions;
@@ -57,7 +57,7 @@ export const generateTemplatePassword = async (config, randomGenerator) => {
  * @returns {Promise<string>} Generated password segment.
  */
 const generateFromTemplate = async (instructions, randomGenerator) => {
-  let result = "";
+  let result = '';
 
   for (const instruction of instructions) {
     switch (instruction.type) {

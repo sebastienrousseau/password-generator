@@ -11,8 +11,8 @@
  */
 
 // Import dependencies (will need bundling for production use)
-import { createService } from "../../packages/core/src/index.js";
-import { randomInt, bytesToBase64 } from "../adapters/web/webcrypto-random.js";
+import { createService } from '../../packages/core/src/index.js';
+import { randomInt, bytesToBase64 } from '../adapters/web/webcrypto-random.js';
 
 /**
  * Web Crypto Random Generator implementation for Web Worker context.
@@ -36,7 +36,7 @@ class WebWorkerCryptoRandom {
   }
 
   async generateRandomString(length, charset) {
-    let result = "";
+    let result = '';
     for (let i = 0; i < length; i++) {
       result += charset[randomInt(charset.length)];
     }
@@ -57,7 +57,7 @@ self.onmessage = async function (event) {
 
   try {
     switch (action) {
-      case "generate": {
+      case 'generate': {
         const password = await passwordService.generate(payload.config);
         self.postMessage({
           id,
@@ -67,7 +67,7 @@ self.onmessage = async function (event) {
         break;
       }
 
-      case "generateBatch": {
+      case 'generateBatch': {
         const { configs, batchId } = payload;
         const passwords = [];
 
@@ -79,7 +79,7 @@ self.onmessage = async function (event) {
           if ((i + 1) % 100 === 0 || i === configs.length - 1) {
             self.postMessage({
               id,
-              type: "progress",
+              type: 'progress',
               batchId,
               completed: i + 1,
               total: configs.length,
@@ -96,7 +96,7 @@ self.onmessage = async function (event) {
         break;
       }
 
-      case "generateMultiple": {
+      case 'generateMultiple': {
         const passwords = await passwordService.generateMultiple(payload.configs);
         self.postMessage({
           id,
@@ -106,7 +106,7 @@ self.onmessage = async function (event) {
         break;
       }
 
-      case "validateConfig": {
+      case 'validateConfig': {
         const validation = passwordService.validateConfig(payload.config);
         self.postMessage({
           id,
@@ -116,7 +116,7 @@ self.onmessage = async function (event) {
         break;
       }
 
-      case "calculateEntropy": {
+      case 'calculateEntropy': {
         const entropy = passwordService.calculateEntropy(payload.config);
         self.postMessage({
           id,
@@ -126,7 +126,7 @@ self.onmessage = async function (event) {
         break;
       }
 
-      case "getSupportedTypes": {
+      case 'getSupportedTypes': {
         const types = passwordService.getSupportedTypes();
         self.postMessage({
           id,
@@ -136,11 +136,11 @@ self.onmessage = async function (event) {
         break;
       }
 
-      case "ping": {
+      case 'ping': {
         self.postMessage({
           id,
           success: true,
-          result: "pong",
+          result: 'pong',
         });
         break;
       }
@@ -164,5 +164,5 @@ self.onmessage = async function (event) {
 
 // Signal that the worker is ready
 self.postMessage({
-  type: "ready",
+  type: 'ready',
 });

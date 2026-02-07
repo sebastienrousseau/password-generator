@@ -8,8 +8,8 @@
  * @module generators/honeyword
  */
 
-import { generateStrongPassword } from "./strong.js";
-import { validatePositiveInteger } from "../domain/base64-generation.js";
+import { generateStrongPassword } from './strong.js';
+import { validatePositiveInteger } from '../domain/base64-generation.js';
 
 /**
  * Generates a honeyword array containing N-1 decoy passwords and 1 real password.
@@ -24,12 +24,12 @@ import { validatePositiveInteger } from "../domain/base64-generation.js";
 export const generateHoneywordSet = async (config, randomGenerator) => {
   const { length, iteration, separator } = config;
 
-  validatePositiveInteger(length, "length");
-  validatePositiveInteger(iteration, "iteration");
+  validatePositiveInteger(length, 'length');
+  validatePositiveInteger(iteration, 'iteration');
 
   if (iteration < 2) {
     throw new Error(
-      "Honeyword generation requires at least 2 passwords (1 real + 1 decoy minimum)"
+      'Honeyword generation requires at least 2 passwords (1 real + 1 decoy minimum)'
     );
   }
 

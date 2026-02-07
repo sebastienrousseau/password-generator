@@ -10,7 +10,7 @@
  * @module domain/entropy-normalizer
  */
 
-import { PASSWORD_TYPES } from "./password-types.js";
+import { PASSWORD_TYPES } from './password-types.js';
 
 /**
  * Constants for entropy calculations
@@ -61,14 +61,14 @@ export const calculateCustomEntropy = (config) => {
 
     if (config.allowedChars) {
       // This is a simplified calculation - in practice we'd use createCustomCharset
-      if (typeof config.allowedChars === "string") {
+      if (typeof config.allowedChars === 'string') {
         // Remove forbidden chars if specified
         let effectiveChars = config.allowedChars;
         if (config.forbiddenChars) {
           effectiveChars = effectiveChars
-            .split("")
+            .split('')
             .filter((char) => !config.forbiddenChars.includes(char))
-            .join("");
+            .join('');
         }
         charsetSize = new Set(effectiveChars).size;
       }
@@ -204,11 +204,11 @@ export const ENTROPY_CALCULATOR_REGISTRY = {
  */
 export const normalizeEntropy = (password, type, config) => {
   if (!type) {
-    throw new Error("Password type is required for entropy calculation");
+    throw new Error('Password type is required for entropy calculation');
   }
 
   if (!config) {
-    throw new Error("Configuration is required for entropy calculation");
+    throw new Error('Configuration is required for entropy calculation');
   }
 
   const calculator = ENTROPY_CALCULATOR_REGISTRY[type];
@@ -241,18 +241,18 @@ export const normalizeEntropy = (password, type, config) => {
  */
 export const getSecurityLevel = (entropyBits) => {
   if (entropyBits >= 256) {
-    return "EXCELLENT";
+    return 'EXCELLENT';
   }
   if (entropyBits >= 128) {
-    return "STRONG";
+    return 'STRONG';
   }
   if (entropyBits >= 80) {
-    return "GOOD";
+    return 'GOOD';
   }
   if (entropyBits >= 64) {
-    return "MODERATE";
+    return 'MODERATE';
   }
-  return "WEAK";
+  return 'WEAK';
 };
 
 /**
@@ -266,20 +266,20 @@ export const getSecurityLevel = (entropyBits) => {
 export const validateEntropyInputs = (password, type, config) => {
   const errors = [];
 
-  if (typeof password !== "string") {
-    errors.push("Password must be a string");
+  if (typeof password !== 'string') {
+    errors.push('Password must be a string');
   }
 
-  if (typeof type !== "string") {
-    errors.push("Type must be a string");
+  if (typeof type !== 'string') {
+    errors.push('Type must be a string');
   }
 
-  if (!config || typeof config !== "object") {
-    errors.push("Config must be an object");
+  if (!config || typeof config !== 'object') {
+    errors.push('Config must be an object');
   }
 
   // Only check registry if type is a valid string
-  if (typeof type === "string" && !ENTROPY_CALCULATOR_REGISTRY[type]) {
+  if (typeof type === 'string' && !ENTROPY_CALCULATOR_REGISTRY[type]) {
     errors.push(`Unsupported password type: ${type}`);
   }
 

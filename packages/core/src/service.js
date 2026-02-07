@@ -15,23 +15,23 @@ import {
   FixedClock,
   MemoryDictionary,
   DEFAULT_WORD_LIST,
-} from "./ports/index.js";
-import { generate, GENERATOR_REGISTRY } from "./generators/index.js";
+} from './ports/index.js';
+import { generate, GENERATOR_REGISTRY } from './generators/index.js';
 import {
   isValidPasswordType,
   VALID_PASSWORD_TYPES,
   validatePasswordTypeConfig,
-} from "./domain/password-types.js";
+} from './domain/password-types.js';
 import {
   calculateTotalEntropy,
   getSecurityLevel,
   getSecurityRecommendation,
-} from "./domain/entropy-calculator.js";
+} from './domain/entropy-calculator.js';
 import {
   normalizeEntropy,
   getSecurityLevel as getSecurityLevelFromNormalizer,
-} from "./domain/entropy-normalizer.js";
-import { PASSWORD_ERRORS } from "./errors.js";
+} from './domain/entropy-normalizer.js';
+import { PASSWORD_ERRORS } from './errors.js';
 
 /**
  * Creates a password generation service with injected ports.
@@ -63,7 +63,7 @@ export function createService(config = {}, ports) {
   if (validateOnInit) {
     const validation = validatePorts(resolvedPorts);
     if (!validation.isValid) {
-      throw new Error(`Port validation failed: ${validation.errors.join("; ")}`);
+      throw new Error(`Port validation failed: ${validation.errors.join('; ')}`);
     }
   }
 
@@ -84,7 +84,7 @@ export function createService(config = {}, ports) {
         type,
         length = 16,
         iteration = 1,
-        separator = "-",
+        separator = '-',
         includeEntropy = false,
         ...restOptions
       } = options;
@@ -101,7 +101,7 @@ export function createService(config = {}, ports) {
       // Validate configuration
       const validation = validatePasswordTypeConfig(type, { length, iteration });
       if (!validation.isValid) {
-        throw new Error(validation.errors.join("; "));
+        throw new Error(validation.errors.join('; '));
       }
 
       // Generate password
@@ -115,7 +115,7 @@ export function createService(config = {}, ports) {
 
       // Calculate normalized entropy
       let entropy = 0;
-      let securityLevel = "WEAK";
+      let securityLevel = 'WEAK';
 
       try {
         entropy = normalizeEntropy(password, type, generatedConfig);
@@ -167,7 +167,7 @@ export function createService(config = {}, ports) {
      * @param {string} [fakePassword] - Optional fake password for calculation (uses empty string if not provided).
      * @returns {Object} Entropy information.
      */
-    calculateEntropy(options, fakePassword = "") {
+    calculateEntropy(options, fakePassword = '') {
       const { type, length = 16, iteration = 1 } = options;
 
       try {
@@ -199,7 +199,7 @@ export function createService(config = {}, ports) {
           totalBits: totalEntropy,
           securityLevel,
           recommendation,
-          perUnit: type === "memorable" ? totalEntropy / iteration : length * Math.log2(64),
+          perUnit: type === 'memorable' ? totalEntropy / iteration : length * Math.log2(64),
           error: error.message,
         };
       }
@@ -209,19 +209,19 @@ export function createService(config = {}, ports) {
       const { iteration = 1, length = 16 } = options;
 
       switch (type) {
-        case "memorable":
-        case "diceware":
+        case 'memorable':
+        case 'diceware':
           return iteration > 0 ? totalEntropy / iteration : 0;
-        case "pronounceable":
+        case 'pronounceable':
           return iteration > 0 ? totalEntropy / iteration : 0; // per syllable
-        case "strong":
-        case "base64":
-        case "quantum-resistant":
-        case "honeyword": {
+        case 'strong':
+        case 'base64':
+        case 'quantum-resistant':
+        case 'honeyword': {
           const totalChars = length * iteration;
           return totalChars > 0 ? totalEntropy / totalChars : 0; // per character
         }
-        case "custom": {
+        case 'custom': {
           const customTotalChars = (length || 1) * iteration;
           return customTotalChars > 0 ? totalEntropy / customTotalChars : 0; // per character
         }

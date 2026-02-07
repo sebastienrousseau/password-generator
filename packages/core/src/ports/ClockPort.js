@@ -17,7 +17,7 @@ export class ClockPort {
    * @abstract
    */
   now() {
-    throw new Error("ClockPort.now() must be implemented");
+    throw new Error('ClockPort.now() must be implemented');
   }
 
   /**
@@ -27,7 +27,7 @@ export class ClockPort {
    * @abstract
    */
   performanceNow() {
-    throw new Error("ClockPort.performanceNow() must be implemented");
+    throw new Error('ClockPort.performanceNow() must be implemented');
   }
 
   /**
@@ -37,19 +37,19 @@ export class ClockPort {
    * @abstract
    */
   toISOString() {
-    throw new Error("ClockPort.toISOString() must be implemented");
+    throw new Error('ClockPort.toISOString() must be implemented');
   }
 }
 
 /**
  * Required methods for ClockPort implementations.
  */
-export const CLOCK_REQUIRED_METHODS = ["now", "performanceNow"];
+export const CLOCK_REQUIRED_METHODS = ['now', 'performanceNow'];
 
 /**
  * Optional methods for ClockPort implementations.
  */
-export const CLOCK_OPTIONAL_METHODS = ["toISOString"];
+export const CLOCK_OPTIONAL_METHODS = ['toISOString'];
 
 /**
  * Fixed clock implementation for testing.

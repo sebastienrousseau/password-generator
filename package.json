@@ -27,7 +27,7 @@
     },
     "prettier": {
         "semi": true,
-        "singleQuote": false,
+        "singleQuote": true,
         "tabWidth": 2,
         "trailingComma": "es5",
         "printWidth": 100,
@@ -105,7 +105,7 @@
             "no-unused-vars": 2,
             "no-use-before-define": [2, "nofunc"],
             "operator-linebreak": [2, "after"],
-            "quotes": [2, "double"],
+            "quotes": [2, "single", { "avoidEscape": true }],
             "semi": [2, "always"],
             "space-before-blocks": [2, "always"],
             "space-before-function-paren": "off",

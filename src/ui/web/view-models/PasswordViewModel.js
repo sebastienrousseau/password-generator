@@ -8,7 +8,7 @@
  * This is a pure transformation layer with no business logic.
  */
 
-import { getStrengthLabel, getStrengthColor } from "../../../utils/password-strength-analyzer.js";
+import { getStrengthLabel, getStrengthColor } from '../../../utils/password-strength-analyzer.js';
 
 /**
  * View model representing a generated password for UI display.
@@ -31,8 +31,8 @@ export class PasswordViewModel {
 
     // Legacy entropy display (for backward compatibility)
     this.entropyBits = data.entropyInfo?.totalBits ?? 0;
-    this.securityLevel = data.entropyInfo?.securityLevel ?? "unknown";
-    this.securityRecommendation = data.entropyInfo?.recommendation ?? "";
+    this.securityLevel = data.entropyInfo?.securityLevel ?? 'unknown';
+    this.securityRecommendation = data.entropyInfo?.recommendation ?? '';
 
     // Advanced strength analysis
     this.strength = data.strength || {};
@@ -51,7 +51,7 @@ export class PasswordViewModel {
     this.strengthIndicator = this._getStrengthIndicator(data);
 
     // Configuration echo (for user reference)
-    this.type = data.config?.type ?? "";
+    this.type = data.config?.type ?? '';
     this.configSummary = this._formatConfigSummary(data.config);
 
     // Timestamps
@@ -67,12 +67,12 @@ export class PasswordViewModel {
    */
   _maskPassword(password) {
     if (!password) {
-      return "";
+      return '';
     }
     if (password.length <= 4) {
-      return "*".repeat(password.length);
+      return '*'.repeat(password.length);
     }
-    return password.slice(0, 2) + "*".repeat(password.length - 4) + password.slice(-2);
+    return password.slice(0, 2) + '*'.repeat(password.length - 4) + password.slice(-2);
   }
 
   /**
@@ -86,7 +86,7 @@ export class PasswordViewModel {
    */
   _getStrengthIndicator(data) {
     // If we have a valid strength score (0-4), use the advanced system
-    if (data.strength && typeof data.strength.score === "number") {
+    if (data.strength && typeof data.strength.score === 'number') {
       return this._mapToAdvancedStrengthIndicator();
     }
     // Otherwise, fall back to entropy-based indicator for backward compatibility
@@ -102,11 +102,11 @@ export class PasswordViewModel {
   _mapToAdvancedStrengthIndicator() {
     const score = this.strengthScore;
     const scoreToLevel = {
-      0: { level: "very_weak", label: "Very Weak", dots: 1, color: "critical" },
-      1: { level: "weak", label: "Weak", dots: 2, color: "error" },
-      2: { level: "fair", label: "Fair", dots: 3, color: "warning" },
-      3: { level: "good", label: "Good", dots: 4, color: "success" },
-      4: { level: "strong", label: "Strong", dots: 5, color: "excellent" },
+      0: { level: 'very_weak', label: 'Very Weak', dots: 1, color: 'critical' },
+      1: { level: 'weak', label: 'Weak', dots: 2, color: 'error' },
+      2: { level: 'fair', label: 'Fair', dots: 3, color: 'warning' },
+      3: { level: 'good', label: 'Good', dots: 4, color: 'success' },
+      4: { level: 'strong', label: 'Strong', dots: 5, color: 'excellent' },
     };
 
     return scoreToLevel[score] || scoreToLevel[0];
@@ -123,15 +123,15 @@ export class PasswordViewModel {
     const bits = entropyInfo?.totalBits ?? 0;
 
     if (bits >= 128) {
-      return { level: "maximum", label: "Maximum", dots: 4, color: "success" };
+      return { level: 'maximum', label: 'Maximum', dots: 4, color: 'success' };
     }
     if (bits >= 80) {
-      return { level: "strong", label: "Strong", dots: 3, color: "success" };
+      return { level: 'strong', label: 'Strong', dots: 3, color: 'success' };
     }
     if (bits >= 64) {
-      return { level: "medium", label: "Medium", dots: 2, color: "warning" };
+      return { level: 'medium', label: 'Medium', dots: 2, color: 'warning' };
     }
-    return { level: "weak", label: "Weak", dots: 1, color: "error" };
+    return { level: 'weak', label: 'Weak', dots: 1, color: 'error' };
   }
 
   /**
@@ -143,7 +143,7 @@ export class PasswordViewModel {
    */
   _formatConfigSummary(config) {
     if (!config) {
-      return "";
+      return '';
     }
 
     const parts = [];
@@ -159,7 +159,7 @@ export class PasswordViewModel {
     if (config.separator) {
       parts.push(`Separator: "${config.separator}"`);
     }
-    return parts.join(" | ");
+    return parts.join(' | ');
   }
 
   /**
@@ -192,7 +192,7 @@ export class PasswordViewModel {
     // Use 4 dots for entropy-based (maximum=4) or 5 dots for score-based (strong=5)
     const maxDots = filled <= 4 ? 4 : 5;
     const empty = Math.max(0, maxDots - filled);
-    return "●".repeat(filled) + "○".repeat(empty);
+    return '●'.repeat(filled) + '○'.repeat(empty);
   }
 
   /**
@@ -210,7 +210,7 @@ export class PasswordViewModel {
     if (this.dictionaries.length > 0) {
       return this.dictionaries[0].description;
     }
-    return "";
+    return '';
   }
 
   /**
@@ -220,11 +220,11 @@ export class PasswordViewModel {
    */
   getCrackTimeEstimate() {
     if (!this.crackTime) {
-      return "Unknown";
+      return 'Unknown';
     }
 
     // Prioritize offline attack scenarios as they're most relevant for leaked passwords
-    return this.crackTime.offline_slow || this.crackTime.online_unthrottled || "Unknown";
+    return this.crackTime.offline_slow || this.crackTime.online_unthrottled || 'Unknown';
   }
 
   /**

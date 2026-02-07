@@ -12,38 +12,38 @@
  * Enumeration of supported password types
  */
 export const PASSWORD_TYPES = {
-  STRONG: "strong",
-  BASE64: "base64",
-  MEMORABLE: "memorable",
-  QUANTUM: "quantum-resistant",
-  DICEWARE: "diceware",
-  HONEYWORD: "honeyword",
-  PRONOUNCEABLE: "pronounceable",
-  CUSTOM: "custom",
+  STRONG: 'strong',
+  BASE64: 'base64',
+  MEMORABLE: 'memorable',
+  QUANTUM: 'quantum-resistant',
+  DICEWARE: 'diceware',
+  HONEYWORD: 'honeyword',
+  PRONOUNCEABLE: 'pronounceable',
+  CUSTOM: 'custom',
 };
 
 /**
  * Enumeration of internal generation strategies
  */
 export const GENERATION_STRATEGIES = {
-  BASE64: "base64",
-  BASE64_CHUNK: "base64-chunk",
-  SYLLABLE: "syllable",
-  DICTIONARY: "dictionary",
+  BASE64: 'base64',
+  BASE64_CHUNK: 'base64-chunk',
+  SYLLABLE: 'syllable',
+  DICTIONARY: 'dictionary',
 };
 
 /**
  * Valid password types for user-facing API
  */
 export const VALID_PASSWORD_TYPES = [
-  "strong",
-  "base64",
-  "memorable",
-  "quantum-resistant",
-  "diceware",
-  "honeyword",
-  "pronounceable",
-  "custom",
+  'strong',
+  'base64',
+  'memorable',
+  'quantum-resistant',
+  'diceware',
+  'honeyword',
+  'pronounceable',
+  'custom',
 ];
 
 /**
@@ -60,86 +60,86 @@ export const isValidPasswordType = (type) => {
  */
 export const PASSWORD_TYPE_METADATA = {
   [PASSWORD_TYPES.STRONG]: {
-    name: "Strong Password",
-    description: "Cryptographically secure base64-encoded random bytes",
+    name: 'Strong Password',
+    description: 'Cryptographically secure base64-encoded random bytes',
     minLength: 1,
     maxLength: 1024,
     entropyPerUnit: 6, // bits per character (log2(64))
-    unitType: "character",
+    unitType: 'character',
     pattern: /^[A-Za-z0-9+/]+$/,
-    useCases: ["High-entropy passwords", "API tokens", "Secure credentials"],
+    useCases: ['High-entropy passwords', 'API tokens', 'Secure credentials'],
   },
   [PASSWORD_TYPES.BASE64]: {
-    name: "Base64 Password",
-    description: "Uniform random selection from base64 character set",
+    name: 'Base64 Password',
+    description: 'Uniform random selection from base64 character set',
     minLength: 1,
     maxLength: 1024,
     entropyPerUnit: 6, // bits per character (log2(64))
-    unitType: "character",
+    unitType: 'character',
     pattern: /^[A-Za-z0-9+/]+$/,
-    useCases: ["Fixed-length passwords", "Avoid base64 padding"],
+    useCases: ['Fixed-length passwords', 'Avoid base64 padding'],
   },
   [PASSWORD_TYPES.MEMORABLE]: {
-    name: "Memorable Password",
-    description: "Passwords composed of dictionary words with separators",
+    name: 'Memorable Password',
+    description: 'Passwords composed of dictionary words with separators',
     minLength: 1,
     maxLength: 20,
     entropyPerUnit: null, // Depends on dictionary size
-    unitType: "word",
+    unitType: 'word',
     pattern: null, // Depends on dictionary and separator
-    useCases: ["Passphrase generation", "XKCD-style passwords", "Human-memorable"],
+    useCases: ['Passphrase generation', 'XKCD-style passwords', 'Human-memorable'],
   },
   [PASSWORD_TYPES.QUANTUM]: {
-    name: "Quantum-Resistant Password",
-    description: "Ultra-high entropy passwords designed for quantum-resistant security",
+    name: 'Quantum-Resistant Password',
+    description: 'Ultra-high entropy passwords designed for quantum-resistant security',
     minLength: 32,
     maxLength: 128,
     entropyPerUnit: 6, // bits per character (log2(64))
-    unitType: "character",
+    unitType: 'character',
     pattern: /^[A-Za-z0-9+/]+$/,
-    useCases: ["Post-quantum cryptography", "Maximum security", "Future-proof credentials"],
+    useCases: ['Post-quantum cryptography', 'Maximum security', 'Future-proof credentials'],
   },
   [PASSWORD_TYPES.DICEWARE]: {
-    name: "Diceware Passphrase",
+    name: 'Diceware Passphrase',
     description:
-      "Secure passphrases using the EFF large wordlist (7776 words) based on diceware methodology",
+      'Secure passphrases using the EFF large wordlist (7776 words) based on diceware methodology',
     minLength: 1,
     maxLength: 20,
     entropyPerUnit: 12.925, // bits per word (log2(7776))
-    unitType: "word",
+    unitType: 'word',
     pattern: null, // Depends on dictionary and separator
-    useCases: ["High-entropy passphrases", "NIST recommended", "Cryptographically secure"],
+    useCases: ['High-entropy passphrases', 'NIST recommended', 'Cryptographically secure'],
   },
   [PASSWORD_TYPES.HONEYWORD]: {
-    name: "Honeyword Generator",
-    description: "Generates N-1 decoy passwords plus 1 real password with metadata",
+    name: 'Honeyword Generator',
+    description: 'Generates N-1 decoy passwords plus 1 real password with metadata',
     minLength: 1,
     maxLength: 1024,
     entropyPerUnit: 6, // bits per character (log2(64))
-    unitType: "character",
+    unitType: 'character',
     pattern: /^[A-Za-z0-9+/]+$/,
-    useCases: ["Authentication security", "Honeypot detection", "Intrusion detection"],
+    useCases: ['Authentication security', 'Honeypot detection', 'Intrusion detection'],
   },
   [PASSWORD_TYPES.PRONOUNCEABLE]: {
-    name: "Pronounceable Password",
+    name: 'Pronounceable Password',
     description:
-      "Easy-to-pronounce passwords using CVVC (consonant-vowel-vowel-consonant) syllable patterns",
+      'Easy-to-pronounce passwords using CVVC (consonant-vowel-vowel-consonant) syllable patterns',
     minLength: 1,
     maxLength: 50,
     entropyPerUnit: 13.42, // bits per CVVC syllable (log2(21*5*5*21))
-    unitType: "syllable",
+    unitType: 'syllable',
     pattern: /^[bcdfghjklmnpqrstvwxyzaeiou]+$/,
-    useCases: ["Human-readable passwords", "Verbal password sharing", "Easy typing"],
+    useCases: ['Human-readable passwords', 'Verbal password sharing', 'Easy typing'],
   },
   [PASSWORD_TYPES.CUSTOM]: {
-    name: "Custom Character Set",
-    description: "User-defined character sets and template-based password generation",
+    name: 'Custom Character Set',
+    description: 'User-defined character sets and template-based password generation',
     minLength: 1,
     maxLength: 1000,
     entropyPerUnit: null, // Depends on custom character set
-    unitType: "character",
+    unitType: 'character',
     pattern: null, // Depends on custom character set
-    useCases: ["Custom policies", "Template generation", "Regulatory compliance"],
+    useCases: ['Custom policies', 'Template generation', 'Regulatory compliance'],
   },
 };
 
@@ -153,7 +153,7 @@ export const validatePasswordTypeConfig = (type, config) => {
   const errors = [];
 
   if (!isValidPasswordType(type)) {
-    errors.push(`Invalid password type: ${type}. Valid types: ${VALID_PASSWORD_TYPES.join(", ")}`);
+    errors.push(`Invalid password type: ${type}. Valid types: ${VALID_PASSWORD_TYPES.join(', ')}`);
     return { isValid: false, errors };
   }
 
@@ -163,7 +163,7 @@ export const validatePasswordTypeConfig = (type, config) => {
   // Validate iteration
   if (iteration !== undefined) {
     if (!Number.isInteger(iteration) || iteration < 1) {
-      errors.push("Iteration must be a positive integer");
+      errors.push('Iteration must be a positive integer');
     }
   }
 

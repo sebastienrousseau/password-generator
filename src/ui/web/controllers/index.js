@@ -8,4 +8,4 @@
  * delegating all business logic to the core service.
  */
 
-export { WebUIController, createWebUIController } from "./WebUIController.js";
+export { WebUIController, createWebUIController } from './WebUIController.js';
