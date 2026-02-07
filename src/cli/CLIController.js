@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 import { Command } from "commander";
-import clipboardy from "clipboardy";
 import { CLI_OPTIONS, PRESET_PROFILES, VALID_PRESETS } from "../config.js";
 import { startOnboarding } from "../onboarding.js";
 
@@ -15,6 +14,27 @@ import {
   displayNonTTYHelp,
 } from "../services/cli-service.js";
 import { startAuditSession, completeAuditSession } from "../services/audit-service.js";
+
+/**
+ * Dynamically imports and uses clipboardy with graceful fallback.
+ * Returns true if clipboard copy was successful, false otherwise.
+ *
+ * @param {string} text - The text to copy to clipboard
+ * @returns {Promise<boolean>} Whether the copy operation succeeded
+ */
+async function copyToClipboard(text) {
+  try {
+    // Dynamic import of clipboardy to handle optional dependency
+    const { default: clipboardy } = await import("clipboardy");
+    await clipboardy.write(text);
+    return true;
+  } catch (error) {
+    // Clipboard functionality is not available - this is not a fatal error
+    console.warn("Warning: Clipboard functionality not available. Password generated but not copied.");
+    console.warn(`Reason: ${error.message}`);
+    return false;
+  }
+}
 
 /**
  * CLI Controller - Thin Adapter Pattern
@@ -159,12 +179,14 @@ export class CLIController {
       const password = await this.service.generate(config);
 
       // Step 4: Handle clipboard copy (CLI-specific I/O)
+      let clipboardSuccess = false;
       if (opts.clipboard) {
-        await clipboardy.write(password);
+        clipboardSuccess = await copyToClipboard(password);
       }
 
       // Step 5: Render output (CLI-specific presentation)
-      displayPasswordOutput(password, opts.clipboard, config);
+      // Pass the actual success state instead of the requested state
+      displayPasswordOutput(password, clipboardSuccess, config);
 
       // Display command learning panel if enabled
       if (opts.learn) {
