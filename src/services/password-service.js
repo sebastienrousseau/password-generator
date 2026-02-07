@@ -13,11 +13,13 @@
 import { PASSWORD_ERRORS } from "../errors.js";
 import { createService } from "../../packages/core/src/index.js";
 import { NodeCryptoRandom } from "../adapters/node/crypto-random.js";
+import { EFFDicewareDictionary } from "../adapters/node/eff-diceware-dictionary.js";
 import { analyzePasswordStrength, quickStrengthCheck } from "../utils/password-strength-analyzer.js";
 
-// Create shared service instance
+// Create shared service instance with EFF diceware dictionary
 const randomGenerator = new NodeCryptoRandom();
-const coreService = createService({}, { randomGenerator });
+const dictionary = new EFFDicewareDictionary();
+const coreService = createService({}, { randomGenerator, dictionary });
 
 /**
  * Generates a password of the specified type using the appropriate generator module.

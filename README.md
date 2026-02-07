@@ -9,10 +9,10 @@
 
 # Password Generator
 
-A fast, simple, and powerful open-source utility for generating cryptographically secure passwords. Supports three password types: strong (complex), base64-encoded, and memorable word-based passwords.
+A fast, simple, and powerful open-source utility for generating cryptographically secure passwords. Supports 8 password types: strong, base64, memorable, quantum-resistant, diceware, honeyword, pronounceable, and custom with template support.
 
 [![Getting Started](https://kura.pro/common/images/buttons/button-primary.svg)](#quick-start)
-[![Download v1.1.4](https://kura.pro/common/images/buttons/button-secondary.svg)](https://github.com/sebastienrousseau/password-generator/archive/refs/tags/1.1.4.zip)
+[![Download v1.2.0](https://kura.pro/common/images/buttons/button-secondary.svg)](https://github.com/sebastienrousseau/password-generator/archive/refs/tags/1.2.0.zip)
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/0acb169c95e443729551979e0fd86eaf)](https://www.codacy.com?utm_source=github.com&utm_medium=referral&utm_content=sebastienrousseau/password-generator&utm_campaign=Badge_Grade)
 [![npm](https://img.shields.io/npm/v/@sebastienrousseau/password-generator.svg?style=flat&color=success)](https://www.npmjs.com/package/@sebastienrousseau/password-generator)
@@ -74,7 +74,12 @@ When storing user passwords in a database, **NEVER store them in plain text**. U
 
 ✅ **Cryptographically secure** passwords using Node.js crypto module
 ✅ **Interactive guided setup** for first-time users
-✅ **Three password types**: strong, memorable, base64
+✅ **8 password types**: strong, base64, memorable, quantum-resistant, diceware, honeyword, pronounceable, custom
+✅ **PasswordBuilder fluent API** for advanced programmatic use
+✅ **Bulk generation** with `generateMultiple()` function
+✅ **Multiple output formats**: JSON, YAML, CSV, text
+✅ **Strength analyzer** with entropy calculation
+✅ **Web Worker support** for non-blocking bulk operations
 ✅ **Instant clipboard copy** option
 ✅ **Zero configuration** required to start
 
@@ -112,6 +117,10 @@ The onboarding shows examples, explains security implications, and teaches the c
 | **base64** | Base64-encoded character combinations | API keys, tokens | `YWJjZGVm.ZGhpamts` |
 | **memorable** | Dictionary words for easy recall | Personal accounts, shared passwords | `Apple-Castle-River-Moon` |
 | **quantum-resistant** | Enhanced entropy with quantum-safe algorithms | Post-quantum security | `QR$v9K#mF2@x7L&nE8!p` |
+| **diceware** | EFF Diceware wordlist-based passphrases | High-security passphrases | `unnoticed-repave-scoring-unwind` |
+| **pronounceable** | Phonetically pronounceable passwords | Spoken communication scenarios | `Fir-Mov-Lin-Tet` |
+| **honeyword** | Deceptive passwords for security honeypots | Intrusion detection systems | `trap-word-honey-pot` |
+| **custom** | User-defined character sets and patterns | Specific compliance requirements | Custom charset output |
 
 ## Quantum-Resistant Mode
 
