@@ -1,0 +1,293 @@
+/* Copyright 2022-2024 Password Generator. All rights reserved.
+ * SPDX-License-Identifier: Apache-2.0 OR MIT
+ *
+ * Design Tokens - CSS Custom Properties
+ * Derived from src/ui/tokens.js
+ */
+
+:root {
+  /* ============================================
+   * Color Palette
+   * ============================================ */
+
+  /* Primary gradient (pink to purple) */
+  --color-pink: #FF6B9D;
+  --color-hot-pink: #FF4785;
+  --color-purple: #9D4EDD;
+  --color-violet: #7B2CBF;
+
+  /* Accent colors */
+  --color-cyan: #00D9FF;
+  --color-mint: #3DFFA3;
+  --color-peach: #FFB86C;
+  --color-coral: #FF6B6B;
+
+  /* Neutrals */
+  --color-white: #FAFAFA;
+  --color-gray-50: #FAFAFA;
+  --color-gray-100: #F4F4F5;
+  --color-gray-200: #E4E4E7;
+  --color-gray-300: #D4D4D8;
+  --color-gray-400: #9CA3AF;
+  --color-gray-500: #71717A;
+  --color-gray-600: #52525B;
+  --color-gray-700: #4B5563;
+  --color-gray-800: #374151;
+  --color-gray-900: #18181B;
+
+  /* ============================================
+   * Typography
+   * ============================================ */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', Menlo, monospace;
+
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-lg: 1.125rem;   /* 18px */
+  --font-size-xl: 1.25rem;    /* 20px */
+  --font-size-2xl: 1.5rem;    /* 24px */
+  --font-size-3xl: 1.875rem;  /* 30px */
+  --font-size-4xl: 2.25rem;   /* 36px */
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.625;
+
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.025em;
+  --letter-spacing-wider: 0.05em;
+
+  /* ============================================
+   * Spacing
+   * ============================================ */
+  --space-0: 0;
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+  --space-20: 5rem;     /* 80px */
+  --space-24: 6rem;     /* 96px */
+
+  /* ============================================
+   * Border Radius
+   * ============================================ */
+  --radius-none: 0;
+  --radius-sm: 0.25rem;   /* 4px */
+  --radius-md: 0.5rem;    /* 8px */
+  --radius-lg: 0.75rem;   /* 12px */
+  --radius-xl: 1rem;      /* 16px */
+  --radius-2xl: 1.5rem;   /* 24px */
+  --radius-full: 9999px;
+
+  /* ============================================
+   * Shadows
+   * ============================================ */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+
+  /* ============================================
+   * Transitions
+   * ============================================ */
+  --duration-fast: 100ms;
+  --duration-normal: 200ms;
+  --duration-slow: 300ms;
+  --duration-slower: 500ms;
+
+  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ============================================
+   * Z-Index Scale
+   * ============================================ */
+  --z-base: 0;
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-fixed: 30;
+  --z-modal-backdrop: 40;
+  --z-modal: 50;
+  --z-tooltip: 60;
+
+  /* ============================================
+   * Focus Ring
+   * ============================================ */
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+}
+
+/* ============================================
+ * Dark Theme (default)
+ * ============================================ */
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Brand */
+  --brand-primary: var(--color-pink);
+  --brand-secondary: var(--color-purple);
+
+  /* Feedback */
+  --feedback-success: var(--color-mint);
+  --feedback-warning: var(--color-peach);
+  --feedback-error: var(--color-coral);
+  --feedback-info: var(--color-cyan);
+
+  /* Text */
+  --text-primary: var(--color-white);
+  --text-secondary: var(--color-gray-400);
+  --text-muted: var(--color-gray-500);
+  --text-disabled: var(--color-gray-600);
+
+  /* Background */
+  --bg-primary: var(--color-gray-900);
+  --bg-secondary: var(--color-gray-800);
+  --bg-elevated: var(--color-gray-700);
+  --bg-overlay: rgba(0, 0, 0, 0.6);
+
+  /* Border */
+  --border-default: var(--color-gray-700);
+  --border-focus: var(--color-pink);
+  --border-error: var(--color-coral);
+
+  /* Interactive */
+  --interactive-default: var(--color-cyan);
+  --interactive-hover: var(--color-pink);
+  --interactive-active: var(--color-purple);
+  --interactive-focus: var(--color-pink);
+
+  /* Strength */
+  --strength-weak: var(--color-coral);
+  --strength-medium: var(--color-peach);
+  --strength-strong: var(--color-mint);
+  --strength-maximum: var(--color-mint);
+
+  /* Input */
+  --input-bg: var(--color-gray-800);
+  --input-border: var(--color-gray-600);
+  --input-text: var(--color-white);
+  --input-placeholder: var(--color-gray-500);
+
+  /* Button Primary */
+  --btn-primary-bg: var(--color-pink);
+  --btn-primary-text: var(--color-gray-900);
+  --btn-primary-hover-bg: var(--color-hot-pink);
+
+  /* Button Secondary */
+  --btn-secondary-bg: transparent;
+  --btn-secondary-text: var(--color-pink);
+  --btn-secondary-border: var(--color-pink);
+  --btn-secondary-hover-bg: rgba(255, 107, 157, 0.1);
+
+  /* Card */
+  --card-bg: var(--color-gray-800);
+  --card-border: var(--color-gray-700);
+
+  /* Focus Ring */
+  --focus-ring-color: rgba(255, 107, 157, 0.5);
+
+  /* Shadows (darker for dark mode) */
+  --shadow-colored: 0 4px 14px 0 rgba(255, 107, 157, 0.15);
+}
+
+/* ============================================
+ * Light Theme
+ * ============================================ */
+[data-theme="light"] {
+  color-scheme: light;
+
+  /* Brand */
+  --brand-primary: #D14671;
+  --brand-secondary: #7B2CBF;
+
+  /* Feedback */
+  --feedback-success: #059669;
+  --feedback-warning: #C2410C;
+  --feedback-error: #DC2626;
+  --feedback-info: #0891B2;
+
+  /* Text */
+  --text-primary: var(--color-gray-900);
+  --text-secondary: var(--color-gray-600);
+  --text-muted: var(--color-gray-500);
+  --text-disabled: var(--color-gray-300);
+
+  /* Background */
+  --bg-primary: var(--color-gray-50);
+  --bg-secondary: var(--color-gray-100);
+  --bg-elevated: var(--color-white);
+  --bg-overlay: rgba(0, 0, 0, 0.4);
+
+  /* Border */
+  --border-default: var(--color-gray-200);
+  --border-focus: #D14671;
+  --border-error: #DC2626;
+
+  /* Interactive */
+  --interactive-default: #0891B2;
+  --interactive-hover: #D14671;
+  --interactive-active: #7B2CBF;
+  --interactive-focus: #D14671;
+
+  /* Strength */
+  --strength-weak: #DC2626;
+  --strength-medium: #C2410C;
+  --strength-strong: #059669;
+  --strength-maximum: #059669;
+
+  /* Input */
+  --input-bg: var(--color-white);
+  --input-border: var(--color-gray-300);
+  --input-text: var(--color-gray-900);
+  --input-placeholder: var(--color-gray-400);
+
+  /* Button Primary */
+  --btn-primary-bg: #D14671;
+  --btn-primary-text: var(--color-white);
+  --btn-primary-hover-bg: #B33D62;
+
+  /* Button Secondary */
+  --btn-secondary-bg: transparent;
+  --btn-secondary-text: #D14671;
+  --btn-secondary-border: #D14671;
+  --btn-secondary-hover-bg: rgba(209, 70, 113, 0.08);
+
+  /* Card */
+  --card-bg: var(--color-white);
+  --card-border: var(--color-gray-200);
+
+  /* Focus Ring */
+  --focus-ring-color: rgba(209, 70, 113, 0.4);
+
+  /* Shadows (lighter for light mode) */
+  --shadow-colored: 0 4px 14px 0 rgba(209, 70, 113, 0.1);
+}
+
+/* ============================================
+ * Reduced Motion
+ * ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-normal: 0ms;
+    --duration-slow: 0ms;
+    --duration-slower: 0ms;
+  }
+}
