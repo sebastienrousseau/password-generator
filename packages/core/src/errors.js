@@ -55,17 +55,9 @@ export const PASSWORD_ERRORS = {
    * @returns {string} The error message.
    */
   INVALID_ITERATION: "Iteration must be a positive integer",
-
-  /**
-   * Error message for invalid length.
-   * @returns {string} The error message.
-   */
+  /** Error message for invalid length. */
   INVALID_LENGTH: "Length must be a positive integer",
-
-  /**
-   * Error message for missing separator.
-   * @returns {string} The error message.
-   */
+  /** Error message for missing separator. */
   SEPARATOR_REQUIRED: "Separator is required",
 };
 
@@ -80,24 +72,10 @@ export const PORT_ERRORS = {
    * @returns {string} The error message.
    */
   MISSING_PORTS: (missingPorts, requiredPorts) =>
-    `Missing required ports: ${missingPorts.join(", ")}. Required ports: ${requiredPorts.join(
-      ", "
-    )}`,
-
-  /**
-   * Error message for invalid port implementation.
-   * @param {string} portName - The name of the invalid port.
-   * @param {string} expectedClass - The expected port class name.
-   * @returns {string} The error message.
-   */
+    `Missing required ports: ${missingPorts.join(", ")}. Required ports: ${requiredPorts.join(", ")}`,
+  /** Error message for invalid port implementation. */
   INVALID_PORT: (portName, expectedClass) =>
     `${portName}: Missing required methods for ${expectedClass}`,
-
-  /**
-   * Error message for unknown port type.
-   * @param {string} portName - The name of the port.
-   * @param {string} expectedClass - The expected class name.
-   * @returns {string} The error message.
-   */
+  /** Error message for unknown port type. */
   UNKNOWN_PORT_TYPE: (portName, expectedClass) => `${portName}: Unknown port type ${expectedClass}`,
 };

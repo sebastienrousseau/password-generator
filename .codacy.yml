@@ -17,6 +17,10 @@ engines:
     enabled: false
   eslint:
     enabled: true
+    # Use project's ESLint config
+    plugins:
+      - eslint-plugin-import
+    base_sub_dir: ""
   prettier:
     enabled: false
 
