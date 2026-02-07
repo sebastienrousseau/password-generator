@@ -9,7 +9,7 @@
 
 # Password Generator
 
-A fast, simple, and powerful open-source utility for generating cryptographically secure passwords. Supports 8 password types: strong, base64, memorable, quantum-resistant, diceware, honeyword, pronounceable, and custom with template support.
+Fast, powerful open-source utility generating cryptographically secure passwords. Supports 8 password types: strong, base64, memorable, quantum-resistant, diceware, honeyword, pronounceable, and custom with template support.
 
 [![Getting Started](https://kura.pro/common/images/buttons/button-primary.svg)](#quick-start)
 [![Download v1.2.0](https://kura.pro/common/images/buttons/button-secondary.svg)](https://github.com/sebastienrousseau/password-generator/archive/refs/tags/1.2.0.zip)
@@ -23,16 +23,16 @@ A fast, simple, and powerful open-source utility for generating cryptographicall
 
 ### Quick Install & First Password
 
-**Requirements:** Node.js 18+
+**Requirements:** Node.js 20+
 
 ```bash
-# Install and generate your first password instantly
+# Install and generate password instantly
 npx @sebastienrousseau/password-generator
 ```
 
-The interactive setup guides you through creating your first secure password.
+Interactive setup guides password creation.
 
-### Direct Commands (For Power Users)
+### Direct Commands
 
 ```bash
 # Strong password for important accounts
@@ -44,7 +44,7 @@ npx @sebastienrousseau/password-generator -t memorable -i 4 -s '-'
 # Output: Apple-Breeze-Castle-Diamond
 ```
 
-**Use in Your Code:**
+**Code Integration:**
 ```javascript
 import PasswordGenerator from "@sebastienrousseau/password-generator";
 
@@ -53,17 +53,17 @@ const password = await PasswordGenerator({
 });
 ```
 
-## Storage Matters
+## Storage Security
 
-**Important:** Store these passwords securely and hash them properly.
+**Critical:** Store passwords securely with proper hashing.
 
 ### Application Security
 
-When storing user passwords in a database, **NEVER store them in plain text**. Use a secure Key Derivation Function (KDF):
+Database storage requires secure Key Derivation Functions. **Never store plain text passwords.**
 
 - **Recommended**: Argon2id with NIST SP 800-132 parameters
 - **Alternative**: scrypt or PBKDF2 with high iteration counts
-- **Avoid**: MD5, SHA-1, or plain SHA-256 for password hashing
+- **Prohibited**: MD5, SHA-1, plain SHA-256 for password hashing
 
 ### References
 
@@ -85,21 +85,21 @@ When storing user passwords in a database, **NEVER store them in plain text**. U
 
 ## Interactive Onboarding
 
-When you run `npx @sebastienrousseau/password-generator` without options, you enter a 4-step setup:
+Launch `npx @sebastienrousseau/password-generator` without options for 4-step setup:
 
-**Step 1: Choose Password Type** → Pick from strong, memorable, or base64
-**Step 2: Security Level** → Select quick, secure, memorable, or custom
-**Step 3: Clipboard Settings** → Auto-copy or display only
-**Step 4: Generate** → Get your password plus the command-line command to recreate it
+**Step 1: Choose Password Type** → Select strong, memorable, or base64
+**Step 2: Security Level** → Choose quick, secure, memorable, or custom
+**Step 3: Clipboard Settings** → Enable auto-copy or display only
+**Step 4: Generate** → Receive password plus command-line recreation command
 
-**Navigation:** Use arrow keys, numbers (1-3), Space for examples, ESC to go back
+**Navigation:** Arrow keys, numbers (1-3), Space for examples, ESC to return
 
-**Example Experience:**
+**Interface Example:**
 ```
 🔐 Welcome to Password Generator!
 ●○○○ (1/4)
 
-📋 Choose your password type:
+📋 Choose password type:
 ▶ 1. 🔐 strong - Maximum security for important accounts
   2. 🧠 memorable - Easy to remember for daily use
   3. ⚙️ base64 - For API keys and system integration
@@ -107,7 +107,7 @@ When you run `npx @sebastienrousseau/password-generator` without options, you en
 Controls: Arrow Keys: Navigate • Enter: Select • Space: Show examples
 ```
 
-The onboarding shows examples, explains security implications, and teaches the command-line commands for future use.
+Onboarding displays examples, security implications, and command-line commands for future reference.
 
 ## Password Types
 
@@ -124,23 +124,23 @@ The onboarding shows examples, explains security implications, and teaches the c
 
 ## Quantum-Resistant Mode
 
-Password Generator includes quantum-resistant password generation that withstands both classical and quantum computational attacks.
+Quantum-resistant password generation withstands classical and quantum computational attacks.
 
-### What Quantum-Resistant Mode Is
+### Quantum-Resistant Features
 
-**Quantum-resistant mode** generates passwords with enhanced entropy using quantum-safe algorithms and follows NIST Post-Quantum Cryptography standards:
+Generates passwords with enhanced entropy using quantum-safe algorithms following NIST Post-Quantum Cryptography standards:
 
 - **Enhanced Character Sets**: Expanded symbol alphabet (94 printable ASCII characters)
 - **Quantum-Safe Entropy**: Minimum 256-bit entropy threshold
 - **NIST SP 800-132 Compliance**: Key derivation using Argon2id with recommended parameters
 - **Post-Quantum Ready**: Resists quantum computing threats
 
-### What Quantum-Resistant Mode Is NOT
+### Limitations
 
-- **Not a silver bullet**: Still requires proper storage and handling
-- **Not immune to social engineering**: Human factors remain critical
-- **Not backwards compatible**: May not work with legacy systems requiring simple passwords
-- **Not performance optimized**: Generation takes longer due to enhanced security
+- Requires proper storage and handling
+- Vulnerable to social engineering attacks
+- Incompatible with legacy systems requiring simple passwords
+- Slower generation due to enhanced security
 
 ### Default Configuration
 
@@ -156,7 +156,7 @@ Minimum Entropy: 256 bits
 KDF: Argon2id (memory=65536, time=3, parallelism=4)
 ```
 
-### command-line Examples
+### Command-Line Examples
 
 **Basic Quantum-Resistant Password:**
 ```bash
@@ -164,19 +164,19 @@ npx @sebastienrousseau/password-generator -t quantum-resistant
 # Output: QR$v9K#mF2@x7L&nE8!pX3@T5w$nM9&bE8!tZ7%L4@nF6#mR2$w
 ```
 
-**High-Security Enterprise Use:**
+**Enterprise High-Security:**
 ```bash
 npx @sebastienrousseau/password-generator -t quantum-resistant -l 48 -i 6 -s ''
-# Output: 288-bit entropy password suitable for post-quantum security
+# Output: 288-bit entropy password for post-quantum security
 ```
 
-**Quantum-Resistant with Separators (Readable):**
+**Readable Quantum-Resistant:**
 ```bash
 npx @sebastienrousseau/password-generator -t quantum-resistant -l 24 -i 4 -s '-'
 # Output: QR$v9K#mF2@x7L&nE8!p-X3@T5w$nM9&bE8!tZ7%-L4@nF6#mR2$w-M8&vE2#rT9$
 ```
 
-**Maximum Security Configuration:**
+**Maximum Security:**
 ```bash
 npx @sebastienrousseau/password-generator -t quantum-resistant -l 64 -i 8 -s ''
 # Output: 512-bit entropy for ultimate protection
@@ -306,7 +306,7 @@ const password = await PasswordGenerator({
 
 ## Usage Guide
 
-For practical examples of common use cases, see our [**📖 Recipes Guide**](docs/RECIPES.md) with ready-to-use commands for web passwords, database secrets, API keys, and more.
+Practical examples in [**📖 Recipes Guide**](docs/RECIPES.md) provide ready-to-use commands for web passwords, database secrets, API keys, and more.
 
 ### Command-Line Interface
 
@@ -317,13 +317,24 @@ npx @sebastienrousseau/password-generator [options]
 
 **Options:**
 ```
--t, --type <type>          Password type: strong, base64, memorable
+-t, --type <type>          Password type (strong, base64, memorable, quantum-resistant, diceware, honeyword, pronounceable, custom)
 -l, --length <number>      Length of each password chunk (not applicable to memorable)
 -i, --iteration <number>   Number of chunks or words
 -s, --separator <char>     Separator between chunks/words
 -c, --clipboard            Copy generated password to clipboard
+-p, --preset <preset>      Use preset configuration (quick, secure, memorable, quantum)
+-a, --audit                Show security audit with entropy sources and algorithms
+-n, --count <number>       Number of passwords to generate for bulk operations
+-f, --format <format>      Output format for bulk operations (json, yaml, csv, text)
+--learn                    Show equivalent CLI command for guided mode
+--interactive              Start interactive guided setup
+--kdf-memory <number>      Argon2id memory parameter in KB (default: 65536)
+--kdf-time <number>        Argon2id time cost parameter (default: 3)
+--kdf-parallelism <number> Argon2id parallelism parameter (default: 4)
 -h, --help                 Show help
 ```
+
+> **Note:** Interactive mode (`--interactive` or running without arguments) requires a real terminal (TTY). It does not work with piped input or in CI environments.
 
 ### Common Use Cases
 
@@ -384,8 +395,8 @@ const apiKey = await PasswordGenerator({
 import PasswordGenerator from "@sebastienrousseau/password-generator";
 
 const password = await PasswordGenerator({
-  type: "strong",        // "strong" | "base64" | "memorable"
-  length: 12,           // chunk length (not for memorable)
+  type: "strong",        // "strong" | "base64" | "memorable" | "quantum-resistant" | "diceware" | "honeyword" | "pronounceable" | "custom"
+  length: 12,           // chunk length (not for memorable/diceware)
   iteration: 3,         // number of chunks/words
   separator: "-"        // separator character(s)
 });
@@ -395,7 +406,7 @@ const password = await PasswordGenerator({
 
 ## Programmatic API (Core Package)
 
-For programmatic usage in Node.js or browser environments, use the platform-agnostic core package:
+Platform-agnostic core package supports Node.js and browser environments:
 
 ```javascript
 import { createQuickService } from '@password-generator/core';
@@ -427,11 +438,11 @@ const entropy = service.calculateEntropy({
 console.log(`Entropy: ${entropy.totalBits} bits (${entropy.securityLevel})`);
 ```
 
-The core package has zero dependencies and uses a port/adapter pattern for I/O, making it suitable for any JavaScript runtime. See [packages/core/README.md](packages/core/README.md) for details.
+Core package uses zero dependencies and port/adapter pattern for I/O, supporting any JavaScript runtime. See [packages/core/README.md](packages/core/README.md) for details.
 
 ## Web UI Demo
 
-Experience the password generator through our modern web interface with real-time feedback and accessibility features.
+Modern web interface provides real-time feedback and accessibility features.
 
 ### Features
 
@@ -487,12 +498,12 @@ python -m http.server 4173
 php -S localhost:4173 -t src/ui/web/demo
 ```
 
-Open **http://localhost:4173** in your browser.
+Open **http://localhost:4173** in browser.
 
 ### Development Guide
 
 **Prerequisites:**
-- Node.js 18+
+- Node.js 20+
 - Modern browser with Web Crypto API support
 
 **Architecture Overview:**
@@ -586,15 +597,15 @@ npm run lint:fix   # Fix code style issues
 
 ## Contributing
 
-We welcome contributions! Please see our [Contributing Guidelines](.github/CONTRIBUTING.md) for details.
+Contributions welcome. See [Contributing Guidelines](.github/CONTRIBUTING.md) for details.
 
-**Quick contribution checklist:**
-- [ ] Fork the repository
-- [ ] Create a feature branch
+**Contribution checklist:**
+- [ ] Fork repository
+- [ ] Create feature branch
 - [ ] Write tests for new features
 - [ ] Ensure all tests pass
-- [ ] Follow the existing code style
-- [ ] Submit a pull request
+- [ ] Follow existing code style
+- [ ] Submit pull request
 
 ## License
 

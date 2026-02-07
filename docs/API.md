@@ -83,7 +83,7 @@ const password = await service.generate({
 
 | Name | Type | Required | Default | Description |
 |------|------|----------|---------|-------------|
-| `type` | `string` | Yes | - | Password type: `'strong'`, `'base64'`, `'memorable'` |
+| `type` | `string` | Yes | - | Password type: `'strong'`, `'base64'`, `'memorable'`, `'quantum-resistant'`, `'diceware'`, `'honeyword'`, `'pronounceable'`, `'custom'` |
 | `length` | `number` | No | `16` | Characters per chunk (not used for memorable) |
 | `iteration` | `number` | No | `1` | Number of chunks or words |
 | `separator` | `string` | No | `'-'` | Separator between chunks/words |
@@ -185,7 +185,7 @@ Returns the list of supported password types.
 
 ```javascript
 const types = service.getSupportedTypes();
-// ['strong', 'base64', 'memorable']
+// ['strong', 'base64', 'memorable', 'quantum-resistant', 'diceware', 'honeyword', 'pronounceable', 'custom']
 ```
 
 **Returns:** `string[]` - Array of supported type names.
@@ -333,8 +333,8 @@ import {
 
 | Export | Type | Description |
 |--------|------|-------------|
-| `PASSWORD_TYPES` | `Object` | Enum: `{ STRONG, BASE64, MEMORABLE }` |
-| `VALID_PASSWORD_TYPES` | `string[]` | `['strong', 'base64', 'memorable']` |
+| `PASSWORD_TYPES` | `Object` | Enum: `{ STRONG, BASE64, MEMORABLE, QUANTUM_RESISTANT, DICEWARE, HONEYWORD, PRONOUNCEABLE, CUSTOM }` |
+| `VALID_PASSWORD_TYPES` | `string[]` | `['strong', 'base64', 'memorable', 'quantum-resistant', 'diceware', 'honeyword', 'pronounceable', 'custom']` |
 | `isValidPasswordType(type)` | `Function` | Returns boolean |
 | `validatePasswordTypeConfig(type, config)` | `Function` | Returns validation result |
 
@@ -373,7 +373,11 @@ import {
   generateStrongPassword,
   generateBase64Password,
   generateMemorablePassword,
-  generatePassphrase
+  generatePassphrase,
+  generateQuantumResistantPassword,
+  generateDicewarePassword,
+  generateHoneywordPassword,
+  generatePronounceablePassword
 } from '@password-generator/core';
 ```
 
@@ -383,6 +387,10 @@ import {
 | `generateBase64Password(config, randomGenerator)` | Generate base64 password |
 | `generateMemorablePassword(config, randomGenerator, dictionary)` | Generate memorable password |
 | `generatePassphrase(config, randomGenerator, dictionary)` | Alias for memorable |
+| `generateQuantumResistantPassword(config, randomGenerator)` | Generate quantum-resistant password |
+| `generateDicewarePassword(config, randomGenerator, dictionary)` | Generate diceware passphrase |
+| `generateHoneywordPassword(config, randomGenerator, dictionary)` | Generate honeyword decoy password |
+| `generatePronounceablePassword(config, randomGenerator)` | Generate pronounceable password |
 
 ---
 

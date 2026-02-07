@@ -92,6 +92,22 @@ export class CLIController {
         CLI_OPTIONS.options.count.description,
         CLI_OPTIONS.options.count.parser
       )
+      .option(CLI_OPTIONS.options.interactive.flags, CLI_OPTIONS.options.interactive.description)
+      .option(
+        CLI_OPTIONS.options.kdfMemory.flags,
+        CLI_OPTIONS.options.kdfMemory.description,
+        CLI_OPTIONS.options.kdfMemory.parser
+      )
+      .option(
+        CLI_OPTIONS.options.kdfTime.flags,
+        CLI_OPTIONS.options.kdfTime.description,
+        CLI_OPTIONS.options.kdfTime.parser
+      )
+      .option(
+        CLI_OPTIONS.options.kdfParallelism.flags,
+        CLI_OPTIONS.options.kdfParallelism.description,
+        CLI_OPTIONS.options.kdfParallelism.parser
+      )
       .action(this.handleCliAction.bind(this));
   }
 
@@ -122,6 +138,15 @@ export class CLIController {
     }
     if (userOptions.separator !== undefined) {
       config.separator = userOptions.separator;
+    }
+    if (userOptions.kdfMemory !== undefined) {
+      config.kdfMemory = userOptions.kdfMemory;
+    }
+    if (userOptions.kdfTime !== undefined) {
+      config.kdfTime = userOptions.kdfTime;
+    }
+    if (userOptions.kdfParallelism !== undefined) {
+      config.kdfParallelism = userOptions.kdfParallelism;
     }
 
     // If preset provided, use as base and override with user options
@@ -176,6 +201,9 @@ export class CLIController {
         length: opts.length,
         iteration: opts.iteration,
         separator: opts.separator,
+        kdfMemory: opts.kdfMemory,
+        kdfTime: opts.kdfTime,
+        kdfParallelism: opts.kdfParallelism,
       });
 
       // Step 2: Validate configuration via core service
