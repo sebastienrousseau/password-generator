@@ -2,18 +2,14 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
- * CommandLearningPresenter - Handles display of equivalent CLI commands and command breakdown
- *
- * This presenter extracts command learning functionality from the onboarding flow,
- * allowing users to understand the CLI equivalent of their interactive configuration choices.
+ * CommandLearningPresenter - Minimal Crush-inspired design
  */
+
+import { colors, gradient, icons } from "../ui/theme.js";
+
 export class CommandLearningPresenter {
   /**
-   * Generate equivalent CLI command based on configuration
-   * @param {Object} config - Password generation configuration
-   * @param {string|null} preset - Preset name if used
-   * @param {boolean} clipboard - Whether clipboard is enabled
-   * @returns {string} Complete CLI command string
+   * Generate equivalent CLI command
    */
   static generateEquivalentCommand(config, preset, clipboard) {
     let cliCommand = "password-generator";
@@ -21,7 +17,6 @@ export class CommandLearningPresenter {
     if (preset) {
       cliCommand += ` -p ${preset}`;
     } else {
-      // Custom configuration command building
       cliCommand += ` --type ${config.type}`;
       if (config.length) {
         cliCommand += ` --length ${config.length}`;
@@ -40,83 +35,73 @@ export class CommandLearningPresenter {
   }
 
   /**
-   * Generate command breakdown explanation
-   * @param {Object} config - Password generation configuration
-   * @param {string|null} preset - Preset name if used
-   * @param {boolean} clipboard - Whether clipboard is enabled
-   * @returns {string[]} Array of explanation lines
+   * Generate command breakdown
    */
   static generateCommandBreakdown(config, preset, clipboard) {
     const breakdown = [];
 
     if (preset) {
-      breakdown.push(`   -p ${preset}    Use the '${preset}' preset configuration`);
+      breakdown.push({ flag: `-p ${preset}`, desc: `${preset} preset` });
     } else {
-      breakdown.push(`   --type ${config.type}    Password type selection`);
+      breakdown.push({ flag: `--type ${config.type}`, desc: "password type" });
       if (config.length) {
-        breakdown.push(
-          `   --length ${config.length}     ${
-            config.type === "memorable" ? "Word" : "Chunk"
-          } length`
-        );
+        breakdown.push({ flag: `--length ${config.length}`, desc: "chunk length" });
       }
-      breakdown.push(
-        `   --iteration ${config.iteration}   Number of ${
-          config.type === "memorable" ? "words" : "chunks"
-        }`
-      );
+      breakdown.push({
+        flag: `--iteration ${config.iteration}`,
+        desc: `${config.type === "memorable" ? "words" : "chunks"}`,
+      });
       if (config.separator && config.separator !== "-") {
-        breakdown.push(`   --separator "${config.separator}"   Custom separator character`);
+        breakdown.push({ flag: `--separator "${config.separator}"`, desc: "separator" });
       }
     }
 
     if (clipboard) {
-      breakdown.push("   -c               Copy to clipboard");
+      breakdown.push({ flag: "-c", desc: "copy to clipboard" });
     }
 
     return breakdown;
   }
 
   /**
-   * Display the complete command learning panel
-   * @param {Object} config - Password generation configuration
-   * @param {boolean} clipboard - Whether clipboard is enabled
-   * @param {string|null} preset - Preset name if used
+   * Display minimal command learning panel
    */
   static displayCommandLearningPanel(config, clipboard, preset) {
-    console.log("\n💻 Command Learning Panel:");
-    console.log("─".repeat(30));
-    console.log("🎓 Next time, skip the setup and use this direct CLI command:");
-
-    const cliCommand = this.generateEquivalentCommand(config, preset, clipboard);
-    console.log(`\n   ${cliCommand}\n`);
-
-    console.log("📚 Command breakdown:");
+    const command = this.generateEquivalentCommand(config, preset, clipboard);
     const breakdown = this.generateCommandBreakdown(config, preset, clipboard);
-    breakdown.forEach((line) => console.log(line));
-  }
 
-  /**
-   * Display next steps and additional information
-   * @param {string|null} preset - Preset name if used
-   */
-  static displayNextSteps(preset) {
-    console.log("\n🚀 Next Steps:");
-    console.log("─".repeat(15));
-    console.log("• Your password will be generated with these settings");
-    console.log("• Use --help to see all available CLI options");
-    console.log("• Run with --audit to see detailed security information");
+    console.log("");
+    console.log(`  ${gradient.primary("command")}`);
+    console.log("");
+    console.log(`  ${colors.command(command)}`);
+    console.log("");
 
-    if (preset) {
-      console.log(`• Use -p ${preset} flag for quick access to this preset`);
+    if (breakdown.length > 0) {
+      console.log(`  ${colors.dim("breakdown")}`);
+      console.log("");
+      for (const { flag, desc } of breakdown) {
+        console.log(`  ${colors.muted(icons.pointer)} ${colors.command(flag.padEnd(24))} ${colors.dim(desc)}`);
+      }
+      console.log("");
     }
   }
 
   /**
-   * Display the complete command learning section (panel + next steps)
-   * @param {Object} config - Password generation configuration
-   * @param {boolean} clipboard - Whether clipboard is enabled
-   * @param {string|null} preset - Preset name if used
+   * Display next steps (minimal)
+   */
+  static displayNextSteps(preset) {
+    console.log(`  ${colors.dim("next")}`);
+    console.log("");
+    console.log(`  ${colors.muted(icons.pointer)} ${colors.dim("use")} ${colors.command("--help")} ${colors.dim("for all options")}`);
+    console.log(`  ${colors.muted(icons.pointer)} ${colors.dim("use")} ${colors.command("--audit")} ${colors.dim("for security details")}`);
+    if (preset) {
+      console.log(`  ${colors.muted(icons.pointer)} ${colors.dim("use")} ${colors.command(`-p ${preset}`)} ${colors.dim("for quick access")}`);
+    }
+    console.log("");
+  }
+
+  /**
+   * Display full command learning (panel + next steps)
    */
   static displayFullCommandLearning(config, clipboard, preset) {
     this.displayCommandLearningPanel(config, clipboard, preset);
@@ -124,11 +109,7 @@ export class CommandLearningPresenter {
   }
 
   /**
-   * Get equivalent command as object with breakdown for programmatic access
-   * @param {Object} config - Password generation configuration
-   * @param {boolean} clipboard - Whether clipboard is enabled
-   * @param {string|null} preset - Preset name if used
-   * @returns {Object} Command data with command string and breakdown
+   * Get command data for programmatic access
    */
   static getCommandData(config, clipboard, preset) {
     return {

@@ -71,8 +71,9 @@ describe('CLI Integration', function () {
   it('should generate a strong password via CLI', function (done) {
     exec("node index.js -t strong -l 10 -i 2 -s '-'", (error, stdout, stderr) => {
       expect(error).to.be.null;
-      expect(stdout).to.include('Generated Password:');
-      expect(stdout).to.not.include('Copied to clipboard');
+      expect(stdout).to.include('password generator');
+      expect(stdout).to.match(/strong|maximum/);
+      expect(stdout).to.not.include('copied');
       done();
     });
   });
@@ -80,7 +81,7 @@ describe('CLI Integration', function () {
   it('should generate a base64 password via CLI', function (done) {
     exec("node index.js -t base64 -l 8 -i 3 -s '.'", (error, stdout, stderr) => {
       expect(error).to.be.null;
-      expect(stdout).to.include('Generated Password:');
+      expect(stdout).to.include('password generator');
       done();
     });
   });
@@ -88,7 +89,7 @@ describe('CLI Integration', function () {
   it('should generate a memorable password via CLI', function (done) {
     exec("node index.js -t memorable -i 3 -s '-'", (error, stdout, stderr) => {
       expect(error).to.be.null;
-      expect(stdout).to.include('Generated Password:');
+      expect(stdout).to.include('password generator');
       done();
     });
   });
@@ -99,8 +100,8 @@ describe('CLI Integration', function () {
       if (error) {
         expect(stderr).to.include('Error');
       } else {
-        expect(stdout).to.include('Generated Password:');
-        expect(stdout).to.include('Copied to clipboard');
+        expect(stdout).to.include('password generator');
+        expect(stdout).to.include('copied');
       }
       done();
     });
@@ -135,7 +136,7 @@ describe('CLI Integration', function () {
   it('should generate password with quick preset', function (done) {
     exec('node index.js -p quick', (error, stdout, stderr) => {
       expect(error).to.be.null;
-      expect(stdout).to.include('Generated Password:');
+      expect(stdout).to.include('password generator');
       done();
     });
   });
@@ -143,7 +144,7 @@ describe('CLI Integration', function () {
   it('should generate password with secure preset', function (done) {
     exec('node index.js -p secure', (error, stdout, stderr) => {
       expect(error).to.be.null;
-      expect(stdout).to.include('Generated Password:');
+      expect(stdout).to.include('password generator');
       done();
     });
   });
@@ -151,7 +152,7 @@ describe('CLI Integration', function () {
   it('should generate password with memorable preset', function (done) {
     exec('node index.js -p memorable', (error, stdout, stderr) => {
       expect(error).to.be.null;
-      expect(stdout).to.include('Generated Password:');
+      expect(stdout).to.include('password generator');
       done();
     });
   });
@@ -167,8 +168,8 @@ describe('CLI Integration', function () {
   it('should show learn panel with --learn flag', function (done) {
     exec("node index.js -t strong -l 10 -i 2 -s '-' --learn", (error, stdout, stderr) => {
       expect(error).to.be.null;
-      expect(stdout).to.include('Generated Password:');
-      expect(stdout).to.include('COMMAND LEARNING');
+      expect(stdout).to.include('password generator');
+      expect(stdout).to.include('command');
       expect(stdout).to.include('password-generator');
       done();
     });
@@ -177,8 +178,8 @@ describe('CLI Integration', function () {
   it('should show audit report with --audit flag', function (done) {
     exec("node index.js -t strong -l 10 -i 2 -s '-' --audit", (error, stdout, stderr) => {
       expect(error).to.be.null;
-      expect(stdout).to.include('Generated Password:');
-      expect(stdout).to.include('SECURITY AUDIT REPORT');
+      expect(stdout).to.include('password generator');
+      expect(stdout).to.include('security audit');
       done();
     });
   });
@@ -186,8 +187,8 @@ describe('CLI Integration', function () {
   it('should combine preset with learn flag', function (done) {
     exec('node index.js -p quick --learn', (error, stdout, stderr) => {
       expect(error).to.be.null;
-      expect(stdout).to.include('Generated Password:');
-      expect(stdout).to.include('COMMAND LEARNING');
+      expect(stdout).to.include('password generator');
+      expect(stdout).to.include('command');
       expect(stdout).to.include('-p quick');
       done();
     });
@@ -196,8 +197,8 @@ describe('CLI Integration', function () {
   it('should combine preset with audit flag', function (done) {
     exec('node index.js -p secure --audit', (error, stdout, stderr) => {
       expect(error).to.be.null;
-      expect(stdout).to.include('Generated Password:');
-      expect(stdout).to.include('SECURITY AUDIT REPORT');
+      expect(stdout).to.include('password generator');
+      expect(stdout).to.include('security audit');
       done();
     });
   });
@@ -205,7 +206,7 @@ describe('CLI Integration', function () {
   it('should allow preset override with custom type', function (done) {
     exec("node index.js -p quick -t base64", (error, stdout, stderr) => {
       expect(error).to.be.null;
-      expect(stdout).to.include('Generated Password:');
+      expect(stdout).to.include('password generator');
       done();
     });
   });
@@ -213,7 +214,7 @@ describe('CLI Integration', function () {
   it('should allow preset override with custom iteration', function (done) {
     exec("node index.js -p quick -i 5", (error, stdout, stderr) => {
       expect(error).to.be.null;
-      expect(stdout).to.include('Generated Password:');
+      expect(stdout).to.include('password generator');
       done();
     });
   });
@@ -221,7 +222,7 @@ describe('CLI Integration', function () {
   it('should allow preset override with custom length', function (done) {
     exec("node index.js -p quick -l 20", (error, stdout, stderr) => {
       expect(error).to.be.null;
-      expect(stdout).to.include('Generated Password:');
+      expect(stdout).to.include('password generator');
       done();
     });
   });
@@ -229,7 +230,7 @@ describe('CLI Integration', function () {
   it('should allow preset override with custom separator', function (done) {
     exec("node index.js -p quick -s '_'", (error, stdout, stderr) => {
       expect(error).to.be.null;
-      expect(stdout).to.include('Generated Password:');
+      expect(stdout).to.include('password generator');
       done();
     });
   });
@@ -240,7 +241,7 @@ describe('CLI Integration', function () {
       if (error) {
         done();
       } else {
-        expect(stdout).to.include('COMMAND LEARNING');
+        expect(stdout).to.include('command');
         expect(stdout).to.include('-c');
         done();
       }
@@ -250,7 +251,7 @@ describe('CLI Integration', function () {
   it('should show learn panel with audit flag', function (done) {
     exec("node index.js -t strong -l 10 -i 2 -s '-' --learn --audit", (error, stdout, stderr) => {
       expect(error).to.be.null;
-      expect(stdout).to.include('COMMAND LEARNING');
+      expect(stdout).to.include('command');
       expect(stdout).to.include('-a');
       done();
     });
@@ -284,7 +285,7 @@ describe('CLI Integration', function () {
   it('should show learn with preset override iteration', function (done) {
     exec("node index.js -p quick -i 5 --learn", (error, stdout, stderr) => {
       expect(error).to.be.null;
-      expect(stdout).to.include('COMMAND LEARNING');
+      expect(stdout).to.include('command');
       expect(stdout).to.include('-i 5');
       done();
     });
@@ -293,7 +294,7 @@ describe('CLI Integration', function () {
   it('should show learn with preset override separator', function (done) {
     exec("node index.js -p quick -s '_' --learn", (error, stdout, stderr) => {
       expect(error).to.be.null;
-      expect(stdout).to.include('COMMAND LEARNING');
+      expect(stdout).to.include('command');
       expect(stdout).to.include('-s "_"');
       done();
     });
@@ -302,7 +303,7 @@ describe('CLI Integration', function () {
   it('should show learn with preset override type', function (done) {
     exec("node index.js -p quick -t base64 --learn", (error, stdout, stderr) => {
       expect(error).to.be.null;
-      expect(stdout).to.include('COMMAND LEARNING');
+      expect(stdout).to.include('command');
       expect(stdout).to.include('-t base64');
       done();
     });
@@ -311,7 +312,7 @@ describe('CLI Integration', function () {
   it('should show learn with preset override length', function (done) {
     exec("node index.js -p quick -l 20 --learn", (error, stdout, stderr) => {
       expect(error).to.be.null;
-      expect(stdout).to.include('COMMAND LEARNING');
+      expect(stdout).to.include('command');
       expect(stdout).to.include('-l 20');
       done();
     });

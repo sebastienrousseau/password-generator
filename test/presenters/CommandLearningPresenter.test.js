@@ -82,8 +82,8 @@ describe("CommandLearningPresenter", function () {
         false
       );
       expect(breakdown).to.be.an("array");
-      expect(breakdown[0]).to.include("-p quick");
-      expect(breakdown[0]).to.include("preset configuration");
+      expect(breakdown[0].flag).to.include("-p quick");
+      expect(breakdown[0].desc).to.include("preset");
     });
 
     it("should generate breakdown without preset", function () {
@@ -93,9 +93,9 @@ describe("CommandLearningPresenter", function () {
         false
       );
       expect(breakdown).to.be.an("array");
-      expect(breakdown.some(line => line.includes("--type strong"))).to.be.true;
-      expect(breakdown.some(line => line.includes("--length 16"))).to.be.true;
-      expect(breakdown.some(line => line.includes("--iteration 4"))).to.be.true;
+      expect(breakdown.some(item => item.flag.includes("--type strong"))).to.be.true;
+      expect(breakdown.some(item => item.flag.includes("--length 16"))).to.be.true;
+      expect(breakdown.some(item => item.flag.includes("--iteration 4"))).to.be.true;
     });
 
     it("should include separator in breakdown for custom separator", function () {
@@ -104,7 +104,7 @@ describe("CommandLearningPresenter", function () {
         null,
         false
       );
-      expect(breakdown.some(line => line.includes('--separator "_"'))).to.be.true;
+      expect(breakdown.some(item => item.flag.includes('--separator "_"'))).to.be.true;
     });
 
     it("should include clipboard in breakdown", function () {
@@ -113,28 +113,26 @@ describe("CommandLearningPresenter", function () {
         "quick",
         true
       );
-      expect(breakdown.some(line => line.includes("-c"))).to.be.true;
-      expect(breakdown.some(line => line.includes("clipboard"))).to.be.true;
+      expect(breakdown.some(item => item.flag.includes("-c"))).to.be.true;
+      expect(breakdown.some(item => item.desc.includes("clipboard"))).to.be.true;
     });
 
-    it("should show Word for memorable type", function () {
+    it("should show words for memorable type", function () {
       const breakdown = CommandLearningPresenter.generateCommandBreakdown(
         { type: "memorable", length: 8, iteration: 4 },
         null,
         false
       );
-      expect(breakdown.some(line => line.includes("Word"))).to.be.true;
-      expect(breakdown.some(line => line.includes("words"))).to.be.true;
+      expect(breakdown.some(item => item.desc.includes("words"))).to.be.true;
     });
 
-    it("should show Chunk for strong type", function () {
+    it("should show chunks for strong type", function () {
       const breakdown = CommandLearningPresenter.generateCommandBreakdown(
         { type: "strong", length: 12, iteration: 3 },
         null,
         false
       );
-      expect(breakdown.some(line => line.includes("Chunk"))).to.be.true;
-      expect(breakdown.some(line => line.includes("chunks"))).to.be.true;
+      expect(breakdown.some(item => item.desc.includes("chunks"))).to.be.true;
     });
   });
 
@@ -145,9 +143,9 @@ describe("CommandLearningPresenter", function () {
         true,
         "quick"
       );
-      expect(logOutput.some(line => line.includes("Command Learning Panel"))).to.be.true;
+      expect(logOutput.some(line => line.includes("command"))).to.be.true;
       expect(logOutput.some(line => line.includes("password-generator"))).to.be.true;
-      expect(logOutput.some(line => line.includes("Command breakdown"))).to.be.true;
+      expect(logOutput.some(line => line.includes("breakdown"))).to.be.true;
     });
 
     it("should display panel without preset", function () {
@@ -163,7 +161,7 @@ describe("CommandLearningPresenter", function () {
   describe("displayNextSteps", function () {
     it("should display next steps without preset", function () {
       CommandLearningPresenter.displayNextSteps(null);
-      expect(logOutput.some(line => line.includes("Next Steps"))).to.be.true;
+      expect(logOutput.some(line => line.includes("next"))).to.be.true;
       expect(logOutput.some(line => line.includes("--help"))).to.be.true;
       expect(logOutput.some(line => line.includes("--audit"))).to.be.true;
     });
@@ -181,8 +179,8 @@ describe("CommandLearningPresenter", function () {
         true,
         "quick"
       );
-      expect(logOutput.some(line => line.includes("Command Learning Panel"))).to.be.true;
-      expect(logOutput.some(line => line.includes("Next Steps"))).to.be.true;
+      expect(logOutput.some(line => line.includes("command"))).to.be.true;
+      expect(logOutput.some(line => line.includes("next"))).to.be.true;
     });
 
     it("should display full learning without preset", function () {
@@ -192,7 +190,7 @@ describe("CommandLearningPresenter", function () {
         null
       );
       expect(logOutput.some(line => line.includes("--type memorable"))).to.be.true;
-      expect(logOutput.some(line => line.includes("Next Steps"))).to.be.true;
+      expect(logOutput.some(line => line.includes("next"))).to.be.true;
     });
   });
 
