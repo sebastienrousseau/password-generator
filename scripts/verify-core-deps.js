@@ -97,7 +97,8 @@ function getSourceFiles(dir, extensions = [".js", ".ts", ".mjs", ".cjs"]) {
     const fullPath = join(dir, entry);
     const stat = statSync(fullPath);
 
-    if (stat.isDirectory() && entry !== "node_modules") {
+    // Skip node_modules and test directories - tests are allowed to use platform-specific code
+    if (stat.isDirectory() && entry !== "node_modules" && entry !== "test") {
       files.push(...getSourceFiles(fullPath, extensions));
     } else if (stat.isFile() && extensions.includes(extname(entry))) {
       files.push(fullPath);

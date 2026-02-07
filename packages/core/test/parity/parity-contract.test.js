@@ -265,7 +265,14 @@ describe("Parity Contract Tests", () => {
         const types = service.getSupportedTypes();
 
         types.forEach((type) => {
-          const config = type === "memorable" ? { type, iteration: 4 } : { type, length: 16, iteration: 1 };
+          let config;
+          if (type === "memorable") {
+            config = { type, iteration: 4 };
+          } else if (type === "quantum-resistant") {
+            config = { type, length: 43, iteration: 1 }; // Minimum 32 for quantum-resistant
+          } else {
+            config = { type, length: 16, iteration: 1 };
+          }
 
           const result = service.validateConfig(config);
           expect(result.isValid).to.be.true;

@@ -108,9 +108,11 @@ check_imports() {
   local files
 
   # Check for ES module imports: import ... from 'pattern' or import 'pattern'
+  # Exclude test files - tests are allowed to use platform-specific code
   files=$(grep -rl --include="*.js" --include="*.ts" --include="*.mjs" \
+    --exclude-dir="test" \
     -E "(import\s+.*from\s+['\"]${pattern}['\"]|import\s+['\"]${pattern}['\"]|from\s+['\"]node:${pattern}['\"])" \
-    "$CORE_DIR" 2>/dev/null || true)
+    "$CORE_DIR/src" 2>/dev/null || true)
 
   if [ -n "$files" ]; then
     echo -e "${RED}VIOLATION:${NC} Found ${category} import '${pattern}' in:"
@@ -123,9 +125,11 @@ check_imports() {
   fi
 
   # Check for CommonJS require: require('pattern')
+  # Exclude test files - tests are allowed to use platform-specific code
   files=$(grep -rl --include="*.js" --include="*.ts" --include="*.cjs" \
+    --exclude-dir="test" \
     -E "require\s*\(\s*['\"]${pattern}['\"]" \
-    "$CORE_DIR" 2>/dev/null || true)
+    "$CORE_DIR/src" 2>/dev/null || true)
 
   if [ -n "$files" ]; then
     echo -e "${RED}VIOLATION:${NC} Found ${category} require '${pattern}' in:"
@@ -147,9 +151,11 @@ check_globals() {
   local files
 
   # Check for global variable usage (word boundary match)
+  # Exclude test files - tests are allowed to use platform-specific code
   files=$(grep -rl --include="*.js" --include="*.ts" \
+    --exclude-dir="test" \
     -E "\b${pattern}\b\s*[\.\[]" \
-    "$CORE_DIR" 2>/dev/null || true)
+    "$CORE_DIR/src" 2>/dev/null || true)
 
   if [ -n "$files" ]; then
     echo -e "${RED}VIOLATION:${NC} Found ${category} global '${pattern}' in:"
