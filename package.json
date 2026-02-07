@@ -178,7 +178,7 @@
         "web": "npx serve . -l ${PORT:-4173}",
         "web:windows": "npx serve . -l 4173",
         "web:build": "node scripts/build-web-demo.js",
-        "web:preview": "npm run web:build && npx serve dist/web -l ${PORT:-4173}",
+        "web:preview": "npm run web:build && npx serve dist/web --listen 4173 --no-port-switching",
         "web:deploy": "node scripts/deploy-gh-pages.js",
         "check:core-isolation": "npm run verify:core",
         "benchmark": "node benchmarks/password-generation.bench.js && node benchmarks/entropy-calculation.bench.js",
