@@ -1,6 +1,6 @@
 # Contributing to Password Generator
 
-Password Generator accepts community contributions.
+Password Generator welcomes community contributions.
 
 ## Ways to Contribute
 
@@ -66,7 +66,7 @@ npm run build
 
 ### Testing
 - Write tests for new features
-- Existing tests must continue passing
+- Ensure existing tests pass
 - Run `npm test` before submitting
 
 ### Security Considerations
@@ -119,7 +119,7 @@ password-generator/
 ## Community Guidelines
 
 ### Code of Conduct
-Please read our [Code of Conduct](./.github/CODE-OF-CONDUCT.md). We are committed to providing a welcoming and inclusive environment.
+Please read our [Code of Conduct](./.github/CODE-OF-CONDUCT.md). This project maintains a welcoming and inclusive environment.
 
 ### Communication
 - Be respectful and constructive

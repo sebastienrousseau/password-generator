@@ -4,6 +4,12 @@
 import { expect } from "chai";
 import { describe, it, beforeEach, afterEach } from "mocha";
 import sinon from "sinon";
+import { spawn } from "child_process";
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Mock Web Crypto API for Node.js test environment
 if (typeof global !== "undefined" && !global.crypto) {
@@ -835,6 +841,101 @@ describe("Browser Adapters", () => {
 
         expect(retrieved).to.deep.equal(data);
       });
+    });
+  });
+
+  // ============================================
+  // Subprocess tests for BrowserCryptoRandom error paths
+  // These tests run in subprocesses to test code paths that
+  // require modifying globals before module load
+  // ============================================
+  describe("BrowserCryptoRandom error paths (subprocess)", () => {
+    /**
+     * Helper to run code in a subprocess to test error paths that
+     * require modifying globals before module load
+     */
+    function runInSubprocess(code) {
+      return new Promise((resolve, reject) => {
+        const fullCode = `
+          (async () => {
+            ${code}
+          })().then(result => {
+            process.stdout.write(JSON.stringify({ success: true, result }));
+          }).catch(err => {
+            process.stdout.write(JSON.stringify({ success: false, error: err.message, name: err.name }));
+          });
+        `;
+
+        const child = spawn(process.execPath, ["--input-type=module", "-e", fullCode], {
+          stdio: ["pipe", "pipe", "pipe"],
+          cwd: join(__dirname, "../.."),
+        });
+
+        let stdout = "";
+        let stderr = "";
+
+        child.stdout.on("data", (data) => { stdout += data; });
+        child.stderr.on("data", (data) => { stderr += data; });
+
+        child.on("close", () => {
+          try {
+            const result = JSON.parse(stdout);
+            resolve(result);
+          } catch {
+            reject(new Error(`Subprocess failed: ${stderr || stdout}`));
+          }
+        });
+      });
+    }
+
+    it("should throw when crypto is not available for generateRandomBytes", async () => {
+      const result = await runInSubprocess(`
+        delete globalThis.crypto;
+        global.crypto = undefined;
+        const { BrowserCryptoRandom } = await import("./src/ui/web/adapters/BrowserCryptoRandom.js");
+        const random = new BrowserCryptoRandom();
+        return random.generateRandomBytes(16);
+      `);
+
+      expect(result.success).to.be.false;
+      expect(result.error).to.include("Web Crypto API is not available");
+    });
+
+    it("should throw when crypto.getRandomValues is not available for generateRandomBytes", async () => {
+      const result = await runInSubprocess(`
+        // In Node.js, crypto is provided by webcrypto. We need to delete it first
+        // then set up a mock object without getRandomValues
+        delete globalThis.crypto;
+        globalThis.crypto = { subtle: {} }; // crypto exists but without getRandomValues
+        const { BrowserCryptoRandom } = await import("./src/ui/web/adapters/BrowserCryptoRandom.js");
+        const random = new BrowserCryptoRandom();
+        return random.generateRandomBytes(16);
+      `);
+
+      expect(result.success).to.be.false;
+      expect(result.error).to.include("Web Crypto API is not available");
+    });
+
+    it("should throw when crypto is undefined for generateRandomInt (line 66)", async () => {
+      const result = await runInSubprocess(`
+        // Setup crypto initially so the class can be instantiated
+        const { webcrypto } = await import('crypto');
+        global.crypto = webcrypto;
+
+        const { BrowserCryptoRandom } = await import("./src/ui/web/adapters/BrowserCryptoRandom.js");
+        const random = new BrowserCryptoRandom();
+
+        // Now remove crypto to test the error path inside generateRandomInt
+        delete globalThis.crypto;
+        global.crypto = undefined;
+
+        // generateRandomInt checks crypto availability after the max === 1 check
+        return random.generateRandomInt(10);
+      `);
+
+      // The function uses crypto.getRandomValues directly inside the rejection sampling loop
+      // When crypto is undefined, it will throw a TypeError trying to access getRandomValues
+      expect(result.success).to.be.false;
     });
   });
 });

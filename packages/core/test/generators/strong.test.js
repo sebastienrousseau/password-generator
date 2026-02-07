@@ -275,5 +275,22 @@ describe("Generators: strong", () => {
       const entropy = calculateStrongPasswordEntropy({ length: 10, iteration: 2 });
       expect(entropy).to.equal(10 * 2 * bitsPerChar);
     });
+
+    it("should handle large configurations", () => {
+      const entropy = calculateStrongPasswordEntropy({ length: 100, iteration: 10 });
+      expect(entropy).to.equal(6000); // 100 * 10 * 6 = 6000 bits
+    });
+
+    it("should handle single iteration correctly", () => {
+      const entropy = calculateStrongPasswordEntropy({ length: 20, iteration: 1 });
+      expect(entropy).to.equal(120); // 20 * 1 * 6 = 120 bits
+    });
+
+    it("should match base64 entropy calculation for same config", () => {
+      // Strong and base64 passwords use the same charset
+      const config = { length: 8, iteration: 4 };
+      const entropy = calculateStrongPasswordEntropy(config);
+      expect(entropy).to.equal(192); // 8 * 4 * 6 = 192 bits
+    });
   });
 });

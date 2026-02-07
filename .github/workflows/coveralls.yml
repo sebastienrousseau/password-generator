@@ -10,11 +10,12 @@ on:
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
+    name: Build (Node ${{ matrix.node-version }}) on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
         node-version: [18.x, 20.x, 22.x]
 
     steps:
@@ -38,6 +39,7 @@ jobs:
         run: npm run test
 
       - name: Coveralls
+        if: matrix.os == 'ubuntu-latest'
         uses: coverallsapp/github-action@v2
         with:
           base-path: /

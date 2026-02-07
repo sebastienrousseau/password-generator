@@ -3,10 +3,7 @@
 
 import { randomBytes, randomInt } from "crypto";
 import { BASE64_CHARSET } from "../constants.js";
-import {
-  recordEntropyUsage,
-  recordAlgorithmUsage,
-} from "./security-audit.js";
+import { recordEntropyUsage, recordAlgorithmUsage } from "./security-audit.js";
 import {
   calculateBase64Entropy,
   calculateBase64ChunkEntropy,

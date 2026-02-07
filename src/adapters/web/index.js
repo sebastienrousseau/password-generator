@@ -12,6 +12,7 @@
 
 export {
   WebCryptoRandom,
+  WebCryptoRandomAdapter,
   randomBytes,
   randomInt,
   bytesToBase64,

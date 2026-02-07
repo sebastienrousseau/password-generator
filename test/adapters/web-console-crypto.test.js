@@ -1039,6 +1039,104 @@ describe("Web Console and Crypto Adapters - Full Coverage", () => {
         // 32 bytes = ceil(32 * 4 / 3) rounded to multiple of 4 = 44 chars
         expect(base64.length).to.equal(44);
       });
+
+      it("should use fallback implementation when btoa is unavailable", () => {
+        // Save original btoa
+        const originalBtoa = global.btoa;
+
+        try {
+          // Remove btoa to test fallback
+          global.btoa = undefined;
+
+          // Test with "Hello" - should produce "SGVsbG8="
+          const bytes = new Uint8Array([72, 101, 108, 108, 111]);
+          const base64 = bytesToBase64(bytes);
+          expect(base64).to.equal("SGVsbG8=");
+        } finally {
+          // Restore btoa
+          global.btoa = originalBtoa;
+        }
+      });
+
+      it("should use fallback for single byte when btoa is unavailable", () => {
+        const originalBtoa = global.btoa;
+
+        try {
+          global.btoa = undefined;
+
+          const bytes = new Uint8Array([65]); // "A"
+          const base64 = bytesToBase64(bytes);
+          expect(base64).to.equal("QQ==");
+        } finally {
+          global.btoa = originalBtoa;
+        }
+      });
+
+      it("should use fallback for two bytes when btoa is unavailable", () => {
+        const originalBtoa = global.btoa;
+
+        try {
+          global.btoa = undefined;
+
+          const bytes = new Uint8Array([65, 66]); // "AB"
+          const base64 = bytesToBase64(bytes);
+          expect(base64).to.equal("QUI=");
+        } finally {
+          global.btoa = originalBtoa;
+        }
+      });
+
+      it("should use fallback for three bytes when btoa is unavailable", () => {
+        const originalBtoa = global.btoa;
+
+        try {
+          global.btoa = undefined;
+
+          const bytes = new Uint8Array([65, 66, 67]); // "ABC"
+          const base64 = bytesToBase64(bytes);
+          expect(base64).to.equal("QUJD");
+        } finally {
+          global.btoa = originalBtoa;
+        }
+      });
+
+      it("should use fallback for empty array when btoa is unavailable", () => {
+        const originalBtoa = global.btoa;
+
+        try {
+          global.btoa = undefined;
+
+          const bytes = new Uint8Array([]);
+          const base64 = bytesToBase64(bytes);
+          expect(base64).to.equal("");
+        } finally {
+          global.btoa = originalBtoa;
+        }
+      });
+
+      it("should produce identical output with fallback vs btoa", () => {
+        const originalBtoa = global.btoa;
+
+        // Test bytes covering various patterns
+        const testCases = [
+          new Uint8Array([0, 127, 255]),
+          new Uint8Array([1, 2, 3, 4, 5, 6, 7, 8]),
+          new Uint8Array([255, 254, 253, 252]),
+          new Uint8Array([0, 0, 0]),
+        ];
+
+        for (const bytes of testCases) {
+          // Get btoa result
+          const btoaResult = bytesToBase64(bytes);
+
+          // Get fallback result
+          global.btoa = undefined;
+          const fallbackResult = bytesToBase64(bytes);
+          global.btoa = originalBtoa;
+
+          expect(fallbackResult).to.equal(btoaResult);
+        }
+      });
     });
 
     describe("WebCryptoRandom object", () => {

@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 import { expect } from "chai";
-import { describe, it } from "mocha";
+import { describe, it, beforeEach } from "mocha";
 import {
   LoggerPort,
   LOGGER_REQUIRED_METHODS,

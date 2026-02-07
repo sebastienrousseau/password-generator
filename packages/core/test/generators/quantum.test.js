@@ -9,10 +9,12 @@
  * - Correct entropy calculations
  * - Password generation with mock random generator
  * - Quantum security validation
+ * - Console warnings for insufficient entropy
  */
 
 import { expect } from "chai";
-import { describe, it } from "mocha";
+import { describe, it, beforeEach, afterEach } from "mocha";
+import sinon from "sinon";
 import {
   generateQuantumChunk,
   generateQuantumPassword,
@@ -305,6 +307,142 @@ describe("Quantum-Resistant Generator", () => {
         const calculated = calculateQuantumPasswordEntropy(config);
         const validated = validateQuantumSecurity(config);
         expect(calculated).to.equal(validated.entropyBits);
+      });
+    });
+  });
+
+  describe("Console warnings", () => {
+    let consoleWarnStub;
+
+    beforeEach(() => {
+      consoleWarnStub = sinon.stub(console, "warn");
+    });
+
+    afterEach(() => {
+      consoleWarnStub.restore();
+    });
+
+    describe("generateQuantumChunk warnings", () => {
+      it("should warn when length is below QUANTUM_MIN_LENGTH", async () => {
+        const mock = new MockRandomGenerator(Array.from({ length: 50 }, (_, i) => i));
+        const shortLength = QUANTUM_MIN_LENGTH - 1;
+
+        await generateQuantumChunk(shortLength, mock);
+
+        expect(consoleWarnStub.calledOnce).to.be.true;
+        expect(consoleWarnStub.firstCall.args[0]).to.include("below recommended minimum");
+        expect(consoleWarnStub.firstCall.args[0]).to.include(String(shortLength));
+        expect(consoleWarnStub.firstCall.args[0]).to.include(String(QUANTUM_MIN_LENGTH));
+      });
+
+      it("should warn with very short length", async () => {
+        const mock = new MockRandomGenerator(Array.from({ length: 20 }, (_, i) => i));
+
+        await generateQuantumChunk(10, mock);
+
+        expect(consoleWarnStub.calledOnce).to.be.true;
+        expect(consoleWarnStub.firstCall.args[0]).to.include("10");
+        expect(consoleWarnStub.firstCall.args[0]).to.include("256-bit entropy");
+      });
+
+      it("should not warn when length meets QUANTUM_MIN_LENGTH", async () => {
+        const mock = new MockRandomGenerator(Array.from({ length: 100 }, (_, i) => i));
+
+        await generateQuantumChunk(QUANTUM_MIN_LENGTH, mock);
+
+        expect(consoleWarnStub.called).to.be.false;
+      });
+
+      it("should not warn when length exceeds QUANTUM_MIN_LENGTH", async () => {
+        const mock = new MockRandomGenerator(Array.from({ length: 100 }, (_, i) => i));
+
+        await generateQuantumChunk(QUANTUM_MIN_LENGTH + 10, mock);
+
+        expect(consoleWarnStub.called).to.be.false;
+      });
+    });
+
+    describe("generateQuantumPassword warnings", () => {
+      it("should warn when total entropy is below 256 bits", async () => {
+        const mock = new MockRandomGenerator(Array.from({ length: 100 }, (_, i) => i));
+        // 20 * 2 * 6 = 240 bits < 256 bits
+        const config = { length: 20, iteration: 2, separator: "-" };
+
+        await generateQuantumPassword(config, mock);
+
+        // Should warn about total entropy being below target
+        const totalEntropyWarning = consoleWarnStub.getCalls().find(
+          (call) => call.args[0].includes("Total entropy")
+        );
+        expect(totalEntropyWarning).to.exist;
+        expect(totalEntropyWarning.args[0]).to.include("240");
+        expect(totalEntropyWarning.args[0]).to.include("256");
+      });
+
+      it("should warn about both chunk length and total entropy when applicable", async () => {
+        const mock = new MockRandomGenerator(Array.from({ length: 100 }, (_, i) => i));
+        // 10 * 1 * 6 = 60 bits < 256 bits, and 10 < QUANTUM_MIN_LENGTH
+        const config = { length: 10, iteration: 1, separator: "-" };
+
+        await generateQuantumPassword(config, mock);
+
+        // Should have warnings for both conditions
+        expect(consoleWarnStub.callCount).to.be.at.least(2);
+
+        const chunkWarning = consoleWarnStub.getCalls().find(
+          (call) => call.args[0].includes("below recommended minimum")
+        );
+        const totalEntropyWarning = consoleWarnStub.getCalls().find(
+          (call) => call.args[0].includes("Total entropy")
+        );
+
+        expect(chunkWarning).to.exist;
+        expect(totalEntropyWarning).to.exist;
+      });
+
+      it("should not warn when total entropy meets 256-bit target", async () => {
+        const mock = new MockRandomGenerator(Array.from({ length: 200 }, (_, i) => i));
+        // 43 * 1 * 6 = 258 bits >= 256 bits
+        const config = { length: QUANTUM_MIN_LENGTH, iteration: 1, separator: "-" };
+
+        await generateQuantumPassword(config, mock);
+
+        expect(consoleWarnStub.called).to.be.false;
+      });
+
+      it("should not warn when multiple short chunks meet total entropy target", async () => {
+        const mock = new MockRandomGenerator(Array.from({ length: 500 }, (_, i) => i));
+        // 22 * 2 * 6 = 264 bits >= 256 bits, but each chunk is below QUANTUM_MIN_LENGTH
+        const config = { length: 22, iteration: 2, separator: "-" };
+
+        await generateQuantumPassword(config, mock);
+
+        // Should warn about chunk length but not about total entropy
+        const chunkWarnings = consoleWarnStub.getCalls().filter(
+          (call) => call.args[0].includes("below recommended minimum")
+        );
+        const totalEntropyWarnings = consoleWarnStub.getCalls().filter(
+          (call) => call.args[0].includes("Total entropy")
+        );
+
+        // Each chunk triggers a warning (2 iterations = 2 warnings)
+        expect(chunkWarnings.length).to.equal(2);
+        // But total entropy is adequate, so no warning for that
+        expect(totalEntropyWarnings.length).to.equal(0);
+      });
+
+      it("should include actual entropy value in warning message", async () => {
+        const mock = new MockRandomGenerator(Array.from({ length: 50 }, (_, i) => i));
+        // 5 * 1 * 6 = 30 bits
+        const config = { length: 5, iteration: 1, separator: "-" };
+
+        await generateQuantumPassword(config, mock);
+
+        const totalEntropyWarning = consoleWarnStub.getCalls().find(
+          (call) => call.args[0].includes("Total entropy")
+        );
+        expect(totalEntropyWarning).to.exist;
+        expect(totalEntropyWarning.args[0]).to.include("30");
       });
     });
   });

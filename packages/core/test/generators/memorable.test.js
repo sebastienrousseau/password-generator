@@ -545,4 +545,427 @@ describe("Generators: memorable", () => {
       });
     });
   });
+
+  describe("Edge cases", () => {
+    describe("Empty dictionary handling", () => {
+      it("should throw error when dictionary returns null", async () => {
+        const mock = new MockRandomGenerator([0]);
+        // Create a custom dictionary that returns null
+        const nullDict = {
+          async loadDictionary() {
+            return null;
+          },
+          async selectRandomWord() {
+            return "word";
+          },
+        };
+
+        try {
+          await generateMemorablePassword(
+            { iteration: 1, separator: "-" },
+            mock,
+            nullDict
+          );
+          expect.fail("Should have thrown");
+        } catch (e) {
+          expect(e.message).to.equal("Dictionary is empty or not loaded");
+        }
+      });
+
+      it("should throw error when dictionary returns undefined", async () => {
+        const mock = new MockRandomGenerator([0]);
+        const undefinedDict = {
+          async loadDictionary() {
+            return undefined;
+          },
+          async selectRandomWord() {
+            return "word";
+          },
+        };
+
+        try {
+          await generateMemorablePassword(
+            { iteration: 1, separator: "-" },
+            mock,
+            undefinedDict
+          );
+          expect.fail("Should have thrown");
+        } catch (e) {
+          expect(e.message).to.equal("Dictionary is empty or not loaded");
+        }
+      });
+
+      it("should throw for generatePassphrase with null dictionary", async () => {
+        const mock = new MockRandomGenerator([0]);
+        const nullDict = {
+          async loadDictionary() {
+            return null;
+          },
+          async selectRandomWord() {
+            return "word";
+          },
+        };
+
+        try {
+          await generatePassphrase(
+            { iteration: 1, separator: "-" },
+            mock,
+            nullDict
+          );
+          expect.fail("Should have thrown");
+        } catch (e) {
+          expect(e.message).to.equal("Dictionary is empty or not loaded");
+        }
+      });
+    });
+
+    describe("calculateMemorablePasswordEntropy edge cases", () => {
+      it("should handle very small dictionary size", () => {
+        const entropy = calculateMemorablePasswordEntropy({
+          iteration: 4,
+          dictionarySize: 2,
+        });
+        // log2(2) = 1 bit per word, 4 words = 4 bits
+        expect(entropy).to.equal(4);
+      });
+
+      it("should handle dictionary size of 1", () => {
+        const entropy = calculateMemorablePasswordEntropy({
+          iteration: 10,
+          dictionarySize: 1,
+        });
+        // log2(1) = 0 bits per word
+        expect(entropy).to.equal(0);
+      });
+
+      it("should handle very large dictionary size", () => {
+        const entropy = calculateMemorablePasswordEntropy({
+          iteration: 4,
+          dictionarySize: 1000000,
+        });
+        // log2(1000000) ≈ 19.93 bits per word
+        expect(entropy).to.be.closeTo(4 * Math.log2(1000000), 0.0001);
+      });
+
+      it("should handle single word iteration", () => {
+        const entropy = calculateMemorablePasswordEntropy({
+          iteration: 1,
+          dictionarySize: 7776,
+        });
+        expect(entropy).to.be.closeTo(Math.log2(7776), 0.0001);
+      });
+
+      it("should handle large iteration count", () => {
+        const entropy = calculateMemorablePasswordEntropy({
+          iteration: 100,
+          dictionarySize: 7776,
+        });
+        expect(entropy).to.be.closeTo(100 * Math.log2(7776), 0.0001);
+      });
+
+      it("should return 0 for iteration of 0", () => {
+        const entropy = calculateMemorablePasswordEntropy({
+          iteration: 0,
+          dictionarySize: 7776,
+        });
+        expect(entropy).to.equal(0);
+      });
+    });
+
+    describe("generatePassphrase transform edge cases", () => {
+      it("should handle single character words with capitalize", async () => {
+        const mock = new MockRandomGenerator([0, 1, 2]);
+        const dict = new MemoryDictionary(["a", "b", "c"]);
+
+        const result = await generatePassphrase(
+          {
+            iteration: 3,
+            separator: "-",
+            transforms: { capitalize: true },
+          },
+          mock,
+          dict
+        );
+
+        expect(result).to.equal("A-B-C");
+      });
+
+      it("should handle empty separator with capitalize", async () => {
+        const mock = new MockRandomGenerator([0, 1]);
+        const dict = new MemoryDictionary(["foo", "bar"]);
+
+        const result = await generatePassphrase(
+          {
+            iteration: 2,
+            separator: "",
+            transforms: { capitalize: true },
+          },
+          mock,
+          dict
+        );
+
+        // With empty separator, split("") splits into individual characters,
+        // each gets capitalized, resulting in all uppercase
+        expect(result).to.equal("FOOBAR");
+      });
+
+      it("should handle numeric separator with uppercase", async () => {
+        const mock = new MockRandomGenerator([0, 1]);
+        const dict = new MemoryDictionary(["test", "case"]);
+
+        const result = await generatePassphrase(
+          {
+            iteration: 2,
+            separator: "123",
+            transforms: { uppercase: true },
+          },
+          mock,
+          dict
+        );
+
+        expect(result).to.equal("TEST123CASE");
+      });
+
+      it("should handle special character separator", async () => {
+        const mock = new MockRandomGenerator([0, 1, 2]);
+        const dict = new MemoryDictionary(["alpha", "beta", "gamma"]);
+
+        const result = await generatePassphrase(
+          {
+            iteration: 3,
+            separator: "!@#",
+            transforms: { capitalize: true },
+          },
+          mock,
+          dict
+        );
+
+        expect(result).to.equal("Alpha!@#Beta!@#Gamma");
+      });
+
+      it("should handle all three transforms combined", async () => {
+        const mock = new MockRandomGenerator([0, 1, 500]);
+        const dict = new MemoryDictionary(["hello", "world"]);
+
+        const result = await generatePassphrase(
+          {
+            iteration: 2,
+            separator: "-",
+            transforms: {
+              capitalize: true,
+              uppercase: true,
+              appendNumber: true,
+            },
+          },
+          mock,
+          dict
+        );
+
+        // capitalize runs first (Hello-World), then uppercase (HELLO-WORLD), then appendNumber
+        expect(result).to.equal("HELLO-WORLD500");
+      });
+
+      it("should handle appendNumber with value 0", async () => {
+        const mock = new MockRandomGenerator([0, 0]); // Second 0 for the number
+        const dict = new MemoryDictionary(["word"]);
+
+        const result = await generatePassphrase(
+          {
+            iteration: 1,
+            separator: "-",
+            transforms: { appendNumber: true },
+          },
+          mock,
+          dict
+        );
+
+        expect(result).to.equal("word0");
+      });
+
+      it("should handle appendNumber with max value (999)", async () => {
+        const mock = new MockRandomGenerator([0, 999]);
+        const dict = new MemoryDictionary(["test"]);
+
+        const result = await generatePassphrase(
+          {
+            iteration: 1,
+            separator: "-",
+            transforms: { appendNumber: true },
+          },
+          mock,
+          dict
+        );
+
+        expect(result).to.equal("test999");
+      });
+
+      it("should handle false transform values", async () => {
+        const mock = new MockRandomGenerator([0, 1]);
+        const dict = new MemoryDictionary(["hello", "world"]);
+
+        const result = await generatePassphrase(
+          {
+            iteration: 2,
+            separator: "-",
+            transforms: {
+              capitalize: false,
+              uppercase: false,
+              appendNumber: false,
+            },
+          },
+          mock,
+          dict
+        );
+
+        expect(result).to.equal("hello-world");
+      });
+    });
+
+    describe("Word selection edge cases", () => {
+      it("should handle single word dictionary", async () => {
+        const mock = new MockRandomGenerator([0, 0, 0, 0, 0]);
+        const dict = new MemoryDictionary(["only"]);
+
+        const result = await generateMemorablePassword(
+          { iteration: 5, separator: "-" },
+          mock,
+          dict
+        );
+
+        expect(result).to.equal("only-only-only-only-only");
+      });
+
+      it("should handle large random values with modulo", async () => {
+        // When random returns values larger than dictionary size
+        const mock = new MockRandomGenerator([100, 101, 102]);
+        const dict = new MemoryDictionary(["a", "b", "c"]);
+
+        const result = await generateMemorablePassword(
+          { iteration: 3, separator: "-" },
+          mock,
+          dict
+        );
+
+        // 100 % 3 = 1 (b), 101 % 3 = 2 (c), 102 % 3 = 0 (a)
+        expect(result).to.equal("b-c-a");
+      });
+
+      it("should handle wraparound in random sequence", async () => {
+        const mock = new MockRandomGenerator([0, 1]); // Will cycle
+        const dict = new MemoryDictionary(["first", "second", "third"]);
+
+        const result = await generateMemorablePassword(
+          { iteration: 4, separator: "-" },
+          mock,
+          dict
+        );
+
+        // Sequence: 0, 1, 0, 1 (cycling)
+        expect(result).to.equal("first-second-first-second");
+      });
+
+      it("should handle very long passphrase", async () => {
+        const sequence = Array.from({ length: 20 }, (_, i) => i);
+        const mock = new MockRandomGenerator(sequence);
+        const dict = new MemoryDictionary(DEFAULT_WORD_LIST);
+
+        const result = await generateMemorablePassword(
+          { iteration: 20, separator: "-" },
+          mock,
+          dict
+        );
+
+        const words = result.split("-");
+        expect(words).to.have.lengthOf(20);
+      });
+
+      it("should handle unicode words", async () => {
+        const mock = new MockRandomGenerator([0, 1, 2]);
+        const dict = new MemoryDictionary(["café", "naïve", "résumé"]);
+
+        const result = await generatePassphrase(
+          {
+            iteration: 3,
+            separator: "-",
+            transforms: { capitalize: true },
+          },
+          mock,
+          dict
+        );
+
+        expect(result).to.equal("Café-Naïve-Résumé");
+      });
+
+      it("should handle words with numbers", async () => {
+        const mock = new MockRandomGenerator([0, 1]);
+        const dict = new MemoryDictionary(["test123", "code456"]);
+
+        const result = await generatePassphrase(
+          {
+            iteration: 2,
+            separator: "-",
+            transforms: { uppercase: true },
+          },
+          mock,
+          dict
+        );
+
+        expect(result).to.equal("TEST123-CODE456");
+      });
+
+      it("should handle empty string separator with multiple words", async () => {
+        const mock = new MockRandomGenerator([0, 1, 2]);
+        const dict = new MemoryDictionary(["one", "two", "three"]);
+
+        const result = await generateMemorablePassword(
+          { iteration: 3, separator: "" },
+          mock,
+          dict
+        );
+
+        expect(result).to.equal("onetwothree");
+      });
+    });
+
+    describe("Integration with MemoryDictionary", () => {
+      it("should work correctly with dictionary that has duplicate words", async () => {
+        const mock = new MockRandomGenerator([0, 1, 2]);
+        const dict = new MemoryDictionary(["same", "same", "same"]);
+
+        const result = await generateMemorablePassword(
+          { iteration: 3, separator: "-" },
+          mock,
+          dict
+        );
+
+        expect(result).to.equal("same-same-same");
+      });
+
+      it("should handle whitespace in words", async () => {
+        const mock = new MockRandomGenerator([0, 1]);
+        const dict = new MemoryDictionary(["hello world", "foo bar"]);
+
+        const result = await generateMemorablePassword(
+          { iteration: 2, separator: "-" },
+          mock,
+          dict
+        );
+
+        expect(result).to.equal("hello world-foo bar");
+      });
+
+      it("should handle words containing separator character", async () => {
+        const mock = new MockRandomGenerator([0, 1]);
+        const dict = new MemoryDictionary(["pre-fix", "suf-fix"]);
+
+        const result = await generateMemorablePassword(
+          { iteration: 2, separator: "-" },
+          mock,
+          dict
+        );
+
+        expect(result).to.equal("pre-fix-suf-fix");
+      });
+    });
+  });
 });

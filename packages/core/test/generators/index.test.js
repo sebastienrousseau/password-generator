@@ -106,6 +106,22 @@ describe("Generators: index", () => {
         expect(e.message).to.include("foobar");
       }
     });
+
+    it("should throw for null type", () => {
+      expect(() => getGenerator(null)).to.throw(Error);
+    });
+
+    it("should throw for undefined type", () => {
+      expect(() => getGenerator(undefined)).to.throw(Error);
+    });
+
+    it("should throw for empty string type", () => {
+      expect(() => getGenerator("")).to.throw(Error);
+    });
+
+    it("should throw for numeric type", () => {
+      expect(() => getGenerator(123)).to.throw(Error);
+    });
   });
 
   describe("generate", () => {

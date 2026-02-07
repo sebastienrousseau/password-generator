@@ -41,7 +41,10 @@ const caps = capabilities();
  * Brand mark for CLI output
  */
 export const brand = {
-  mini: () => `  ✦ ${chalk.hex("#FF6B9D")("password")} ${chalk.hex("#9D4EDD")("generator")} ${chalk.hex("#4B5563")(`v${version}`)}`,
+  mini: () =>
+    `  ✦ ${chalk.hex("#FF6B9D")("password")} ${chalk.hex("#9D4EDD")("generator")} ${chalk.hex(
+      "#4B5563"
+    )(`v${version}`)}`,
   inline: () => chalk.hex("#FF6B9D")("✦") + " " + chalk.hex("#9D4EDD")("pwgen"),
   version: () => version,
 };
@@ -353,7 +356,9 @@ export const renderPassword = (password, options = {}) => {
   );
 
   // Bottom
-  lines.push(borderColor(`  ${box.bottomLeft}${box.horizontal.repeat(innerWidth)}${box.bottomRight}`));
+  lines.push(
+    borderColor(`  ${box.bottomLeft}${box.horizontal.repeat(innerWidth)}${box.bottomRight}`)
+  );
 
   // Status line (minimal, below the box)
   lines.push("");
@@ -393,7 +398,9 @@ export const renderCommandPanel = (command, shortcuts = []) => {
     lines.push(`  ${colors.dim("shortcuts")}`);
     lines.push("");
     for (const { flag, desc } of shortcuts) {
-      lines.push(`  ${colors.muted(icons.pointer)} ${colors.command(flag.padEnd(14))} ${colors.dim(desc)}`);
+      lines.push(
+        `  ${colors.muted(icons.pointer)} ${colors.command(flag.padEnd(14))} ${colors.dim(desc)}`
+      );
     }
     lines.push("");
   }
@@ -409,9 +416,7 @@ export const renderProgress = (current, total) => {
   const filled = Math.round((current / total) * width);
   const empty = width - filled;
 
-  const bar =
-    colors.primary(icons.filled.repeat(filled)) +
-    colors.dim(icons.light.repeat(empty));
+  const bar = colors.primary(icons.filled.repeat(filled)) + colors.dim(icons.light.repeat(empty));
 
   return `${colors.dim(`${current}/${total}`)}  ${bar}`;
 };

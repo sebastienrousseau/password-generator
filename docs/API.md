@@ -40,7 +40,7 @@ const service = createService(config, ports);
 
 **Returns:** Service object with password generation methods.
 
-**Throws:** `Error` if required ports are missing or invalid.
+**Throws:** `Error` when required ports are missing or invalid.
 
 ---
 
@@ -90,7 +90,7 @@ const password = await service.generate({
 
 **Returns:** `Promise<string>` - The generated password.
 
-**Throws:** `Error` if type is invalid or configuration is invalid.
+**Throws:** `Error` when type or configuration is invalid.
 
 ---
 
@@ -201,7 +201,7 @@ const generator = service.getGenerator('strong');
 // { generate: Function, calculateEntropy: Function }
 ```
 
-**Returns:** Generator object or `null` if not found.
+**Returns:** Generator object, or `null` when the type does not exist.
 
 ---
 

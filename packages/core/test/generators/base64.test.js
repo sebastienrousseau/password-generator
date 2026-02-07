@@ -311,5 +311,16 @@ describe("Generators: base64", () => {
       const base64Entropy = calculateBase64PasswordEntropy(config);
       expect(base64Entropy).to.equal(384);
     });
+
+    it("should handle large configurations", () => {
+      const entropy = calculateBase64PasswordEntropy({ length: 100, iteration: 10 });
+      expect(entropy).to.equal(6000); // 100 * 10 * 6 = 6000 bits
+    });
+
+    it("should handle fractional entropy results correctly", () => {
+      // Each character contributes exactly 6 bits (log2(64) = 6)
+      const entropy = calculateBase64PasswordEntropy({ length: 5, iteration: 3 });
+      expect(entropy).to.equal(90); // 5 * 3 * 6 = 90 bits
+    });
   });
 });

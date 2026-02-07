@@ -4,7 +4,7 @@
 
 **As a** security-conscious user,
 **I want** a beautifully designed, accessible, and high-performance web interface,
-**So that** I can generate secure passwords through an intuitive browser experience that meets enterprise-grade quality standards.
+**So that** I generate secure passwords through an intuitive browser experience that meets enterprise-grade quality standards.
 
 ### Acceptance Criteria
 
@@ -25,7 +25,7 @@
   **THEN** it meets WCAG 2.1 AAA standards:
   - Contrast ratio ≥ 7:1 for normal text
   - Contrast ratio ≥ 4.5:1 for large text (18pt+)
-  - All interactive elements keyboard navigable
+  - All interactive elements support keyboard navigation
   - Screen reader compatible with semantic HTML
   - Focus indicators visible and high-contrast
   - No content flashes more than 3 times per second
@@ -46,7 +46,7 @@
 #### AC4: Cross-Platform Portability
 - **GIVEN** users on different devices and browsers
   **WHEN** they access the web interface
-  **THEN** it works consistently across:
+  **THEN** it functions consistently across:
   - Desktop: Chrome, Firefox, Safari, Edge (latest 2 versions)
   - Mobile: iOS Safari, Chrome Mobile, Samsung Internet
   - Tablet: iPad Safari, Android Chrome
@@ -94,7 +94,7 @@
 
 ### Edge Cases
 1. **Slow Network Connection** — Progressive loading with skeleton screens, graceful degradation
-2. **JavaScript Disabled** — Core password generation still functional with server-side fallback
+2. **JavaScript Disabled** — Core password generation remains functional with server-side fallback
 3. **High Contrast Mode** — Respects user's OS-level high contrast preferences
 4. **Reduced Motion** — Honors prefers-reduced-motion media query
 5. **Offline Usage** — Service worker caches critical assets for offline password generation

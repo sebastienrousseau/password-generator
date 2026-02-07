@@ -6,15 +6,13 @@ on:
       - "*"
     paths:
       - "packages/core/**"
-      - "scripts/verify-core-*.js"
-      - "scripts/verify-core-*.sh"
+      - "scripts/verify-core-deps.js"
   push:
     branches:
       - "*"
     paths:
       - "packages/core/**"
-      - "scripts/verify-core-*.js"
-      - "scripts/verify-core-*.sh"
+      - "scripts/verify-core-deps.js"
 
 jobs:
   verify-core-isolation:
@@ -38,10 +36,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Verify core isolation (Shell script)
-        run: ./scripts/verify-core-isolation.sh
-
-      - name: Verify core isolation (Node.js script)
+      - name: Verify core isolation
         run: node scripts/verify-core-deps.js
 
       - name: Lint core package

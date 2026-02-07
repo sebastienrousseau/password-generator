@@ -14,7 +14,7 @@
  */
 
 import { execSync } from "child_process";
-import { existsSync, rmSync } from "fs";
+import { existsSync, rmSync, readdirSync, cpSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -62,7 +62,11 @@ try {
 
   // 4. Copy built files
   console.log("\n[4/5] Copying build files...");
-  run(`cp -r dist/web/* ${tmpDir}/`);
+  const srcDir = join(ROOT, "dist/web");
+  const files = readdirSync(srcDir);
+  for (const file of files) {
+    cpSync(join(srcDir, file), join(tmpDir, file), { recursive: true });
+  }
 
   // Add .nojekyll to prevent Jekyll processing
   execSync("touch .nojekyll", { cwd: tmpDir });
