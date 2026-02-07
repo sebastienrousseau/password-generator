@@ -88,19 +88,18 @@ export const bytesToBase64 = (bytes) => {
   // Fallback implementation for environments without btoa
   const base64Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
   let result = "";
-  let i = 0;
 
-  while (i < bytes.length) {
-    const a = bytes[i++];
-    const b = i < bytes.length ? bytes[i++] : 0;
-    const c = i < bytes.length ? bytes[i++] : 0;
+  for (let j = 0; j < bytes.length; j += 3) {
+    const a = bytes[j];
+    const b = j + 1 < bytes.length ? bytes[j + 1] : 0;
+    const c = j + 2 < bytes.length ? bytes[j + 2] : 0;
 
     const group = (a << 16) | (b << 8) | c;
 
     result += base64Chars[(group >> 18) & 63];
     result += base64Chars[(group >> 12) & 63];
-    result += i - 2 < bytes.length ? base64Chars[(group >> 6) & 63] : "=";
-    result += i - 1 < bytes.length ? base64Chars[group & 63] : "=";
+    result += j + 1 < bytes.length ? base64Chars[(group >> 6) & 63] : "=";
+    result += j + 2 < bytes.length ? base64Chars[group & 63] : "=";
   }
 
   return result;
