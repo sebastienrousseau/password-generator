@@ -68,8 +68,8 @@ describe("Generators: index", () => {
       expect(GENERATOR_REGISTRY["quantum-resistant"].calculateEntropy).to.be.a("function");
     });
 
-    it("should have exactly 4 generators", () => {
-      expect(Object.keys(GENERATOR_REGISTRY)).to.have.lengthOf(4);
+    it("should have exactly 8 generators", () => {
+      expect(Object.keys(GENERATOR_REGISTRY)).to.have.lengthOf(8);
     });
   });
 

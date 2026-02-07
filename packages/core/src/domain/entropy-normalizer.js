@@ -278,7 +278,8 @@ export const validateEntropyInputs = (password, type, config) => {
     errors.push("Config must be an object");
   }
 
-  if (!ENTROPY_CALCULATOR_REGISTRY[type]) {
+  // Only check registry if type is a valid string
+  if (typeof type === 'string' && !ENTROPY_CALCULATOR_REGISTRY[type]) {
     errors.push(`Unsupported password type: ${type}`);
   }
 

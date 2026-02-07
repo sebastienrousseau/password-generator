@@ -31,8 +31,8 @@ describe("Domain: password-types", () => {
       expect(PASSWORD_TYPES.QUANTUM).to.equal("quantum-resistant");
     });
 
-    it("should have exactly 4 types", () => {
-      expect(Object.keys(PASSWORD_TYPES)).to.have.lengthOf(4);
+    it("should have exactly 8 types", () => {
+      expect(Object.keys(PASSWORD_TYPES)).to.have.lengthOf(8);
     });
   });
 
@@ -66,8 +66,8 @@ describe("Domain: password-types", () => {
       expect(VALID_PASSWORD_TYPES).to.include("quantum-resistant");
     });
 
-    it("should have exactly 4 types", () => {
-      expect(VALID_PASSWORD_TYPES).to.have.lengthOf(4);
+    it("should have exactly 8 types", () => {
+      expect(VALID_PASSWORD_TYPES).to.have.lengthOf(8);
     });
   });
 

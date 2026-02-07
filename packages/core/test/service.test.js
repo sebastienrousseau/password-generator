@@ -301,7 +301,7 @@ describe("Service", () => {
         expect(result.totalBits).to.equal(384); // 16 * 4 * 6
         expect(result.securityLevel).to.include("EXCELLENT");
         expect(result.recommendation).to.include("Excellent");
-        expect(result.perUnit).to.equal(96); // 16 * 6
+        expect(result.perUnit).to.equal(6); // 6 bits per character (log2(64))
       });
 
       it("should calculate entropy for base64 password", () => {
