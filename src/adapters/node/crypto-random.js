@@ -11,7 +11,7 @@
  */
 
 import { randomBytes, randomInt } from "crypto";
-import { RandomGeneratorPort } from "../../core/ports/RandomGeneratorPort.js";
+import { RandomGeneratorPort } from "../../../packages/core/src/ports/index.js";
 
 /**
  * Node.js implementation of RandomGeneratorPort using the crypto module.

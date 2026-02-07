@@ -10,7 +10,7 @@
  */
 
 import { performance } from "perf_hooks";
-import { ClockPort } from "../../core/ports/ClockPort.js";
+import { ClockPort } from "../../../packages/core/src/ports/index.js";
 
 /**
  * Node.js implementation of ClockPort.

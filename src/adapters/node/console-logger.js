@@ -9,7 +9,7 @@
  * @module NodeConsoleLogger
  */
 
-import { LoggerPort } from "../../core/ports/LoggerPort.js";
+import { LoggerPort } from "../../../packages/core/src/ports/index.js";
 
 /**
  * Log level enum for filtering messages.

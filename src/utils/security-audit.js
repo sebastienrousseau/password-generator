@@ -18,7 +18,7 @@ import {
   calculateDictionaryEntropy,
   getSecurityLevel,
   getSecurityRecommendation,
-} from "../core/domain/entropy-calculator.js";
+} from "../../packages/core/src/domain/index.js";
 
 /**
  * Global audit state - disabled by default for zero-overhead operation
@@ -49,7 +49,7 @@ let performanceMetrics = {
 };
 
 // Re-export entropy constants from domain layer
-export { ENTROPY_CONSTANTS } from "../core/domain/entropy-calculator.js";
+export { ENTROPY_CONSTANTS } from "../../packages/core/src/domain/index.js";
 
 /**
  * Resets audit session state for new password generation
@@ -134,7 +134,7 @@ export {
   calculateBase64Entropy,
   calculateBase64ChunkEntropy,
   calculateDictionaryEntropy,
-} from "../core/domain/entropy-calculator.js";
+} from "../../packages/core/src/domain/index.js";
 
 /**
  * Sets dictionary size for entropy calculations

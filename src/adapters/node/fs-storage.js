@@ -11,7 +11,7 @@
 
 import { readFile, writeFile, unlink, mkdir, access } from "fs/promises";
 import { dirname, join } from "path";
-import { StoragePort } from "../../core/ports/StoragePort.js";
+import { StoragePort } from "../../../packages/core/src/ports/index.js";
 
 /**
  * Node.js implementation of StoragePort using the file system.

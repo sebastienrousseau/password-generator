@@ -8,7 +8,9 @@
         "coverage/*",
         "dist/*",
         "node_modules/*",
-        "docs/*"
+        "docs/*",
+        "**/*.test.js",
+        "**/test/**"
     ],
     "extension": [".js"],
     "functions": 40,

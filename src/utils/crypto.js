@@ -11,14 +11,12 @@ import {
 import {
   calculateBase64Entropy,
   calculateBase64ChunkEntropy,
-} from "../core/domain/entropy-calculator.js";
-import {
   validatePositiveInteger,
   splitString,
-} from "../core/domain/base64-generation.js";
+} from "../../packages/core/src/domain/index.js";
 
 // Re-export domain logic for backward compatibility
-export { validatePositiveInteger } from "../core/domain/base64-generation.js";
+export { validatePositiveInteger } from "../../packages/core/src/domain/index.js";
 
 /**
  * Generates a random base64 string of the specified byte length.
@@ -77,4 +75,4 @@ export const generateBase64Chunk = (length) => {
 };
 
 // Re-export domain logic for backward compatibility
-export { splitString } from "../core/domain/base64-generation.js";
+export { splitString } from "../../packages/core/src/domain/index.js";
