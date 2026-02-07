@@ -7,8 +7,8 @@
  * Measures performance of password generation across types and sizes.
  */
 
-import { PasswordService } from '../packages/core/index.js';
-import { NodeCryptoRandom } from '../src/adapters/NodeCryptoRandom.js';
+import { randomBytes, randomInt } from 'crypto';
+import { createQuickService } from '../packages/core/src/index.js';
 
 // ============================================
 // Benchmark Infrastructure
@@ -52,11 +52,40 @@ function formatBytes(bytes) {
 }
 
 // ============================================
+// Node.js Crypto Random Generator (port adapter)
+// ============================================
+
+/**
+ * RandomGeneratorPort implementation for Node.js
+ */
+class NodeCryptoRandomGenerator {
+  async generateRandomBytes(byteLength) {
+    return new Uint8Array(randomBytes(byteLength));
+  }
+
+  async generateRandomInt(max) {
+    return randomInt(0, max);
+  }
+
+  async generateRandomBase64(byteLength) {
+    return randomBytes(byteLength).toString('base64');
+  }
+
+  async generateRandomString(length, charset) {
+    let result = '';
+    for (let i = 0; i < length; i++) {
+      result += charset[randomInt(0, charset.length)];
+    }
+    return result;
+  }
+}
+
+// ============================================
 // Setup
 // ============================================
 
-const randomGenerator = new NodeCryptoRandom();
-const service = new PasswordService({ randomGenerator });
+const randomGenerator = new NodeCryptoRandomGenerator();
+const service = createQuickService(randomGenerator);
 
 // ============================================
 // Password Generation Benchmarks
@@ -114,18 +143,6 @@ for (const iteration of [2, 4, 6, 8]) {
     `memorable (words=${iteration})`,
     () => service.generate({ type: 'memorable', iteration }),
     500 // Fewer iterations as memorable is slower
-  ));
-}
-
-console.log();
-console.log('Numeric PIN Generation');
-console.log('-'.repeat(70));
-
-for (const length of [4, 6, 8, 12]) {
-  results.push(await benchmark(
-    `numeric (length=${length})`,
-    () => service.generate({ type: 'numeric', length, iteration: 1 }),
-    1000
   ));
 }
 

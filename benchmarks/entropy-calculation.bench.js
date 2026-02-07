@@ -7,9 +7,16 @@
  * Measures performance of entropy and strength calculations.
  */
 
-import { EntropyCalculator } from '../packages/core/domain/EntropyCalculator.js';
-import { StrengthIndicator } from '../packages/core/domain/StrengthIndicator.js';
-import { PasswordConfig } from '../packages/core/domain/PasswordConfig.js';
+import {
+  calculateBase64Entropy,
+  calculateBase64ChunkEntropy,
+  calculateDictionaryEntropy,
+  calculateCharsetEntropy,
+  calculateSyllableEntropy,
+  calculateTotalEntropy,
+  getSecurityLevel,
+  getSecurityRecommendation,
+} from '../packages/core/src/domain/entropy-calculator.js';
 
 // ============================================
 // Benchmark Infrastructure
@@ -42,26 +49,13 @@ function benchmark(name, fn, iterations = 10000) {
 }
 
 // ============================================
-// Setup
+// Sample Configurations
 // ============================================
 
-const entropyCalculator = new EntropyCalculator();
-const strengthIndicator = new StrengthIndicator();
-
-// Sample passwords
-const passwords = {
-  short: 'Ab1@',
-  medium: 'K9#mP2$xL5&nQ8@r',
-  long: 'K9#mP2$xL5&nQ8@r-Ab1@Cd3#Ef5$Gh7&Ij9*Kl0!Mn2@Op4#',
-  memorable: 'correct-horse-battery-staple',
-  numeric: '847291635082',
-};
-
-// Sample configs
 const configs = {
-  strong: new PasswordConfig({ type: 'strong', length: 16, iteration: 4 }),
-  base64: new PasswordConfig({ type: 'base64', length: 24, iteration: 2 }),
-  memorable: new PasswordConfig({ type: 'memorable', iteration: 4 }),
+  strong: { type: 'strong', length: 16, iteration: 4 },
+  base64: { type: 'base64', length: 24, iteration: 2 },
+  memorable: { type: 'memorable', iteration: 4 },
 };
 
 // ============================================
@@ -73,46 +67,97 @@ console.log('Entropy Calculation Benchmarks');
 console.log('='.repeat(70));
 console.log();
 
-console.log('EntropyCalculator.calculateFromPassword()');
+console.log('Base64 Entropy Calculations');
 console.log('-'.repeat(70));
 
-for (const [name, password] of Object.entries(passwords)) {
+for (const length of [8, 16, 32, 64, 128]) {
   benchmark(
-    `entropy from password (${name}, len=${password.length})`,
-    () => entropyCalculator.calculateFromPassword(password)
+    `calculateBase64Entropy(${length})`,
+    () => calculateBase64Entropy(length)
   );
 }
 
 console.log();
-console.log('EntropyCalculator.calculateFromConfig()');
+console.log('Base64 Chunk Entropy');
+console.log('-'.repeat(70));
+
+for (const length of [8, 16, 32, 64]) {
+  benchmark(
+    `calculateBase64ChunkEntropy(${length})`,
+    () => calculateBase64ChunkEntropy(length)
+  );
+}
+
+console.log();
+console.log('Dictionary Entropy');
+console.log('-'.repeat(70));
+
+for (const wordCount of [2, 4, 6, 8]) {
+  benchmark(
+    `calculateDictionaryEntropy(7776, ${wordCount})`,
+    () => calculateDictionaryEntropy(7776, wordCount)
+  );
+}
+
+console.log();
+console.log('Charset Entropy');
+console.log('-'.repeat(70));
+
+const charsets = [
+  { name: 'numeric', size: 10 },
+  { name: 'lowercase', size: 26 },
+  { name: 'alphanumeric', size: 62 },
+  { name: 'full', size: 94 },
+];
+
+for (const { name, size } of charsets) {
+  benchmark(
+    `calculateCharsetEntropy(${name}, len=16)`,
+    () => calculateCharsetEntropy(size, 16)
+  );
+}
+
+console.log();
+console.log('Syllable Entropy');
+console.log('-'.repeat(70));
+
+for (const count of [2, 4, 6, 8]) {
+  benchmark(
+    `calculateSyllableEntropy(${count})`,
+    () => calculateSyllableEntropy(count)
+  );
+}
+
+console.log();
+console.log('Total Entropy (combined)');
 console.log('-'.repeat(70));
 
 for (const [name, config] of Object.entries(configs)) {
   benchmark(
-    `entropy from config (${name})`,
-    () => entropyCalculator.calculateFromConfig(config)
+    `calculateTotalEntropy(${name})`,
+    () => calculateTotalEntropy(config)
   );
 }
 
 console.log();
-console.log('StrengthIndicator.fromEntropy()');
+console.log('Security Level Classification');
 console.log('-'.repeat(70));
 
 for (const bits of [28, 60, 80, 128, 256]) {
   benchmark(
-    `strength from entropy (${bits} bits)`,
-    () => strengthIndicator.fromEntropy(bits)
+    `getSecurityLevel(${bits} bits)`,
+    () => getSecurityLevel(bits)
   );
 }
 
 console.log();
-console.log('StrengthIndicator.fromPassword()');
+console.log('Security Recommendations');
 console.log('-'.repeat(70));
 
-for (const [name, password] of Object.entries(passwords)) {
+for (const bits of [50, 80, 128]) {
   benchmark(
-    `strength from password (${name})`,
-    () => strengthIndicator.fromPassword(password)
+    `getSecurityRecommendation(${bits} bits)`,
+    () => getSecurityRecommendation(bits)
   );
 }
 
@@ -125,44 +170,20 @@ console.log('Combined Operations');
 console.log('-'.repeat(70));
 
 benchmark(
-  'full entropy + strength calculation',
+  'full entropy + security level',
   () => {
-    const entropy = entropyCalculator.calculateFromPassword(passwords.medium);
-    return strengthIndicator.fromEntropy(entropy);
+    const entropy = calculateTotalEntropy(configs.strong);
+    return getSecurityLevel(entropy);
   }
 );
 
 benchmark(
-  'config validation + entropy + strength',
+  'config validation + entropy + recommendation',
   () => {
-    const config = new PasswordConfig({ type: 'strong', length: 16, iteration: 4 });
-    const entropy = entropyCalculator.calculateFromConfig(config);
-    return strengthIndicator.fromEntropy(entropy);
+    const entropy = calculateTotalEntropy({ type: 'strong', length: 16, iteration: 4 });
+    return getSecurityRecommendation(entropy);
   }
 );
-
-// ============================================
-// Character Set Analysis
-// ============================================
-
-console.log();
-console.log('Character Set Analysis');
-console.log('-'.repeat(70));
-
-const testStrings = {
-  'lowercase only': 'abcdefghijklmnop',
-  'mixed case': 'AbCdEfGhIjKlMnOp',
-  'alphanumeric': 'Ab1Cd2Ef3Gh4Ij5K',
-  'with symbols': 'Ab1@Cd2#Ef3$Gh4%',
-  'unicode': 'Hëllö Wörld 你好世界',
-};
-
-for (const [name, str] of Object.entries(testStrings)) {
-  benchmark(
-    `analyze charset (${name})`,
-    () => entropyCalculator.calculateFromPassword(str)
-  );
-}
 
 // ============================================
 // Summary
