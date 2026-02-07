@@ -62,7 +62,6 @@ const palette = {
   mint: "#3DFFA3",
   peach: "#FFB86C",
   coral: "#FF6B6B",
-
   // Neutrals - Updated gray for better contrast (accessibility fix)
   white: "#FAFAFA",
   gray: "#9CA3AF", // was #6B7280, now meets WCAG AA contrast
@@ -99,7 +98,6 @@ export const gradient = {
       })
       .join("");
   },
-
   // Cyan to mint
   success: (text) => {
     const chars = text.split("");
@@ -128,7 +126,6 @@ export const colors = {
   success: chalk.hex(palette.mint),
   warning: chalk.hex(palette.peach),
   error: chalk.hex(palette.coral),
-
   // Text colors
   text: chalk.hex(palette.white),
   muted: chalk.hex(palette.gray),

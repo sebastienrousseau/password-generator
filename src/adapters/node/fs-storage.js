@@ -42,7 +42,7 @@ export class NodeFsStorage extends StoragePort {
     // First replace ".." to prevent directory traversal, then sanitize other chars
     const sanitized = key
       .replace(/\.\./g, "__") // Replace ".." with "__" to prevent traversal
-      .replace(/[^a-zA-Z0-9._-]/g, "_");
+      .replace(/[^\w.-]/g, "_");
     return join(this.basePath, sanitized);
   }
 

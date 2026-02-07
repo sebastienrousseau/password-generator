@@ -73,7 +73,6 @@ export const darkTheme = {
     error: palette.coral,
     info: palette.cyan,
   },
-
   text: {
     primary: palette.white,
     secondary: palette.gray[400], // Improved contrast

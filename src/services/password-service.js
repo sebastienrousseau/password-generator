@@ -34,11 +34,7 @@ export const generatePassword = async (config) => {
     throw new Error(PASSWORD_ERRORS.TYPE_REQUIRED);
   }
 
-  try {
-    return await coreService.generate(config);
-  } catch (error) {
-    throw error;
-  }
+  return coreService.generate(config);
 };
 
 /**
