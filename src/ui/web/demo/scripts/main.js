@@ -184,8 +184,12 @@ function setLoading(isLoading) {
  */
 function showError(message) {
   elements.passwordValue.innerHTML = `<span class="text-error">${escapeHtml(message)}</span>`;
-  elements.passwordActions.classList.add("hidden");
+  // Keep password actions visible so user can regenerate
+  // Only hide the copy/visibility actions, keep regenerate visible
+  elements.copyBtn.disabled = true;
+  elements.toggleVisibilityBtn.disabled = true;
   elements.strengthIndicator.classList.add("hidden");
+  currentPassword = null;
 }
 
 /**
@@ -210,8 +214,10 @@ function displayPassword(result) {
   // Display password
   updatePasswordDisplay();
 
-  // Show actions
+  // Show and enable actions
   elements.passwordActions.classList.remove("hidden");
+  elements.copyBtn.disabled = false;
+  elements.toggleVisibilityBtn.disabled = false;
 
   // Update strength indicator
   updateStrengthIndicator(result);

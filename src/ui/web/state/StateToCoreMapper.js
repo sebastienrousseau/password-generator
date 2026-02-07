@@ -33,6 +33,15 @@ export class StateToCoreMapper {
       config.type = formState.type;
     }
 
+    // Handle quantum-resistant type specially - it has fixed parameters
+    if (config.type === "quantum-resistant") {
+      // Quantum passwords require length >= 32 for 256-bit entropy
+      config.length = 43; // Default for ~258 bits of entropy
+      config.iteration = 1;
+      config.separator = "";
+      return config;
+    }
+
     // Length: optional, parse to integer
     if (formState.length !== "" && formState.length !== undefined) {
       const parsed = parseInt(formState.length, 10);

@@ -153,6 +153,35 @@ describe("StateToCoreMapper", () => {
 
       expect(config.separator).to.equal("");
     });
+
+    it("should use fixed parameters for quantum-resistant type", () => {
+      const formState = new FormState({
+        type: "quantum-resistant",
+        length: "14", // Should be ignored
+        iteration: "4", // Should be ignored
+        separator: "-", // Should be ignored
+      });
+
+      const config = mapper.toConfig(formState);
+
+      expect(config.type).to.equal("quantum-resistant");
+      expect(config.length).to.equal(43);
+      expect(config.iteration).to.equal(1);
+      expect(config.separator).to.equal("");
+    });
+
+    it("should apply quantum-resistant defaults regardless of form values", () => {
+      const formState = new FormState({
+        type: "quantum-resistant",
+        // No length/iteration/separator specified
+      });
+
+      const config = mapper.toConfig(formState);
+
+      expect(config.length).to.equal(43);
+      expect(config.iteration).to.equal(1);
+      expect(config.separator).to.equal("");
+    });
   });
 
   describe("toFormState", () => {

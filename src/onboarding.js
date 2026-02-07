@@ -170,7 +170,7 @@ const promptWithNavigation = (title, options, menuId = null) => {
         console.log("");
         process.exit(0);
       } else if (str && /^[1-9]$/.test(str)) {
-        const index = parseInt(str) - 1;
+        const index = parseInt(str, 10) - 1;
         if (index < options.length) {
           cleanup();
           resolve(options[index]);
