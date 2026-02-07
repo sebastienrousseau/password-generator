@@ -136,7 +136,11 @@
         "web": "npx serve . -l 4173",
         "web:build": "node scripts/build-web-demo.js",
         "web:deploy": "node scripts/deploy-gh-pages.js",
-        "web:preview": "npm run web:build && npx serve dist/web -l 4173"
+        "web:preview": "npm run web:build && npx serve dist/web -l 4173",
+        "benchmark:bulk": "node benchmarks/bulk-generation.bench.js",
+        "benchmark:crypto": "node benchmarks/crypto-vs-mathrand.bench.js",
+        "benchmark:entropy": "node benchmarks/entropy-calculation.bench.js",
+        "benchmark:generation": "node benchmarks/password-generation.bench.js"
     },
     "publishConfig": {
         "access": "public"

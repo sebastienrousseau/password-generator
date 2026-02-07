@@ -27,7 +27,8 @@ const coreService = createService({}, { randomGenerator });
  * @param {number} [config.length] - The length of each password chunk.
  * @param {number} config.iteration - The number of password chunks or words.
  * @param {string} config.separator - The separator between password chunks.
- * @return {Promise<string>} The generated password.
+ * @param {boolean} [config.includeEntropy=true] - Whether to include normalized entropy in results.
+ * @return {Promise<Object|string>} The generated password with entropy info (object) or just password (string).
  * @throws {Error} If the password type is invalid or generation fails.
  */
 export const generatePassword = async (config) => {
@@ -86,7 +87,7 @@ export const validatePasswordConfig = (config) => {
  * Generates a password with validation and error handling.
  *
  * @param {Object} config - Configuration options for password generation.
- * @returns {Promise<string>} The generated password.
+ * @returns {Promise<Object|string>} The generated password with entropy info or just password.
  * @throws {Error} If validation fails or generation fails.
  */
 export const safeGeneratePassword = async (config) => {
@@ -98,21 +99,30 @@ export const safeGeneratePassword = async (config) => {
  * Generates a password and analyzes its strength using zxcvbn-style analysis.
  *
  * @param {Object} config - Configuration options for password generation.
- * @returns {Promise<Object>} Object containing password and strength analysis.
+ * @returns {Promise<Object>} Object containing password, entropy, and strength analysis.
  * @throws {Error} If validation fails or generation fails.
  */
 export const generatePasswordWithStrength = async (config) => {
   validatePasswordConfig(config);
-  const password = await generatePassword(config);
+  const result = await generatePassword(config);
+
+  // Handle both new object format and legacy string format
+  const password = typeof result === 'string' ? result : result.password;
+  const entropy = typeof result === 'object' ? result.entropy : undefined;
+  const securityLevel = typeof result === 'object' ? result.securityLevel : undefined;
+
   const strengthAnalysis = analyzePasswordStrength(password);
 
   return {
     password,
+    entropy,
+    securityLevel,
     strength: strengthAnalysis,
     metadata: {
       type: config.type,
       length: password.length,
       generatedAt: new Date().toISOString(),
+      ...(typeof result === 'object' && result.metadata ? result.metadata : {})
     }
   };
 };
@@ -141,7 +151,7 @@ export const quickPasswordCheck = (password) => {
  * Generates multiple passwords with strength analysis.
  *
  * @param {Array<Object>} configs - Array of configuration objects.
- * @returns {Promise<Array<Object>>} Array of password objects with strength analysis.
+ * @returns {Promise<Array<Object>>} Array of password objects with entropy and strength analysis.
  */
 export const generateMultiplePasswordsWithStrength = async (configs) => {
   const promises = configs.map(async (config) => {
