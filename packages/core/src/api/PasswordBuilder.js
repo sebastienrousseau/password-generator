@@ -295,12 +295,7 @@ export const PasswordPresets = {
       .excludeSimilar()
       .length(16);
   },
-
-  /**
-   * Simple alphanumeric password
-   * @param {Object} service - Password generation service
-   * @returns {PasswordBuilder} Configured builder
-   */
+  /** Simple alphanumeric password */
   simple(service) {
     return new PasswordBuilder(service)
       .includeUppercase()
@@ -308,30 +303,15 @@ export const PasswordPresets = {
       .includeDigits()
       .length(12);
   },
-
-  /**
-   * PIN-style numeric password
-   * @param {Object} service - Password generation service
-   * @returns {PasswordBuilder} Configured builder
-   */
+  /** PIN-style numeric password */
   pin(service) {
     return new PasswordBuilder(service).includeDigits().length(6);
   },
-
-  /**
-   * Passphrase with multiple words
-   * @param {Object} service - Password generation service
-   * @returns {PasswordBuilder} Configured builder
-   */
+  /** Passphrase with multiple words */
   passphrase(service) {
     return new PasswordBuilder(service).memorable().iterations(4).separator("-");
   },
-
-  /**
-   * Maximum security quantum-resistant password
-   * @param {Object} service - Password generation service
-   * @returns {PasswordBuilder} Configured builder
-   */
+  /** Maximum security quantum-resistant password */
   maxSecurity(service) {
     return new PasswordBuilder(service).quantumResistant().length(64);
   },

@@ -12,40 +12,28 @@
  * Common patterns that weaken passwords
  */
 export const WEAKNESS_PATTERNS = {
-  // Sequential patterns
   sequence:
     /(?:abc|bcd|cde|def|efg|fgh|ghi|hij|ijk|jkl|klm|lmn|mno|nop|opq|pqr|qrs|rst|stu|tuv|uvw|vwx|wxy|xyz|012|123|234|345|456|567|678|789)/gi,
   reverseSequence:
     /(?:zyx|yxw|xwv|wvu|vut|uts|tsr|srq|rqp|qpo|pon|onm|nml|mlk|lkj|kji|jih|ihg|hgf|gfe|fed|edc|dcb|cba|987|876|765|654|543|432|321|210)/gi,
-
-  // Keyboard patterns
   qwertyRow:
     /(?:qwer|wert|erty|rtyu|tyui|yuio|uiop|asdf|sdfg|dfgh|fghj|ghjk|hjkl|zxcv|xcvb|cvbn|vbnm)/gi,
   qwertyCol: /(?:qaz|wsx|edc|rfv|tgb|yhn|ujm|ik)/gi,
-
-  // Repetition patterns
   repeated: /(.)\1{2,}/g,
   alternating: /(.)(.)(\1\2){2,}/g,
-
-  // Common substitutions
-  leetSpeak: /[4@][sS]|[3€][eE]|[1!][iI]|[0Oo]|[5$][sS]|[7][tT]/g,
+  leetSpeak: /[4@]s|[3€]e|[1!]i|[0o]|[5$]s|7t/gi,
 };
 
 /**
  * Strength scoring constants
  */
 export const STRENGTH_CONSTANTS = {
-  // Score levels (0-4)
   VERY_WEAK: 0,
   WEAK: 1,
   FAIR: 2,
   GOOD: 3,
   STRONG: 4,
-
-  // Entropy thresholds for base scoring
-  ENTROPY_THRESHOLDS: [20, 40, 60, 80], // Entropy levels for scores 1-4
-
-  // Pattern penalty weights
+  ENTROPY_THRESHOLDS: [20, 40, 60, 80],
   PATTERN_PENALTIES: {
     sequence: 0.9,
     reverse_sequence: 0.9,
@@ -55,10 +43,8 @@ export const STRENGTH_CONSTANTS = {
     alternating: 0.7,
     leet_speak: 0.5,
   },
-
-  // Dictionary penalty weights
   DICTIONARY_PENALTIES: {
-    common_passwords: 1.0, // Complete override to score 0
+    common_passwords: 1.0,
     english_words: 0.7,
     reversed_words: 0.8,
   },

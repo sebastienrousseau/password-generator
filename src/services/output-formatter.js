@@ -78,12 +78,10 @@ export function formatAsYAML(passwordData) {
         } else if (Array.isArray(value)) {
           result += `${spaces}${key}:\n${toYAML(value, indent + 1)}`;
         } else {
-          const valueStr =
-            typeof value === "string" ?
-              value.includes(":") || value.includes("\n") ?
-                `"${value}"` :
-                value :
-              value;
+          let valueStr = value;
+          if (typeof value === "string" && (value.includes(":") || value.includes("\n"))) {
+            valueStr = `"${value}"`;
+          }
           result += `${spaces}${key}: ${valueStr}\n`;
         }
       }

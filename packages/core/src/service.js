@@ -160,7 +160,6 @@ export function createService(config = {}, ports) {
       }
       return results;
     },
-
     /**
      * Calculates the entropy for a password configuration using the unified normalizer.
      *
@@ -205,11 +204,7 @@ export function createService(config = {}, ports) {
         };
       }
     },
-
-    /**
-     * Calculates per-unit entropy for display purposes.
-     * @private
-     */
+    /** Calculates per-unit entropy for display purposes. @private */
     _calculatePerUnitEntropy(type, options, totalEntropy) {
       const { iteration = 1, length = 16 } = options;
 
