@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 import { Command } from "commander";
-import { CLI_OPTIONS, PRESET_PROFILES, VALID_PRESETS } from "../config.js";
+import { CLI_OPTIONS, PRESET_PROFILES, VALID_PRESETS, VALID_OUTPUT_FORMATS } from "../config.js";
 import { startOnboarding } from "../onboarding.js";
 
 // Import CLI rendering services (output only, no business logic)
@@ -12,6 +12,7 @@ import {
   displayPasswordOutput,
   displaySecurityAuditReport,
   displayNonTTYHelp,
+  displayFormattedOutput,
 } from "../services/cli-service.js";
 import { startAuditSession, completeAuditSession } from "../services/audit-service.js";
 
@@ -83,6 +84,12 @@ export class CLIController {
       .option(CLI_OPTIONS.options.clipboard.flags, CLI_OPTIONS.options.clipboard.description)
       .option(CLI_OPTIONS.options.audit.flags, CLI_OPTIONS.options.audit.description)
       .option(CLI_OPTIONS.options.learn.flags, CLI_OPTIONS.options.learn.description)
+      .option(CLI_OPTIONS.options.format.flags, CLI_OPTIONS.options.format.description)
+      .option(
+        CLI_OPTIONS.options.count.flags,
+        CLI_OPTIONS.options.count.description,
+        CLI_OPTIONS.options.count.parser
+      )
       .action(this.handleCliAction.bind(this));
   }
 
@@ -149,6 +156,11 @@ export class CLIController {
    */
   async handleCliAction(opts) {
     try {
+      // Validate format option
+      if (opts.format && !VALID_OUTPUT_FORMATS.includes(opts.format)) {
+        throw new Error(`Invalid format '${opts.format}'. Valid formats: ${VALID_OUTPUT_FORMATS.join(", ")}`);
+      }
+
       // Enable audit mode if requested
       if (opts.audit) {
         startAuditSession();
@@ -175,23 +187,50 @@ export class CLIController {
         throw new Error(errorMsg);
       }
 
-      // Step 3: Generate password via core service
-      const password = await this.service.generate(config);
+      // Step 3: Handle bulk generation vs single password
+      const count = opts.count || 1;
+      const format = opts.format || 'text';
 
-      // Step 4: Handle clipboard copy (CLI-specific I/O)
-      let clipboardSuccess = false;
-      if (opts.clipboard) {
-        clipboardSuccess = await copyToClipboard(password);
-      }
+      if (count > 1 || format !== 'text') {
+        // Bulk operation with structured output
+        const passwords = [];
+        for (let i = 0; i < count; i++) {
+          passwords.push(await this.service.generate(config));
+        }
 
-      // Step 5: Render output (CLI-specific presentation)
-      // Pass the actual success state instead of the requested state
-      displayPasswordOutput(password, clipboardSuccess, config);
+        // Handle clipboard for bulk operations (copy first password only)
+        let clipboardSuccess = false;
+        if (opts.clipboard && passwords.length > 0) {
+          clipboardSuccess = await copyToClipboard(passwords[0]);
+        }
 
-      // Display command learning panel if enabled
-      if (opts.learn) {
-        const equivalentCommand = generateEquivalentCommand(config, opts.preset, opts);
-        displayCommandLearningPanel(equivalentCommand);
+        // Display formatted output
+        displayFormattedOutput(passwords, config, format, {
+          clipboardSuccess,
+          showLearning: opts.learn,
+          showAudit: opts.audit,
+          preset: opts.preset,
+          opts: opts
+        });
+
+      } else {
+        // Single password generation (legacy behavior)
+        const password = await this.service.generate(config);
+
+        // Step 4: Handle clipboard copy (CLI-specific I/O)
+        let clipboardSuccess = false;
+        if (opts.clipboard) {
+          clipboardSuccess = await copyToClipboard(password);
+        }
+
+        // Step 5: Render output (CLI-specific presentation)
+        displayPasswordOutput(password, clipboardSuccess, config);
+
+        // Display command learning panel if enabled
+        if (opts.learn) {
+          const equivalentCommand = generateEquivalentCommand(config, opts.preset, opts);
+          displayCommandLearningPanel(equivalentCommand);
+        }
       }
 
       // Display security audit report if enabled

@@ -24,6 +24,12 @@ import {
   renderHeader,
 } from "../ui/theme.js";
 
+import {
+  formatOutput,
+  preparePasswordData,
+  calculatePasswordStrength,
+} from "./output-formatter.js";
+
 /**
  * Generates the equivalent CLI command string based on the configuration used.
  */
@@ -59,6 +65,15 @@ export const generateEquivalentCommand = (config, preset, opts) => {
   }
   if (opts.audit) {
     parts.push("-a");
+  }
+  if (opts.format && opts.format !== 'text') {
+    parts.push(`-f ${opts.format}`);
+  }
+  if (opts.count && opts.count > 1) {
+    parts.push(`-n ${opts.count}`);
+  }
+  if (opts.learn) {
+    parts.push("--learn");
   }
 
   return parts.join(" ");
@@ -211,6 +226,48 @@ export const displaySecurityAuditReport = (auditReport, config = {}) => {
 };
 
 /**
+ * Displays formatted output for bulk operations and structured exports
+ */
+export const displayFormattedOutput = (passwords, config, format, options = {}) => {
+  const {
+    clipboardSuccess = false,
+    showLearning = false,
+    showAudit = false,
+    preset = null,
+    opts = {}
+  } = options;
+
+  // Prepare password data with metadata
+  const passwordData = preparePasswordData(passwords, config);
+
+  // For text format with single password, use legacy display
+  if (format === 'text' && passwords.length === 1) {
+    displayPasswordOutput(passwords[0], clipboardSuccess, config);
+  } else {
+    // Use structured output formatter
+    const formattedOutput = formatOutput(passwordData, format, {
+      pretty: true,
+      includeHeaders: true,
+      showMetadata: format !== 'csv'
+    });
+
+    console.log(formattedOutput);
+
+    // Show clipboard status for bulk operations
+    if (clipboardSuccess && passwords.length > 1) {
+      console.log("");
+      console.log(`  ${colors.success(icons.success)} ${colors.dim(`First password copied to clipboard (${passwords.length} total generated)`)}`);
+    }
+  }
+
+  // Display command learning panel if enabled
+  if (showLearning) {
+    const equivalentCommand = generateEquivalentCommand(config, preset, opts);
+    displayCommandLearningPanel(equivalentCommand);
+  }
+};
+
+/**
  * Displays help for non-TTY environments
  */
 export const displayNonTTYHelp = () => {
@@ -221,5 +278,10 @@ export const displayNonTTYHelp = () => {
   console.log(`  ${colors.muted(icons.pointer)} ${colors.command("password-generator -p quick")}`);
   console.log(`  ${colors.muted(icons.pointer)} ${colors.command("password-generator -p secure")}`);
   console.log(`  ${colors.muted(icons.pointer)} ${colors.command("password-generator --help")}`);
+  console.log("");
+  console.log(`  ${colors.dim("bulk operations")}`);
+  console.log(`  ${colors.muted(icons.pointer)} ${colors.command("password-generator -p quick -n 5 -f json")}`);
+  console.log(`  ${colors.muted(icons.pointer)} ${colors.command("password-generator -p secure -n 10 -f csv")}`);
+  console.log(`  ${colors.muted(icons.pointer)} ${colors.command("password-generator -p memorable -n 3 -f yaml")}`);
   console.log("");
 };

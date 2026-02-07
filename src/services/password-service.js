@@ -13,6 +13,7 @@
 import { PASSWORD_ERRORS } from "../errors.js";
 import { createService } from "../../packages/core/src/index.js";
 import { NodeCryptoRandom } from "../adapters/node/crypto-random.js";
+import { analyzePasswordStrength, quickStrengthCheck } from "../utils/password-strength-analyzer.js";
 
 // Create shared service instance
 const randomGenerator = new NodeCryptoRandom();
@@ -91,4 +92,60 @@ export const validatePasswordConfig = (config) => {
 export const safeGeneratePassword = async (config) => {
   validatePasswordConfig(config);
   return generatePassword(config);
+};
+
+/**
+ * Generates a password and analyzes its strength using zxcvbn-style analysis.
+ *
+ * @param {Object} config - Configuration options for password generation.
+ * @returns {Promise<Object>} Object containing password and strength analysis.
+ * @throws {Error} If validation fails or generation fails.
+ */
+export const generatePasswordWithStrength = async (config) => {
+  validatePasswordConfig(config);
+  const password = await generatePassword(config);
+  const strengthAnalysis = analyzePasswordStrength(password);
+
+  return {
+    password,
+    strength: strengthAnalysis,
+    metadata: {
+      type: config.type,
+      length: password.length,
+      generatedAt: new Date().toISOString(),
+    }
+  };
+};
+
+/**
+ * Analyzes the strength of an existing password.
+ *
+ * @param {string} password - Password to analyze.
+ * @returns {Object} Complete strength analysis including score, feedback, and recommendations.
+ */
+export const analyzeExistingPassword = (password) => {
+  return analyzePasswordStrength(password);
+};
+
+/**
+ * Performs a quick strength check on a password.
+ *
+ * @param {string} password - Password to check.
+ * @returns {Object} Simplified strength analysis with score, label, color, and top suggestions.
+ */
+export const quickPasswordCheck = (password) => {
+  return quickStrengthCheck(password);
+};
+
+/**
+ * Generates multiple passwords with strength analysis.
+ *
+ * @param {Array<Object>} configs - Array of configuration objects.
+ * @returns {Promise<Array<Object>>} Array of password objects with strength analysis.
+ */
+export const generateMultiplePasswordsWithStrength = async (configs) => {
+  const promises = configs.map(async (config) => {
+    return generatePasswordWithStrength(config);
+  });
+  return Promise.all(promises);
 };

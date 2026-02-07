@@ -16,6 +16,11 @@
 export const VALID_PASSWORD_TYPES = ["strong", "base64", "memorable", "quantum-resistant"];
 
 /**
+ * Valid output formats for bulk operations.
+ */
+export const VALID_OUTPUT_FORMATS = ["text", "json", "yaml", "csv"];
+
+/**
  * Valid preset profile names.
  */
 export const VALID_PRESETS = ["quick", "secure", "memorable", "quantum"];
@@ -129,6 +134,17 @@ export const CLI_OPTIONS = {
       flags: "--learn",
       description: "show equivalent CLI command to help graduate from guided mode",
       defaultValue: false,
+    },
+    format: {
+      flags: "-f, --format <format>",
+      description: "output format for bulk operations (json, yaml, csv, text)",
+      defaultValue: "text",
+    },
+    count: {
+      flags: "-n, --count <number>",
+      description: "number of passwords to generate for bulk operations",
+      parser: (val) => parseInt(val, 10),
+      defaultValue: 1,
     },
     interactive: {
       flags: "--interactive",
