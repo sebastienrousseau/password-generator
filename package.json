@@ -1,5 +1,5 @@
 {
-    "author": "Sebastien Rousseau <hello@password-generator.pro> (https://github.com/sebastienrousseau/password-generator)",
+    "author": "Sebastien Rousseau <hello@jspassgen.com> (https://github.com/jspassgen/jspassgen)",
     "autoupdate": {
         "fileMap": [
             {
@@ -10,13 +10,13 @@
             }
         ],
         "source": "git",
-        "target": "git://github.com/sebastienrousseau/password-generator.git"
+        "target": "git://github.com/jspassgen/jspassgen.git"
     },
     "bin": {
-        "password-generator": "index.js"
+        "jspassgen": "index.js"
     },
     "bugs": {
-        "url": "https://github.com/sebastienrousseau/password-generator/issues"
+        "url": "https://github.com/jspassgen/jspassgen/issues"
     },
     "dependencies": {
         "chalk": "5.6.2",
@@ -223,7 +223,7 @@
             "url": "https://paypal.me/wwdseb"
         }
     ],
-    "homepage": "https://password-generator.pro",
+    "homepage": "https://jspassgen.com",
     "keywords": [
         "base64",
         "complex",
@@ -250,14 +250,14 @@
     "lockfileVersion": 1,
     "main": "index.js",
     "types": "types/index.d.ts",
-    "name": "@sebastienrousseau/password-generator",
+    "name": "jspassgen",
     "publishConfig": {
         "access": "public",
         "registry": "https://npm.pkg.github.com"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/sebastienrousseau/password-generator.git"
+        "url": "git+https://github.com/jspassgen/jspassgen.git"
     },
     "rules": {
         "node/no-unpublished-import": [

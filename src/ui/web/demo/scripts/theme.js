@@ -1,4 +1,4 @@
-// Copyright 2022-2026 Password Generator. All rights reserved.
+// Copyright 2022-2026 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**

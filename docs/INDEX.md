@@ -1,6 +1,6 @@
-# Password Generator Documentation
+# JavaScript jspassgen (jspassgen) Documentation
 
-Welcome to the Password Generator documentation. This guide helps developers generate cryptographically secure passwords across Node.js, browser, and other JavaScript environments.
+Welcome to the JavaScript jspassgen (jspassgen) documentation. This guide helps developers generate cryptographically secure passwords across Node.js, browser, and other JavaScript environments.
 
 ## Navigation
 
@@ -10,14 +10,14 @@ Start here to learn the fundamentals and generate your first password.
 
 | Topic | Description |
 |-------|-------------|
-| [Getting Started](./essentials/README.md) | Install Password Generator and generate your first password |
+| [Getting Started](./essentials/README.md) | Install jspassgen and generate your first password |
 | [Installation](../README.md#quick-install--first-password) | Install via npm, yarn, or pnpm |
 | [Quick Start](../README.md#get-started-in-30-seconds) | Generate passwords in 30 seconds |
 | [Interactive Onboarding](../README.md#interactive-onboarding) | Use the guided setup wizard |
 
 ### Guides
 
-Learn how to use Password Generator for specific tasks and environments.
+Learn how to use jspassgen for specific tasks and environments.
 
 | Guide | Description |
 |-------|-------------|
@@ -34,7 +34,7 @@ Explore the technical architecture, API specifications, and performance standard
 
 | Reference | Description |
 |-----------|-------------|
-| [API Reference](./API.md) | Complete `@password-generator/core` package API |
+| [API Reference](./API.md) | Complete `@jspassgen/core` package API |
 | [Architecture](./ARCHITECTURE.md) | Hexagonal architecture with ports and adapters |
 | [Changelog](../CHANGELOG.md) | Version history and release notes |
 | [Performance Budget](./PERFORMANCE_BUDGET.md) | Web UI performance targets and budgets |
@@ -48,8 +48,8 @@ Connect with contributors and report issues.
 |----------|-------------|
 | [Code of Conduct](../.github/CODE-OF-CONDUCT.md) | Community behavior guidelines |
 | [Security Reporting](../SECURITY.md) | Report security vulnerabilities |
-| [GitHub Discussions](https://github.com/sebastienrousseau/password-generator/discussions) | Ask questions and share ideas |
-| [GitHub Issues](https://github.com/sebastienrousseau/password-generator/issues) | Report bugs and request features |
+| [GitHub Discussions](https://github.com/jspassgen/jspassgen/discussions) | Ask questions and share ideas |
+| [GitHub Issues](https://github.com/jspassgen/jspassgen/issues) | Report bugs and request features |
 
 ---
 
@@ -59,18 +59,20 @@ Connect with contributors and report issues.
 
 ```bash
 # Interactive mode
-npx @sebastienrousseau/password-generator
+npx jspassgen
 
 # Direct command
-npx @sebastienrousseau/password-generator -t strong -l 16 -i 3 -s '-'
+jspassgen -t strong -l 16 -i 3 -s '-'
 ```
 
 ### Import in Code
 
 ```javascript
-import PasswordGenerator from "@sebastienrousseau/password-generator";
+import { createQuickService } from 'jspassgen/core';
+import { NodeCryptoRandom } from 'jspassgen/adapters/node/crypto-random.js';
 
-const password = await PasswordGenerator({
+const service = createQuickService(new NodeCryptoRandom());
+const password = await service.generate({
   type: "strong",
   length: 16,
   iteration: 3,
@@ -81,8 +83,8 @@ const password = await PasswordGenerator({
 ### Use the Core Package
 
 ```javascript
-import { createQuickService } from '@password-generator/core';
-import { NodeCryptoRandom } from './src/adapters/node/crypto-random.js';
+import { createQuickService } from '@jspassgen/core';
+import { NodeCryptoRandom } from 'jspassgen/adapters/node/crypto-random.js';
 
 const service = createQuickService(new NodeCryptoRandom());
 const password = await service.generate({
@@ -113,4 +115,8 @@ docs/
 
 ---
 
-**Designed by Sebastien Rousseau**
+---
+
+🎨 Designed by Sebastien Rousseau — https://sebastienrousseau.com/
+
+🚀 Engineered with Euxis — Enterprise Unified eXecution Intelligence System — https://euxis.co/

@@ -1,5 +1,5 @@
-// Type definitions for @sebastienrousseau/password-generator
-// Project: https://github.com/sebastienrousseau/password-generator
+// Type definitions for @aspect/jspassgen (JavaScript Password Generator)
+// Project: https://github.com/sebastienrousseau/jspassgen
 // Definitions by: Claude Sonnet 4 <noreply@anthropic.com>
 // TypeScript Version: 4.0+
 
@@ -12,7 +12,7 @@
  * @packageDocumentation
  */
 
-// === Core Password Generator Types ===
+// === Core JavaScript Password Generator (jspassgen) Types ===
 
 /**
  * Valid password types supported by the generator.

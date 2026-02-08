@@ -1,22 +1,22 @@
 <!-- markdownlint-disable MD033 MD041 -->
 <img
-  src="https://kura.pro/password-generator-pro/images/logos/password-generator-pro.webp"
+  src="https://jspassgen.com/images/logos/jspassgen.webp"
   alt="Password Generator Logo"
   width="261"
   align="right"
 />
 <!-- markdownlint-enable MD033 MD041 -->
 
-# Password Generator
+# JavaScript Password Generator (jspassgen)
 
 Fast, powerful open-source utility generating cryptographically secure passwords. Supports 8 password types: strong, base64, memorable, quantum-resistant, diceware, honeyword, pronounceable, and custom with template support.
 
-[![Getting Started](https://kura.pro/common/images/buttons/button-primary.svg)](#quick-start)
-[![Download v1.1.5](https://kura.pro/common/images/buttons/button-secondary.svg)](https://github.com/sebastienrousseau/password-generator/archive/refs/tags/v1.1.5.zip)
+[![Getting Started](https://jspassgen.com/images/buttons/button-primary.svg)](#quick-start)
+[![Download v1.1.5](https://jspassgen.com/images/buttons/button-secondary.svg)](https://github.com/sebastienrousseau/jspassgen/archive/refs/tags/v1.1.5.zip)
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/0acb169c95e443729551979e0fd86eaf)](https://www.codacy.com?utm_source=github.com&utm_medium=referral&utm_content=sebastienrousseau/password-generator&utm_campaign=Badge_Grade)
-[![npm](https://img.shields.io/npm/v/@sebastienrousseau/password-generator.svg?style=flat&color=success)](https://www.npmjs.com/package/@sebastienrousseau/password-generator)
-[![Release Notes](https://img.shields.io/badge/release-notes-success.svg)](https://github.com/sebastienrousseau/password-generator/releases/)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/0acb169c95e443729551979e0fd86eaf)](https://www.codacy.com?utm_source=github.com&utm_medium=referral&utm_content=sebastienrousseau/jspassgen&utm_campaign=Badge_Grade)
+[![npm](https://img.shields.io/npm/v/jspassgen.svg?style=flat&color=success)](https://www.npmjs.com/package/jspassgen)
+[![Release Notes](https://img.shields.io/badge/release-notes-success.svg)](https://github.com/sebastienrousseau/jspassgen/releases/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-success.svg?style=flat)](https://opensource.org/licenses/MIT)
 
 ## Get Started in 30 Seconds
@@ -27,7 +27,7 @@ Fast, powerful open-source utility generating cryptographically secure passwords
 
 ```bash
 # Install and generate password instantly
-npx @sebastienrousseau/password-generator
+npx jspassgen
 ```
 
 Interactive setup guides password creation.
@@ -36,17 +36,17 @@ Interactive setup guides password creation.
 
 ```bash
 # Strong password for important accounts
-npx @sebastienrousseau/password-generator -t strong -l 12 -i 3 -s '-'
+npx jspassgen -t strong -l 12 -i 3 -s '-'
 # Output: aB3dEf+/gH1i-Kl2MnOpQr3s-tU4vWxYz5A
 
 # Memorable password for daily use
-npx @sebastienrousseau/password-generator -t memorable -i 4 -s '-'
+npx jspassgen -t memorable -i 4 -s '-'
 # Output: Apple-Breeze-Castle-Diamond
 ```
 
 **Code Integration:**
 ```javascript
-import PasswordGenerator from "@sebastienrousseau/password-generator";
+import PasswordGenerator from "jspassgen";
 
 const password = await PasswordGenerator({
   type: "strong", length: 12, iteration: 3, separator: "-"
@@ -85,7 +85,7 @@ Database storage requires secure Key Derivation Functions. **Never store plain t
 
 ## Interactive Onboarding
 
-Launch `npx @sebastienrousseau/password-generator` without options for 4-step setup:
+Launch `npx jspassgen` without options for 4-step setup:
 
 **Step 1: Choose Password Type** → Select strong, memorable, or base64
 **Step 2: Security Level** → Choose quick, secure, memorable, or custom
@@ -160,25 +160,25 @@ KDF: Argon2id (memory=65536, time=3, parallelism=4)
 
 **Basic Quantum-Resistant Password:**
 ```bash
-npx @sebastienrousseau/password-generator -t quantum-resistant
+npx jspassgen -t quantum-resistant
 # Output: QR$v9K#mF2@x7L&nE8!pX3@T5w$nM9&bE8!tZ7%L4@nF6#mR2$w
 ```
 
 **Enterprise High-Security:**
 ```bash
-npx @sebastienrousseau/password-generator -t quantum-resistant -l 48 -i 6 -s ''
+npx jspassgen -t quantum-resistant -l 48 -i 6 -s ''
 # Output: 288-bit entropy password for post-quantum security
 ```
 
 **Readable Quantum-Resistant:**
 ```bash
-npx @sebastienrousseau/password-generator -t quantum-resistant -l 24 -i 4 -s '-'
+npx jspassgen -t quantum-resistant -l 24 -i 4 -s '-'
 # Output: QR$v9K#mF2@x7L&nE8!p-X3@T5w$nM9&bE8!tZ7%-L4@nF6#mR2$w-M8&vE2#rT9$
 ```
 
 **Maximum Security:**
 ```bash
-npx @sebastienrousseau/password-generator -t quantum-resistant -l 64 -i 8 -s ''
+npx jspassgen -t quantum-resistant -l 64 -i 8 -s ''
 # Output: 512-bit entropy for ultimate protection
 ```
 
@@ -186,7 +186,7 @@ npx @sebastienrousseau/password-generator -t quantum-resistant -l 64 -i 8 -s ''
 
 **Node.js Implementation:**
 ```javascript
-import PasswordGenerator from "@sebastienrousseau/password-generator";
+import PasswordGenerator from "jspassgen";
 
 // Standard quantum-resistant password
 const qrPassword = await PasswordGenerator({
@@ -213,7 +213,7 @@ const enterprisePassword = await PasswordGenerator({
 
 **Browser Implementation:**
 ```javascript
-import { createQuickService } from '@password-generator/core';
+import { createQuickService } from '@jspassgen/core';
 import { BrowserQuantumRandom } from './adapters/browser/quantum-random.js';
 
 // Create service with quantum-safe random generator
@@ -269,7 +269,7 @@ Output: 512-bit derived key
 
 **command-line with Custom KDF Parameters:**
 ```bash
-npx @sebastienrousseau/password-generator \
+npx jspassgen \
   -t quantum-resistant \
   --kdf-memory 131072 \
   --kdf-time 5 \
@@ -312,7 +312,7 @@ Practical examples in [**📖 Recipes Guide**](docs/RECIPES.md) provide ready-to
 
 **Basic syntax:**
 ```bash
-npx @sebastienrousseau/password-generator [options]
+npx jspassgen [options]
 ```
 
 **Options:**
@@ -341,37 +341,37 @@ npx @sebastienrousseau/password-generator [options]
 **Enterprise & High-Security:**
 ```bash
 # Banking/financial (maximum security)
-npx @sebastienrousseau/password-generator -t strong -l 20 -i 4 -s '' --clipboard
+npx jspassgen -t strong -l 20 -i 4 -s '' --clipboard
 
 # Database connections (strong, readable chunks)
-npx @sebastienrousseau/password-generator -t strong -l 12 -i 3 -s '-'
+npx jspassgen -t strong -l 12 -i 3 -s '-'
 ```
 
 **API Keys & Tokens:**
 ```bash
 # OAuth bearer token
-npx @sebastienrousseau/password-generator -t base64 -l 32 -i 1 -s ''
+npx jspassgen -t base64 -l 32 -i 1 -s ''
 
 # Multi-part API key
-npx @sebastienrousseau/password-generator -t base64 -l 16 -i 3 -s '.'
+npx jspassgen -t base64 -l 16 -i 3 -s '.'
 ```
 
 **Team & Shared Access:**
 ```bash
 # Shared development accounts (memorable)
-npx @sebastienrousseau/password-generator -t memorable -i 4 -s '-'
+npx jspassgen -t memorable -i 4 -s '-'
 
 # Temporary contractor access
-npx @sebastienrousseau/password-generator -t memorable -i 3 -s '.'
+npx jspassgen -t memorable -i 3 -s '.'
 ```
 
 **Compliance-Ready:**
 ```bash
 # PCI-DSS compliant (24+ chars, high entropy)
-npx @sebastienrousseau/password-generator -t strong -l 12 -i 2 -s ''
+npx jspassgen -t strong -l 12 -i 2 -s ''
 
 # HIPAA-friendly (readable for healthcare staff)
-npx @sebastienrousseau/password-generator -t strong -l 12 -i 3 -s '-'
+npx jspassgen -t strong -l 12 -i 3 -s '-'
 ```
 
 **JavaScript Integration:**
@@ -392,7 +392,7 @@ const apiKey = await PasswordGenerator({
 ### PasswordGenerator(options) → Promise\<string>
 
 ```javascript
-import PasswordGenerator from "@sebastienrousseau/password-generator";
+import PasswordGenerator from "jspassgen";
 
 const password = await PasswordGenerator({
   type: "strong",        // "strong" | "base64" | "memorable" | "quantum-resistant" | "diceware" | "honeyword" | "pronounceable" | "custom"
@@ -409,7 +409,7 @@ const password = await PasswordGenerator({
 Platform-agnostic core package supports Node.js and browser environments:
 
 ```javascript
-import { createQuickService } from '@password-generator/core';
+import { createQuickService } from '@jspassgen/core';
 import { NodeCryptoRandom } from './src/adapters/node/crypto-random.js';
 
 // Create service with a random generator adapter
@@ -458,8 +458,8 @@ Modern web interface provides real-time feedback and accessibility features.
 **Option 1: Local Development Server (Recommended)**
 ```bash
 # Clone and setup
-git clone https://github.com/sebastienrousseau/password-generator.git
-cd password-generator
+git clone https://github.com/sebastienrousseau/jspassgen.git
+cd jspassgen
 
 # Start development server (typically serves on port 4173)
 npx serve src/ui/web/demo
@@ -567,7 +567,7 @@ The web UI uses CSS custom properties for easy theming:
 ## Project Structure
 
 ```
-password-generator/
+jspassgen/
 ├── packages/
 │   └── core/             # Platform-agnostic core (zero dependencies)
 ├── src/
@@ -582,8 +582,8 @@ password-generator/
 
 **Setup:**
 ```bash
-git clone https://github.com/sebastienrousseau/password-generator.git
-cd password-generator
+git clone https://github.com/sebastienrousseau/jspassgen.git
+cd jspassgen
 npm install
 ```
 
@@ -615,9 +615,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - 📖 **Documentation**: [API Reference](docs/)
 - 🧑‍💻 **Practical Recipes**: [Common Use Cases & Examples](docs/RECIPES.md)
-- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/sebastienrousseau/password-generator/issues)
-- 💬 **Questions**: [GitHub Discussions](https://github.com/sebastienrousseau/password-generator/discussions)
-- 📦 **Releases**: [GitHub Releases](https://github.com/sebastienrousseau/password-generator/releases)
+- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/sebastienrousseau/jspassgen/issues)
+- 💬 **Questions**: [GitHub Discussions](https://github.com/sebastienrousseau/jspassgen/discussions)
+- 📦 **Releases**: [GitHub Releases](https://github.com/sebastienrousseau/jspassgen/releases)
 
 ---
 

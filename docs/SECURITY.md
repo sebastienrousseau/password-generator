@@ -149,7 +149,7 @@ const kdfConfig = {
 #### Security Audit Features
 ```bash
 # Generate password with full security audit
-npx @sebastienrousseau/password-generator \
+npx @aspect/jspassgen \
   -t quantum-resistant \
   -l 32 \
   -i 4 \

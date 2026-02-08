@@ -5,7 +5,7 @@ Password Generator welcomes community contributions.
 ## Ways to Contribute
 
 ### 🐛 Report Bugs
-Found a bug? [Create an issue](https://github.com/sebastienrousseau/password-generator/issues/new/choose) with:
+Found a bug? [Create an issue](https://github.com/sebastienrousseau/jspassgen/issues/new/choose) with:
 - Clear, descriptive title
 - Steps to reproduce the issue
 - Expected vs actual behavior
@@ -13,7 +13,7 @@ Found a bug? [Create an issue](https://github.com/sebastienrousseau/password-gen
 - Code samples if applicable
 
 ### 💡 Suggest Features
-[Open a feature request](https://github.com/sebastienrousseau/password-generator/issues/new/choose) with:
+[Open a feature request](https://github.com/sebastienrousseau/jspassgen/issues/new/choose) with:
 - Clear description of the proposed feature
 - Use cases and benefits
 - Implementation considerations
@@ -136,9 +136,9 @@ Contributors are recognized in:
 
 ## Questions?
 
-- 💬 [GitHub Discussions](https://github.com/sebastienrousseau/password-generator/discussions) for questions
-- 🐛 [GitHub Issues](https://github.com/sebastienrousseau/password-generator/issues) for bugs
-- 📧 Contact: hello@password-generator.pro
+- 💬 [GitHub Discussions](https://github.com/sebastienrousseau/jspassgen/discussions) for questions
+- 🐛 [GitHub Issues](https://github.com/sebastienrousseau/jspassgen/issues) for bugs
+- 📧 Contact: hello@jspassgen.com
 
 Thank you for contributing to making Password Generator better!
 

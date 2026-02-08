@@ -1,6 +1,6 @@
 # API Documentation
 
-This document covers the `@password-generator/core` package API.
+This document covers the `@jspassgen/core` package API.
 
 ## Table of Contents
 
@@ -20,7 +20,7 @@ This document covers the `@password-generator/core` package API.
 Creates a password generation service with full configuration.
 
 ```javascript
-import { createService } from '@password-generator/core';
+import { createService } from '@jspassgen/core';
 
 const service = createService(config, ports);
 ```
@@ -49,7 +49,7 @@ const service = createService(config, ports);
 Creates a service with minimal configuration. Uses defaults for all optional ports.
 
 ```javascript
-import { createQuickService } from '@password-generator/core';
+import { createQuickService } from '@jspassgen/core';
 
 const service = createQuickService(randomGenerator);
 ```
@@ -309,7 +309,7 @@ class DictionaryPort {
 ### Character Sets
 
 ```javascript
-import { BASE64_CHARSET, VOWELS, CONSONANTS } from '@password-generator/core';
+import { BASE64_CHARSET, VOWELS, CONSONANTS } from '@jspassgen/core';
 ```
 
 | Export | Description |
@@ -328,7 +328,7 @@ import {
   VALID_PASSWORD_TYPES,
   isValidPasswordType,
   validatePasswordTypeConfig
-} from '@password-generator/core';
+} from '@jspassgen/core';
 ```
 
 | Export | Type | Description |
@@ -350,7 +350,7 @@ import {
   calculateBase64Entropy,
   calculateDictionaryEntropy,
   calculateCharsetEntropy
-} from '@password-generator/core';
+} from '@jspassgen/core';
 ```
 
 | Function | Description |
@@ -378,7 +378,7 @@ import {
   generateDicewarePassword,
   generateHoneywordPassword,
   generatePronounceablePassword
-} from '@password-generator/core';
+} from '@jspassgen/core';
 ```
 
 | Function | Description |
@@ -397,7 +397,7 @@ import {
 ## Error Constants
 
 ```javascript
-import { CRYPTO_ERRORS, PASSWORD_ERRORS, PORT_ERRORS } from '@password-generator/core';
+import { CRYPTO_ERRORS, PASSWORD_ERRORS, PORT_ERRORS } from '@jspassgen/core';
 ```
 
 ### CRYPTO_ERRORS
@@ -423,3 +423,9 @@ import { CRYPTO_ERRORS, PASSWORD_ERRORS, PORT_ERRORS } from '@password-generator
 |-----|-------------|
 | `MISSING_PORTS(missing, required)` | Required ports not provided |
 | `INVALID_PORT(name, expected)` | Port missing required methods |
+
+---
+
+🎨 Designed by Sebastien Rousseau — https://sebastienrousseau.com/
+
+🚀 Engineered with Euxis — Enterprise Unified eXecution Intelligence System — https://euxis.co/

@@ -22,13 +22,13 @@ Learn how to use Password Generator for specific tasks. Each guide provides step
 Generate a password with default settings:
 
 ```bash
-npx @sebastienrousseau/password-generator
+npx @aspect/jspassgen
 ```
 
 Specify password type and parameters:
 
 ```bash
-npx @sebastienrousseau/password-generator -t <type> -l <length> -i <iteration> -s <separator>
+npx @aspect/jspassgen -t <type> -l <length> -i <iteration> -s <separator>
 ```
 
 ### Command Options
@@ -47,25 +47,25 @@ npx @sebastienrousseau/password-generator -t <type> -l <length> -i <iteration> -
 **High-security password:**
 
 ```bash
-npx @sebastienrousseau/password-generator -t strong -l 20 -i 4 -s '' --clipboard
+npx @aspect/jspassgen -t strong -l 20 -i 4 -s '' --clipboard
 ```
 
 **Readable password with separators:**
 
 ```bash
-npx @sebastienrousseau/password-generator -t strong -l 12 -i 3 -s '-'
+npx @aspect/jspassgen -t strong -l 12 -i 3 -s '-'
 ```
 
 **API key or token:**
 
 ```bash
-npx @sebastienrousseau/password-generator -t base64 -l 32 -i 1 -s ''
+npx @aspect/jspassgen -t base64 -l 32 -i 1 -s ''
 ```
 
 **Memorable team password:**
 
 ```bash
-npx @sebastienrousseau/password-generator -t memorable -i 4 -s '-'
+npx @aspect/jspassgen -t memorable -i 4 -s '-'
 ```
 
 ---
@@ -78,7 +78,7 @@ Start a local development server:
 
 ```bash
 # Clone the repository
-git clone https://github.com/sebastienrousseau/password-generator.git
+git clone https://github.com/sebastienrousseau/jspassgen.git
 cd password-generator
 
 # Serve the demo
@@ -130,7 +130,7 @@ php -S localhost:4173 -t src/ui/web/demo
 Import and use the main package:
 
 ```javascript
-import PasswordGenerator from "@sebastienrousseau/password-generator";
+import PasswordGenerator from "@aspect/jspassgen";
 
 const password = await PasswordGenerator({
   type: "strong",
@@ -250,7 +250,7 @@ console.log(`Recommendation: ${entropy.recommendation}`);
 Maximum security for sensitive accounts:
 
 ```bash
-npx @sebastienrousseau/password-generator -t strong -l 20 -i 4 -s '' --clipboard
+npx @aspect/jspassgen -t strong -l 20 -i 4 -s '' --clipboard
 ```
 
 ### Database Connections
@@ -258,7 +258,7 @@ npx @sebastienrousseau/password-generator -t strong -l 20 -i 4 -s '' --clipboard
 Strong, readable chunks for configuration:
 
 ```bash
-npx @sebastienrousseau/password-generator -t strong -l 12 -i 3 -s '-'
+npx @aspect/jspassgen -t strong -l 12 -i 3 -s '-'
 ```
 
 ### OAuth Bearer Tokens
@@ -266,7 +266,7 @@ npx @sebastienrousseau/password-generator -t strong -l 12 -i 3 -s '-'
 URL-safe tokens for API authentication:
 
 ```bash
-npx @sebastienrousseau/password-generator -t base64 -l 32 -i 1 -s ''
+npx @aspect/jspassgen -t base64 -l 32 -i 1 -s ''
 ```
 
 ### Team Access
@@ -274,7 +274,7 @@ npx @sebastienrousseau/password-generator -t base64 -l 32 -i 1 -s ''
 Memorable passwords for shared accounts:
 
 ```bash
-npx @sebastienrousseau/password-generator -t memorable -i 4 -s '-'
+npx @aspect/jspassgen -t memorable -i 4 -s '-'
 ```
 
 ### PCI-DSS Compliance
@@ -282,7 +282,7 @@ npx @sebastienrousseau/password-generator -t memorable -i 4 -s '-'
 24+ character passwords with high entropy:
 
 ```bash
-npx @sebastienrousseau/password-generator -t strong -l 12 -i 2 -s ''
+npx @aspect/jspassgen -t strong -l 12 -i 2 -s ''
 ```
 
 ---
@@ -293,7 +293,7 @@ npx @sebastienrousseau/password-generator -t strong -l 12 -i 2 -s ''
 
 ```bash
 # Clone the repository
-git clone https://github.com/sebastienrousseau/password-generator.git
+git clone https://github.com/sebastienrousseau/jspassgen.git
 cd password-generator
 
 # Install dependencies

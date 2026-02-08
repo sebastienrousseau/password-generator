@@ -57,7 +57,7 @@ Password Generator welcomes contributions from the community.
 
 ```bash
 # Clone the repository
-git clone https://github.com/sebastienrousseau/password-generator.git
+git clone https://github.com/sebastienrousseau/jspassgen.git
 cd password-generator
 
 # Install dependencies
@@ -132,7 +132,7 @@ See [SECURITY.md](../SECURITY.md) for detailed security documentation.
 
 ### GitHub Discussions
 
-Ask questions and share ideas on [GitHub Discussions](https://github.com/sebastienrousseau/password-generator/discussions).
+Ask questions and share ideas on [GitHub Discussions](https://github.com/sebastienrousseau/jspassgen/discussions).
 
 **Discussion categories:**
 - **Q&A** - Ask questions and get answers
@@ -142,7 +142,7 @@ Ask questions and share ideas on [GitHub Discussions](https://github.com/sebasti
 
 ### GitHub Issues
 
-Report bugs on [GitHub Issues](https://github.com/sebastienrousseau/password-generator/issues).
+Report bugs on [GitHub Issues](https://github.com/sebastienrousseau/jspassgen/issues).
 
 **Issue requirements:**
 - Clear, descriptive title
@@ -166,7 +166,7 @@ Report bugs on [GitHub Issues](https://github.com/sebastienrousseau/password-gen
 
 ### GitHub Releases
 
-Follow [GitHub Releases](https://github.com/sebastienrousseau/password-generator/releases) for version updates and release notes.
+Follow [GitHub Releases](https://github.com/sebastienrousseau/jspassgen/releases) for version updates and release notes.
 
 ### Changelog
 
@@ -197,9 +197,9 @@ Contributors receive recognition in:
 
 | Channel | Purpose |
 |---------|---------|
-| [GitHub Issues](https://github.com/sebastienrousseau/password-generator/issues) | Bug reports |
-| [GitHub Discussions](https://github.com/sebastienrousseau/password-generator/discussions) | Questions and ideas |
-| Email: hello@password-generator.pro | Direct contact |
+| [GitHub Issues](https://github.com/sebastienrousseau/jspassgen/issues) | Bug reports |
+| [GitHub Discussions](https://github.com/sebastienrousseau/jspassgen/discussions) | Questions and ideas |
+| Email: hello@jspassgen.com | Direct contact |
 
 ---
 

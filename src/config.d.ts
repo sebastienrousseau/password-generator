@@ -1,5 +1,5 @@
-// Type definitions for password-generator configuration module
-// Project: https://github.com/sebastienrousseau/password-generator
+// Type definitions for jspassgen configuration module
+// Project: https://github.com/sebastienrousseau/jspassgen
 
 /**
  * Valid password types supported by the generator.

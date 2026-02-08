@@ -1,8 +1,8 @@
-// Copyright 2022-2026 Password Generator. All rights reserved.
+// Copyright 2022-2026 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
- * Password Generator Demo - Main Entry Point
+ * JavaScript Password Generator (jspassgen) Demo - Main Entry Point
  *
  * This demo uses the WebUIController from the thin adapter layer,
  * which delegates all business logic to packages/core.
