@@ -7,8 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.1.5] - 2026-02-07
 
-### Maintenance
-- Version update to 1.1.5
+### Added
+
+- **Quantum-Resistant Password Generation**: New password type (`-t quantum-resistant`) with enhanced entropy using quantum-safe algorithms following NIST Post-Quantum Cryptography standards
+- **KDF Configuration Options**: Configurable Argon2id key derivation parameters via CLI (`--kdf-memory`, `--kdf-time`, `--kdf-parallelism`) and programmatic API
+- **NIST SP 800-132 Compliance**: Key derivation using Argon2id with recommended parameters (64MB memory, 3 iterations, 4 threads)
+- **Enhanced Character Sets**: Expanded symbol alphabet (94 printable ASCII characters) for quantum-resistant mode
+- **Minimum Entropy Threshold**: 256-bit entropy guarantee for quantum-resistant passwords
+
+### Security
+
+- **Post-Quantum Ready**: Passwords resist both classical and quantum computing attacks
+- **Configurable KDF Parameters**: Enterprise-grade security with adjustable memory, time, and parallelism settings
+- **Enhanced Entropy Calculation**: Real-time entropy validation for quantum-resistant generation
+
+### Documentation
+
+- Added comprehensive Quantum-Resistant Mode section to README
+- Added Key Derivation Functions (KDF) documentation with NIST SP 800-132 guidance
+- Added command-line and programmatic examples for quantum-resistant password generation
+- Updated password types table with quantum-resistant entry
 
 ## [1.1.4] - 2026-02-07
 
