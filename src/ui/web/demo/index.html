@@ -46,6 +46,20 @@
   <!-- Preconnect to external domains -->
   <link rel="preconnect" href="https://github.com">
 
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>">
+
+  <!-- Preload critical CSS -->
+  <link rel="preload" href="styles/main.css" as="style">
+
+  <!-- Sitemap -->
+  <link rel="sitemap" type="application/xml" href="https://jspassgen.com/sitemap.xml">
+
+  <!-- Alternate languages (i18n ready) -->
+  <link rel="alternate" hreflang="en" href="https://jspassgen.com/demo/">
+  <link rel="alternate" hreflang="x-default" href="https://jspassgen.com/demo/">
+
   <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
   {
@@ -76,13 +90,9 @@
     ],
     "softwareRequirements": "Modern web browser with JavaScript enabled",
     "screenshot": "https://jspassgen.com/images/password-generator-screenshot.png",
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "5",
-      "reviewCount": "1000",
-      "bestRating": "5",
-      "worstRating": "1"
-    }
+    "license": "https://opensource.org/licenses/MIT",
+    "isAccessibleForFree": true,
+    "browserRequirements": "Requires JavaScript"
   }
   </script>
 
@@ -105,47 +115,67 @@
     </button>
   </div>
 
-  <main id="main" class="container">
+  <main id="main" class="container" role="main" aria-label="Password Generator Application">
     <!-- Header -->
     <header class="header header--compact">
       <h1 class="header__logo">JavaScript Password Generator</h1>
     </header>
 
+    <!-- Onboarding Banner (first-time users) -->
+    <div class="onboarding-banner hidden" id="onboarding-banner" role="region" aria-label="Quick start guide">
+      <p class="onboarding-banner__text">
+        <strong>Welcome!</strong> Select a password type, adjust the length, and click Generate. Press <kbd>?</kbd> for keyboard shortcuts.
+      </p>
+      <button type="button" class="onboarding-banner__dismiss" id="dismiss-onboarding" aria-label="Dismiss guide">×</button>
+    </div>
+
     <!-- Main Card -->
     <div class="card card--elevated card--compact">
       <!-- Password Form -->
       <form id="password-form" class="form--compact" novalidate>
-        <!-- Password Type Dropdown -->
-        <div class="form-group">
-          <label for="type" class="form-label">Password Type</label>
-          <select id="type" name="type" class="form-select">
-            <option value="quantum-resistant">Quantum-Resistant - Maximum 256-bit entropy</option>
-            <option value="strong" selected>Strong - Mixed characters with symbols</option>
-            <option value="base64">Base64 - URL-safe encoding</option>
-            <option value="memorable">Memorable - Dictionary words (e.g., correct-horse-battery)</option>
-            <option value="pronounceable">Pronounceable - Speakable syllables (e.g., fuon-hiig)</option>
-          </select>
+        <!-- Password Type Segmented Control -->
+        <fieldset class="segmented-control" role="radiogroup" aria-labelledby="type-legend">
+          <legend id="type-legend" class="sr-only">Password type</legend>
+          <button type="button" class="segmented-control__btn segmented-control__btn--active" data-type="strong" role="radio" aria-checked="true" tabindex="0">Random</button>
+          <button type="button" class="segmented-control__btn" data-type="memorable" role="radio" aria-checked="false" tabindex="-1">Passphrase</button>
+          <button type="button" class="segmented-control__btn" data-type="pronounceable" role="radio" aria-checked="false" tabindex="-1">Speakable</button>
+          <button type="button" class="segmented-control__btn" data-type="base64" role="radio" aria-checked="false" tabindex="-1">Base64</button>
+          <button type="button" class="segmented-control__btn" data-type="quantum-resistant" role="radio" aria-checked="false" tabindex="-1">Quantum</button>
+        </fieldset>
+        <input type="hidden" id="type" name="type" value="strong">
+
+        <!-- Length Slider -->
+        <div class="form-group" id="length-group">
+          <div class="slider-header">
+            <label for="length" class="form-label">Length</label>
+            <output for="length" id="length-output" class="slider-value" aria-live="polite">16</output>
+          </div>
+          <input type="range" id="length" name="length" class="form-slider" value="16" min="8" max="64" aria-describedby="length-hint" aria-valuemin="8" aria-valuemax="64" aria-valuenow="16" aria-valuetext="16 characters">
+          <span id="length-hint" class="form-hint">8-12: Basic | 12-16: Recommended | 20+: High security</span>
         </div>
 
-        <!-- Inline fields -->
-        <div class="form-row form-row--inline">
-          <div class="form-group form-group--inline" id="length-group">
-            <label for="length" class="form-label">Length</label>
-            <input type="number" id="length" name="length" class="form-input form-input--sm" value="16" min="1" max="256">
+        <!-- Advanced Options (Progressive Disclosure) -->
+        <details class="advanced-options" id="advanced-options">
+          <summary class="advanced-options__toggle">Advanced options</summary>
+          <div class="advanced-options__content">
+            <div class="form-row form-row--inline">
+              <div class="form-group form-group--inline">
+                <label for="iteration" class="form-label" id="iteration-label">Chunks</label>
+                <input type="number" id="iteration" name="iteration" class="form-input form-input--sm" value="4" min="1" max="20" aria-describedby="iteration-hint">
+                <span id="iteration-hint" class="form-hint sr-only">Number of segments in the password</span>
+              </div>
+              <div class="form-group form-group--inline">
+                <label for="separator" class="form-label">Separator</label>
+                <input type="text" id="separator" name="separator" class="form-input form-input--sm" value="-" maxlength="5" aria-describedby="separator-hint">
+                <span id="separator-hint" class="form-hint sr-only">Character between password segments</span>
+              </div>
+            </div>
           </div>
-          <div class="form-group form-group--inline">
-            <label for="iteration" class="form-label" id="iteration-label">Chunks</label>
-            <input type="number" id="iteration" name="iteration" class="form-input form-input--sm" value="4" min="1" max="20">
-          </div>
-          <div class="form-group form-group--inline">
-            <label for="separator" class="form-label">Separator</label>
-            <input type="text" id="separator" name="separator" class="form-input form-input--sm" value="-" maxlength="5">
-          </div>
-        </div>
+        </details>
 
         <!-- Generate Button -->
-        <button type="submit" class="btn btn--primary btn--block" id="generate-btn">
-          <span id="generate-text">Generate</span>
+        <button type="submit" class="btn btn--primary btn--block btn--lg" id="generate-btn">
+          <span id="generate-text">Generate Password</span>
           <span id="generate-loading" class="loading hidden">...</span>
         </button>
       </form>
@@ -158,14 +188,17 @@
 
         <!-- Strength Indicator -->
         <div class="strength hidden" id="strength-indicator" role="meter" aria-label="Password strength meter" aria-valuemin="0" aria-valuemax="4" aria-valuenow="0" aria-valuetext="No password generated">
-          <div class="strength__dots" role="presentation" aria-hidden="true">
-            <span class="strength__dot" data-dot="1"></span>
-            <span class="strength__dot" data-dot="2"></span>
-            <span class="strength__dot" data-dot="3"></span>
-            <span class="strength__dot" data-dot="4"></span>
+          <div class="strength__row">
+            <div class="strength__dots" role="presentation" aria-hidden="true">
+              <span class="strength__dot" data-dot="1"></span>
+              <span class="strength__dot" data-dot="2"></span>
+              <span class="strength__dot" data-dot="3"></span>
+              <span class="strength__dot" data-dot="4"></span>
+            </div>
+            <span class="strength__label" id="strength-label" aria-hidden="true"></span>
+            <span class="strength__bits" id="strength-bits" aria-hidden="true"></span>
           </div>
-          <span class="strength__label" id="strength-label" aria-hidden="true"></span>
-          <span class="strength__bits" id="strength-bits" aria-hidden="true"></span>
+          <div class="strength__crack-time" id="crack-time" aria-hidden="true"></div>
           <span class="sr-only" id="strength-description"></span>
         </div>
 
@@ -181,16 +214,31 @@
             <span aria-hidden="true">🔄</span> Regenerate
           </button>
         </div>
+
+        <!-- Password History -->
+        <details class="password-history" id="password-history">
+          <summary class="password-history__toggle">
+            <span aria-hidden="true">📜</span> Recent passwords <span class="password-history__count" id="history-count">(0)</span>
+          </summary>
+          <ul class="password-history__list" id="history-list" aria-label="Recent password history">
+            <li class="password-history__empty">No passwords generated yet</li>
+          </ul>
+          <button type="button" class="btn btn--ghost btn--sm" id="clear-history" aria-label="Clear password history">
+            Clear history
+          </button>
+        </details>
       </div>
     </div>
 
     <!-- Footer -->
     <footer class="footer">
+      <p class="footer__text">&copy; 2022-2026 JavaScript Password Generator (jspassgen). All rights reserved.</p>
       <p class="footer__text">
-        &copy; 2022-2026 JavaScript Password Generator (jspassgen). All rights reserved. &middot;
-        <a href="https://github.com/sebastienrousseau/jspassgen" class="footer__link" target="_blank" rel="noopener">
-          View on GitHub
-        </a>
+        <a href="https://github.com/sebastienrousseau/jspassgen" class="footer__link" target="_blank" rel="noopener">GitHub</a>
+        <span class="footer__separator" aria-hidden="true">·</span>
+        <a href="#accessibility" class="footer__link" id="accessibility-link">Accessibility</a>
+        <span class="footer__separator" aria-hidden="true">·</span>
+        <button type="button" class="footer__link footer__link--btn" id="shortcuts-link" aria-label="View keyboard shortcuts">Shortcuts</button>
       </p>
     </footer>
   </main>
@@ -200,6 +248,54 @@
 
   <!-- Screen Reader Announcements (WCAG 2.2 AAA) -->
   <div id="sr-announcements" class="sr-only" aria-live="assertive" aria-atomic="true" role="status"></div>
+
+  <!-- Keyboard Shortcuts Help Dialog -->
+  <dialog id="shortcuts-dialog" class="shortcuts-dialog" aria-labelledby="shortcuts-title">
+    <h2 id="shortcuts-title">Keyboard Shortcuts</h2>
+    <dl class="shortcuts-list">
+      <div class="shortcuts-item">
+        <dt><kbd>Ctrl</kbd> + <kbd>Enter</kbd></dt>
+        <dd>Generate new password</dd>
+      </div>
+      <div class="shortcuts-item">
+        <dt><kbd>Ctrl</kbd> + <kbd>C</kbd></dt>
+        <dd>Copy password to clipboard</dd>
+      </div>
+      <div class="shortcuts-item">
+        <dt><kbd>?</kbd></dt>
+        <dd>Show this help dialog</dd>
+      </div>
+      <div class="shortcuts-item">
+        <dt><kbd>Esc</kbd></dt>
+        <dd>Close dialogs</dd>
+      </div>
+    </dl>
+    <button type="button" class="btn btn--primary" id="close-shortcuts">Close</button>
+  </dialog>
+
+  <!-- Accessibility Statement Dialog -->
+  <dialog id="accessibility-dialog" class="shortcuts-dialog" aria-labelledby="accessibility-title">
+    <h2 id="accessibility-title">Accessibility Statement</h2>
+    <div class="accessibility-content">
+      <p>JavaScript Password Generator is committed to ensuring digital accessibility for people with disabilities. We continually improve the user experience and apply relevant accessibility standards.</p>
+
+      <h3>Conformance Status</h3>
+      <p>This application targets <strong>WCAG 2.2 Level AAA</strong> compliance.</p>
+
+      <h3>Accessibility Features</h3>
+      <ul>
+        <li><strong>Keyboard Navigation:</strong> Full keyboard support with shortcuts</li>
+        <li><strong>Screen Readers:</strong> ARIA labels and live announcements</li>
+        <li><strong>Visual:</strong> High contrast mode, dark/light themes</li>
+        <li><strong>Motion:</strong> Respects reduced motion preferences</li>
+        <li><strong>Touch:</strong> 44px minimum touch targets</li>
+      </ul>
+
+      <h3>Feedback</h3>
+      <p>Found an accessibility issue? <a href="https://github.com/sebastienrousseau/jspassgen/issues" target="_blank" rel="noopener">Report it on GitHub</a>.</p>
+    </div>
+    <button type="button" class="btn btn--primary" id="close-accessibility">Close</button>
+  </dialog>
 
   <!-- No JavaScript Fallback -->
   <noscript>
