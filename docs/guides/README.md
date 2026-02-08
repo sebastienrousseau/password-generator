@@ -22,13 +22,13 @@ Learn how to use Password Generator for specific tasks. Each guide provides step
 Generate a password with default settings:
 
 ```bash
-npx @aspect/jspassgen
+npx @sebastienrousseau/jspassgen
 ```
 
 Specify password type and parameters:
 
 ```bash
-npx @aspect/jspassgen -t <type> -l <length> -i <iteration> -s <separator>
+npx @sebastienrousseau/jspassgen -t <type> -l <length> -i <iteration> -s <separator>
 ```
 
 ### Command Options
@@ -47,25 +47,25 @@ npx @aspect/jspassgen -t <type> -l <length> -i <iteration> -s <separator>
 **High-security password:**
 
 ```bash
-npx @aspect/jspassgen -t strong -l 20 -i 4 -s '' --clipboard
+npx @sebastienrousseau/jspassgen -t strong -l 20 -i 4 -s '' --clipboard
 ```
 
 **Readable password with separators:**
 
 ```bash
-npx @aspect/jspassgen -t strong -l 12 -i 3 -s '-'
+npx @sebastienrousseau/jspassgen -t strong -l 12 -i 3 -s '-'
 ```
 
 **API key or token:**
 
 ```bash
-npx @aspect/jspassgen -t base64 -l 32 -i 1 -s ''
+npx @sebastienrousseau/jspassgen -t base64 -l 32 -i 1 -s ''
 ```
 
 **Memorable team password:**
 
 ```bash
-npx @aspect/jspassgen -t memorable -i 4 -s '-'
+npx @sebastienrousseau/jspassgen -t memorable -i 4 -s '-'
 ```
 
 ---
@@ -130,7 +130,7 @@ php -S localhost:4173 -t src/ui/web/demo
 Import and use the main package:
 
 ```javascript
-import PasswordGenerator from "@aspect/jspassgen";
+import PasswordGenerator from "@sebastienrousseau/jspassgen";
 
 const password = await PasswordGenerator({
   type: "strong",
@@ -250,7 +250,7 @@ console.log(`Recommendation: ${entropy.recommendation}`);
 Maximum security for sensitive accounts:
 
 ```bash
-npx @aspect/jspassgen -t strong -l 20 -i 4 -s '' --clipboard
+npx @sebastienrousseau/jspassgen -t strong -l 20 -i 4 -s '' --clipboard
 ```
 
 ### Database Connections
@@ -258,7 +258,7 @@ npx @aspect/jspassgen -t strong -l 20 -i 4 -s '' --clipboard
 Strong, readable chunks for configuration:
 
 ```bash
-npx @aspect/jspassgen -t strong -l 12 -i 3 -s '-'
+npx @sebastienrousseau/jspassgen -t strong -l 12 -i 3 -s '-'
 ```
 
 ### OAuth Bearer Tokens
@@ -266,7 +266,7 @@ npx @aspect/jspassgen -t strong -l 12 -i 3 -s '-'
 URL-safe tokens for API authentication:
 
 ```bash
-npx @aspect/jspassgen -t base64 -l 32 -i 1 -s ''
+npx @sebastienrousseau/jspassgen -t base64 -l 32 -i 1 -s ''
 ```
 
 ### Team Access
@@ -274,7 +274,7 @@ npx @aspect/jspassgen -t base64 -l 32 -i 1 -s ''
 Memorable passwords for shared accounts:
 
 ```bash
-npx @aspect/jspassgen -t memorable -i 4 -s '-'
+npx @sebastienrousseau/jspassgen -t memorable -i 4 -s '-'
 ```
 
 ### PCI-DSS Compliance
@@ -282,7 +282,7 @@ npx @aspect/jspassgen -t memorable -i 4 -s '-'
 24+ character passwords with high entropy:
 
 ```bash
-npx @aspect/jspassgen -t strong -l 12 -i 2 -s ''
+npx @sebastienrousseau/jspassgen -t strong -l 12 -i 2 -s ''
 ```
 
 ---

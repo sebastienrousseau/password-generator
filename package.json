@@ -1,5 +1,5 @@
 {
-    "author": "Sebastien Rousseau <hello@jspassgen.com> (https://github.com/jspassgen/jspassgen)",
+    "author": "Sebastien Rousseau <hello@jspassgen.com> (https://github.com/sebastienrousseau/jspassgen)",
     "autoupdate": {
         "fileMap": [
             {
@@ -10,13 +10,13 @@
             }
         ],
         "source": "git",
-        "target": "git://github.com/jspassgen/jspassgen.git"
+        "target": "git://github.com/sebastienrousseau/jspassgen.git"
     },
     "bin": {
         "jspassgen": "index.js"
     },
     "bugs": {
-        "url": "https://github.com/jspassgen/jspassgen/issues"
+        "url": "https://github.com/sebastienrousseau/jspassgen/issues"
     },
     "dependencies": {
         "chalk": "5.6.2",
@@ -250,14 +250,14 @@
     "lockfileVersion": 1,
     "main": "index.js",
     "types": "types/index.d.ts",
-    "name": "jspassgen",
+    "name": "@sebastienrousseau/jspassgen",
     "publishConfig": {
         "access": "public",
         "registry": "https://npm.pkg.github.com"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/jspassgen/jspassgen.git"
+        "url": "git+https://github.com/sebastienrousseau/jspassgen.git"
     },
     "rules": {
         "node/no-unpublished-import": [

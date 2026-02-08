@@ -23,19 +23,19 @@ Get started with Password Generator. This section covers installation, initial s
 ### Install Globally
 
 ```bash
-npm install -g @aspect/jspassgen
+npm install -g @sebastienrousseau/jspassgen
 ```
 
 ### Install as Dependency
 
 ```bash
-npm install @aspect/jspassgen
+npm install @sebastienrousseau/jspassgen
 ```
 
 ### Run Without Installing
 
 ```bash
-npx @aspect/jspassgen
+npx @sebastienrousseau/jspassgen
 ```
 
 ---
@@ -47,27 +47,27 @@ npx @aspect/jspassgen
 Run the generator without options to start interactive mode:
 
 ```bash
-npx @aspect/jspassgen
+npx @sebastienrousseau/jspassgen
 ```
 
 Generate a strong password directly:
 
 ```bash
-npx @aspect/jspassgen -t strong -l 16 -i 3 -s '-'
+npx @sebastienrousseau/jspassgen -t strong -l 16 -i 3 -s '-'
 # Output: aB3dEf+/gH1i-Kl2MnOpQr3s-tU4vWxYz5A
 ```
 
 Generate a memorable password:
 
 ```bash
-npx @aspect/jspassgen -t memorable -i 4 -s '-'
+npx @sebastienrousseau/jspassgen -t memorable -i 4 -s '-'
 # Output: Apple-Breeze-Castle-Diamond
 ```
 
 ### Use in JavaScript
 
 ```javascript
-import PasswordGenerator from "@aspect/jspassgen";
+import PasswordGenerator from "@sebastienrousseau/jspassgen";
 
 const password = await PasswordGenerator({
   type: "strong",
@@ -86,7 +86,7 @@ console.log(password);
 Run the interactive wizard to configure password generation step by step:
 
 ```bash
-npx @aspect/jspassgen
+npx @sebastienrousseau/jspassgen
 ```
 
 The wizard guides you through four steps:
@@ -115,7 +115,7 @@ The wizard guides you through four steps:
 Maximum security for important accounts. Contains uppercase, lowercase, numbers, and symbols.
 
 ```bash
-npx @aspect/jspassgen -t strong -l 16 -i 3 -s '-'
+npx @sebastienrousseau/jspassgen -t strong -l 16 -i 3 -s '-'
 ```
 
 **Example output:** `aB3dEf+/gH1i-Kl2MnOpQr3s-tU4vWxYz5A`
@@ -127,7 +127,7 @@ npx @aspect/jspassgen -t strong -l 16 -i 3 -s '-'
 Dictionary words for quick recall. Easy to type and remember.
 
 ```bash
-npx @aspect/jspassgen -t memorable -i 4 -s '-'
+npx @sebastienrousseau/jspassgen -t memorable -i 4 -s '-'
 ```
 
 **Example output:** `Apple-Castle-River-Moon`
@@ -139,7 +139,7 @@ npx @aspect/jspassgen -t memorable -i 4 -s '-'
 URL-safe character combinations for API keys and tokens.
 
 ```bash
-npx @aspect/jspassgen -t base64 -l 32 -i 1 -s ''
+npx @sebastienrousseau/jspassgen -t base64 -l 32 -i 1 -s ''
 ```
 
 **Example output:** `YWJjZGVmZGhpamtsbW5vcHFyc3R1dnd4`
@@ -151,7 +151,7 @@ npx @aspect/jspassgen -t base64 -l 32 -i 1 -s ''
 Enhanced entropy for post-quantum security. Follows NIST guidelines.
 
 ```bash
-npx @aspect/jspassgen -t quantum-resistant -l 32 -i 4 -s ''
+npx @sebastienrousseau/jspassgen -t quantum-resistant -l 32 -i 4 -s ''
 ```
 
 **Example output:** `QR$v9K#mF2@x7L&nE8!pX3@T5w$nM9&bE8!tZ7%L4@nF6#mR2$w`

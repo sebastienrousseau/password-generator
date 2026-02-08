@@ -1,4 +1,4 @@
-// Type definitions for @aspect/jspassgen (JavaScript Password Generator)
+// Type definitions for @sebastienrousseau/jspassgen (JavaScript Password Generator)
 // Project: https://github.com/sebastienrousseau/jspassgen
 // Definitions by: Claude Sonnet 4 <noreply@anthropic.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

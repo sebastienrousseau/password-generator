@@ -815,7 +815,7 @@ console.log(`Entropy: ${entropy} bits`);  // Should be 96 bits for 16-char base6
 
 ```bash
 # Generate comprehensive security audit
-npx @aspect/jspassgen \
+npx @sebastienrousseau/jspassgen \
   --type strong \
   --length 16 \
   --iteration 2 \

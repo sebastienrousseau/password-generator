@@ -48,8 +48,8 @@ Connect with contributors and report issues.
 |----------|-------------|
 | [Code of Conduct](../.github/CODE-OF-CONDUCT.md) | Community behavior guidelines |
 | [Security Reporting](../SECURITY.md) | Report security vulnerabilities |
-| [GitHub Discussions](https://github.com/jspassgen/jspassgen/discussions) | Ask questions and share ideas |
-| [GitHub Issues](https://github.com/jspassgen/jspassgen/issues) | Report bugs and request features |
+| [GitHub Discussions](https://github.com/sebastienrousseau/jspassgen/discussions) | Ask questions and share ideas |
+| [GitHub Issues](https://github.com/sebastienrousseau/jspassgen/issues) | Report bugs and request features |
 
 ---
 
