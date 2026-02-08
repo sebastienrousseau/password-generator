@@ -2,9 +2,82 @@
 
 ## Executive Summary
 
-Password Generator uses **hexagonal architecture** (ports and adapters) to achieve platform independence. The core password generation logic has zero dependencies on Node.js, browser APIs, or any platform-specific code. All external I/O is abstracted through port interfaces, allowing the same core to run in Node.js CLI, browser, or any JavaScript runtime.
+Password Generator uses **hexagonal architecture** (ports and adapters) to achieve platform independence. The core password generation logic contains no dependencies on Node.js, browser APIs, or any platform-specific code. Port interfaces abstract all external I/O, enabling the same core to run in Node.js CLI, browser, or any JavaScript runtime.
 
 ## Architecture Diagram
+
+The following Mermaid diagram illustrates the hexagonal architecture with concentric layers:
+
+```mermaid
+flowchart TB
+    subgraph Applications["Applications (Outermost Layer)"]
+        CLI["CLI Application<br/>src/bin/"]
+        WebUI["Web UI<br/>src/ui/web/"]
+        API["Programmatic API"]
+    end
+
+    subgraph Adapters["Adapters (Outer Ring)"]
+        subgraph NodeAdapters["Node.js Adapters"]
+            NodeCrypto["NodeCryptoRandom"]
+            NodeLogger["NodeConsoleLogger"]
+            NodeStorage["NodeFsStorage"]
+            NodeClock["NodeSystemClock"]
+        end
+        subgraph WebAdapters["Web/Browser Adapters"]
+            WebCrypto["WebCryptoRandom"]
+            WebLogger["WebConsoleLogger"]
+            WebStorage["WebLocalStorage"]
+            BrowserClock["BrowserClock"]
+        end
+    end
+
+    subgraph Ports["Port Interfaces (Inner Ring)"]
+        RandomPort["RandomGeneratorPort"]
+        StoragePort["StoragePort"]
+        ClockPort["ClockPort"]
+        LoggerPort["LoggerPort"]
+        DictPort["DictionaryPort"]
+    end
+
+    subgraph Core["Core Package (Center - Zero Dependencies)"]
+        Service["Password Service<br/>createService()"]
+        Generators["Generators<br/>strong / base64 / memorable"]
+        Domain["Domain Logic<br/>charset / entropy / types"]
+    end
+
+    %% Applications use Adapters
+    CLI --> NodeAdapters
+    WebUI --> WebAdapters
+    API --> NodeAdapters
+    API --> WebAdapters
+
+    %% Adapters implement Ports
+    NodeCrypto -.->|implements| RandomPort
+    NodeLogger -.->|implements| LoggerPort
+    NodeStorage -.->|implements| StoragePort
+    NodeClock -.->|implements| ClockPort
+    WebCrypto -.->|implements| RandomPort
+    WebLogger -.->|implements| LoggerPort
+    WebStorage -.->|implements| StoragePort
+    BrowserClock -.->|implements| ClockPort
+
+    %% Core depends on Ports (inward dependency)
+    Service --> RandomPort
+    Service --> LoggerPort
+    Service --> StoragePort
+    Service --> ClockPort
+    Service --> DictPort
+    Service --> Generators
+    Generators --> Domain
+
+    %% Styling
+    style Core fill:#e1f5fe,stroke:#01579b,stroke-width:3px
+    style Ports fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    style Adapters fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    style Applications fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+```
+
+### ASCII Diagram (Alternative View)
 
 ```
 +------------------------------------------------------------------+
@@ -51,7 +124,7 @@ Password Generator uses **hexagonal architecture** (ports and adapters) to achie
 
 ### What is a Port?
 
-A **port** is an interface that defines a contract for external functionality. The core depends only on these contracts, not implementations.
+**Ports** define contracts for external functionality. The core depends only on these contracts, not implementations.
 
 ```javascript
 // Port interface (packages/core/src/ports/RandomGeneratorPort.js)
@@ -67,7 +140,7 @@ export class RandomGeneratorPort {
 
 ### What is an Adapter?
 
-An **adapter** provides a port interface implementation for a specific platform.
+**Adapters** implement port interfaces for specific platforms.
 
 ```javascript
 // Node.js adapter (src/adapters/node/crypto-random.js)
@@ -95,7 +168,7 @@ export class NodeCryptoRandom extends RandomGeneratorPort {
 
 ## Core Package Contract
 
-The `@password-generator/core` package follows strict isolation rules:
+The `@password-generator/core` package enforces strict isolation rules:
 
 ### Forbidden in Core
 
@@ -118,10 +191,10 @@ The `@password-generator/core` package follows strict isolation rules:
 
 ### Enforcement
 
-Core isolation enforcement uses:
-1. **Parity tests** (`packages/core/test/parity/`) verify deterministic behavior
-2. **CI checks** detect forbidden imports
-3. **Code review** for architectural violations
+Core isolation enforcement relies on:
+1. **Parity tests** (`packages/core/test/parity/`) that verify deterministic behavior
+2. **CI checks** that detect forbidden imports
+3. **Code review** that catches architectural violations
 
 ## Decision Records (ADRs)
 
@@ -129,53 +202,53 @@ Core isolation enforcement uses:
 
 **Status**: Accepted
 
-**Context**: Password Generator requires execution in command line, browser, and other environments.
+**Context**: Password Generator executes in command line, browser, and other environments.
 
 **Decision**: Use hexagonal architecture with ports and adapters.
 
 **Consequences**:
-- Core logic is testable without mocking platform APIs
-- Same algorithms work across all platforms
-- Adding new platforms requires only new adapters
+- Test core logic without mocking platform APIs
+- Run the same algorithms across all platforms
+- Add new platforms by creating new adapters
 
 ### ADR-002: Async Port Interfaces
 
 **Status**: Accepted
 
-**Context**: Some implementations (Web Crypto API) are inherently asynchronous.
+**Context**: Some implementations (Web Crypto API) operate asynchronously.
 
 **Decision**: All port methods return Promises.
 
 **Consequences**:
-- Consistent async/await usage throughout
-- Slightly more verbose sync implementations
-- Maximum platform compatibility
+- Maintain consistent async/await usage throughout
+- Accept slightly more verbose sync implementations
+- Achieve maximum platform compatibility
 
 ### ADR-003: Required vs Optional Ports
 
 **Status**: Accepted
 
-**Context**: Some ports (random generation) are essential; others (logging) are conveniences.
+**Context**: Some ports (random generation) remain essential; others (logging) provide conveniences.
 
-**Decision**: Only `RandomGeneratorPort` is required. Others have sensible defaults.
+**Decision**: Only `RandomGeneratorPort` remains required. Others use sensible defaults.
 
 **Consequences**:
-- Minimal configuration for basic usage
-- `createQuickService(randomGenerator)` for simplest case
-- Full control when needed
+- Require minimal configuration for basic usage
+- Use `createQuickService(randomGenerator)` for the simplest case
+- Enable full control when needed
 
 ### ADR-004: Parity Testing
 
 **Status**: Accepted
 
-**Context**: Core behavior must be identical across all adapter implementations.
+**Context**: Core behavior remains identical across all adapter implementations.
 
-**Decision**: Parity tests define canonical behavior with deterministic mock random generator.
+**Decision**: Parity tests define canonical behavior using a deterministic mock random generator.
 
 **Consequences**:
-- Any core change requires parity test updates
-- Adapter authors have clear behavioral contracts
-- Regressions are caught immediately
+- Update parity tests for any core change
+- Provide adapter authors with clear behavioral contracts
+- Catch regressions immediately
 
 ## Migration Guide
 
@@ -235,7 +308,7 @@ const password = await service.generate({
 
 ### Adding Web Support
 
-To use the core in a browser:
+Use the core in a browser:
 
 ```javascript
 import { createService } from "@password-generator/core";

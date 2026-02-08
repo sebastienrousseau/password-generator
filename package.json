@@ -1,5 +1,5 @@
 {
-    "author": "Sebastien Rousseau <hello@password-generator.pro> (https://github.com/sebastienrousseau/password-generator)",
+    "author": "Sebastien Rousseau <hello@jspassgen.com> (https://github.com/sebastienrousseau/jspassgen)",
     "autoupdate": {
         "fileMap": [
             {
@@ -10,18 +10,112 @@
             }
         ],
         "source": "git",
-        "target": "git://github.com/sebastienrousseau/password-generator.git"
+        "target": "git://github.com/sebastienrousseau/jspassgen.git"
     },
     "bin": {
-        "password-generator": "index.js"
+        "jspassgen": "index.js"
     },
     "bugs": {
-        "url": "https://github.com/sebastienrousseau/password-generator/issues"
+        "url": "https://github.com/sebastienrousseau/jspassgen/issues"
     },
     "dependencies": {
         "chalk": "5.6.2",
-        "clipboardy": "^4.0.0",
         "commander": "^11.1.0"
+    },
+    "optionalDependencies": {
+        "clipboardy": "^4.0.0"
+    },
+    "prettier": {
+        "semi": true,
+        "singleQuote": true,
+        "tabWidth": 2,
+        "trailingComma": "es5",
+        "printWidth": 100,
+        "arrowParens": "always"
+    },
+    "babel": {
+        "presets": [
+            [
+                "@babel/preset-env",
+                {
+                    "targets": {
+                        "node": "current"
+                    }
+                }
+            ]
+        ]
+    },
+    "mocha": {
+        "diff": true,
+        "exit": true,
+        "extension": ["js"],
+        "package": "./package.json",
+        "spec": ["./test/*.js", "./test/**/*.js"],
+        "ignore": ["./test/**/coverage/**/*"],
+        "slow": "75",
+        "timeout": "60000"
+    },
+    "jsdoc": {
+        "source": {
+            "includePattern": ".+\\.js(doc|x)?$",
+            "include": ["."],
+            "exclude": ["node_modules", "dist", "coverage", "test"]
+        },
+        "recurseDepth": 10,
+        "opts": {
+            "destination": "./docs/",
+            "recurse": true
+        }
+    },
+    "eslintConfig": {
+        "env": {
+            "es6": true,
+            "node": true
+        },
+        "extends": ["plugin:import/recommended"],
+        "parser": "@babel/eslint-parser",
+        "parserOptions": {
+            "ecmaVersion": 2020,
+            "sourceType": "module",
+            "requireConfigFile": false,
+            "babelOptions": {
+                "presets": ["@babel/preset-env"]
+            }
+        },
+        "plugins": ["import"],
+        "rules": {
+            "camelcase": [1, {"properties": "always"}],
+            "comma-dangle": 0,
+            "comma-spacing": [1, {"before": false, "after": true}],
+            "curly": 2,
+            "dot-location": [2, "property"],
+            "eol-last": 2,
+            "eqeqeq": 2,
+            "indent": [2, 2, {"SwitchCase": 1}],
+            "key-spacing": [2, {"beforeColon": false, "afterColon": true}],
+            "keyword-spacing": 2,
+            "linebreak-style": 0,
+            "no-console": 0,
+            "no-irregular-whitespace": 2,
+            "no-multi-str": 2,
+            "no-multiple-empty-lines": [2, {"max": 2}],
+            "no-spaced-func": 2,
+            "no-trailing-spaces": 2,
+            "no-unexpected-multiline": 2,
+            "no-unused-vars": 2,
+            "no-use-before-define": [2, "nofunc"],
+            "operator-linebreak": [2, "after"],
+            "quotes": [2, "single", { "avoidEscape": true }],
+            "semi": [2, "always"],
+            "space-before-blocks": [2, "always"],
+            "space-before-function-paren": "off",
+            "space-infix-ops": 0,
+            "strict": [2, "global"],
+            "wrap-iife": [2, "inside"]
+        },
+        "globals": {
+            "_": true
+        }
     },
     "description": "A fast, simple and powerful open-source utility tool for generating strong, unique and random passwords.",
     "devDependencies": {
@@ -57,6 +151,48 @@
         "rimraf": "^5.0.5",
         "sinon": "21.0.1"
     },
+    "c8": {
+        "exclude": [
+            "node_modules/**",
+            "test/**",
+            "dist/**",
+            "packages/core/test/**",
+            "src/ui/web/demo/scripts/main.js",
+            "src/adapters/web/webcrypto-random.js",
+            "src/**/test/**",
+            "src/**/*.test.js",
+            "**/*.d.ts",
+            "scripts/**",
+            "benchmarks/**",
+            "src/workers/**",
+            "src/ui/web/hooks/**",
+            "src/services/output-formatter.js",
+            "packages/core/src/domain/strength-analyzer.js",
+            "packages/core/src/domain/template.js",
+            "packages/core/src/api/PasswordBuilder.js",
+            "packages/core/src/generators/template.js",
+            "packages/core/src/generators/custom.js",
+            "packages/core/src/generators/diceware.js",
+            "packages/core/src/generators/honeyword.js",
+            "packages/core/src/generators/pronounceable.js"
+        ],
+        "include": [
+            "src/**",
+            "packages/core/src/**",
+            "index.js"
+        ],
+        "reporter": [
+            "text",
+            "lcov",
+            "json-summary"
+        ],
+        "all": true,
+        "check-coverage": false,
+        "lines": 90,
+        "functions": 90,
+        "branches": 95,
+        "statements": 90
+    },
     "directories": {
         "bin": "./bin",
         "src": "./src",
@@ -66,7 +202,7 @@
         "packages/*"
     ],
     "engines": {
-        "node": ">=18.0.0"
+        "node": ">=20.0.0"
     },
     "files": [
         "/COPYRIGHT",
@@ -87,7 +223,7 @@
             "url": "https://paypal.me/wwdseb"
         }
     ],
-    "homepage": "https://password-generator.pro",
+    "homepage": "https://jspassgen.com",
     "keywords": [
         "base64",
         "complex",
@@ -114,14 +250,14 @@
     "lockfileVersion": 1,
     "main": "index.js",
     "types": "types/index.d.ts",
-    "name": "@sebastienrousseau/password-generator",
+    "name": "@sebastienrousseau/jspassgen",
     "publishConfig": {
         "access": "public",
         "registry": "https://npm.pkg.github.com"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/sebastienrousseau/password-generator.git"
+        "url": "git+https://github.com/sebastienrousseau/jspassgen.git"
     },
     "rules": {
         "node/no-unpublished-import": [
@@ -154,11 +290,11 @@
         "copy:src": "cp -R ./src dist/src",
         "coverage": "npm run clean && c8 mocha \"test/*.js\" \"./test/**/*.js\" && exit",
         "create:directory": "mkdirp ./dist",
-        "create:docs": "jsdoc -c ./jsdoc.json",
+        "create:docs": "jsdoc",
         "filesize:distribution": "filesizes dist/ > dist/Report.txt",
         "format": "prettier --write src/**/*.js",
-        "lint": "eslint --config=.eslintrc.json \"./*.js\" \"./src/**/*.js\"",
-        "lint:fix": "eslint --config=.eslintrc.json \"./*.js\" \"./src/**/*.js\" --fix",
+        "lint": "eslint \"./*.js\" \"./src/**/*.js\"",
+        "lint:fix": "eslint \"./*.js\" \"./src/**/*.js\" --fix",
         "lint:markdown": "remark \"./*.md\" \"./src/**/*.md\" \"./.github/**/*.md\"",
         "lint:core": "eslint packages/core/src --config packages/core/.eslintrc.json",
         "lint:web": "eslint src/ui/web --config src/ui/web/.eslintrc.json",
@@ -176,11 +312,16 @@
         "web": "npx serve . -l ${PORT:-4173}",
         "web:windows": "npx serve . -l 4173",
         "web:build": "node scripts/build-web-demo.js",
-        "web:preview": "npm run web:build && npx serve dist/web -l ${PORT:-4173}",
+        "web:preview": "npm run web:build && npx serve dist/web --listen 4173 --no-port-switching",
         "web:deploy": "node scripts/deploy-gh-pages.js",
         "check:core-isolation": "npm run verify:core",
-        "benchmark": "node benchmarks/password-generation.bench.js && node benchmarks/entropy-calculation.bench.js"
+        "benchmark": "node benchmarks/password-generation.bench.js && node benchmarks/entropy-calculation.bench.js",
+        "benchmark:all": "node benchmarks/run-all.js",
+        "benchmark:crypto": "node benchmarks/crypto-vs-mathrand.bench.js",
+        "benchmark:bulk": "node benchmarks/bulk-generation.bench.js",
+        "benchmark:generation": "node benchmarks/password-generation.bench.js",
+        "benchmark:entropy": "node benchmarks/entropy-calculation.bench.js"
     },
     "type": "module",
-    "version": "1.1.4"
+    "version": "1.1.5"
 }

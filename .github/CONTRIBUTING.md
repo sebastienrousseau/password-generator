@@ -1,11 +1,11 @@
 # Contributing to Password Generator
 
-Password Generator accepts community contributions.
+Password Generator welcomes community contributions.
 
 ## Ways to Contribute
 
 ### 🐛 Report Bugs
-Found a bug? [Create an issue](https://github.com/sebastienrousseau/password-generator/issues/new/choose) with:
+Found a bug? [Create an issue](https://github.com/sebastienrousseau/jspassgen/issues/new/choose) with:
 - Clear, descriptive title
 - Steps to reproduce the issue
 - Expected vs actual behavior
@@ -13,7 +13,7 @@ Found a bug? [Create an issue](https://github.com/sebastienrousseau/password-gen
 - Code samples if applicable
 
 ### 💡 Suggest Features
-[Open a feature request](https://github.com/sebastienrousseau/password-generator/issues/new/choose) with:
+[Open a feature request](https://github.com/sebastienrousseau/jspassgen/issues/new/choose) with:
 - Clear description of the proposed feature
 - Use cases and benefits
 - Implementation considerations
@@ -66,7 +66,7 @@ npm run build
 
 ### Testing
 - Write tests for new features
-- Existing tests must continue passing
+- Ensure existing tests pass
 - Run `npm test` before submitting
 
 ### Security Considerations
@@ -119,7 +119,7 @@ password-generator/
 ## Community Guidelines
 
 ### Code of Conduct
-Please read our [Code of Conduct](./.github/CODE-OF-CONDUCT.md). We are committed to providing a welcoming and inclusive environment.
+Please read our [Code of Conduct](./.github/CODE-OF-CONDUCT.md). This project maintains a welcoming and inclusive environment.
 
 ### Communication
 - Be respectful and constructive
@@ -136,9 +136,9 @@ Contributors are recognized in:
 
 ## Questions?
 
-- 💬 [GitHub Discussions](https://github.com/sebastienrousseau/password-generator/discussions) for questions
-- 🐛 [GitHub Issues](https://github.com/sebastienrousseau/password-generator/issues) for bugs
-- 📧 Contact: hello@password-generator.pro
+- 💬 [GitHub Discussions](https://github.com/sebastienrousseau/jspassgen/discussions) for questions
+- 🐛 [GitHub Issues](https://github.com/sebastienrousseau/jspassgen/issues) for bugs
+- 📧 Contact: hello@jspassgen.com
 
 Thank you for contributing to making Password Generator better!
 

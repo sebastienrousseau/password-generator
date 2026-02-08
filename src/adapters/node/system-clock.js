@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -9,8 +9,8 @@
  * @module NodeSystemClock
  */
 
-import { performance } from "perf_hooks";
-import { ClockPort } from "../../../packages/core/src/ports/index.js";
+import { performance } from 'perf_hooks';
+import { ClockPort } from '../../../packages/core/src/ports/index.js';
 
 /**
  * Node.js implementation of ClockPort.
@@ -50,7 +50,7 @@ export class NodeSystemClock extends ClockPort {
    * @param {Object} options - Intl.DateTimeFormat options.
    * @returns {string} Locale-formatted date string.
    */
-  toLocaleString(locale = "en-US", options = {}) {
+  toLocaleString(locale = 'en-US', options = {}) {
     return new Date().toLocaleString(locale, options);
   }
 

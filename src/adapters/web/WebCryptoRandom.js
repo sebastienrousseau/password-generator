@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -9,6 +9,8 @@
  *
  * @module WebCryptoRandom
  */
+
+import { RandomGeneratorPort } from '../../../packages/core/src/ports/index.js';
 
 /**
  * Generates cryptographically secure random bytes using the Web Crypto API.
@@ -21,11 +23,11 @@
  */
 export const randomBytes = (size) => {
   if (!Number.isInteger(size) || size < 1) {
-    throw new RangeError("size must be a positive integer");
+    throw new RangeError('size must be a positive integer');
   }
 
-  if (typeof crypto === "undefined" || !crypto.getRandomValues) {
-    throw new Error("Web Crypto API is not available in this environment");
+  if (typeof crypto === 'undefined' || !crypto.getRandomValues) {
+    throw new Error('Web Crypto API is not available in this environment');
   }
 
   const bytes = new Uint8Array(size);
@@ -44,11 +46,11 @@ export const randomBytes = (size) => {
  */
 export const randomInt = (max) => {
   if (!Number.isInteger(max) || max < 1) {
-    throw new RangeError("max must be a positive integer");
+    throw new RangeError('max must be a positive integer');
   }
 
-  if (typeof crypto === "undefined" || !crypto.getRandomValues) {
-    throw new Error("Web Crypto API is not available in this environment");
+  if (typeof crypto === 'undefined' || !crypto.getRandomValues) {
+    throw new Error('Web Crypto API is not available in this environment');
   }
 
   // Calculate the number of bytes needed to represent max
@@ -80,14 +82,14 @@ export const randomInt = (max) => {
  * @return {string} The base64 encoded string.
  */
 export const bytesToBase64 = (bytes) => {
-  if (typeof btoa !== "undefined") {
+  if (typeof btoa !== 'undefined') {
     // Use built-in btoa if available (modern browsers)
     return btoa(String.fromCharCode.apply(null, bytes));
   }
 
   // Fallback implementation for environments without btoa
-  const base64Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-  let result = "";
+  const base64Chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+  let result = '';
 
   for (let j = 0; j < bytes.length; j += 3) {
     const a = bytes[j];
@@ -98,8 +100,8 @@ export const bytesToBase64 = (bytes) => {
 
     result += base64Chars[(group >> 18) & 63];
     result += base64Chars[(group >> 12) & 63];
-    result += j + 1 < bytes.length ? base64Chars[(group >> 6) & 63] : "=";
-    result += j + 2 < bytes.length ? base64Chars[group & 63] : "=";
+    result += j + 1 < bytes.length ? base64Chars[(group >> 6) & 63] : '=';
+    result += j + 2 < bytes.length ? base64Chars[group & 63] : '=';
   }
 
   return result;
@@ -113,5 +115,103 @@ export const WebCryptoRandom = {
   randomInt,
   bytesToBase64,
 };
+
+/**
+ * Web Crypto API implementation of RandomGeneratorPort.
+ *
+ * This class provides a consistent interface for cryptographically secure
+ * random number generation in browser environments, matching the architecture
+ * of NodeCryptoRandom for consistency across adapters.
+ */
+export class WebCryptoRandomAdapter extends RandomGeneratorPort {
+  /**
+   * Generates cryptographically secure random bytes.
+   *
+   * @param {number} byteLength - The number of random bytes to generate.
+   * @returns {Promise<Uint8Array>} A promise resolving to random bytes.
+   * @throws {RangeError} If byteLength is not a positive integer.
+   * @throws {Error} If Web Crypto API is not available.
+   */
+  async generateRandomBytes(byteLength) {
+    return randomBytes(byteLength);
+  }
+
+  /**
+   * Generates a cryptographically secure random integer in the range [0, max).
+   *
+   * @param {number} max - The exclusive upper bound for the random integer.
+   * @returns {Promise<number>} A promise resolving to a random integer in [0, max).
+   * @throws {RangeError} If max is not a positive integer.
+   * @throws {Error} If Web Crypto API is not available.
+   */
+  async generateRandomInt(max) {
+    return randomInt(max);
+  }
+
+  /**
+   * Generates a random base64 string of the specified byte length.
+   *
+   * @param {number} byteLength - The number of random bytes to generate before encoding.
+   * @returns {Promise<string>} A promise resolving to a base64-encoded random string.
+   * @throws {RangeError} If byteLength is not a positive integer.
+   * @throws {Error} If Web Crypto API is not available.
+   */
+  async generateRandomBase64(byteLength) {
+    const bytes = randomBytes(byteLength);
+    return bytesToBase64(bytes);
+  }
+
+  /**
+   * Generates a random string of the exact character length using uniform
+   * selection from the provided character set.
+   *
+   * @param {number} length - The desired character length of the output.
+   * @param {string} charset - The character set to sample from.
+   * @returns {Promise<string>} A promise resolving to a random string of exactly length characters.
+   * @throws {RangeError} If length is not a positive integer or charset is empty.
+   * @throws {Error} If Web Crypto API is not available.
+   */
+  async generateRandomString(length, charset) {
+    if (!Number.isInteger(length) || length < 1) {
+      throw new RangeError('length must be a positive integer');
+    }
+    if (!charset || charset.length === 0) {
+      throw new RangeError('charset must not be empty');
+    }
+
+    let result = '';
+    for (let i = 0; i < length; i++) {
+      const index = randomInt(charset.length);
+      result += charset[index];
+    }
+    return result;
+  }
+
+  /**
+   * Validates the randomness quality of the implementation.
+   *
+   * @returns {Promise<boolean>} A promise resolving to true if validation passes.
+   */
+  async validateRandomnessQuality() {
+    // Basic chi-squared test for uniformity
+    const sampleSize = 10000;
+    const buckets = new Array(256).fill(0);
+
+    const bytes = await this.generateRandomBytes(sampleSize);
+    for (const byte of bytes) {
+      buckets[byte]++;
+    }
+
+    const expected = sampleSize / 256;
+    let chiSquared = 0;
+    for (const count of buckets) {
+      chiSquared += Math.pow(count - expected, 2) / expected;
+    }
+
+    // Chi-squared critical value for 255 degrees of freedom at 0.01 significance
+    const criticalValue = 310.46;
+    return chiSquared < criticalValue;
+  }
+}
 
 export default WebCryptoRandom;

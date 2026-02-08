@@ -1,5 +1,5 @@
-import { randomNumber } from "./randomNumber.js";
-import { CONSONANTS } from "../constants.js";
+import { randomNumber } from './randomNumber.js';
+import { CONSONANTS } from '../constants.js';
 
 /**
  * Generates a random consonant character.

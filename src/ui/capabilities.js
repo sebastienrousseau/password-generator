@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -30,9 +30,9 @@ export const ColorDepth = {
  * @enum {string}
  */
 export const ThemeMode = {
-  DARK: "dark",
-  LIGHT: "light",
-  AUTO: "auto",
+  DARK: 'dark',
+  LIGHT: 'light',
+  AUTO: 'auto',
 };
 
 /**
@@ -45,7 +45,7 @@ export const isColorDisabled = () => {
   if (process.env.FORCE_COLOR !== undefined) {
     const force = process.env.FORCE_COLOR;
     // FORCE_COLOR=0 or FORCE_COLOR=false means disable
-    if (force === "0" || force === "false") {
+    if (force === '0' || force === 'false') {
       return true;
     }
     // Any other value means force colors on
@@ -58,7 +58,7 @@ export const isColorDisabled = () => {
   }
 
   // CI environments often don't support colors
-  if (process.env.CI === "true" && !process.env.FORCE_COLOR) {
+  if (process.env.CI === 'true' && !process.env.FORCE_COLOR) {
     return true;
   }
 
@@ -76,25 +76,25 @@ export const detectColorDepth = () => {
 
   // Check for COLORTERM
   const colorTerm = process.env.COLORTERM;
-  if (colorTerm === "truecolor" || colorTerm === "24bit") {
+  if (colorTerm === 'truecolor' || colorTerm === '24bit') {
     return ColorDepth.TRUECOLOR;
   }
 
   // Check TERM variable
-  const term = process.env.TERM || "";
+  const term = process.env.TERM || '';
 
   // Truecolor terminals
-  if (term.includes("truecolor") || term.includes("24bit")) {
+  if (term.includes('truecolor') || term.includes('24bit')) {
     return ColorDepth.TRUECOLOR;
   }
 
   // 256 color terminals
-  if (term.includes("256color") || term.includes("256")) {
+  if (term.includes('256color') || term.includes('256')) {
     return ColorDepth.ANSI256;
   }
 
   // Dumb terminal or no color support
-  if (term === "dumb" || !term) {
+  if (term === 'dumb' || !term) {
     return ColorDepth.NONE;
   }
 
@@ -113,13 +113,13 @@ export const detectColorDepth = () => {
 export const detectTheme = () => {
   // Explicit theme setting
   const terminalTheme = process.env.TERMINAL_THEME;
-  if (terminalTheme === "light" || terminalTheme === "dark") {
+  if (terminalTheme === 'light' || terminalTheme === 'dark') {
     return terminalTheme;
   }
 
   // macOS terminal theme detection
   const appleTerm = process.env.APPLE_TERMINAL;
-  if (appleTerm === "light") {
+  if (appleTerm === 'light') {
     return ThemeMode.LIGHT;
   }
 
@@ -127,7 +127,7 @@ export const detectTheme = () => {
   // Higher bg values typically indicate light backgrounds
   const colorFgBg = process.env.COLORFGBG;
   if (colorFgBg) {
-    const parts = colorFgBg.split(";");
+    const parts = colorFgBg.split(';');
     const bg = parseInt(parts[parts.length - 1], 10);
     if (!isNaN(bg)) {
       // Background colors 0-6 and 8 are typically dark
@@ -140,8 +140,8 @@ export const detectTheme = () => {
   }
 
   // Check for common light-themed terminal indicators
-  const term = process.env.TERM_PROGRAM || "";
-  if (term.toLowerCase().includes("light")) {
+  const term = process.env.TERM_PROGRAM || '';
+  if (term.toLowerCase().includes('light')) {
     return ThemeMode.LIGHT;
   }
 
@@ -155,25 +155,25 @@ export const detectTheme = () => {
  */
 export const supportsUnicode = () => {
   // Check TERM for dumb terminal
-  const term = process.env.TERM || "";
-  if (term === "dumb") {
+  const term = process.env.TERM || '';
+  if (term === 'dumb') {
     return false;
   }
 
   // Check for Windows console without UTF-8 support
-  if (process.platform === "win32") {
+  if (process.platform === 'win32') {
     // Modern Windows Terminal and PowerShell support Unicode
     const wtSession = process.env.WT_SESSION;
     const conEmuANSI = process.env.ConEmuANSI;
     const termProgram = process.env.TERM_PROGRAM;
 
-    if (wtSession || conEmuANSI === "ON" || termProgram) {
+    if (wtSession || conEmuANSI === 'ON' || termProgram) {
       return true;
     }
 
     // Check code page
     const codePage = process.env.CHCP;
-    if (codePage === "65001") {
+    if (codePage === '65001') {
       return true;
     }
 
@@ -182,8 +182,8 @@ export const supportsUnicode = () => {
   }
 
   // Check LANG/LC_ALL for UTF-8
-  const lang = process.env.LANG || process.env.LC_ALL || "";
-  if (lang.toLowerCase().includes("utf-8") || lang.toLowerCase().includes("utf8")) {
+  const lang = process.env.LANG || process.env.LC_ALL || '';
+  if (lang.toLowerCase().includes('utf-8') || lang.toLowerCase().includes('utf8')) {
     return true;
   }
 

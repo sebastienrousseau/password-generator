@@ -1,31 +1,32 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-import { resolve } from "path";
-import { createCLIController } from "../cli/CLIController.js";
-import { createService } from "../../packages/core/src/index.js";
-import { NodeCryptoRandom } from "../adapters/node/crypto-random.js";
+import { resolve } from 'path';
+import { createCLIController } from '../cli/CLIController.js';
+import { createService } from '../../packages/core/src/index.js';
+import { NodeCryptoRandom } from '../adapters/node/crypto-random.js';
+import { EFFDicewareDictionary } from '../adapters/node/eff-diceware-dictionary.js';
 
 // Re-export services for programmatic use (backward compatibility)
 export {
   generatePassword,
   safeGeneratePassword,
   generateMultiplePasswords,
-} from "../services/password-service.js";
+} from '../services/password-service.js';
 export {
   processConfiguration,
   mergePresetWithOptions,
   validateFinalConfig,
-} from "../services/config-service.js";
-export { generateEquivalentCommand, displayCommandLearningPanel } from "../services/cli-service.js";
+} from '../services/config-service.js';
+export { generateEquivalentCommand, displayCommandLearningPanel } from '../services/cli-service.js';
 export {
   startAuditSession,
   completeAuditSession,
   executeWithAudit,
-} from "../services/audit-service.js";
+} from '../services/audit-service.js';
 
 // Re-export core service factory for advanced usage
-export { createService } from "../../packages/core/src/index.js";
+export { createService } from '../../packages/core/src/index.js';
 
 /**
  * Creates the core password generation service with Node.js adapters.
@@ -34,12 +35,14 @@ export { createService } from "../../packages/core/src/index.js";
  */
 function createCoreService() {
   const randomGenerator = new NodeCryptoRandom();
+  const dictionary = new EFFDicewareDictionary();
 
   return createService(
     {},
     {
       randomGenerator,
-      // Optional ports use defaults from core
+      dictionary,
+      // Optional ports use defaults from core (logger, storage, clock)
     }
   );
 }
@@ -64,13 +67,13 @@ export const PasswordGenerator = async (data) => {
 
 // Only execute CLI logic when running as CLI (not when imported as a module)
 // Check if this file is being run directly (not imported)
-const resolvedArg = process.argv[1] ? resolve(process.argv[1]) : "";
+const resolvedArg = process.argv[1] ? resolve(process.argv[1]) : '';
 const isMainModule =
   resolvedArg &&
-  (resolvedArg.endsWith("password-generator.js") ||
-    resolvedArg.endsWith("index.js") ||
-    resolvedArg.includes("bin/password-generator") ||
-    resolvedArg.endsWith("password-generator")); // Handle `node .` from project root
+  (resolvedArg.endsWith('password-generator.js') ||
+    resolvedArg.endsWith('index.js') ||
+    resolvedArg.includes('bin/password-generator') ||
+    resolvedArg.endsWith('password-generator')); // Handle `node .` from project root
 
 if (isMainModule) {
   // Create core service with Node.js adapters

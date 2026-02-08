@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -16,7 +16,7 @@ import {
   getValidPresetsString,
   isValidPasswordType,
   getValidTypesString,
-} from "../config.js";
+} from '../config.js';
 
 /**
  * Merges preset configuration with user options, giving priority to user options.
@@ -58,13 +58,13 @@ export const validateFinalConfig = (config, hasPreset) => {
   const missingRequired = [];
 
   if (!config.type) {
-    missingRequired.push("type");
+    missingRequired.push('type');
   }
   if (config.iteration === undefined) {
-    missingRequired.push("iteration");
+    missingRequired.push('iteration');
   }
   if (config.separator === undefined) {
-    missingRequired.push("separator");
+    missingRequired.push('separator');
   }
 
   if (missingRequired.length > 0) {
@@ -72,14 +72,14 @@ export const validateFinalConfig = (config, hasPreset) => {
     if (hasPreset) {
       throw new Error(
         `Missing required options: ${missingRequired.join(
-          ", "
+          ', '
         )}. This should not happen with a valid preset.`
       );
     } else {
       throw new Error(
-        `Missing required options: ${missingRequired.join(", ")}. ` +
+        `Missing required options: ${missingRequired.join(', ')}. ` +
           `Either provide these options or use a preset (-p ${
-            getValidPresetsString().split(", ")[0]
+            getValidPresetsString().split(', ')[0]
           })`
       );
     }

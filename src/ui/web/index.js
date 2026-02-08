@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -55,32 +55,16 @@
  */
 
 // Adapters - Browser implementations of core ports
-export {
-  BrowserCryptoRandom,
-  BrowserStorage,
-  BrowserClock,
-} from "./adapters/index.js";
+export { BrowserCryptoRandom, BrowserStorage, BrowserClock } from './adapters/index.js';
 
 // State - UI form state management
-export {
-  FormState,
-  StateToCoreMapper,
-} from "./state/index.js";
+export { FormState, StateToCoreMapper } from './state/index.js';
 
 // View Models - Core result transformers
-export {
-  PasswordViewModel,
-  ValidationViewModel,
-  EntropyViewModel,
-} from "./view-models/index.js";
+export { PasswordViewModel, ValidationViewModel, EntropyViewModel } from './view-models/index.js';
 
 // Controllers - Thin adapters
-export {
-  WebUIController,
-  createWebUIController,
-} from "./controllers/index.js";
+export { WebUIController, createWebUIController } from './controllers/index.js';
 
 // Hooks - React integration (optional)
-export {
-  usePasswordGenerator,
-} from "./hooks/index.js";
+export { usePasswordGenerator } from './hooks/index.js';

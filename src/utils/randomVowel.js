@@ -1,5 +1,5 @@
-import { randomNumber } from "./randomNumber.js";
-import { VOWELS } from "../constants.js";
+import { randomNumber } from './randomNumber.js';
+import { VOWELS } from '../constants.js';
 
 /**
  * Generate a random vowel character from a predefined list of vowels.

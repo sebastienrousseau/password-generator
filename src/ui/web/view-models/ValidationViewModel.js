@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -55,13 +55,13 @@ export class ValidationViewModel {
     for (const error of validation.errors) {
       const lowerError = error.toLowerCase();
 
-      if (lowerError.includes("type")) {
+      if (lowerError.includes('type')) {
         fieldErrors.type = error;
-      } else if (lowerError.includes("length")) {
+      } else if (lowerError.includes('length')) {
         fieldErrors.length = error;
-      } else if (lowerError.includes("iteration")) {
+      } else if (lowerError.includes('iteration')) {
         fieldErrors.iteration = error;
-      } else if (lowerError.includes("separator")) {
+      } else if (lowerError.includes('separator')) {
         fieldErrors.separator = error;
       }
     }

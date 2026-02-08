@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -36,34 +36,29 @@
  */
 export const defaultBindings = {
   // Navigation
-  up: [{ key: "up" }, { key: "k" }],
-  down: [{ key: "down" }, { key: "j" }],
-  left: [{ key: "left" }, { key: "h" }],
-  right: [{ key: "right" }, { key: "l" }],
-
+  up: [{ key: 'up' }, { key: 'k' }],
+  down: [{ key: 'down' }, { key: 'j' }],
+  left: [{ key: 'left' }, { key: 'h' }],
+  right: [{ key: 'right' }, { key: 'l' }],
   // Selection
-  select: [{ key: "return" }, { key: "space" }],
-  selectNumber: [{ key: ["1", "2", "3", "4", "5", "6", "7", "8", "9"] }],
-
+  select: [{ key: 'return' }, { key: 'space' }],
+  selectNumber: [{ key: ['1', '2', '3', '4', '5', '6', '7', '8', '9'] }],
   // Exit / Cancel
-  cancel: [{ key: "escape" }, { key: "q" }],
-  quit: [{ key: "c", ctrl: true }],
-
+  cancel: [{ key: 'escape' }, { key: 'q' }],
+  quit: [{ key: 'c', ctrl: true }],
   // Actions
-  back: [{ key: "escape" }, { key: "backspace" }],
-  help: [{ key: "?" }, { key: "h", shift: true }],
-
+  back: [{ key: 'escape' }, { key: 'backspace' }],
+  help: [{ key: '?' }, { key: 'h', shift: true }],
   // Command palette
   commandPalette: [
-    { key: "k", ctrl: true },
-    { key: "p", ctrl: true },
+    { key: 'k', ctrl: true },
+    { key: 'p', ctrl: true },
   ],
-
   // Page navigation
-  pageUp: [{ key: "pageup" }, { key: "u", ctrl: true }],
-  pageDown: [{ key: "pagedown" }, { key: "d", ctrl: true }],
-  home: [{ key: "home" }, { key: "g" }],
-  end: [{ key: "end" }, { key: "g", shift: true }],
+  pageUp: [{ key: 'pageup' }, { key: 'u', ctrl: true }],
+  pageDown: [{ key: 'pagedown' }, { key: 'd', ctrl: true }],
+  home: [{ key: 'home' }, { key: 'g' }],
+  end: [{ key: 'end' }, { key: 'g', shift: true }],
 };
 
 /**
@@ -124,20 +119,20 @@ export const formatBinding = (binding) => {
   const parts = [];
 
   if (binding.ctrl) {
-    parts.push("Ctrl");
+    parts.push('Ctrl');
   }
   if (binding.meta) {
-    parts.push("Alt");
+    parts.push('Alt');
   }
   if (binding.shift) {
-    parts.push("Shift");
+    parts.push('Shift');
   }
 
   const keyNames = Array.isArray(binding.key) ? binding.key : [binding.key];
   const keyDisplay = keyNames[0].charAt(0).toUpperCase() + keyNames[0].slice(1);
   parts.push(keyDisplay);
 
-  return parts.join("+");
+  return parts.join('+');
 };
 
 /**

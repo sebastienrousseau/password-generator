@@ -1,5 +1,5 @@
-import { randomInt } from "crypto";
-import { recordEntropyUsage } from "./security-audit.js";
+import { randomInt } from 'crypto';
+import { recordEntropyUsage } from './security-audit.js';
 
 /**
  * Generates a cryptographically secure random integer within a specified range.
@@ -19,7 +19,7 @@ export function randomNumber(max, min = 0) {
   // Record entropy usage for audit (range size determines bits of entropy)
   const rangeSize = max - min;
   const entropyBits = Math.log2(rangeSize);
-  recordEntropyUsage("crypto.randomInt", 1, entropyBits, {
+  recordEntropyUsage('crypto.randomInt', 1, entropyBits, {
     min,
     max,
     rangeSize,

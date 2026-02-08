@@ -1,10 +1,9 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-import { Command } from "commander";
-import clipboardy from "clipboardy";
-import { CLI_OPTIONS, PRESET_PROFILES, VALID_PRESETS } from "../config.js";
-import { startOnboarding } from "../onboarding.js";
+import { Command } from 'commander';
+import { CLI_OPTIONS, PRESET_PROFILES, VALID_PRESETS, VALID_OUTPUT_FORMATS } from '../config.js';
+import { startOnboarding } from '../onboarding.js';
 
 // Import CLI rendering services (output only, no business logic)
 import {
@@ -13,8 +12,32 @@ import {
   displayPasswordOutput,
   displaySecurityAuditReport,
   displayNonTTYHelp,
-} from "../services/cli-service.js";
-import { startAuditSession, completeAuditSession } from "../services/audit-service.js";
+  displayFormattedOutput,
+} from '../services/cli-service.js';
+import { startAuditSession, completeAuditSession } from '../services/audit-service.js';
+
+/**
+ * Dynamically imports and uses clipboardy with graceful fallback.
+ * Returns true if clipboard copy was successful, false otherwise.
+ *
+ * @param {string} text - The text to copy to clipboard
+ * @returns {Promise<boolean>} Whether the copy operation succeeded
+ */
+async function copyToClipboard(text) {
+  try {
+    // Dynamic import of clipboardy to handle optional dependency
+    const { default: clipboardy } = await import('clipboardy');
+    await clipboardy.write(text);
+    return true;
+  } catch (error) {
+    // Clipboard functionality is not available - this is not a fatal error
+    console.warn(
+      'Warning: Clipboard functionality not available. Password generated but not copied.'
+    );
+    console.warn(`Reason: ${error.message}`);
+    return false;
+  }
+}
 
 /**
  * CLI Controller - Thin Adapter Pattern
@@ -63,6 +86,28 @@ export class CLIController {
       .option(CLI_OPTIONS.options.clipboard.flags, CLI_OPTIONS.options.clipboard.description)
       .option(CLI_OPTIONS.options.audit.flags, CLI_OPTIONS.options.audit.description)
       .option(CLI_OPTIONS.options.learn.flags, CLI_OPTIONS.options.learn.description)
+      .option(CLI_OPTIONS.options.format.flags, CLI_OPTIONS.options.format.description)
+      .option(
+        CLI_OPTIONS.options.count.flags,
+        CLI_OPTIONS.options.count.description,
+        CLI_OPTIONS.options.count.parser
+      )
+      .option(CLI_OPTIONS.options.interactive.flags, CLI_OPTIONS.options.interactive.description)
+      .option(
+        CLI_OPTIONS.options.kdfMemory.flags,
+        CLI_OPTIONS.options.kdfMemory.description,
+        CLI_OPTIONS.options.kdfMemory.parser
+      )
+      .option(
+        CLI_OPTIONS.options.kdfTime.flags,
+        CLI_OPTIONS.options.kdfTime.description,
+        CLI_OPTIONS.options.kdfTime.parser
+      )
+      .option(
+        CLI_OPTIONS.options.kdfParallelism.flags,
+        CLI_OPTIONS.options.kdfParallelism.description,
+        CLI_OPTIONS.options.kdfParallelism.parser
+      )
       .action(this.handleCliAction.bind(this));
   }
 
@@ -94,12 +139,21 @@ export class CLIController {
     if (userOptions.separator !== undefined) {
       config.separator = userOptions.separator;
     }
+    if (userOptions.kdfMemory !== undefined) {
+      config.kdfMemory = userOptions.kdfMemory;
+    }
+    if (userOptions.kdfTime !== undefined) {
+      config.kdfTime = userOptions.kdfTime;
+    }
+    if (userOptions.kdfParallelism !== undefined) {
+      config.kdfParallelism = userOptions.kdfParallelism;
+    }
 
     // If preset provided, use as base and override with user options
     if (preset) {
       // Basic input validation: check if preset exists
       if (!VALID_PRESETS.includes(preset)) {
-        throw new Error(`Invalid preset '${preset}'. Valid presets: ${VALID_PRESETS.join(", ")}`);
+        throw new Error(`Invalid preset '${preset}'. Valid presets: ${VALID_PRESETS.join(', ')}`);
       }
 
       const presetConfig = PRESET_PROFILES[preset];
@@ -129,6 +183,13 @@ export class CLIController {
    */
   async handleCliAction(opts) {
     try {
+      // Validate format option
+      if (opts.format && !VALID_OUTPUT_FORMATS.includes(opts.format)) {
+        throw new Error(
+          `Invalid format '${opts.format}'. Valid formats: ${VALID_OUTPUT_FORMATS.join(', ')}`
+        );
+      }
+
       // Enable audit mode if requested
       if (opts.audit) {
         startAuditSession();
@@ -140,13 +201,16 @@ export class CLIController {
         length: opts.length,
         iteration: opts.iteration,
         separator: opts.separator,
+        kdfMemory: opts.kdfMemory,
+        kdfTime: opts.kdfTime,
+        kdfParallelism: opts.kdfParallelism,
       });
 
       // Step 2: Validate configuration via core service
       const validation = this.service.validateConfig(config);
       if (!validation.isValid) {
         // Provide helpful error message
-        const errorMsg = validation.errors.join("; ");
+        const errorMsg = validation.errors.join('; ');
         if (!opts.preset && (!config.type || config.iteration === undefined)) {
           throw new Error(
             `${errorMsg}. Either provide all required options (-t, -i, -s) or use a preset (-p quick)`
@@ -155,21 +219,49 @@ export class CLIController {
         throw new Error(errorMsg);
       }
 
-      // Step 3: Generate password via core service
-      const password = await this.service.generate(config);
+      // Step 3: Handle bulk generation vs single password
+      const count = opts.count || 1;
+      const format = opts.format || 'text';
 
-      // Step 4: Handle clipboard copy (CLI-specific I/O)
-      if (opts.clipboard) {
-        await clipboardy.write(password);
-      }
+      if (count > 1 || format !== 'text') {
+        // Bulk operation with structured output
+        const passwords = [];
+        for (let i = 0; i < count; i++) {
+          passwords.push(await this.service.generate(config));
+        }
 
-      // Step 5: Render output (CLI-specific presentation)
-      displayPasswordOutput(password, opts.clipboard, config);
+        // Handle clipboard for bulk operations (copy first password only)
+        let clipboardSuccess = false;
+        if (opts.clipboard && passwords.length > 0) {
+          clipboardSuccess = await copyToClipboard(passwords[0]);
+        }
 
-      // Display command learning panel if enabled
-      if (opts.learn) {
-        const equivalentCommand = generateEquivalentCommand(config, opts.preset, opts);
-        displayCommandLearningPanel(equivalentCommand);
+        // Display formatted output
+        displayFormattedOutput(passwords, config, format, {
+          clipboardSuccess,
+          showLearning: opts.learn,
+          showAudit: opts.audit,
+          preset: opts.preset,
+          opts: opts,
+        });
+      } else {
+        // Single password generation (legacy behavior)
+        const password = await this.service.generate(config);
+
+        // Step 4: Handle clipboard copy (CLI-specific I/O)
+        let clipboardSuccess = false;
+        if (opts.clipboard) {
+          clipboardSuccess = await copyToClipboard(password);
+        }
+
+        // Step 5: Render output (CLI-specific presentation)
+        displayPasswordOutput(password, clipboardSuccess, config);
+
+        // Display command learning panel if enabled
+        if (opts.learn) {
+          const equivalentCommand = generateEquivalentCommand(config, opts.preset, opts);
+          displayCommandLearningPanel(equivalentCommand);
+        }
       }
 
       // Display security audit report if enabled
@@ -195,7 +287,7 @@ export class CLIController {
         // Validate and generate via core service
         const validation = this.service.validateConfig(config);
         if (!validation.isValid) {
-          throw new Error(validation.errors.join("; "));
+          throw new Error(validation.errors.join('; '));
         }
 
         const password = await this.service.generate(config);

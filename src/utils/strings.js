@@ -1,7 +1,7 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-import { STRING_ERRORS } from "../errors.js";
+import { STRING_ERRORS } from '../errors.js';
 
 /**
  * Consolidated string transformation utilities.
@@ -17,12 +17,12 @@ import { STRING_ERRORS } from "../errors.js";
  * @throws {TypeError} If the input is not a string.
  */
 export const toCamelCase = (str) => {
-  if (typeof str !== "string") {
+  if (typeof str !== 'string') {
     throw new TypeError(STRING_ERRORS.INPUT_MUST_BE_STRING);
   }
   const words = str.match(/[a-zA-Z0-9]+/g) || [];
   if (words.length === 0) {
-    return "";
+    return '';
   }
   let result = words[0].toLowerCase();
   for (let i = 1; i < words.length; i++) {
@@ -50,7 +50,7 @@ export const toCharArray = (str) => [...str];
  */
 export const toCurrency = (n, curr, languageFormat = undefined) =>
   Intl.NumberFormat(languageFormat, {
-    style: "currency",
+    style: 'currency',
     minimumFractionDigits: 2,
     currency: curr,
   }).format(n);
@@ -65,7 +65,7 @@ export const toKebabCase = (str) =>
   str
     .match(/[A-Z]{2,}|[A-Z]?[a-z]+\d*|[A-Z]|\d+/g)
     .map((x) => x.toLowerCase())
-    .join("-");
+    .join('-');
 
 /**
  * Converts a string to snake case.
@@ -75,9 +75,9 @@ export const toKebabCase = (str) =>
  */
 export const toSnakeCase = (str) =>
   str
-    .replace(/^[^A-Za-z\d]*|[^A-Za-z\d]*$/g, "")
-    .replace(/([a-z])([A-Z])/g, (_, a, b) => a + "_" + b.toLowerCase())
-    .replace(/[^A-Za-z\d]+/g, "_")
+    .replace(/^[^A-Za-z\d]*|[^A-Za-z\d]*$/g, '')
+    .replace(/([a-z])([A-Z])/g, (_, a, b) => a + '_' + b.toLowerCase())
+    .replace(/[^A-Za-z\d]+/g, '_')
     .toLowerCase();
 
 /**
@@ -91,4 +91,4 @@ export const toTitleCase = (str) =>
     .toLowerCase()
     .match(/[A-Z]{2,}(?=[A-Z][a-z]|\b)|[A-Z]?[a-z]+|[A-Z]|\d+/g)
     .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
-    .join(" ");
+    .join(' ');

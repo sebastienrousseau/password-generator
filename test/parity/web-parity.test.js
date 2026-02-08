@@ -18,24 +18,27 @@
  * @module parity/web-parity.test
  */
 
-import { expect } from "chai";
-import { describe, it, beforeEach } from "mocha";
-import { createService } from "../../packages/core/src/service.js";
-import { MemoryDictionary, DEFAULT_WORD_LIST } from "../../packages/core/src/ports/DictionaryPort.js";
-import { WebUIController } from "../../src/ui/web/controllers/WebUIController.js";
-import { FormState } from "../../src/ui/web/state/FormState.js";
-import { StateToCoreMapper } from "../../src/ui/web/state/StateToCoreMapper.js";
+import { expect } from 'chai';
+import { describe, it, beforeEach } from 'mocha';
+import { createService } from '../../packages/core/src/service.js';
+import {
+  MemoryDictionary,
+  DEFAULT_WORD_LIST,
+} from '../../packages/core/src/ports/DictionaryPort.js';
+import { WebUIController } from '../../src/ui/web/controllers/WebUIController.js';
+import { FormState } from '../../src/ui/web/state/FormState.js';
+import { StateToCoreMapper } from '../../src/ui/web/state/StateToCoreMapper.js';
 import {
   MockRandomGenerator,
   PARITY_SEEDS,
-} from "../../packages/core/test/parity/MockRandomGenerator.js";
+} from '../../packages/core/test/parity/MockRandomGenerator.js';
 import {
   GENERATION_PARITY_CASES,
   VALIDATION_PARITY_CASES,
   ENTROPY_PARITY_CASES,
-} from "../../packages/core/test/parity/fixtures.js";
+} from '../../packages/core/test/parity/fixtures.js';
 
-describe("Web UI Adapter Parity Tests", () => {
+describe('Web UI Adapter Parity Tests', () => {
   /**
    * Creates a WebUIController with deterministic mock random generator.
    */
@@ -51,10 +54,13 @@ describe("Web UI Adapter Parity Tests", () => {
    */
   function createServiceWithMock(seed = PARITY_SEEDS.PRIMARY) {
     const mockRandom = MockRandomGenerator.withSeed(seed);
-    return createService({}, {
-      randomGenerator: mockRandom,
-      dictionary: new MemoryDictionary(DEFAULT_WORD_LIST),
-    });
+    return createService(
+      {},
+      {
+        randomGenerator: mockRandom,
+        dictionary: new MemoryDictionary(DEFAULT_WORD_LIST),
+      }
+    );
   }
 
   /**
@@ -64,10 +70,13 @@ describe("Web UI Adapter Parity Tests", () => {
     const mockRandom1 = MockRandomGenerator.incrementing(0, 1000);
     const mockRandom2 = MockRandomGenerator.incrementing(0, 1000);
 
-    const service = createService({}, {
-      randomGenerator: mockRandom1,
-      dictionary: new MemoryDictionary(DEFAULT_WORD_LIST),
-    });
+    const service = createService(
+      {},
+      {
+        randomGenerator: mockRandom1,
+        dictionary: new MemoryDictionary(DEFAULT_WORD_LIST),
+      }
+    );
 
     const webController = new WebUIController({
       randomGenerator: mockRandom2,
@@ -81,18 +90,18 @@ describe("Web UI Adapter Parity Tests", () => {
    */
   function configToFormState(config) {
     return new FormState({
-      type: config.type || "",
-      length: config.length !== undefined ? String(config.length) : "",
-      iteration: config.iteration !== undefined ? String(config.iteration) : "",
-      separator: config.separator !== undefined ? config.separator : "-",
+      type: config.type || '',
+      length: config.length !== undefined ? String(config.length) : '',
+      iteration: config.iteration !== undefined ? String(config.iteration) : '',
+      separator: config.separator !== undefined ? config.separator : '-',
     });
   }
 
   // =========================================================================
   // GENERATION PARITY TESTS
   // =========================================================================
-  describe("Generation Parity", () => {
-    describe("direct service comparison", () => {
+  describe('Generation Parity', () => {
+    describe('direct service comparison', () => {
       GENERATION_PARITY_CASES.forEach((testCase) => {
         it(`[${testCase.id}] Web should match core service output`, async () => {
           const { webController, service } = createParityPair();
@@ -111,73 +120,73 @@ describe("Web UI Adapter Parity Tests", () => {
       });
     });
 
-    describe("state mapping parity", () => {
-      it("should map FormState to core config correctly", () => {
+    describe('state mapping parity', () => {
+      it('should map FormState to core config correctly', () => {
         const mapper = new StateToCoreMapper();
 
         const formState = new FormState({
-          type: "strong",
-          length: "16",
-          iteration: "4",
-          separator: "-",
+          type: 'strong',
+          length: '16',
+          iteration: '4',
+          separator: '-',
         });
 
         const config = mapper.toConfig(formState);
 
         expect(config).to.deep.equal({
-          type: "strong",
+          type: 'strong',
           length: 16,
           iteration: 4,
-          separator: "-",
+          separator: '-',
         });
       });
 
-      it("should handle string to number conversion correctly", () => {
+      it('should handle string to number conversion correctly', () => {
         const mapper = new StateToCoreMapper();
 
         const formState = new FormState({
-          type: "base64",
-          length: "32",
-          iteration: "2",
-          separator: "/",
+          type: 'base64',
+          length: '32',
+          iteration: '2',
+          separator: '/',
         });
 
         const config = mapper.toConfig(formState);
 
         expect(config.length).to.equal(32);
-        expect(config.length).to.be.a("number");
+        expect(config.length).to.be.a('number');
         expect(config.iteration).to.equal(2);
-        expect(config.iteration).to.be.a("number");
+        expect(config.iteration).to.be.a('number');
       });
 
-      it("should handle empty values correctly", () => {
+      it('should handle empty values correctly', () => {
         const mapper = new StateToCoreMapper();
 
         const formState = new FormState({
-          type: "memorable",
-          length: "",
-          iteration: "4",
-          separator: "-",
+          type: 'memorable',
+          length: '',
+          iteration: '4',
+          separator: '-',
         });
 
         const config = mapper.toConfig(formState);
 
-        expect(config.type).to.equal("memorable");
+        expect(config.type).to.equal('memorable');
         expect(config.length).to.be.undefined;
         expect(config.iteration).to.equal(4);
       });
     });
 
-    describe("deterministic generation", () => {
-      it("should produce identical passwords on repeated runs with same seed", async () => {
+    describe('deterministic generation', () => {
+      it('should produce identical passwords on repeated runs with same seed', async () => {
         const web1 = createWebControllerWithMock(PARITY_SEEDS.PRIMARY);
         const web2 = createWebControllerWithMock(PARITY_SEEDS.PRIMARY);
 
         const formState = configToFormState({
-          type: "strong",
+          type: 'strong',
           length: 16,
           iteration: 4,
-          separator: "-",
+          separator: '-',
         });
 
         const result1 = await web1.generate(formState);
@@ -186,15 +195,15 @@ describe("Web UI Adapter Parity Tests", () => {
         expect(result1.password).to.equal(result2.password);
       });
 
-      it("should produce different passwords with different seeds", async () => {
+      it('should produce different passwords with different seeds', async () => {
         const web1 = createWebControllerWithMock(PARITY_SEEDS.PRIMARY);
         const web2 = createWebControllerWithMock(PARITY_SEEDS.SECONDARY);
 
         const formState = configToFormState({
-          type: "strong",
+          type: 'strong',
           length: 16,
           iteration: 1,
-          separator: "-",
+          separator: '-',
         });
 
         const result1 = await web1.generate(formState);
@@ -208,8 +217,8 @@ describe("Web UI Adapter Parity Tests", () => {
   // =========================================================================
   // VALIDATION PARITY TESTS
   // =========================================================================
-  describe("Validation Parity", () => {
-    describe("direct service comparison", () => {
+  describe('Validation Parity', () => {
+    describe('direct service comparison', () => {
       VALIDATION_PARITY_CASES.forEach((testCase) => {
         it(`[${testCase.id}] Web should match core validation result`, () => {
           const { webController, service } = createParityPair();
@@ -228,26 +237,26 @@ describe("Web UI Adapter Parity Tests", () => {
       });
     });
 
-    describe("validation delegation", () => {
-      it("should delegate all validation to core service", () => {
+    describe('validation delegation', () => {
+      it('should delegate all validation to core service', () => {
         const webController = createWebControllerWithMock();
 
-        const formState = configToFormState({ type: "unknown" });
+        const formState = configToFormState({ type: 'unknown' });
         const result = webController.validate(formState);
 
         expect(result.isValid).to.be.false;
       });
 
-      it("should not add Web-specific validation", () => {
+      it('should not add Web-specific validation', () => {
         const webController = createWebControllerWithMock();
         const service = createServiceWithMock();
 
         // Any validation should be identical (in terms of isValid)
         const configs = [
-          { type: "strong", length: 16, iteration: 1 },
-          { type: "base64", length: 32, iteration: 2 },
-          { type: "memorable", iteration: 4 },
-          { type: "invalid" },
+          { type: 'strong', length: 16, iteration: 1 },
+          { type: 'base64', length: 32, iteration: 2 },
+          { type: 'memorable', iteration: 4 },
+          { type: 'invalid' },
         ];
 
         configs.forEach((config) => {
@@ -260,12 +269,12 @@ describe("Web UI Adapter Parity Tests", () => {
       });
     });
 
-    describe("ValidationViewModel transformation", () => {
-      it("should transform validation result to view model", () => {
+    describe('ValidationViewModel transformation', () => {
+      it('should transform validation result to view model', () => {
         const webController = createWebControllerWithMock();
 
         const formState = configToFormState({
-          type: "strong",
+          type: 'strong',
           length: 16,
           iteration: 4,
         });
@@ -273,8 +282,8 @@ describe("Web UI Adapter Parity Tests", () => {
         const result = webController.validate(formState);
 
         // Should have view model properties
-        expect(result).to.have.property("isValid");
-        expect(result).to.have.property("errors");
+        expect(result).to.have.property('isValid');
+        expect(result).to.have.property('errors');
         expect(result.isValid).to.be.true;
       });
     });
@@ -283,8 +292,8 @@ describe("Web UI Adapter Parity Tests", () => {
   // =========================================================================
   // ENTROPY PARITY TESTS
   // =========================================================================
-  describe("Entropy Parity", () => {
-    describe("direct service comparison", () => {
+  describe('Entropy Parity', () => {
+    describe('direct service comparison', () => {
       ENTROPY_PARITY_CASES.forEach((testCase) => {
         it(`[${testCase.id}] Web should match core entropy calculation`, () => {
           const { webController, service } = createParityPair();
@@ -298,12 +307,12 @@ describe("Web UI Adapter Parity Tests", () => {
       });
     });
 
-    describe("EntropyViewModel transformation", () => {
-      it("should transform entropy result to view model", () => {
+    describe('EntropyViewModel transformation', () => {
+      it('should transform entropy result to view model', () => {
         const webController = createWebControllerWithMock();
 
         const formState = configToFormState({
-          type: "strong",
+          type: 'strong',
           length: 16,
           iteration: 4,
         });
@@ -311,7 +320,7 @@ describe("Web UI Adapter Parity Tests", () => {
         const result = webController.calculateEntropy(formState);
 
         // Should have view model properties
-        expect(result).to.have.property("totalBits");
+        expect(result).to.have.property('totalBits');
         expect(result.totalBits).to.equal(384);
       });
     });
@@ -320,19 +329,19 @@ describe("Web UI Adapter Parity Tests", () => {
   // =========================================================================
   // THIN ADAPTER CONTRACT TESTS
   // =========================================================================
-  describe("Thin Adapter Contract", () => {
-    it("should expose the same service interface", () => {
+  describe('Thin Adapter Contract', () => {
+    it('should expose the same service interface', () => {
       const webController = createWebControllerWithMock();
       const service = webController.getService();
 
       // Verify service has expected methods
-      expect(service.generate).to.be.a("function");
-      expect(service.validateConfig).to.be.a("function");
-      expect(service.calculateEntropy).to.be.a("function");
-      expect(service.getSupportedTypes).to.be.a("function");
+      expect(service.generate).to.be.a('function');
+      expect(service.validateConfig).to.be.a('function');
+      expect(service.calculateEntropy).to.be.a('function');
+      expect(service.getSupportedTypes).to.be.a('function');
     });
 
-    it("should return same supported types as core", () => {
+    it('should return same supported types as core', () => {
       const webController = createWebControllerWithMock();
       const service = createServiceWithMock();
 
@@ -342,17 +351,17 @@ describe("Web UI Adapter Parity Tests", () => {
       expect(webTypes).to.deep.equal(serviceTypes);
     });
 
-    it("should use injected random generator", async () => {
+    it('should use injected random generator', async () => {
       const mockRandom = MockRandomGenerator.withSeed(PARITY_SEEDS.PRIMARY);
       const webController = new WebUIController({
         randomGenerator: mockRandom,
       });
 
       const formState = configToFormState({
-        type: "strong",
+        type: 'strong',
         length: 8,
         iteration: 1,
-        separator: "-",
+        separator: '-',
       });
 
       await webController.generate(formState);
@@ -361,7 +370,7 @@ describe("Web UI Adapter Parity Tests", () => {
       expect(mockRandom.getCallCounts().generateRandomInt).to.be.greaterThan(0);
     });
 
-    it("should provide mapper for state transformation", () => {
+    it('should provide mapper for state transformation', () => {
       const webController = createWebControllerWithMock();
       const mapper = webController.getMapper();
 
@@ -372,15 +381,15 @@ describe("Web UI Adapter Parity Tests", () => {
   // =========================================================================
   // FORM STATE ROUND-TRIP TESTS
   // =========================================================================
-  describe("Form State Round-Trip", () => {
-    it("should preserve config through FormState transformation", () => {
+  describe('Form State Round-Trip', () => {
+    it('should preserve config through FormState transformation', () => {
       const mapper = new StateToCoreMapper();
 
       const originalConfig = {
-        type: "strong",
+        type: 'strong',
         length: 16,
         iteration: 4,
-        separator: "-",
+        separator: '-',
       };
 
       // Config -> FormState -> Config
@@ -390,13 +399,13 @@ describe("Web UI Adapter Parity Tests", () => {
       expect(recoveredConfig).to.deep.equal(originalConfig);
     });
 
-    it("should handle all password types in round-trip", () => {
+    it('should handle all password types in round-trip', () => {
       const mapper = new StateToCoreMapper();
 
       const configs = [
-        { type: "strong", length: 16, iteration: 4, separator: "-" },
-        { type: "base64", length: 32, iteration: 2, separator: "/" },
-        { type: "memorable", iteration: 4, separator: "_" },
+        { type: 'strong', length: 16, iteration: 4, separator: '-' },
+        { type: 'base64', length: 32, iteration: 2, separator: '/' },
+        { type: 'memorable', iteration: 4, separator: '_' },
       ];
 
       configs.forEach((config) => {
@@ -416,30 +425,30 @@ describe("Web UI Adapter Parity Tests", () => {
   // =========================================================================
   // ERROR HANDLING PARITY
   // =========================================================================
-  describe("Error Handling Parity", () => {
-    it("should throw errors for invalid configurations", async () => {
+  describe('Error Handling Parity', () => {
+    it('should throw errors for invalid configurations', async () => {
       const webController = createWebControllerWithMock();
 
-      const formState = configToFormState({ type: "invalid" });
+      const formState = configToFormState({ type: 'invalid' });
 
       try {
         await webController.generate(formState);
-        expect.fail("Should have thrown");
+        expect.fail('Should have thrown');
       } catch (error) {
-        expect(error.message).to.include("Unknown password type");
+        expect(error.message).to.include('Unknown password type');
       }
     });
 
-    it("should validate before generating", async () => {
+    it('should validate before generating', async () => {
       const webController = createWebControllerWithMock();
 
-      const formState = configToFormState({ type: "strong", length: 0 });
+      const formState = configToFormState({ type: 'strong', length: 0 });
 
       try {
         await webController.generate(formState);
-        expect.fail("Should have thrown");
+        expect.fail('Should have thrown');
       } catch (error) {
-        expect(error.message).to.include("Length");
+        expect(error.message).to.include('Length');
       }
     });
   });
@@ -447,39 +456,39 @@ describe("Web UI Adapter Parity Tests", () => {
   // =========================================================================
   // PASSWORD VIEW MODEL TESTS
   // =========================================================================
-  describe("PasswordViewModel", () => {
-    it("should include password in view model", async () => {
+  describe('PasswordViewModel', () => {
+    it('should include password in view model', async () => {
       const webController = createWebControllerWithMock();
 
       const formState = configToFormState({
-        type: "strong",
+        type: 'strong',
         length: 16,
         iteration: 4,
-        separator: "-",
+        separator: '-',
       });
 
       const result = await webController.generate(formState);
 
-      expect(result).to.have.property("password");
-      expect(result.password).to.be.a("string");
+      expect(result).to.have.property('password');
+      expect(result.password).to.be.a('string');
       expect(result.password.length).to.be.greaterThan(0);
     });
 
-    it("should include entropy info in view model", async () => {
+    it('should include entropy info in view model', async () => {
       const webController = createWebControllerWithMock();
 
       const formState = configToFormState({
-        type: "strong",
+        type: 'strong',
         length: 16,
         iteration: 4,
-        separator: "-",
+        separator: '-',
       });
 
       const result = await webController.generate(formState);
 
       // PasswordViewModel transforms entropyInfo into entropyBits and securityLevel
-      expect(result).to.have.property("entropyBits");
-      expect(result).to.have.property("securityLevel");
+      expect(result).to.have.property('entropyBits');
+      expect(result).to.have.property('securityLevel');
       expect(result.entropyBits).to.equal(384); // 16 * 4 * 6 bits
     });
   });

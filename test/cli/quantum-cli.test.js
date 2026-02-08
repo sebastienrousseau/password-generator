@@ -23,7 +23,7 @@ function runCLI(args) {
   return new Promise((resolve) => {
     const child = spawn('node', [CLI_PATH, ...args], {
       stdio: 'pipe',
-      timeout: 5000
+      timeout: 5000,
     });
 
     let stdout = '';
@@ -41,7 +41,7 @@ function runCLI(args) {
       resolve({
         stdout,
         stderr,
-        exitCode: code || 0
+        exitCode: code || 0,
       });
     });
 
@@ -49,17 +49,15 @@ function runCLI(args) {
       resolve({
         stdout,
         stderr: stderr + error.message,
-        exitCode: 1
+        exitCode: 1,
       });
     });
   });
 }
 
 describe('CLI Quantum-Resistant Integration', () => {
-
   describe('Quantum Preset Flag (-p quantum)', () => {
-
-    it('should accept -p quantum flag', async function() {
+    it('should accept -p quantum flag', async function () {
       this.timeout(TIMEOUT);
 
       const result = await runCLI(['-p', 'quantum']);
@@ -68,7 +66,7 @@ describe('CLI Quantum-Resistant Integration', () => {
       expect(result.stdout).to.not.be.empty;
     });
 
-    it('should generate high-entropy password with quantum preset', async function() {
+    it('should generate high-entropy password with quantum preset', async function () {
       this.timeout(TIMEOUT);
 
       const result = await runCLI(['-p', 'quantum']);
@@ -80,8 +78,7 @@ describe('CLI Quantum-Resistant Integration', () => {
   });
 
   describe('Quantum-Resistant Type (-t quantum-resistant)', () => {
-
-    it('should accept -t quantum-resistant flag', async function() {
+    it('should accept -t quantum-resistant flag', async function () {
       this.timeout(TIMEOUT);
 
       const result = await runCLI(['-t', 'quantum-resistant', '-l', '43', '-i', '2', '-s', '-']);
@@ -90,7 +87,7 @@ describe('CLI Quantum-Resistant Integration', () => {
       expect(result.stdout).to.not.be.empty;
     });
 
-    it('should generate high-entropy password with quantum-resistant type', async function() {
+    it('should generate high-entropy password with quantum-resistant type', async function () {
       this.timeout(TIMEOUT);
 
       const result = await runCLI(['-t', 'quantum-resistant', '-l', '50', '-i', '1', '-s', '']);
@@ -100,7 +97,7 @@ describe('CLI Quantum-Resistant Integration', () => {
       expect(result.stdout).to.match(/[A-Za-z0-9+/]{50,}/);
     });
 
-    it('should reject length below minimum for quantum-resistant', async function() {
+    it('should reject length below minimum for quantum-resistant', async function () {
       this.timeout(TIMEOUT);
 
       const result = await runCLI(['-t', 'quantum-resistant', '-l', '20', '-i', '1', '-s', '']);
@@ -111,8 +108,7 @@ describe('CLI Quantum-Resistant Integration', () => {
   });
 
   describe('Quantum with Audit Mode', () => {
-
-    it('should show audit report with quantum preset', async function() {
+    it('should show audit report with quantum preset', async function () {
       this.timeout(TIMEOUT);
 
       const result = await runCLI(['-p', 'quantum', '-a']);
@@ -121,10 +117,20 @@ describe('CLI Quantum-Resistant Integration', () => {
       expect(result.stdout).to.include('security audit');
     });
 
-    it('should show entropy information in audit mode', async function() {
+    it('should show entropy information in audit mode', async function () {
       this.timeout(TIMEOUT);
 
-      const result = await runCLI(['-t', 'quantum-resistant', '-l', '44', '-i', '1', '-s', '', '-a']);
+      const result = await runCLI([
+        '-t',
+        'quantum-resistant',
+        '-l',
+        '44',
+        '-i',
+        '1',
+        '-s',
+        '',
+        '-a',
+      ]);
 
       expect(result.exitCode).to.equal(0);
       // Entropy is shown as "XXX-bit" in the output
@@ -133,8 +139,7 @@ describe('CLI Quantum-Resistant Integration', () => {
   });
 
   describe('Quantum with Learn Mode', () => {
-
-    it('should show equivalent command in learn mode', async function() {
+    it('should show equivalent command in learn mode', async function () {
       this.timeout(TIMEOUT);
 
       const result = await runCLI(['-p', 'quantum', '--learn']);
@@ -145,8 +150,7 @@ describe('CLI Quantum-Resistant Integration', () => {
   });
 
   describe('Quantum with Clipboard', () => {
-
-    it('should copy quantum password to clipboard', async function() {
+    it('should copy quantum password to clipboard', async function () {
       // Skip in CI environments where clipboard may not be available
       if (process.env.CI) {
         this.skip();
@@ -168,8 +172,7 @@ describe('CLI Quantum-Resistant Integration', () => {
   });
 
   describe('Output Consistency', () => {
-
-    it('should produce consistent output format', async function() {
+    it('should produce consistent output format', async function () {
       this.timeout(TIMEOUT);
 
       const results = [];
@@ -179,14 +182,14 @@ describe('CLI Quantum-Resistant Integration', () => {
         results.push(result.stdout);
       }
 
-      // All should show strength indicator
-      results.forEach(output => {
-        expect(output).to.match(/●/);
+      // All should show strength indicator (Unicode or ASCII fallback)
+      results.forEach((output) => {
+        expect(output).to.match(/[●@○o]/);
         expect(output).to.match(/\d+-bit/);
       });
     });
 
-    it('should respect separator parameter', async function() {
+    it('should respect separator parameter', async function () {
       this.timeout(TIMEOUT);
 
       const result = await runCLI(['-t', 'quantum-resistant', '-l', '43', '-i', '2', '-s', '@']);

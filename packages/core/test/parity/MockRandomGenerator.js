@@ -16,7 +16,7 @@
  * @module parity/MockRandomGenerator
  */
 
-import { RandomGeneratorPort } from "../../src/ports/RandomGeneratorPort.js";
+import { RandomGeneratorPort } from '../../src/ports/RandomGeneratorPort.js';
 
 /**
  * Seeded random number generator constants (LCG parameters).
@@ -47,12 +47,12 @@ export class MockRandomGenerator extends RandomGeneratorPort {
 
     if (options.sequence !== undefined) {
       // Mode 1: Predefined sequence (cycles through values)
-      this.mode = "sequence";
+      this.mode = 'sequence';
       this.sequence = options.sequence;
       this.sequenceIndex = 0;
     } else {
       // Mode 2: Seeded LCG
-      this.mode = "seeded";
+      this.mode = 'seeded';
       this.seed = options.seed ?? 12345;
       this.state = this.seed;
     }
@@ -84,7 +84,7 @@ export class MockRandomGenerator extends RandomGeneratorPort {
    * @private
    */
   _nextValue() {
-    if (this.mode === "sequence") {
+    if (this.mode === 'sequence') {
       const value = this.sequence[this.sequenceIndex];
       this.sequenceIndex = (this.sequenceIndex + 1) % this.sequence.length;
       return value;
@@ -97,7 +97,7 @@ export class MockRandomGenerator extends RandomGeneratorPort {
    * Useful for re-running tests with the same sequence.
    */
   reset() {
-    if (this.mode === "sequence") {
+    if (this.mode === 'sequence') {
       this.sequenceIndex = 0;
     } else {
       this.state = this.seed;
@@ -119,7 +119,7 @@ export class MockRandomGenerator extends RandomGeneratorPort {
    */
   async generateRandomInt(max) {
     if (!Number.isInteger(max) || max < 1) {
-      throw new RangeError("max must be a positive integer");
+      throw new RangeError('max must be a positive integer');
     }
 
     this.callCounts.generateRandomInt++;
@@ -141,7 +141,7 @@ export class MockRandomGenerator extends RandomGeneratorPort {
    */
   async generateRandomBytes(byteLength) {
     if (!Number.isInteger(byteLength) || byteLength < 1) {
-      throw new RangeError("byteLength must be a positive integer");
+      throw new RangeError('byteLength must be a positive integer');
     }
 
     this.callCounts.generateRandomBytes++;
@@ -164,8 +164,8 @@ export class MockRandomGenerator extends RandomGeneratorPort {
 
     const bytes = await this.generateRandomBytes(byteLength);
     // Platform-independent Base64 encoding
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-    let result = "";
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+    let result = '';
     for (let i = 0; i < bytes.length; i += 3) {
       const b1 = bytes[i];
       const b2 = bytes[i + 1] || 0;
@@ -192,15 +192,15 @@ export class MockRandomGenerator extends RandomGeneratorPort {
    */
   async generateRandomString(length, charset) {
     if (!Number.isInteger(length) || length < 1) {
-      throw new RangeError("length must be a positive integer");
+      throw new RangeError('length must be a positive integer');
     }
     if (!charset || charset.length === 0) {
-      throw new RangeError("charset must not be empty");
+      throw new RangeError('charset must not be empty');
     }
 
     this.callCounts.generateRandomString++;
 
-    let result = "";
+    let result = '';
     for (let i = 0; i < length; i++) {
       const index = await this.generateRandomInt(charset.length);
       result += charset[index];

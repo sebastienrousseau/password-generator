@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -8,7 +8,7 @@
  * No business logic - pure data transformation.
  */
 
-import { FormState } from "./FormState.js";
+import { FormState } from './FormState.js';
 
 /**
  * Mapper between UI FormState and core configuration objects.
@@ -34,16 +34,16 @@ export class StateToCoreMapper {
     }
 
     // Handle quantum-resistant type specially - it has fixed parameters
-    if (config.type === "quantum-resistant") {
+    if (config.type === 'quantum-resistant') {
       // Quantum passwords require length >= 32 for 256-bit entropy
       config.length = 43; // Default for ~258 bits of entropy
       config.iteration = 1;
-      config.separator = "";
+      config.separator = '';
       return config;
     }
 
     // Length: optional, parse to integer
-    if (formState.length !== "" && formState.length !== undefined) {
+    if (formState.length !== '' && formState.length !== undefined) {
       const parsed = parseInt(formState.length, 10);
       if (!isNaN(parsed)) {
         config.length = parsed;
@@ -51,7 +51,7 @@ export class StateToCoreMapper {
     }
 
     // Iteration: optional, parse to integer
-    if (formState.iteration !== "" && formState.iteration !== undefined) {
+    if (formState.iteration !== '' && formState.iteration !== undefined) {
       const parsed = parseInt(formState.iteration, 10);
       if (!isNaN(parsed)) {
         config.iteration = parsed;
@@ -75,10 +75,10 @@ export class StateToCoreMapper {
    */
   toFormState(config) {
     return new FormState({
-      type: config.type ?? "",
-      length: config.length !== undefined ? String(config.length) : "",
-      iteration: config.iteration !== undefined ? String(config.iteration) : "",
-      separator: config.separator ?? "-",
+      type: config.type ?? '',
+      length: config.length !== undefined ? String(config.length) : '',
+      iteration: config.iteration !== undefined ? String(config.iteration) : '',
+      separator: config.separator ?? '-',
     });
   }
 

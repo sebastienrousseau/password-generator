@@ -1,8 +1,8 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
- * Password Generator Core Package
+ * JavaScript Password Generator (jspassgen) Core Package
  *
  * This package provides platform-agnostic password generation logic.
  * It has zero dependencies on Node.js, browser, or any platform-specific APIs.
@@ -28,13 +28,13 @@
  */
 
 // Main service factory
-export { createService, createQuickService } from "./service.js";
+export { createService, createQuickService } from './service.js';
 
 // Error messages
-export { CRYPTO_ERRORS, PASSWORD_ERRORS, PORT_ERRORS } from "./errors.js";
+export { CRYPTO_ERRORS, PASSWORD_ERRORS, PORT_ERRORS } from './errors.js';
 
 // Domain exports
-export * from "./domain/index.js";
+export * from './domain/index.js';
 
 // Port interfaces
 export {
@@ -50,7 +50,7 @@ export {
   DEFAULT_WORD_LIST,
   validatePorts,
   PORT_SCHEMA,
-} from "./ports/index.js";
+} from './ports/index.js';
 
 // Generator exports
 export {
@@ -62,9 +62,12 @@ export {
   generateMemorablePassword,
   generatePassphrase,
   generateQuantumPassword,
+  generateHoneywordSet,
+  generateHoneywordPassword,
   calculateStrongPasswordEntropy,
   calculateBase64PasswordEntropy,
   calculateMemorablePasswordEntropy,
   calculateQuantumPasswordEntropy,
+  calculateHoneywordPasswordEntropy,
   validateQuantumSecurity,
-} from "./generators/index.js";
+} from './generators/index.js';

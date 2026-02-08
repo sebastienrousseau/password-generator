@@ -2,8 +2,8 @@ import { exec } from 'child_process';
 import { expect, assert } from 'chai';
 
 // mocha() test
-describe("Running mocha () ", function () {
-  it("should run mocha", function () {
+describe('Running mocha () ', function () {
+  it('should run mocha', function () {
     expect(true).to.be.true;
   });
 });

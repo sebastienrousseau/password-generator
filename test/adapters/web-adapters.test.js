@@ -1,8 +1,8 @@
 // Copyright © 2022-2024 Password Generator. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-import { expect } from "chai";
-import { describe, it, beforeEach } from "mocha";
+import { expect } from 'chai';
+import { describe, it, beforeEach } from 'mocha';
 
 // Mock Web Crypto API for Node.js test environment
 if (typeof global !== 'undefined' && !global.crypto) {
@@ -23,34 +23,36 @@ if (typeof global !== 'undefined' && !global.localStorage) {
     setItem: (key, value) => storage.set(key, value),
     removeItem: (key) => storage.delete(key),
     clear: () => storage.clear(),
-    get length() { return storage.size; },
+    get length() {
+      return storage.size;
+    },
     key: (index) => [...storage.keys()][index] || null,
   };
 }
 
-describe("Web Adapters", () => {
-  describe("WebCryptoRandom", () => {
+describe('Web Adapters', () => {
+  describe('WebCryptoRandom', () => {
     let WebCryptoRandom;
 
     beforeEach(async () => {
-      const module = await import("../../src/adapters/web/WebCryptoRandom.js");
+      const module = await import('../../src/adapters/web/WebCryptoRandom.js');
       WebCryptoRandom = module.default;
     });
 
-    describe("randomBytes", () => {
-      it("should generate random bytes of correct length", () => {
+    describe('randomBytes', () => {
+      it('should generate random bytes of correct length', () => {
         const bytes = WebCryptoRandom.randomBytes(16);
         expect(bytes).to.be.instanceOf(Uint8Array);
         expect(bytes.length).to.equal(16);
       });
 
-      it("should throw error for invalid size", () => {
+      it('should throw error for invalid size', () => {
         expect(() => WebCryptoRandom.randomBytes(0)).to.throw(RangeError);
         expect(() => WebCryptoRandom.randomBytes(-1)).to.throw(RangeError);
-        expect(() => WebCryptoRandom.randomBytes("invalid")).to.throw(RangeError);
+        expect(() => WebCryptoRandom.randomBytes('invalid')).to.throw(RangeError);
       });
 
-      it("should generate different values on multiple calls", () => {
+      it('should generate different values on multiple calls', () => {
         const bytes1 = WebCryptoRandom.randomBytes(16);
         const bytes2 = WebCryptoRandom.randomBytes(16);
 
@@ -62,8 +64,8 @@ describe("Web Adapters", () => {
       });
     });
 
-    describe("randomInt", () => {
-      it("should generate random integer within bounds", () => {
+    describe('randomInt', () => {
+      it('should generate random integer within bounds', () => {
         for (let i = 0; i < 100; i++) {
           const value = WebCryptoRandom.randomInt(10);
           expect(value).to.be.a('number');
@@ -73,13 +75,13 @@ describe("Web Adapters", () => {
         }
       });
 
-      it("should throw error for invalid max", () => {
+      it('should throw error for invalid max', () => {
         expect(() => WebCryptoRandom.randomInt(0)).to.throw(RangeError);
         expect(() => WebCryptoRandom.randomInt(-1)).to.throw(RangeError);
-        expect(() => WebCryptoRandom.randomInt("invalid")).to.throw(RangeError);
+        expect(() => WebCryptoRandom.randomInt('invalid')).to.throw(RangeError);
       });
 
-      it("should generate values across the full range", () => {
+      it('should generate values across the full range', () => {
         const values = new Set();
         const max = 4;
 
@@ -93,15 +95,15 @@ describe("Web Adapters", () => {
       });
     });
 
-    describe("bytesToBase64", () => {
-      it("should convert bytes to base64 string", () => {
+    describe('bytesToBase64', () => {
+      it('should convert bytes to base64 string', () => {
         const bytes = new Uint8Array([72, 101, 108, 108, 111]); // "Hello"
         const base64 = WebCryptoRandom.bytesToBase64(bytes);
         expect(base64).to.be.a('string');
         expect(base64).to.equal('SGVsbG8=');
       });
 
-      it("should handle empty array", () => {
+      it('should handle empty array', () => {
         const bytes = new Uint8Array([]);
         const base64 = WebCryptoRandom.bytesToBase64(bytes);
         expect(base64).to.equal('');
@@ -109,62 +111,62 @@ describe("Web Adapters", () => {
     });
   });
 
-  describe("WebConsoleLogger", () => {
+  describe('WebConsoleLogger', () => {
     let WebConsoleLogger, logger;
 
     beforeEach(async () => {
-      const module = await import("../../src/adapters/web/WebConsoleLogger.js");
+      const module = await import('../../src/adapters/web/WebConsoleLogger.js');
       WebConsoleLogger = module.WebConsoleLogger;
       logger = module.logger;
     });
 
-    it("should create logger instance with default config", () => {
+    it('should create logger instance with default config', () => {
       const customLogger = new WebConsoleLogger();
       expect(customLogger.config.enabled).to.be.true;
       expect(customLogger.config.timestamp).to.be.true;
     });
 
-    it("should create logger with custom config", () => {
+    it('should create logger with custom config', () => {
       const customLogger = new WebConsoleLogger({
         enabled: false,
-        prefix: 'TestApp'
+        prefix: 'TestApp',
       });
       expect(customLogger.config.enabled).to.be.false;
       expect(customLogger.config.prefix).to.equal('TestApp');
     });
 
-    it("should format messages correctly", () => {
+    it('should format messages correctly', () => {
       const customLogger = new WebConsoleLogger({ timestamp: false, prefix: 'Test' });
       const formatted = customLogger._formatMessage('INFO', 'test message');
       expect(formatted).to.equal('[Test] INFO: test message');
     });
 
-    it("should respect log levels", () => {
+    it('should respect log levels', () => {
       const customLogger = new WebConsoleLogger({
         level: 2, // WARN
-        enabled: true
+        enabled: true,
       });
 
       expect(customLogger._shouldLog(0)).to.be.false; // DEBUG
       expect(customLogger._shouldLog(1)).to.be.false; // INFO
-      expect(customLogger._shouldLog(2)).to.be.true;  // WARN
-      expect(customLogger._shouldLog(3)).to.be.true;  // ERROR
+      expect(customLogger._shouldLog(2)).to.be.true; // WARN
+      expect(customLogger._shouldLog(3)).to.be.true; // ERROR
     });
   });
 
-  describe("WebLocalStorage", () => {
+  describe('WebLocalStorage', () => {
     let WebLocalStorage, storage;
 
     beforeEach(async () => {
       // Clear localStorage before each test
       localStorage.clear();
 
-      const module = await import("../../src/adapters/web/WebLocalStorage.js");
+      const module = await import('../../src/adapters/web/WebLocalStorage.js');
       WebLocalStorage = module.WebLocalStorage;
       storage = new WebLocalStorage({ prefix: 'test_' });
     });
 
-    it("should store and retrieve data", () => {
+    it('should store and retrieve data', () => {
       const testData = { key: 'value', number: 42 };
 
       const stored = storage.setItem('test_key', testData);
@@ -174,12 +176,12 @@ describe("Web Adapters", () => {
       expect(retrieved).to.deep.equal(testData);
     });
 
-    it("should return default value for non-existent keys", () => {
+    it('should return default value for non-existent keys', () => {
       const result = storage.getItem('non_existent', 'default');
       expect(result).to.equal('default');
     });
 
-    it("should remove items correctly", () => {
+    it('should remove items correctly', () => {
       storage.setItem('remove_me', 'test');
       expect(storage.hasItem('remove_me')).to.be.true;
 
@@ -188,7 +190,7 @@ describe("Web Adapters", () => {
       expect(storage.hasItem('remove_me')).to.be.false;
     });
 
-    it("should clear all prefixed items", () => {
+    it('should clear all prefixed items', () => {
       storage.setItem('item1', 'value1');
       storage.setItem('item2', 'value2');
 
@@ -200,7 +202,7 @@ describe("Web Adapters", () => {
       expect(storage.getAllKeys()).to.be.empty;
     });
 
-    it("should handle serialization errors gracefully", () => {
+    it('should handle serialization errors gracefully', () => {
       // Create a circular reference that can't be serialized
       const circular = {};
       circular.self = circular;
@@ -209,7 +211,7 @@ describe("Web Adapters", () => {
       expect(stored).to.be.false;
     });
 
-    it("should provide usage information", () => {
+    it('should provide usage information', () => {
       storage.setItem('usage_test', 'some data');
 
       const usage = storage.getUsageInfo();

@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -10,8 +10,8 @@
  * @module NodeCryptoRandom
  */
 
-import { randomBytes, randomInt } from "crypto";
-import { RandomGeneratorPort } from "../../../packages/core/src/ports/index.js";
+import { randomBytes, randomInt } from 'crypto';
+import { RandomGeneratorPort } from '../../../packages/core/src/ports/index.js';
 
 /**
  * Node.js implementation of RandomGeneratorPort using the crypto module.
@@ -26,7 +26,7 @@ export class NodeCryptoRandom extends RandomGeneratorPort {
    */
   async generateRandomBytes(byteLength) {
     if (!Number.isInteger(byteLength) || byteLength < 1) {
-      throw new RangeError("byteLength must be a positive integer");
+      throw new RangeError('byteLength must be a positive integer');
     }
     return new Uint8Array(randomBytes(byteLength));
   }
@@ -40,7 +40,7 @@ export class NodeCryptoRandom extends RandomGeneratorPort {
    */
   async generateRandomInt(max) {
     if (!Number.isInteger(max) || max < 1) {
-      throw new RangeError("max must be a positive integer");
+      throw new RangeError('max must be a positive integer');
     }
     return randomInt(max);
   }
@@ -54,9 +54,9 @@ export class NodeCryptoRandom extends RandomGeneratorPort {
    */
   async generateRandomBase64(byteLength) {
     if (!Number.isInteger(byteLength) || byteLength < 1) {
-      throw new RangeError("byteLength must be a positive integer");
+      throw new RangeError('byteLength must be a positive integer');
     }
-    return randomBytes(byteLength).toString("base64");
+    return randomBytes(byteLength).toString('base64');
   }
 
   /**
@@ -70,13 +70,13 @@ export class NodeCryptoRandom extends RandomGeneratorPort {
    */
   async generateRandomString(length, charset) {
     if (!Number.isInteger(length) || length < 1) {
-      throw new RangeError("length must be a positive integer");
+      throw new RangeError('length must be a positive integer');
     }
     if (!charset || charset.length === 0) {
-      throw new RangeError("charset must not be empty");
+      throw new RangeError('charset must not be empty');
     }
 
-    let result = "";
+    let result = '';
     for (let i = 0; i < length; i++) {
       const index = randomInt(charset.length);
       result += charset[index];

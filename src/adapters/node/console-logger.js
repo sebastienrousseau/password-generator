@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -9,7 +9,7 @@
  * @module NodeConsoleLogger
  */
 
-import { LoggerPort } from "../../../packages/core/src/ports/index.js";
+import { LoggerPort } from '../../../packages/core/src/ports/index.js';
 
 /**
  * Log level enum for filtering messages.
@@ -38,7 +38,7 @@ export class NodeConsoleLogger extends LoggerPort {
     super();
     this.level = options.level ?? LogLevel.INFO;
     this.timestamps = options.timestamps ?? false;
-    this.prefix = options.prefix ?? "";
+    this.prefix = options.prefix ?? '';
   }
 
   /**
@@ -64,7 +64,7 @@ export class NodeConsoleLogger extends LoggerPort {
 
     parts.push(message);
 
-    return parts.join(" ");
+    return parts.join(' ');
   }
 
   /**
@@ -75,7 +75,7 @@ export class NodeConsoleLogger extends LoggerPort {
    */
   debug(message, metadata = {}) {
     if (this.level <= LogLevel.DEBUG) {
-      const formatted = this._format("DEBUG", message);
+      const formatted = this._format('DEBUG', message);
       if (Object.keys(metadata).length > 0) {
         console.debug(formatted, metadata);
       } else {
@@ -92,7 +92,7 @@ export class NodeConsoleLogger extends LoggerPort {
    */
   info(message, metadata = {}) {
     if (this.level <= LogLevel.INFO) {
-      const formatted = this._format("INFO", message);
+      const formatted = this._format('INFO', message);
       if (Object.keys(metadata).length > 0) {
         console.info(formatted, metadata);
       } else {
@@ -109,7 +109,7 @@ export class NodeConsoleLogger extends LoggerPort {
    */
   warn(message, metadata = {}) {
     if (this.level <= LogLevel.WARN) {
-      const formatted = this._format("WARN", message);
+      const formatted = this._format('WARN', message);
       if (Object.keys(metadata).length > 0) {
         console.warn(formatted, metadata);
       } else {
@@ -126,7 +126,7 @@ export class NodeConsoleLogger extends LoggerPort {
    */
   error(message, error = null) {
     if (this.level <= LogLevel.ERROR) {
-      const formatted = this._format("ERROR", message);
+      const formatted = this._format('ERROR', message);
       if (error) {
         console.error(formatted, error);
       } else {

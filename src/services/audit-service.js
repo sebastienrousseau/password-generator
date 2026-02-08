@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -15,7 +15,7 @@ import {
   resetAuditSession,
   finishAuditSession,
   generateAuditReport,
-} from "../utils/security-audit.js";
+} from '../utils/security-audit.js';
 
 /**
  * Starts a new audit session and enables audit mode.

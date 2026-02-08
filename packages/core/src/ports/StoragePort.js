@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -18,7 +18,7 @@ export class StoragePort {
    * @abstract
    */
   async read(_key) {
-    throw new Error("StoragePort.read() must be implemented");
+    throw new Error('StoragePort.read() must be implemented');
   }
 
   /**
@@ -30,7 +30,7 @@ export class StoragePort {
    * @abstract
    */
   async write(_key, _content) {
-    throw new Error("StoragePort.write() must be implemented");
+    throw new Error('StoragePort.write() must be implemented');
   }
 
   /**
@@ -41,7 +41,7 @@ export class StoragePort {
    * @abstract
    */
   async exists(_key) {
-    throw new Error("StoragePort.exists() must be implemented");
+    throw new Error('StoragePort.exists() must be implemented');
   }
 
   /**
@@ -52,19 +52,19 @@ export class StoragePort {
    * @abstract
    */
   async delete(_key) {
-    throw new Error("StoragePort.delete() must be implemented");
+    throw new Error('StoragePort.delete() must be implemented');
   }
 }
 
 /**
  * Required methods for StoragePort implementations.
  */
-export const STORAGE_REQUIRED_METHODS = ["read", "write"];
+export const STORAGE_REQUIRED_METHODS = ['read', 'write'];
 
 /**
  * Optional methods for StoragePort implementations.
  */
-export const STORAGE_OPTIONAL_METHODS = ["exists", "delete"];
+export const STORAGE_OPTIONAL_METHODS = ['exists', 'delete'];
 
 /**
  * In-memory storage implementation for testing.

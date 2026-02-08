@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -15,7 +15,7 @@ import {
   ENTROPY_CONSTANTS,
   getSecurityLevel,
   getSecurityRecommendation,
-} from "../../packages/core/src/domain/index.js";
+} from '../../packages/core/src/domain/index.js';
 
 /**
  * Global audit state - disabled by default for zero-overhead operation
@@ -46,7 +46,7 @@ let performanceMetrics = {
 };
 
 // Re-export entropy constants from domain layer
-export { ENTROPY_CONSTANTS } from "../../packages/core/src/domain/index.js";
+export { ENTROPY_CONSTANTS } from '../../packages/core/src/domain/index.js';
 
 /**
  * Resets audit session state for new password generation
@@ -131,7 +131,7 @@ export {
   calculateBase64Entropy,
   calculateBase64ChunkEntropy,
   calculateDictionaryEntropy,
-} from "../../packages/core/src/domain/index.js";
+} from '../../packages/core/src/domain/index.js';
 
 /**
  * Sets dictionary size for entropy calculations
@@ -180,7 +180,7 @@ export const generateAuditReport = () => {
   if (!auditEnabled) {
     return {
       auditEnabled: false,
-      message: "Security audit was not enabled for this generation session",
+      message: 'Security audit was not enabled for this generation session',
     };
   }
 
@@ -212,8 +212,8 @@ export const generateAuditReport = () => {
       auditOverheadPercent: Math.round(auditOverheadPercent * 100) / 100,
     },
     compliance: {
-      cryptographicStandard: "Uses Node.js crypto module (OpenSSL-based CSPRNG)",
-      entropySource: "OS-provided cryptographically secure random number generator",
+      cryptographicStandard: 'Uses Node.js crypto module (OpenSSL-based CSPRNG)',
+      entropySource: 'OS-provided cryptographically secure random number generator',
       recommendation: getSecurityRecommendation(totalEntropyBits),
     },
   };

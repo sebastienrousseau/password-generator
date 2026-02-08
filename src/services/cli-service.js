@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -13,7 +13,7 @@
  * @module services/cli-service
  */
 
-import { getPresetConfig } from "../config.js";
+import { getPresetConfig } from '../config.js';
 import {
   colors,
   gradient,
@@ -22,13 +22,15 @@ import {
   renderCommandPanel,
   renderStrengthIndicator,
   renderHeader,
-} from "../ui/theme.js";
+} from '../ui/theme.js';
+
+import { formatOutput, preparePasswordData } from './output-formatter.js';
 
 /**
  * Generates the equivalent CLI command string based on the configuration used.
  */
 export const generateEquivalentCommand = (config, preset, opts) => {
-  const parts = ["password-generator"];
+  const parts = ['password-generator'];
 
   if (preset) {
     parts.push(`-p ${preset}`);
@@ -55,13 +57,22 @@ export const generateEquivalentCommand = (config, preset, opts) => {
   }
 
   if (opts.clipboard) {
-    parts.push("-c");
+    parts.push('-c');
   }
   if (opts.audit) {
-    parts.push("-a");
+    parts.push('-a');
+  }
+  if (opts.format && opts.format !== 'text') {
+    parts.push(`-f ${opts.format}`);
+  }
+  if (opts.count && opts.count > 1) {
+    parts.push(`-n ${opts.count}`);
+  }
+  if (opts.learn) {
+    parts.push('--learn');
   }
 
-  return parts.join(" ");
+  return parts.join(' ');
 };
 
 /**
@@ -75,7 +86,7 @@ const calculateStrength = (password) => {
   if (/[A-Z]/.test(password)) {
     charsetSize += 26;
   }
-  if (/[0-9]/.test(password)) {
+  if (/\d/.test(password)) {
     charsetSize += 10;
   }
   if (/[^a-zA-Z0-9]/.test(password)) {
@@ -84,13 +95,13 @@ const calculateStrength = (password) => {
 
   const entropy = Math.floor(password.length * Math.log2(charsetSize || 1));
 
-  let strength = "weak";
+  let strength = 'weak';
   if (entropy >= 128) {
-    strength = "maximum";
+    strength = 'maximum';
   } else if (entropy >= 80) {
-    strength = "strong";
+    strength = 'strong';
   } else if (entropy >= 50) {
-    strength = "medium";
+    strength = 'medium';
   }
 
   return { strength, entropy };
@@ -111,10 +122,10 @@ export const displayPasswordOutput = (password, copiedToClipboard = false, confi
   );
 
   // Display security note for quantum-resistant passwords
-  if (config.type === "quantum-resistant") {
-    console.log("");
+  if (config.type === 'quantum-resistant') {
+    console.log('');
     console.log(
-      `  ${colors.dim("🔒 security note:")} Use Argon2id KDF for storage (OWASP/NIST SP 800-63B)`
+      `  ${colors.dim('🔒 security note:')} Use Argon2id KDF for storage (OWASP/NIST SP 800-63B)`
     );
   }
 };
@@ -124,11 +135,11 @@ export const displayPasswordOutput = (password, copiedToClipboard = false, confi
  */
 export const displayCommandLearningPanel = (command) => {
   const shortcuts = [
-    { flag: "-p quick", desc: "fast preset" },
-    { flag: "-p secure", desc: "maximum security" },
-    { flag: "-p quantum", desc: "quantum-resistant" },
-    { flag: "-c", desc: "copy to clipboard" },
-    { flag: "-a", desc: "security audit" },
+    { flag: '-p quick', desc: 'fast preset' },
+    { flag: '-p secure', desc: 'maximum security' },
+    { flag: '-p quantum', desc: 'quantum-resistant' },
+    { flag: '-c', desc: 'copy to clipboard' },
+    { flag: '-a', desc: 'security audit' },
   ];
 
   console.log(renderCommandPanel(command, shortcuts));
@@ -138,48 +149,48 @@ export const displayCommandLearningPanel = (command) => {
  * Displays a security audit report (minimal)
  */
 export const displaySecurityAuditReport = (auditReport, config = {}) => {
-  console.log("");
-  console.log(`  ${gradient.primary("security audit")}`);
-  console.log("");
+  console.log('');
+  console.log(`  ${gradient.primary('security audit')}`);
+  console.log('');
 
   if (auditReport) {
     if (auditReport.generation) {
-      console.log(`  ${colors.dim("generation")}`);
+      console.log(`  ${colors.dim('generation')}`);
       console.log(
         `  ${colors.muted(icons.pointer)} algorithm      ${colors.text(
-          auditReport.generation.algorithm || "cryptographic"
+          auditReport.generation.algorithm || 'cryptographic'
         )}`
       );
       console.log(
         `  ${colors.muted(icons.pointer)} entropy source ${colors.text(
-          auditReport.generation.entropySource || "crypto.randomInt"
+          auditReport.generation.entropySource || 'crypto.randomInt'
         )}`
       );
-      console.log("");
+      console.log('');
     }
 
     if (auditReport.password) {
-      console.log(`  ${colors.dim("analysis")}`);
+      console.log(`  ${colors.dim('analysis')}`);
       console.log(
         `  ${colors.muted(icons.pointer)} length         ${colors.text(
-          String(auditReport.password.length || "N/A")
+          String(auditReport.password.length || 'N/A')
         )}`
       );
       console.log(
         `  ${colors.muted(icons.pointer)} entropy        ${colors.text(
-          (auditReport.password.entropy || "N/A") + " bits"
+          (auditReport.password.entropy || 'N/A') + ' bits'
         )}`
       );
 
       // Display strength with accessible label using renderStrengthIndicator
       if (auditReport.password.entropy) {
-        let strength = "weak";
+        let strength = 'weak';
         if (auditReport.password.entropy >= 128) {
-          strength = "maximum";
+          strength = 'maximum';
         } else if (auditReport.password.entropy >= 80) {
-          strength = "strong";
+          strength = 'strong';
         } else if (auditReport.password.entropy >= 50) {
-          strength = "medium";
+          strength = 'medium';
         }
         console.log(
           `  ${colors.muted(icons.pointer)} strength       ${renderStrengthIndicator(strength, {
@@ -187,15 +198,15 @@ export const displaySecurityAuditReport = (auditReport, config = {}) => {
           })}`
         );
       }
-      console.log("");
+      console.log('');
     }
 
-    console.log(`  ${colors.success(icons.success)} ${colors.dim("NIST SP 800-63B compliant")}`);
+    console.log(`  ${colors.success(icons.success)} ${colors.dim('NIST SP 800-63B compliant')}`);
 
     // Enhanced security guidance for quantum-resistant passwords
-    if (config.type === "quantum-resistant") {
-      console.log("");
-      console.log(`  ${colors.dim("storage guidance")}`);
+    if (config.type === 'quantum-resistant') {
+      console.log('');
+      console.log(`  ${colors.dim('storage guidance')}`);
       console.log(
         `  ${colors.muted(icons.pointer)} Use Argon2id KDF with NIST SP 800-132 parameters`
       );
@@ -207,19 +218,74 @@ export const displaySecurityAuditReport = (auditReport, config = {}) => {
     console.log(`  ${colors.dim(JSON.stringify(auditReport, null, 2))}`);
   }
 
-  console.log("");
+  console.log('');
+};
+
+/**
+ * Displays formatted output for bulk operations and structured exports
+ */
+export const displayFormattedOutput = (passwords, config, format, options = {}) => {
+  const { clipboardSuccess = false, showLearning = false, preset = null, opts = {} } = options;
+
+  // Prepare password data with metadata
+  const passwordData = preparePasswordData(passwords, config);
+
+  // For text format with single password, use legacy display
+  if (format === 'text' && passwords.length === 1) {
+    displayPasswordOutput(passwords[0], clipboardSuccess, config);
+  } else {
+    // Use structured output formatter
+    const formattedOutput = formatOutput(passwordData, format, {
+      pretty: true,
+      includeHeaders: true,
+      showMetadata: format !== 'csv',
+    });
+
+    console.log(formattedOutput);
+
+    // Show clipboard status for bulk operations
+    if (clipboardSuccess && passwords.length > 1) {
+      console.log('');
+      console.log(
+        `  ${colors.success(icons.success)} ${colors.dim(
+          `First password copied to clipboard (${passwords.length} total generated)`
+        )}`
+      );
+    }
+  }
+
+  // Display command learning panel if enabled
+  if (showLearning) {
+    const equivalentCommand = generateEquivalentCommand(config, preset, opts);
+    displayCommandLearningPanel(equivalentCommand);
+  }
 };
 
 /**
  * Displays help for non-TTY environments
  */
 export const displayNonTTYHelp = () => {
-  console.log(renderHeader("password generator"));
-  console.log(`  ${colors.dim("run in a terminal for interactive mode")}`);
-  console.log("");
-  console.log(`  ${colors.dim("quick start")}`);
-  console.log(`  ${colors.muted(icons.pointer)} ${colors.command("password-generator -p quick")}`);
-  console.log(`  ${colors.muted(icons.pointer)} ${colors.command("password-generator -p secure")}`);
-  console.log(`  ${colors.muted(icons.pointer)} ${colors.command("password-generator --help")}`);
-  console.log("");
+  console.log(renderHeader('password generator'));
+  console.log(`  ${colors.dim('run in a terminal for interactive mode')}`);
+  console.log('');
+  console.log(`  ${colors.dim('quick start')}`);
+  console.log(`  ${colors.muted(icons.pointer)} ${colors.command('password-generator -p quick')}`);
+  console.log(`  ${colors.muted(icons.pointer)} ${colors.command('password-generator -p secure')}`);
+  console.log(`  ${colors.muted(icons.pointer)} ${colors.command('password-generator --help')}`);
+  console.log('');
+  console.log(`  ${colors.dim('bulk operations')}`);
+  console.log(
+    `  ${colors.muted(icons.pointer)} ${colors.command('password-generator -p quick -n 5 -f json')}`
+  );
+  console.log(
+    `  ${colors.muted(icons.pointer)} ${colors.command(
+      'password-generator -p secure -n 10 -f csv'
+    )}`
+  );
+  console.log(
+    `  ${colors.muted(icons.pointer)} ${colors.command(
+      'password-generator -p memorable -n 3 -f yaml'
+    )}`
+  );
+  console.log('');
 };

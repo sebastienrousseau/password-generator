@@ -315,6 +315,10 @@
           {
             "group": ["electron-*", "electron/*"],
             "message": "Electron packages are forbidden in core."
+          },
+          {
+            "group": ["../../../src/ui/*", "../../../src/cli/*", "../../../src/adapters/*"],
+            "message": "Core package must not import from UI, CLI, or Adapter layers. Use ports instead."
           }
         ]
       }

@@ -1,15 +1,15 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-import { randomBytes, randomInt } from "crypto";
-import { BASE64_CHARSET } from "../constants.js";
-import { CRYPTO_ERRORS } from "../errors.js";
+import { randomBytes, randomInt } from 'crypto';
+import { BASE64_CHARSET } from '../constants.js';
+import { CRYPTO_ERRORS } from '../errors.js';
 import {
   recordEntropyUsage,
   recordAlgorithmUsage,
   calculateBase64Entropy,
   calculateBase64ChunkEntropy,
-} from "../utils/security-audit.js";
+} from '../utils/security-audit.js';
 
 /**
  * Validates that a value is a positive integer, throwing a RangeError if not.
@@ -41,7 +41,7 @@ export class DefaultCryptoAdapter {
    * @throws {RangeError} If byteLength is not a positive integer.
    */
   generateRandomBytes(byteLength) {
-    validatePositiveInteger(byteLength, "byteLength");
+    validatePositiveInteger(byteLength, 'byteLength');
     return randomBytes(byteLength);
   }
 
@@ -64,18 +64,18 @@ export class DefaultCryptoAdapter {
    * @throws {RangeError} If byteLength is not a positive integer.
    */
   generateRandomBase64(byteLength) {
-    validatePositiveInteger(byteLength, "byteLength");
-    const result = this.generateRandomBytes(byteLength).toString("base64");
+    validatePositiveInteger(byteLength, 'byteLength');
+    const result = this.generateRandomBytes(byteLength).toString('base64');
 
     // Record entropy usage for audit
-    recordEntropyUsage("crypto.randomBytes", 1, calculateBase64Entropy(byteLength), {
+    recordEntropyUsage('crypto.randomBytes', 1, calculateBase64Entropy(byteLength), {
       byteLength,
       outputLength: result.length,
-      method: "base64-encoding",
+      method: 'base64-encoding',
     });
-    recordAlgorithmUsage("base64-password-generation", {
+    recordAlgorithmUsage('base64-password-generation', {
       byteLength,
-      encoding: "base64",
+      encoding: 'base64',
     });
 
     return result;
@@ -92,19 +92,19 @@ export class DefaultCryptoAdapter {
    * @throws {RangeError} If length is not a positive integer.
    */
   generateBase64Chunk(length) {
-    validatePositiveInteger(length, "length");
-    let result = "";
+    validatePositiveInteger(length, 'length');
+    let result = '';
     for (let i = 0; i < length; i++) {
       result += BASE64_CHARSET[this.generateRandomInt(0, BASE64_CHARSET.length)];
     }
 
     // Record entropy usage for audit
-    recordEntropyUsage("crypto.randomInt", length, calculateBase64ChunkEntropy(length), {
+    recordEntropyUsage('crypto.randomInt', length, calculateBase64ChunkEntropy(length), {
       charsetSize: BASE64_CHARSET.length,
       outputLength: length,
-      method: "character-by-character",
+      method: 'character-by-character',
     });
-    recordAlgorithmUsage("base64-chunk-generation", {
+    recordAlgorithmUsage('base64-chunk-generation', {
       charsetSize: BASE64_CHARSET.length,
       outputLength: length,
     });
@@ -130,7 +130,7 @@ export class DefaultCryptoAdapter {
     // Record entropy usage for audit (range size determines bits of entropy)
     const rangeSize = max - min;
     const entropyBits = Math.log2(rangeSize);
-    recordEntropyUsage("crypto.randomInt", 1, entropyBits, {
+    recordEntropyUsage('crypto.randomInt', 1, entropyBits, {
       min,
       max,
       rangeSize,
@@ -160,8 +160,8 @@ export class DefaultCryptoAdapter {
    * @throws {RangeError} If length is not a positive integer.
    */
   splitString(str, length) {
-    validatePositiveInteger(length, "length");
-    const substrings = str.match(new RegExp(`.{1,${length}}`, "g"));
+    validatePositiveInteger(length, 'length');
+    const substrings = str.match(new RegExp(`.{1,${length}}`, 'g'));
     return substrings || [];
   }
 }
@@ -179,7 +179,7 @@ export class MockCryptoAdapter {
   }
 
   generateRandomBytes(byteLength) {
-    validatePositiveInteger(byteLength, "byteLength");
+    validatePositiveInteger(byteLength, 'byteLength');
     const buffer = Buffer.alloc(byteLength);
     for (let i = 0; i < byteLength; i++) {
       buffer[i] = (this.seedValue + this.counter++) % 256;
@@ -193,13 +193,13 @@ export class MockCryptoAdapter {
   }
 
   generateRandomBase64(byteLength) {
-    validatePositiveInteger(byteLength, "byteLength");
-    return this.generateRandomBytes(byteLength).toString("base64");
+    validatePositiveInteger(byteLength, 'byteLength');
+    return this.generateRandomBytes(byteLength).toString('base64');
   }
 
   generateBase64Chunk(length) {
-    validatePositiveInteger(length, "length");
-    let result = "";
+    validatePositiveInteger(length, 'length');
+    let result = '';
     for (let i = 0; i < length; i++) {
       result += BASE64_CHARSET[this.generateRandomInt(0, BASE64_CHARSET.length)];
     }
@@ -218,8 +218,8 @@ export class MockCryptoAdapter {
   }
 
   splitString(str, length) {
-    validatePositiveInteger(length, "length");
-    const substrings = str.match(new RegExp(`.{1,${length}}`, "g"));
+    validatePositiveInteger(length, 'length');
+    const substrings = str.match(new RegExp(`.{1,${length}}`, 'g'));
     return substrings || [];
   }
 }

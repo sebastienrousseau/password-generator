@@ -55,7 +55,7 @@ Output Length: 256-bit for quantum resistance
 **Classical Computer Attacks:**
 - Brute force: ~2^256 operations (practically impossible)
 - Dictionary attacks: Not applicable (random generation)
-- Pattern analysis: Cryptographic randomness defeats pattern analysis
+- Pattern analysis: Cryptographic randomness prevents pattern detection
 
 **Quantum Computer Attacks:**
 - Grover's algorithm: Effective strength reduced to 128-bit
@@ -128,11 +128,11 @@ const kdfConfig = {
 
 **NIST Post-Quantum Cryptography**:
 - URL: https://csrc.nist.gov/projects/post-quantum-cryptography
-- Standards for quantum-resistant algorithms
+- Defines quantum-resistant algorithm standards
 
 **NIST SP 800-63B**: Digital Identity Guidelines
 - URL: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63b.pdf
-- Password complexity and entropy requirements
+- Specifies password complexity and entropy requirements
 
 #### RFC References
 
@@ -149,7 +149,7 @@ const kdfConfig = {
 #### Security Audit Features
 ```bash
 # Generate password with full security audit
-npx @sebastienrousseau/password-generator \
+npx @sebastienrousseau/jspassgen \
   -t quantum-resistant \
   -l 32 \
   -i 4 \
@@ -163,10 +163,10 @@ npx @sebastienrousseau/password-generator \
 ```
 
 #### Compliance Reporting
-- **Entropy bits**: Real-time calculation
-- **Algorithm transparency**: Full algorithm disclosure
-- **Parameter validation**: NIST guideline compliance
-- **Security level assessment**: Risk-based recommendations
+- **Entropy bits**: Calculates in real time
+- **Algorithm transparency**: Discloses full algorithm details
+- **Parameter validation**: Validates against NIST guidelines
+- **Security level assessment**: Provides risk-based recommendations
 
 ### Performance Considerations
 

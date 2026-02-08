@@ -1,7 +1,7 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-import { getValidTypesString } from "./config.js";
+import { getValidTypesString } from './config.js';
 
 /**
  * Centralized error message constants for the password generator.
@@ -17,7 +17,7 @@ import { getValidTypesString } from "./config.js";
  */
 export const STRING_ERRORS = {
   /** Error message when a non-string value is provided where a string is expected. */
-  INPUT_MUST_BE_STRING: "Input must be a string",
+  INPUT_MUST_BE_STRING: 'Input must be a string',
 };
 
 /**
@@ -33,7 +33,7 @@ export const CRYPTO_ERRORS = {
  */
 export const PASSWORD_ERRORS = {
   /** Error message when password type is missing. */
-  TYPE_REQUIRED: "Password type is required",
+  TYPE_REQUIRED: 'Password type is required',
 
   /** Template for unknown password type errors. Use with type value. */
   UNKNOWN_TYPE: (type) => `Unknown password type: "${type}". Valid types: ${getValidTypesString()}`,

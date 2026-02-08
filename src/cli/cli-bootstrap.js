@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -17,10 +17,11 @@
  * 4. Renders output
  */
 
-import { resolve } from "path";
-import { createCLIController } from "./CLIController.js";
-import { createService } from "../../packages/core/src/index.js";
-import { NodeCryptoRandom } from "../adapters/node/crypto-random.js";
+import { resolve } from 'path';
+import { createCLIController } from './CLIController.js';
+import { createService } from '../../packages/core/src/index.js';
+import { NodeCryptoRandom } from '../adapters/node/crypto-random.js';
+import { EFFDicewareDictionary } from '../adapters/node/eff-diceware-dictionary.js';
 
 /**
  * Creates the core password generation service with Node.js adapters.
@@ -29,16 +30,17 @@ import { NodeCryptoRandom } from "../adapters/node/crypto-random.js";
  */
 function createCoreService() {
   const randomGenerator = new NodeCryptoRandom();
+  const dictionary = new EFFDicewareDictionary();
 
   return createService(
     {},
     {
       randomGenerator,
+      dictionary,
       // Optional ports use defaults from core:
       // - logger: NoOpLogger
       // - storage: MemoryStorage
       // - clock: FixedClock
-      // - dictionary: MemoryDictionary with DEFAULT_WORD_LIST
     }
   );
 }
@@ -75,7 +77,7 @@ export class CLIBootstrap {
    */
   async run(args = process.argv.slice(2)) {
     if (!this.controller) {
-      throw new Error("CLI Bootstrap not initialized. Call initialize() first.");
+      throw new Error('CLI Bootstrap not initialized. Call initialize() first.');
     }
 
     try {
@@ -120,10 +122,10 @@ export function createCLIBootstrap() {
  * Auto-execution logic for direct CLI usage.
  * Only executes when this file is run directly, not when imported as a module.
  */
-const resolvedArg = process.argv[1] ? resolve(process.argv[1]) : "";
+const resolvedArg = process.argv[1] ? resolve(process.argv[1]) : '';
 const isMainModule =
   resolvedArg &&
-  (resolvedArg.endsWith("cli-bootstrap.js") || resolvedArg.includes("cli/cli-bootstrap"));
+  (resolvedArg.endsWith('cli-bootstrap.js') || resolvedArg.includes('cli/cli-bootstrap'));
 
 /* c8 ignore start - CLI entry point execution, tested via subprocess */
 if (isMainModule) {
