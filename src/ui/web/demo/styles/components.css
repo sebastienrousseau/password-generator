@@ -116,6 +116,46 @@
   box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
 }
 
+.form-select {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-md);
+  color: var(--input-text);
+  font-size: var(--font-size-base);
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--space-3) center;
+  padding-right: var(--space-8);
+  transition: border-color var(--duration-fast) var(--ease-default),
+              box-shadow var(--duration-fast) var(--ease-default);
+}
+
+.form-select:hover {
+  border-color: var(--text-muted);
+}
+
+.form-select:focus {
+  outline: 3px solid var(--brand-primary);
+  outline-offset: 2px;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 6px var(--focus-ring-color);
+}
+
+.form-select option {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  padding: var(--space-2);
+}
+
+.form-select optgroup {
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
 .form-error {
   color: var(--feedback-error);
   font-size: var(--font-size-sm);

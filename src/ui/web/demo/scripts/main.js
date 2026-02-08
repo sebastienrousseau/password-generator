@@ -28,7 +28,7 @@ let isPasswordVisible = true;
 // DOM Elements
 const elements = {
   form: null,
-  typeInputs: null,
+  typeSelect: null,
   lengthInput: null,
   lengthGroup: null,
   iterationInput: null,
@@ -47,7 +47,6 @@ const elements = {
   toggleVisibilityBtn: null,
   visibilityText: null,
   regenerateBtn: null,
-  presetBtns: null,
   toast: null,
   srAnnouncements: null,
 };
@@ -57,7 +56,7 @@ const elements = {
  */
 function initElements() {
   elements.form = document.getElementById('password-form');
-  elements.typeInputs = document.querySelectorAll('input[name="type"]');
+  elements.typeSelect = document.getElementById('type');
   elements.lengthInput = document.getElementById('length');
   elements.lengthGroup = document.getElementById('length-group');
   elements.iterationInput = document.getElementById('iteration');
@@ -76,7 +75,6 @@ function initElements() {
   elements.toggleVisibilityBtn = document.getElementById('toggle-visibility-btn');
   elements.visibilityText = document.getElementById('visibility-text');
   elements.regenerateBtn = document.getElementById('regenerate-btn');
-  elements.presetBtns = document.querySelectorAll('.preset-btn');
   elements.toast = document.getElementById('toast');
   elements.srAnnouncements = document.getElementById('sr-announcements');
 }
@@ -86,10 +84,8 @@ function initElements() {
  * @returns {FormState} The current form state.
  */
 function getFormState() {
-  const selectedType = document.querySelector('input[name="type"]:checked');
-
   return new FormState({
-    type: selectedType?.value || 'strong',
+    type: elements.typeSelect?.value || 'strong',
     length: elements.lengthInput.value,
     iteration: elements.iterationInput.value,
     separator: elements.separatorInput.value,
@@ -155,22 +151,18 @@ function applyPreset(presetName) {
   }
 
   // Update form values
-  const typeInput = document.querySelector(`input[name="type"][value="${preset.type}"]`);
-  if (typeInput) {
-    typeInput.checked = true;
+  if (elements.typeSelect) {
+    elements.typeSelect.value = preset.type;
   }
 
-  elements.lengthInput.value = preset.length;
+  if (preset.length) {
+    elements.lengthInput.value = preset.length;
+  }
   elements.iterationInput.value = preset.iteration;
   elements.separatorInput.value = preset.separator;
 
   // Update UI
   updateUIForType(preset.type);
-
-  // Update preset button states
-  elements.presetBtns.forEach((btn) => {
-    btn.classList.toggle('preset-btn--active', btn.dataset.preset === presetName);
-  });
 }
 
 /**
@@ -398,21 +390,12 @@ function setupEventListeners() {
     await generatePassword();
   });
 
-  // Type change
-  elements.typeInputs.forEach((input) => {
-    input.addEventListener('change', () => {
-      updateUIForType(input.value);
-      // Clear active preset
-      elements.presetBtns.forEach((btn) => btn.classList.remove('preset-btn--active'));
+  // Type change (dropdown)
+  if (elements.typeSelect) {
+    elements.typeSelect.addEventListener('change', () => {
+      updateUIForType(elements.typeSelect.value);
     });
-  });
-
-  // Preset buttons
-  elements.presetBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      applyPreset(btn.dataset.preset);
-    });
-  });
+  }
 
   // Copy button
   elements.copyBtn.addEventListener('click', copyToClipboard);

@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Primary Meta Tags -->
-  <title>Password Generator - Strong, Secure Passwords Online | Free Tool</title>
-  <meta name="title" content="Password Generator - Strong, Secure Passwords Online | Free Tool">
+  <title>JavaScript Password Generator - Strong, Secure Passwords Online | Free Tool</title>
+  <meta name="title" content="JavaScript Password Generator - Strong, Secure Passwords Online | Free Tool">
   <meta name="description" content="Generate strong, unique passwords with customizable options. Open-source password generator with enterprise-grade security. Create secure passwords, passphrases, and Base64 tokens instantly.">
   <meta name="keywords" content="password generator, strong passwords, secure passwords, random password, password security, cryptography, open source, enterprise security, password tool">
   <meta name="robots" content="index, follow">
@@ -17,22 +17,22 @@
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://jspassgen.com/demo/">
-  <meta property="og:title" content="Password Generator - Strong, Secure Passwords Online">
+  <meta property="og:title" content="JavaScript Password Generator - Strong, Secure Passwords Online">
   <meta property="og:description" content="Generate strong, unique passwords with customizable options. Open-source password generator with enterprise-grade security.">
   <meta property="og:image" content="https://jspassgen.com/images/password-generator-og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Password Generator - Secure password creation tool">
-  <meta property="og:site_name" content="Password Generator">
+  <meta property="og:image:alt" content="JavaScript Password Generator - Secure password creation tool">
+  <meta property="og:site_name" content="JavaScript Password Generator">
   <meta property="og:locale" content="en_US">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://jspassgen.com/demo/">
-  <meta property="twitter:title" content="Password Generator - Strong, Secure Passwords Online">
+  <meta property="twitter:title" content="JavaScript Password Generator - Strong, Secure Passwords Online">
   <meta property="twitter:description" content="Generate strong, unique passwords with customizable options. Open-source password generator with enterprise-grade security.">
   <meta property="twitter:image" content="https://jspassgen.com/images/password-generator-twitter.png">
-  <meta property="twitter:image:alt" content="Password Generator - Secure password creation tool">
+  <meta property="twitter:image:alt" content="JavaScript Password Generator - Secure password creation tool">
   <meta property="twitter:creator" content="@sebastienrousseau">
   <meta property="twitter:site" content="@sebastienrousseau">
 
@@ -51,7 +51,7 @@
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "Password Generator",
+    "name": "JavaScript Password Generator",
     "description": "A fast, simple and powerful open-source utility tool for generating strong, unique and random passwords with enterprise-grade security.",
     "url": "https://jspassgen.com/demo/",
     "author": {
@@ -108,63 +108,28 @@
   <main id="main" class="container">
     <!-- Header -->
     <header class="header header--compact">
-      <h1 class="header__logo">Password Generator</h1>
+      <h1 class="header__logo">JavaScript Password Generator</h1>
     </header>
 
     <!-- Main Card -->
     <div class="card card--elevated card--compact">
-      <!-- Presets -->
-      <div class="presets" role="group" aria-label="Quick presets">
-        <button type="button" class="preset-btn" data-preset="quick">
-          <span class="preset-btn__name">Quick</span>
-          <span class="preset-btn__desc">14 chars, fast</span>
-        </button>
-        <button type="button" class="preset-btn" data-preset="secure">
-          <span class="preset-btn__name">Secure</span>
-          <span class="preset-btn__desc">64 chars, no sep</span>
-        </button>
-        <button type="button" class="preset-btn" data-preset="memorable">
-          <span class="preset-btn__name">Memorable</span>
-          <span class="preset-btn__desc">4 words, easy</span>
-        </button>
-        <button type="button" class="preset-btn" data-preset="quantum-resistant">
-          <span class="preset-btn__name">Quantum</span>
-          <span class="preset-btn__desc">256-bit entropy</span>
-        </button>
-      </div>
-
       <!-- Password Form -->
       <form id="password-form" class="form--compact" novalidate>
-        <!-- Password Type -->
-        <fieldset class="form-fieldset">
-          <legend class="form-legend">Type</legend>
-          <div class="select-group select-group--inline select-group--wrap">
-            <div class="select-option">
-              <input type="radio" name="type" value="strong" id="type-strong" class="select-option__input" checked>
-              <label for="type-strong" class="select-option__label">Strong</label>
-            </div>
-            <div class="select-option">
-              <input type="radio" name="type" value="base64" id="type-base64" class="select-option__input">
-              <label for="type-base64" class="select-option__label">Base64</label>
-            </div>
-            <div class="select-option">
-              <input type="radio" name="type" value="memorable" id="type-memorable" class="select-option__input">
-              <label for="type-memorable" class="select-option__label">Memorable</label>
-            </div>
-            <div class="select-option">
-              <input type="radio" name="type" value="quantum-resistant" id="type-quantum" class="select-option__input">
-              <label for="type-quantum" class="select-option__label" title="Post-quantum security with enhanced entropy">Quantum</label>
-            </div>
-            <div class="select-option">
-              <input type="radio" name="type" value="diceware" id="type-diceware" class="select-option__input">
-              <label for="type-diceware" class="select-option__label" title="EFF diceware word list for high entropy passphrases">Diceware</label>
-            </div>
-            <div class="select-option">
-              <input type="radio" name="type" value="pronounceable" id="type-pronounceable" class="select-option__input">
-              <label for="type-pronounceable" class="select-option__label" title="Easy to say passwords using syllable patterns">Pronounceable</label>
-            </div>
-          </div>
-        </fieldset>
+        <!-- Password Type Dropdown -->
+        <div class="form-group">
+          <label for="type" class="form-label">Password Type</label>
+          <select id="type" name="type" class="form-select">
+            <optgroup label="Standard">
+              <option value="strong" selected>Strong - Mixed characters with symbols</option>
+              <option value="base64">Base64 - URL-safe encoding</option>
+              <option value="memorable">Memorable - Easy to remember words</option>
+            </optgroup>
+            <optgroup label="Advanced">
+              <option value="quantum-resistant">Quantum-Resistant - 256-bit entropy</option>
+              <option value="pronounceable">Pronounceable - Easy to say</option>
+            </optgroup>
+          </select>
+        </div>
 
         <!-- Inline fields -->
         <div class="form-row form-row--inline">
@@ -226,7 +191,7 @@
     <!-- Footer -->
     <footer class="footer">
       <p class="footer__text">
-        &copy; 2022-2026 Password Generator. All rights reserved. &middot;
+        &copy; 2022-2026 JavaScript Password Generator (jspassgen). All rights reserved. &middot;
         <a href="https://github.com/sebastienrousseau/jspassgen" class="footer__link" target="_blank" rel="noopener">
           View on GitHub
         </a>
