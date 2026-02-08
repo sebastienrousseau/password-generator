@@ -101,12 +101,12 @@ function updateUIForType(type) {
   const isWordBasedType = ['memorable', 'diceware'].includes(type);
   // Quantum generates a single high-entropy string with fixed parameters
   const isQuantumType = type === 'quantum-resistant';
-  // Pronounceable uses syllables with length parameter
+  // Pronounceable uses CVVC syllables (4 chars each), only iteration matters
   const isPronounceableType = type === 'pronounceable';
 
   // Show/hide length field
-  // Hide for word-based types (memorable, diceware) and quantum
-  elements.lengthGroup.classList.toggle('hidden', isWordBasedType || isQuantumType);
+  // Hide for word-based types, quantum, and pronounceable (uses fixed 4-char syllables)
+  elements.lengthGroup.classList.toggle('hidden', isWordBasedType || isQuantumType || isPronounceableType);
 
   // Hide chunks and separator for quantum (single high-entropy string)
   const iterationGroup = elements.iterationInput.closest('.form-group--inline');
