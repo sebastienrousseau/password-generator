@@ -39,8 +39,7 @@ describe('Config Module', function () {
       expect(VALID_PRESETS).to.include('quantum');
       expect(VALID_PRESETS).to.include('diceware');
       expect(VALID_PRESETS).to.include('pronounceable');
-      expect(VALID_PRESETS).to.include('honeyword');
-      expect(VALID_PRESETS).to.have.length(7);
+      expect(VALID_PRESETS).to.have.length(6);
     });
   });
 
@@ -93,15 +92,6 @@ describe('Config Module', function () {
         type: 'pronounceable',
         length: 12,
         iteration: 3,
-        separator: '-',
-      });
-    });
-
-    it('should have honeyword preset with correct values', function () {
-      expect(PRESET_PROFILES.honeyword).to.deep.equal({
-        type: 'honeyword',
-        length: 16,
-        iteration: 4,
         separator: '-',
       });
     });

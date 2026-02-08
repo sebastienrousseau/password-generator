@@ -31,6 +31,8 @@ export const VALID_OUTPUT_FORMATS = ['text', 'json', 'yaml', 'csv'];
 
 /**
  * Valid preset profile names.
+ * Note: 'honeyword' is available via -t flag but not as a preset
+ * since it returns multiple passwords (decoys) with special metadata.
  */
 export const VALID_PRESETS = [
   'quick',
@@ -39,7 +41,6 @@ export const VALID_PRESETS = [
   'quantum',
   'diceware',
   'pronounceable',
-  'honeyword',
 ];
 
 /**
@@ -78,12 +79,6 @@ export const PRESET_PROFILES = {
     type: 'pronounceable',
     length: 12,
     iteration: 3,
-    separator: '-',
-  },
-  honeyword: {
-    type: 'honeyword',
-    length: 16,
-    iteration: 4,
     separator: '-',
   },
 };

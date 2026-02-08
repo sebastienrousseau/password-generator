@@ -18,9 +18,6 @@ import { PRESET_PROFILES } from '../../../../config.js';
 const PRESETS = {
   ...PRESET_PROFILES,
   'quantum-resistant': PRESET_PROFILES.quantum,
-  diceware: { type: 'diceware', iteration: 6, separator: '-' },
-  pronounceable: { type: 'pronounceable', length: 12, iteration: 3, separator: '-' },
-  honeyword: { type: 'honeyword', length: 16, iteration: 4, separator: '-' },
 };
 
 // State
@@ -110,8 +107,6 @@ function updateUIForType(type) {
   const isQuantumType = type === 'quantum-resistant';
   // Pronounceable uses syllables with length parameter
   const isPronounceableType = type === 'pronounceable';
-  // Honeyword generates decoy passwords
-  const isHoneywordType = type === 'honeyword';
 
   // Show/hide length field
   // Hide for word-based types (memorable, diceware) and quantum
@@ -130,8 +125,6 @@ function updateUIForType(type) {
   // Update iteration label based on type
   if (isWordBasedType) {
     elements.iterationLabel.textContent = 'Words';
-  } else if (isHoneywordType) {
-    elements.iterationLabel.textContent = 'Decoys';
   } else if (isPronounceableType) {
     elements.iterationLabel.textContent = 'Syllables';
   } else {
@@ -143,8 +136,6 @@ function updateUIForType(type) {
   if (iterationHint) {
     if (isWordBasedType) {
       iterationHint.textContent = 'Number of words to generate';
-    } else if (isHoneywordType) {
-      iterationHint.textContent = 'Number of decoy passwords';
     } else if (isPronounceableType) {
       iterationHint.textContent = 'Number of syllable groups';
     } else {
