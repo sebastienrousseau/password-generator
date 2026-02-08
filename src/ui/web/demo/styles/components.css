@@ -644,6 +644,10 @@
   flex: 1;
 }
 
+.select-group--wrap {
+  flex-wrap: wrap;
+}
+
 .select-group--inline .select-option__label {
   padding: var(--space-2) var(--space-3);
   font-size: var(--font-size-base);

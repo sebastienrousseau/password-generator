@@ -37,7 +37,10 @@ describe('Config Module', function () {
       expect(VALID_PRESETS).to.include('secure');
       expect(VALID_PRESETS).to.include('memorable');
       expect(VALID_PRESETS).to.include('quantum');
-      expect(VALID_PRESETS).to.have.length(4);
+      expect(VALID_PRESETS).to.include('diceware');
+      expect(VALID_PRESETS).to.include('pronounceable');
+      expect(VALID_PRESETS).to.include('honeyword');
+      expect(VALID_PRESETS).to.have.length(7);
     });
   });
 
@@ -63,6 +66,41 @@ describe('Config Module', function () {
     it('should have memorable preset with correct values', function () {
       expect(PRESET_PROFILES.memorable).to.deep.equal({
         type: 'memorable',
+        iteration: 4,
+        separator: '-',
+      });
+    });
+
+    it('should have quantum preset with correct values', function () {
+      expect(PRESET_PROFILES.quantum).to.deep.equal({
+        type: 'quantum-resistant',
+        length: 43,
+        iteration: 1,
+        separator: '',
+      });
+    });
+
+    it('should have diceware preset with correct values', function () {
+      expect(PRESET_PROFILES.diceware).to.deep.equal({
+        type: 'diceware',
+        iteration: 6,
+        separator: '-',
+      });
+    });
+
+    it('should have pronounceable preset with correct values', function () {
+      expect(PRESET_PROFILES.pronounceable).to.deep.equal({
+        type: 'pronounceable',
+        length: 12,
+        iteration: 3,
+        separator: '-',
+      });
+    });
+
+    it('should have honeyword preset with correct values', function () {
+      expect(PRESET_PROFILES.honeyword).to.deep.equal({
+        type: 'honeyword',
+        length: 16,
         iteration: 4,
         separator: '-',
       });

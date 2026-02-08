@@ -204,6 +204,9 @@ export const runOnboarding = async () => {
       { label: 'secure', desc: 'maximum protection', value: 'secure' },
       { label: 'memorable', desc: 'easy to remember', value: 'memorable' },
       { label: 'quantum', desc: '256-bit entropy', value: 'quantum' },
+      { label: 'diceware', desc: 'EFF word list passphrase', value: 'diceware' },
+      { label: 'pronounceable', desc: 'easy to say', value: 'pronounceable' },
+      { label: 'honeyword', desc: 'decoy passwords', value: 'honeyword' },
     ];
 
     const preset = await promptWithNavigation(

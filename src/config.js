@@ -32,7 +32,15 @@ export const VALID_OUTPUT_FORMATS = ['text', 'json', 'yaml', 'csv'];
 /**
  * Valid preset profile names.
  */
-export const VALID_PRESETS = ['quick', 'secure', 'memorable', 'quantum'];
+export const VALID_PRESETS = [
+  'quick',
+  'secure',
+  'memorable',
+  'quantum',
+  'diceware',
+  'pronounceable',
+  'honeyword',
+];
 
 /**
  * Preset profile configurations for zero-config CLI usage.
@@ -60,6 +68,23 @@ export const PRESET_PROFILES = {
     length: 43,
     iteration: 1,
     separator: '',
+  },
+  diceware: {
+    type: 'diceware',
+    iteration: 6,
+    separator: '-',
+  },
+  pronounceable: {
+    type: 'pronounceable',
+    length: 12,
+    iteration: 3,
+    separator: '-',
+  },
+  honeyword: {
+    type: 'honeyword',
+    length: 16,
+    iteration: 4,
+    separator: '-',
   },
 };
 

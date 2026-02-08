@@ -11,13 +11,16 @@
 import { initTheme } from './theme.js';
 import { createWebUIController } from '../../controllers/WebUIController.js';
 import { FormState } from '../../state/FormState.js';
+import { PRESET_PROFILES } from '../../../../config.js';
 
-// Preset configurations (aligned with CLI presets from src/config.js)
+// Use shared preset configurations from config.js
+// Extended with additional presets for web UI
 const PRESETS = {
-  quick: { type: 'strong', length: 14, iteration: 4, separator: '-' },
-  secure: { type: 'strong', length: 16, iteration: 4, separator: '' },
-  memorable: { type: 'memorable', length: 4, iteration: 4, separator: '-' },
-  'quantum-resistant': { type: 'quantum-resistant', length: 43, iteration: 1, separator: '' },
+  ...PRESET_PROFILES,
+  'quantum-resistant': PRESET_PROFILES.quantum,
+  diceware: { type: 'diceware', iteration: 6, separator: '-' },
+  pronounceable: { type: 'pronounceable', length: 12, iteration: 3, separator: '-' },
+  honeyword: { type: 'honeyword', length: 16, iteration: 4, separator: '-' },
 };
 
 // State
@@ -101,11 +104,18 @@ function getFormState() {
  * @param {string} type - The selected password type.
  */
 function updateUIForType(type) {
-  const isMemorableType = type === 'memorable';
+  // Word-based types use iteration for word count, not length
+  const isWordBasedType = ['memorable', 'diceware'].includes(type);
+  // Quantum generates a single high-entropy string with fixed parameters
   const isQuantumType = type === 'quantum-resistant';
+  // Pronounceable uses syllables with length parameter
+  const isPronounceableType = type === 'pronounceable';
+  // Honeyword generates decoy passwords
+  const isHoneywordType = type === 'honeyword';
 
-  // Show/hide length field for memorable type, fix for quantum
-  elements.lengthGroup.classList.toggle('hidden', isMemorableType || isQuantumType);
+  // Show/hide length field
+  // Hide for word-based types (memorable, diceware) and quantum
+  elements.lengthGroup.classList.toggle('hidden', isWordBasedType || isQuantumType);
 
   // Hide chunks and separator for quantum (single high-entropy string)
   const iterationGroup = elements.iterationInput.closest('.form-group--inline');
@@ -117,15 +127,29 @@ function updateUIForType(type) {
     separatorGroup.classList.toggle('hidden', isQuantumType);
   }
 
-  // Update iteration label
-  elements.iterationLabel.textContent = isMemorableType ? 'Words' : 'Chunks';
+  // Update iteration label based on type
+  if (isWordBasedType) {
+    elements.iterationLabel.textContent = 'Words';
+  } else if (isHoneywordType) {
+    elements.iterationLabel.textContent = 'Decoys';
+  } else if (isPronounceableType) {
+    elements.iterationLabel.textContent = 'Syllables';
+  } else {
+    elements.iterationLabel.textContent = 'Chunks';
+  }
 
   // Update hints
   const iterationHint = document.getElementById('iteration-hint');
   if (iterationHint) {
-    iterationHint.textContent = isMemorableType
-      ? 'Number of words to generate'
-      : 'Number of segments to generate';
+    if (isWordBasedType) {
+      iterationHint.textContent = 'Number of words to generate';
+    } else if (isHoneywordType) {
+      iterationHint.textContent = 'Number of decoy passwords';
+    } else if (isPronounceableType) {
+      iterationHint.textContent = 'Number of syllable groups';
+    } else {
+      iterationHint.textContent = 'Number of segments to generate';
+    }
   }
 }
 

@@ -138,7 +138,7 @@
         <!-- Password Type -->
         <fieldset class="form-fieldset">
           <legend class="form-legend">Type</legend>
-          <div class="select-group select-group--inline">
+          <div class="select-group select-group--inline select-group--wrap">
             <div class="select-option">
               <input type="radio" name="type" value="strong" id="type-strong" class="select-option__input" checked>
               <label for="type-strong" class="select-option__label">Strong</label>
@@ -154,6 +154,18 @@
             <div class="select-option">
               <input type="radio" name="type" value="quantum-resistant" id="type-quantum" class="select-option__input">
               <label for="type-quantum" class="select-option__label" title="Post-quantum security with enhanced entropy">Quantum</label>
+            </div>
+            <div class="select-option">
+              <input type="radio" name="type" value="diceware" id="type-diceware" class="select-option__input">
+              <label for="type-diceware" class="select-option__label" title="EFF diceware word list for high entropy passphrases">Diceware</label>
+            </div>
+            <div class="select-option">
+              <input type="radio" name="type" value="pronounceable" id="type-pronounceable" class="select-option__input">
+              <label for="type-pronounceable" class="select-option__label" title="Easy to say passwords using syllable patterns">Pronounceable</label>
+            </div>
+            <div class="select-option">
+              <input type="radio" name="type" value="honeyword" id="type-honeyword" class="select-option__input">
+              <label for="type-honeyword" class="select-option__label" title="Decoy passwords for breach detection">Honeyword</label>
             </div>
           </div>
         </fieldset>
