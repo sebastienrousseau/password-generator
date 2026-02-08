@@ -381,7 +381,9 @@ async function copyToClipboard() {
 
     // Toast and screen reader
     showToast('Password copied to clipboard', 'success');
-    announceToScreenReader('Password copied to clipboard. Press Tab to regenerate or Escape to dismiss.');
+    announceToScreenReader(
+      'Password copied to clipboard. Press Tab to regenerate or Escape to dismiss.'
+    );
 
     // Reset button after delay
     setTimeout(() => {
@@ -392,7 +394,9 @@ async function copyToClipboard() {
 
   const copyFailed = () => {
     showToast('Failed to copy. Please select and copy manually.', 'error');
-    announceToScreenReader('Failed to copy password. Please select the password text and copy manually.');
+    announceToScreenReader(
+      'Failed to copy password. Please select the password text and copy manually.'
+    );
   };
 
   try {
@@ -476,9 +480,16 @@ function calculateCrackTime(entropy) {
   if (secondsToCrack < 3600) return `${Math.ceil(secondsToCrack / 60)} minutes`;
   if (secondsToCrack < 86400) return `${Math.ceil(secondsToCrack / 3600)} hours`;
   if (secondsToCrack < 31536000) return `${Math.ceil(secondsToCrack / 86400)} days`;
-  if (secondsToCrack < 31536000 * 100) return `${Math.ceil(secondsToCrack / 31536000)} years`;
-  if (secondsToCrack < 31536000 * 1000000) return `${Math.ceil(secondsToCrack / (31536000 * 1000))}k years`;
-  if (secondsToCrack < 31536000 * 1000000000) return `${Math.ceil(secondsToCrack / (31536000 * 1000000))}M years`;
+  const secondsPerYear = 31536000;
+  if (secondsToCrack < secondsPerYear * 100) {
+    return `${Math.ceil(secondsToCrack / secondsPerYear)} years`;
+  }
+  if (secondsToCrack < secondsPerYear * 1e6) {
+    return `${Math.ceil(secondsToCrack / (secondsPerYear * 1e3))}k years`;
+  }
+  if (secondsToCrack < secondsPerYear * 1e9) {
+    return `${Math.ceil(secondsToCrack / (secondsPerYear * 1e6))}M years`;
+  }
   return 'billions of years';
 }
 
@@ -553,7 +564,8 @@ function renderPasswordHistory() {
   elements.historyCount.textContent = `(${passwordHistory.length})`;
 
   if (passwordHistory.length === 0) {
-    elements.historyList.innerHTML = '<li class="password-history__empty">No passwords generated yet</li>';
+    elements.historyList.innerHTML =
+      '<li class="password-history__empty">No passwords generated yet</li>';
     return;
   }
 

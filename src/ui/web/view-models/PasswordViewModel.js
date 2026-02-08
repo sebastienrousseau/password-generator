@@ -122,15 +122,9 @@ export class PasswordViewModel {
   _mapToStrengthIndicator(entropyInfo) {
     const bits = entropyInfo?.totalBits ?? 0;
 
-    if (bits >= 128) {
-      return { level: 'maximum', label: 'Maximum', dots: 4, color: 'success' };
-    }
-    if (bits >= 80) {
-      return { level: 'strong', label: 'Strong', dots: 3, color: 'success' };
-    }
-    if (bits >= 64) {
-      return { level: 'medium', label: 'Medium', dots: 2, color: 'warning' };
-    }
+    if (bits >= 128) return { level: 'maximum', label: 'Maximum', dots: 4, color: 'success' };
+    if (bits >= 80) return { level: 'strong', label: 'Strong', dots: 3, color: 'success' };
+    if (bits >= 64) return { level: 'medium', label: 'Medium', dots: 2, color: 'warning' };
     return { level: 'weak', label: 'Weak', dots: 1, color: 'error' };
   }
 

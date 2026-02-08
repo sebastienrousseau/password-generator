@@ -336,8 +336,8 @@ function calculateCrackTime(entropy) {
   const guessesPerSecond = {
     onlineThrottled: 100, // Online attack with rate limiting
     onlineUnthrottled: 10000, // Online attack without rate limiting
-    offlineSlow: 10000000, // Offline attack with slow hashing (10 million)
-    offlineFast: 100000000000, // Offline attack with fast hashing (100 billion)
+    offlineSlow: 1e7, // Offline attack with slow hashing (10 million)
+    offlineFast: 1e11, // Offline attack with fast hashing (100 billion)
   };
 
   const totalGuesses = Math.pow(2, entropy - 1); // Average case
