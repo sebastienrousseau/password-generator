@@ -25,7 +25,9 @@
  * await pool.terminate();
  */
 
-export { PasswordWorkerPool } from './password-worker-pool.js';
+import { PasswordWorkerPool } from './password-worker-pool.js';
+
+export { PasswordWorkerPool };
 
 /**
  * Creates a quick worker pool with sensible defaults.

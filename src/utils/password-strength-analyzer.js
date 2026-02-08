@@ -336,8 +336,8 @@ function calculateCrackTime(entropy) {
   const guessesPerSecond = {
     onlineThrottled: 100, // Online attack with rate limiting
     onlineUnthrottled: 10000, // Online attack without rate limiting
-    offlineSlow: 10000000, // Offline attack with slow hashing
-    offlineFast: 100000000000, // Offline attack with fast hashing
+    offlineSlow: 1e7, // Offline attack with slow hashing (10 million)
+    offlineFast: 1e11, // Offline attack with fast hashing (100 billion)
   };
 
   const totalGuesses = Math.pow(2, entropy - 1); // Average case
@@ -355,8 +355,8 @@ function calculateCrackTime(entropy) {
 const SECONDS_PER_MINUTE = 60;
 const SECONDS_PER_HOUR = 3600;
 const SECONDS_PER_DAY = 86400;
-const SECONDS_PER_YEAR = 31536000;
-const SECONDS_PER_CENTURY = 3153600000;
+const SECONDS_PER_YEAR = 3.1536e7; // 31,536,000 seconds per year
+const SECONDS_PER_CENTURY = 3.1536e9; // 3,153,600,000 seconds per century
 
 /**
  * Formats time duration in human-readable format
