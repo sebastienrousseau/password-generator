@@ -119,15 +119,11 @@
         <div class="form-group">
           <label for="type" class="form-label">Password Type</label>
           <select id="type" name="type" class="form-select">
-            <optgroup label="Standard">
-              <option value="strong" selected>Strong - Mixed characters with symbols</option>
-              <option value="base64">Base64 - URL-safe encoding</option>
-              <option value="memorable">Memorable - Easy to remember words</option>
-            </optgroup>
-            <optgroup label="Advanced">
-              <option value="quantum-resistant">Quantum-Resistant - 256-bit entropy</option>
-              <option value="pronounceable">Pronounceable - Speakable syllables (e.g., fuon-hiig)</option>
-            </optgroup>
+            <option value="quantum-resistant">Quantum-Resistant - Maximum 256-bit entropy</option>
+            <option value="strong" selected>Strong - Mixed characters with symbols</option>
+            <option value="base64">Base64 - URL-safe encoding</option>
+            <option value="memorable">Memorable - Dictionary words (e.g., correct-horse-battery)</option>
+            <option value="pronounceable">Pronounceable - Speakable syllables (e.g., fuon-hiig)</option>
           </select>
         </div>
 
