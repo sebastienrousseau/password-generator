@@ -31,7 +31,7 @@
         "@babel/preset-env": "^7.23.3",
         "@babel/preset-typescript": "^7.23.3",
         "@babel/register": "^7.22.15",
-        "babel-plugin-istanbul": "^6.1.1",
+        "babel-plugin-istanbul": "^7.0.1",
         "c8": "^8.0.1",
         "chai": "^5.0.0",
         "chai-as-promised": "8.0.2",
