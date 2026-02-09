@@ -36,7 +36,7 @@
         "chai": "^5.0.0",
         "chai-as-promised": "8.0.2",
         "esbuild": "0.27.3",
-        "eslint": "^8.53.0",
+        "eslint": "^10.0.0",
         "eslint-plugin-import": "^2.29.0",
         "eslint-plugin-prettier": "^5.0.1",
         "esmock": "2.7.3",
