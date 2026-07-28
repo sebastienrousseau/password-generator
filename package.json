@@ -26,7 +26,7 @@
     "description": "A fast, simple and powerful open-source utility tool for generating strong, unique and random passwords.",
     "devDependencies": {
         "@babel/cli": "^7.23.0",
-        "@babel/core": "^7.23.3",
+        "@babel/core": "^8.0.1",
         "@babel/eslint-parser": "^7.23.3",
         "@babel/preset-env": "^7.23.3",
         "@babel/preset-typescript": "^7.23.3",
