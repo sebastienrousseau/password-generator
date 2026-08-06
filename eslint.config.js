@@ -46,6 +46,12 @@ export default [
       },
     },
     rules: {
+      // chalk 6 dropped its `main` field in favour of conditional
+      // `exports`. eslint-plugin-import's node resolver reads `main`
+      // and not `exports`, so it reports a package that resolves
+      // perfectly well at runtime as unresolvable. Same `ignore`
+      // idiom the web config already uses for `^react$`.
+      "import/no-unresolved": [2, { ignore: ["^chalk$"] }],
       camelcase: [1, { properties: "always" }],
       "comma-dangle": 0,
       "comma-spacing": [1, { before: false, after: true }],
