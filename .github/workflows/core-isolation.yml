@@ -23,7 +23,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x]
+        node-version: [22.x, 24.x]
 
     steps:
       - name: Checkout repository
@@ -45,4 +45,4 @@ jobs:
         run: node scripts/verify-core-deps.js
 
       - name: Lint core package
-        run: npx eslint packages/core/src --config packages/core/.eslintrc.json
+        run: npx eslint packages/core/src --config packages/core/eslint.config.js
