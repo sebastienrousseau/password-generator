@@ -55,7 +55,7 @@ export class WebLocalStorage {
       localStorage.setItem(testKey, "test");
       localStorage.removeItem(testKey);
       return true;
-    } catch (error) {
+    } catch {
       // localStorage may be disabled or in private browsing mode
       return false;
     }
