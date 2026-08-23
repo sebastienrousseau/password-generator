@@ -109,7 +109,7 @@
     "secure",
     "security"
   ],
-  "license": "MIT",
+  "license": "Apache-2.0 OR MIT",
   "license_URI": "http://www.opensource.org/licenses/mit-license.php",
   "lockfileVersion": 1,
   "main": "index.js",
