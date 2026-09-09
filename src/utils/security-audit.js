@@ -15,7 +15,7 @@ import {
   ENTROPY_CONSTANTS,
   getSecurityLevel,
   getSecurityRecommendation,
-} from '../../packages/core/src/domain/index.js';
+} from "../../packages/core/src/domain/index.js";
 
 /**
  * Global audit state - disabled by default for zero-overhead operation
@@ -46,7 +46,7 @@ let performanceMetrics = {
 };
 
 // Re-export entropy constants from domain layer
-export { ENTROPY_CONSTANTS } from '../../packages/core/src/domain/index.js';
+export { ENTROPY_CONSTANTS } from "../../packages/core/src/domain/index.js";
 
 /**
  * Resets audit session state for new password generation
@@ -83,7 +83,12 @@ export const setAuditMode = (enabled) => {
  * @param {number} entropyBits - Estimated entropy bits generated
  * @param {Object} details - Additional details about the entropy generation
  */
-export const recordEntropyUsage = (source, calls, entropyBits, details = {}) => {
+export const recordEntropyUsage = (
+  source,
+  calls,
+  entropyBits,
+  details = {},
+) => {
   if (!auditEnabled) {
     return;
   }
@@ -131,7 +136,7 @@ export {
   calculateBase64Entropy,
   calculateBase64ChunkEntropy,
   calculateDictionaryEntropy,
-} from '../../packages/core/src/domain/index.js';
+} from "../../packages/core/src/domain/index.js";
 
 /**
  * Sets dictionary size for entropy calculations
@@ -180,13 +185,18 @@ export const generateAuditReport = () => {
   if (!auditEnabled) {
     return {
       auditEnabled: false,
-      message: 'Security audit was not enabled for this generation session',
+      message: "Security audit was not enabled for this generation session",
     };
   }
 
-  const totalEntropyBits = entropyLog.reduce((sum, entry) => sum + entry.entropyBits, 0);
-  const totalGenerationTime = performanceMetrics.generationEnd - performanceMetrics.generationStart;
-  const auditOverheadPercent = (performanceMetrics.auditOverhead / totalGenerationTime) * 100;
+  const totalEntropyBits = entropyLog.reduce(
+    (sum, entry) => sum + entry.entropyBits,
+    0,
+  );
+  const totalGenerationTime =
+    performanceMetrics.generationEnd - performanceMetrics.generationStart;
+  const auditOverheadPercent =
+    (performanceMetrics.auditOverhead / totalGenerationTime) * 100;
 
   return {
     auditEnabled: true,
@@ -212,8 +222,10 @@ export const generateAuditReport = () => {
       auditOverheadPercent: Math.round(auditOverheadPercent * 100) / 100,
     },
     compliance: {
-      cryptographicStandard: 'Uses Node.js crypto module (OpenSSL-based CSPRNG)',
-      entropySource: 'OS-provided cryptographically secure random number generator',
+      cryptographicStandard:
+        "Uses Node.js crypto module (OpenSSL-based CSPRNG)",
+      entropySource:
+        "OS-provided cryptographically secure random number generator",
       recommendation: getSecurityRecommendation(totalEntropyBits),
     },
   };

@@ -7,7 +7,7 @@ import {
   getValidPresetsString,
   isValidPasswordType,
   getValidTypesString,
-} from '../config.js';
+} from "../config.js";
 
 /**
  * Service for handling password generator configuration operations.
@@ -41,7 +41,9 @@ export class ConfigurationService {
 
     if (preset) {
       if (!isValidPreset(preset)) {
-        throw new Error(`Invalid preset '${preset}'. Valid presets: ${getValidPresetsString()}`);
+        throw new Error(
+          `Invalid preset '${preset}'. Valid presets: ${getValidPresetsString()}`,
+        );
       }
       const presetConfig = getPresetConfig(preset);
       // Apply preset values first, then override with user options
@@ -67,13 +69,13 @@ export class ConfigurationService {
     const missingRequired = [];
 
     if (!config.type) {
-      missingRequired.push('type');
+      missingRequired.push("type");
     }
     if (config.iteration === undefined) {
-      missingRequired.push('iteration');
+      missingRequired.push("iteration");
     }
     if (config.separator === undefined) {
-      missingRequired.push('separator');
+      missingRequired.push("separator");
     }
 
     if (missingRequired.length > 0) {
@@ -81,22 +83,22 @@ export class ConfigurationService {
       if (hasPreset) {
         throw new Error(
           `Missing required options: ${missingRequired.join(
-            ', '
-          )}. This should not happen with a valid preset.`
+            ", ",
+          )}. This should not happen with a valid preset.`,
         );
       } else {
         throw new Error(
-          `Missing required options: ${missingRequired.join(', ')}. ` +
+          `Missing required options: ${missingRequired.join(", ")}. ` +
             `Either provide these options or use a preset (-p ${
-              getValidPresetsString().split(', ')[0]
-            })`
+              getValidPresetsString().split(", ")[0]
+            })`,
         );
       }
     }
 
     if (!isValidPasswordType(config.type)) {
       throw new Error(
-        `Invalid password type '${config.type}'. Valid types: ${getValidTypesString()}`
+        `Invalid password type '${config.type}'. Valid types: ${getValidTypesString()}`,
       );
     }
   }

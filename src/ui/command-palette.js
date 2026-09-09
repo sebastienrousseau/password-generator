@@ -12,9 +12,9 @@
  * @module ui/command-palette
  */
 
-import { colors, icons, box } from './theme.js';
-import { matchesBinding, defaultBindings } from './keyboard.js';
-import { getFocusManager } from './focus-manager.js';
+import { colors, icons, box } from "./theme.js";
+import { matchesBinding, defaultBindings } from "./keyboard.js";
+import { getFocusManager } from "./focus-manager.js";
 
 /**
  * Command definition
@@ -32,76 +32,76 @@ import { getFocusManager } from './focus-manager.js';
  */
 export const defaultCommands = [
   {
-    id: 'preset-quick',
-    name: 'Quick Preset',
-    description: 'Generate a quick, simple password',
-    category: 'Presets',
-    action: () => ({ preset: 'quick' }),
+    id: "preset-quick",
+    name: "Quick Preset",
+    description: "Generate a quick, simple password",
+    category: "Presets",
+    action: () => ({ preset: "quick" }),
   },
   {
-    id: 'preset-secure',
-    name: 'Secure Preset',
-    description: 'Generate a maximum security password',
-    category: 'Presets',
-    action: () => ({ preset: 'secure' }),
+    id: "preset-secure",
+    name: "Secure Preset",
+    description: "Generate a maximum security password",
+    category: "Presets",
+    action: () => ({ preset: "secure" }),
   },
   {
-    id: 'preset-memorable',
-    name: 'Memorable Preset',
-    description: 'Generate an easy to remember password',
-    category: 'Presets',
-    action: () => ({ preset: 'memorable' }),
+    id: "preset-memorable",
+    name: "Memorable Preset",
+    description: "Generate an easy to remember password",
+    category: "Presets",
+    action: () => ({ preset: "memorable" }),
   },
   {
-    id: 'length-8',
-    name: 'Length: 8',
-    description: 'Set password length to 8 characters',
-    category: 'Length',
+    id: "length-8",
+    name: "Length: 8",
+    description: "Set password length to 8 characters",
+    category: "Length",
     action: () => ({ length: 8 }),
   },
   {
-    id: 'length-16',
-    name: 'Length: 16',
-    description: 'Set password length to 16 characters',
-    category: 'Length',
+    id: "length-16",
+    name: "Length: 16",
+    description: "Set password length to 16 characters",
+    category: "Length",
     action: () => ({ length: 16 }),
   },
   {
-    id: 'length-24',
-    name: 'Length: 24',
-    description: 'Set password length to 24 characters',
-    category: 'Length',
+    id: "length-24",
+    name: "Length: 24",
+    description: "Set password length to 24 characters",
+    category: "Length",
     action: () => ({ length: 24 }),
   },
   {
-    id: 'length-32',
-    name: 'Length: 32',
-    description: 'Set password length to 32 characters',
-    category: 'Length',
+    id: "length-32",
+    name: "Length: 32",
+    description: "Set password length to 32 characters",
+    category: "Length",
     action: () => ({ length: 32 }),
   },
   {
-    id: 'copy-clipboard',
-    name: 'Copy to Clipboard',
-    description: 'Copy generated password to clipboard',
-    shortcut: 'Ctrl+C',
-    category: 'Actions',
+    id: "copy-clipboard",
+    name: "Copy to Clipboard",
+    description: "Copy generated password to clipboard",
+    shortcut: "Ctrl+C",
+    category: "Actions",
     action: () => ({ clipboard: true }),
   },
   {
-    id: 'help',
-    name: 'Help',
-    description: 'Show help information',
-    shortcut: '?',
-    category: 'Help',
+    id: "help",
+    name: "Help",
+    description: "Show help information",
+    shortcut: "?",
+    category: "Help",
     action: () => ({ showHelp: true }),
   },
   {
-    id: 'quit',
-    name: 'Quit',
-    description: 'Exit the application',
-    shortcut: 'Esc',
-    category: 'Navigation',
+    id: "quit",
+    name: "Quit",
+    description: "Exit the application",
+    shortcut: "Esc",
+    category: "Navigation",
     action: () => ({ quit: true }),
   },
 ];
@@ -168,8 +168,12 @@ export const searchCommands = (commands, query) => {
   const results = commands
     .map((cmd) => {
       const nameScore = fuzzyMatch(query, cmd.name);
-      const descScore = cmd.description ? fuzzyMatch(query, cmd.description) * 0.5 : 0;
-      const categoryScore = cmd.category ? fuzzyMatch(query, cmd.category) * 0.3 : 0;
+      const descScore = cmd.description ?
+        fuzzyMatch(query, cmd.description) * 0.5 :
+        0;
+      const categoryScore = cmd.category ?
+        fuzzyMatch(query, cmd.category) * 0.3 :
+        0;
       const totalScore = Math.max(nameScore, descScore, categoryScore);
       return { cmd, score: totalScore };
     })
@@ -187,7 +191,7 @@ export class CommandPalette {
     this.commands = commands;
     this.filteredCommands = commands;
     this.selectedIndex = 0;
-    this.query = '';
+    this.query = "";
     this.isOpen = false;
     this.onSelect = null;
     this.onClose = null;
@@ -201,7 +205,7 @@ export class CommandPalette {
    */
   open(options = {}) {
     this.isOpen = true;
-    this.query = '';
+    this.query = "";
     this.selectedIndex = 0;
     this.filteredCommands = this.commands;
     this.onSelect = options.onSelect;
@@ -209,7 +213,7 @@ export class CommandPalette {
 
     // Save focus state
     const focusManager = getFocusManager();
-    focusManager.push('command-palette', 0);
+    focusManager.push("command-palette", 0);
   }
 
   /**
@@ -217,7 +221,7 @@ export class CommandPalette {
    */
   close() {
     this.isOpen = false;
-    this.query = '';
+    this.query = "";
 
     // Restore focus state
     const focusManager = getFocusManager();
@@ -261,7 +265,9 @@ export class CommandPalette {
   moveUp() {
     if (this.filteredCommands.length > 0) {
       this.selectedIndex =
-        this.selectedIndex > 0 ? this.selectedIndex - 1 : this.filteredCommands.length - 1;
+        this.selectedIndex > 0 ?
+          this.selectedIndex - 1 :
+          this.filteredCommands.length - 1;
     }
   }
 
@@ -271,7 +277,9 @@ export class CommandPalette {
   moveDown() {
     if (this.filteredCommands.length > 0) {
       this.selectedIndex =
-        this.selectedIndex < this.filteredCommands.length - 1 ? this.selectedIndex + 1 : 0;
+        this.selectedIndex < this.filteredCommands.length - 1 ?
+          this.selectedIndex + 1 :
+          0;
     }
   }
 
@@ -280,7 +288,10 @@ export class CommandPalette {
    * @returns {Object | null} Result from command action
    */
   select() {
-    if (this.filteredCommands.length > 0 && this.selectedIndex < this.filteredCommands.length) {
+    if (
+      this.filteredCommands.length > 0 &&
+      this.selectedIndex < this.filteredCommands.length
+    ) {
       const command = this.filteredCommands[this.selectedIndex];
       const result = command.action();
       this.close();
@@ -304,29 +315,29 @@ export class CommandPalette {
     }
 
     // Escape to close
-    if (matchesBinding(key, 'cancel', defaultBindings)) {
+    if (matchesBinding(key, "cancel", defaultBindings)) {
       this.close();
       return true;
     }
 
     // Navigation
-    if (matchesBinding(key, 'up', defaultBindings)) {
+    if (matchesBinding(key, "up", defaultBindings)) {
       this.moveUp();
       return true;
     }
-    if (matchesBinding(key, 'down', defaultBindings)) {
+    if (matchesBinding(key, "down", defaultBindings)) {
       this.moveDown();
       return true;
     }
 
     // Select
-    if (matchesBinding(key, 'select', defaultBindings)) {
+    if (matchesBinding(key, "select", defaultBindings)) {
       this.select();
       return true;
     }
 
     // Backspace
-    if (key && key.name === 'backspace') {
+    if (key && key.name === "backspace") {
       this.handleBackspace();
       return true;
     }
@@ -347,7 +358,7 @@ export class CommandPalette {
    */
   render(maxHeight = 10) {
     if (!this.isOpen) {
-      return '';
+      return "";
     }
 
     const lines = [];
@@ -356,52 +367,56 @@ export class CommandPalette {
     const borderColor = colors.dim;
 
     // Header with search input
-    lines.push('');
+    lines.push("");
     lines.push(
       `  ${borderColor(box.topLeft)}${borderColor(box.horizontal.repeat(innerWidth))}${borderColor(
-        box.topRight
-      )}`
+        box.topRight,
+      )}`,
     );
 
     // Search input line
     const searchIcon = colors.primary(icons.sparkle);
-    const queryDisplay = this.query || colors.dim('Type to search...');
-    const cursor = colors.primary('_');
+    const queryDisplay = this.query || colors.dim("Type to search...");
+    const cursor = colors.primary("_");
     lines.push(
       `  ${borderColor(box.vertical)} ${searchIcon} ${queryDisplay}${
-        this.query ? cursor : ''
-      } `.padEnd(innerWidth + 3) + `${borderColor(box.vertical)}`
+        this.query ? cursor : ""
+      } `.padEnd(innerWidth + 3) + `${borderColor(box.vertical)}`,
     );
 
     // Divider
     lines.push(
       `  ${borderColor(box.vertical)}${colors.dim(box.horizontal.repeat(innerWidth))}${borderColor(
-        box.vertical
-      )}`
+        box.vertical,
+      )}`,
     );
 
     // Commands list
     const displayCount = Math.min(this.filteredCommands.length, maxHeight - 5);
 
     if (this.filteredCommands.length === 0) {
-      const noResults = colors.dim('No commands found');
+      const noResults = colors.dim("No commands found");
       lines.push(
         `  ${borderColor(box.vertical)} ${noResults}`.padEnd(innerWidth + 3) +
-          ` ${borderColor(box.vertical)}`
+          ` ${borderColor(box.vertical)}`,
       );
     } else {
       for (let i = 0; i < displayCount; i++) {
         const cmd = this.filteredCommands[i];
         const isSelected = i === this.selectedIndex;
 
-        const pointer = isSelected ? colors.primary(icons.pointer) : ' ';
-        const name = isSelected ? colors.text(cmd.name) : colors.muted(cmd.name);
-        const shortcut = cmd.shortcut ? colors.dim(` [${cmd.shortcut}]`) : '';
+        const pointer = isSelected ? colors.primary(icons.pointer) : " ";
+        const name = isSelected ?
+          colors.text(cmd.name) :
+          colors.muted(cmd.name);
+        const shortcut = cmd.shortcut ? colors.dim(` [${cmd.shortcut}]`) : "";
 
         const lineContent = `${pointer} ${name}${shortcut}`;
         const paddedLine = lineContent.padEnd(innerWidth + 2);
 
-        lines.push(`  ${borderColor(box.vertical)} ${paddedLine}${borderColor(box.vertical)}`);
+        lines.push(
+          `  ${borderColor(box.vertical)} ${paddedLine}${borderColor(box.vertical)}`,
+        );
       }
 
       // Show count if more commands than displayed
@@ -410,7 +425,7 @@ export class CommandPalette {
         const moreText = colors.dim(`+${moreCount} more`);
         lines.push(
           `  ${borderColor(box.vertical)} ${moreText}`.padEnd(innerWidth + 3) +
-            ` ${borderColor(box.vertical)}`
+            ` ${borderColor(box.vertical)}`,
         );
       }
     }
@@ -418,15 +433,15 @@ export class CommandPalette {
     // Footer
     lines.push(
       `  ${borderColor(box.bottomLeft)}${borderColor(
-        box.horizontal.repeat(innerWidth)
-      )}${borderColor(box.bottomRight)}`
+        box.horizontal.repeat(innerWidth),
+      )}${borderColor(box.bottomRight)}`,
     );
 
     // Help text
-    lines.push(`  ${colors.dim('↑↓ navigate · enter select · esc close')}`);
-    lines.push('');
+    lines.push(`  ${colors.dim("↑↓ navigate · enter select · esc close")}`);
+    lines.push("");
 
-    return lines.join('\n');
+    return lines.join("\n");
   }
 }
 
@@ -460,7 +475,7 @@ export const resetCommandPalette = (commands) => {
  * @returns {boolean}
  */
 export const isCommandPaletteKey = (key) => {
-  return matchesBinding(key, 'commandPalette', defaultBindings);
+  return matchesBinding(key, "commandPalette", defaultBindings);
 };
 
 export default {

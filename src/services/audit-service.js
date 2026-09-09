@@ -15,7 +15,7 @@ import {
   resetAuditSession,
   finishAuditSession,
   generateAuditReport,
-} from '../utils/security-audit.js';
+} from "../utils/security-audit.js";
 
 /**
  * Starts a new audit session and enables audit mode.
@@ -56,7 +56,7 @@ export const executeWithAudit = async (operation) => {
     // Complete audit session even if operation fails
     const auditReport = completeAuditSession();
     throw new Error(
-      `Operation failed: ${error.message}. Audit Report: ${JSON.stringify(auditReport)}`
+      `Operation failed: ${error.message}. Audit Report: ${JSON.stringify(auditReport)}`,
     );
   }
 };

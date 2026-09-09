@@ -154,7 +154,7 @@
     "copy:src": "cp -R ./src dist/src",
     "coverage": "npm run clean && c8 mocha \"test/*.js\" \"./test/**/*.js\" && exit",
     "create:directory": "mkdirp ./dist",
-    "create:docs": "jsdoc -c ./jsdoc.json",
+    "create:docs": "jsdoc",
     "filesize:distribution": "filesizes dist/ > dist/Report.txt",
     "format": "prettier --write src/**/*.js",
     "lint": "eslint \"./*.js\" \"./src/**/*.js\"",
@@ -254,5 +254,24 @@
     "functions": 90,
     "branches": 95,
     "statements": 90
+  },
+  "jsdoc": {
+    "source": {
+      "includePattern": ".+\\.js(doc|x)?$",
+      "include": [
+        "."
+      ],
+      "exclude": [
+        "node_modules",
+        "dist",
+        "coverage",
+        "test"
+      ]
+    },
+    "recurseDepth": 10,
+    "opts": {
+      "destination": "./docs/",
+      "recurse": true
+    }
   }
 }

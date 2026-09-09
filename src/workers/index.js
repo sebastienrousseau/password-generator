@@ -25,7 +25,7 @@
  * await pool.terminate();
  */
 
-import { PasswordWorkerPool } from './password-worker-pool.js';
+import { PasswordWorkerPool } from "./password-worker-pool.js";
 
 export { PasswordWorkerPool };
 
@@ -36,7 +36,8 @@ export { PasswordWorkerPool };
  * @returns {PasswordWorkerPool} Configured worker pool.
  */
 export function createWorkerPool(options = {}) {
-  const { size = navigator?.hardwareConcurrency || 4, ...restOptions } = options;
+  const { size = navigator?.hardwareConcurrency || 4, ...restOptions } =
+    options;
 
   return new PasswordWorkerPool({
     size,
@@ -92,39 +93,39 @@ export const GenerationPresets = {
    * Strong passwords suitable for most applications.
    */
   STRONG_DEFAULT: {
-    type: 'strong',
+    type: "strong",
     length: 16,
     iteration: 2,
-    separator: '-',
+    separator: "-",
   },
 
   /**
    * Memorable passwords for users who need to remember them.
    */
   MEMORABLE_DEFAULT: {
-    type: 'memorable',
+    type: "memorable",
     iteration: 4,
-    separator: '-',
+    separator: "-",
   },
 
   /**
    * High-security passwords for critical applications.
    */
   HIGH_SECURITY: {
-    type: 'strong',
+    type: "strong",
     length: 24,
     iteration: 3,
-    separator: '_',
+    separator: "_",
   },
 
   /**
    * Fast-generation passwords for performance testing.
    */
   PERFORMANCE_TEST: {
-    type: 'base64',
+    type: "base64",
     length: 12,
     iteration: 1,
-    separator: '',
+    separator: "",
   },
 };
 
@@ -142,7 +143,10 @@ export const BulkPatterns = {
   mixed(count, distribution = { strong: 0.5, memorable: 0.3, base64: 0.2 }) {
     const configs = [];
     const types = Object.entries(distribution);
-    let totalWeight = Object.values(distribution).reduce((sum, w) => sum + w, 0);
+    let totalWeight = Object.values(distribution).reduce(
+      (sum, w) => sum + w,
+      0,
+    );
 
     for (let i = 0; i < count; i++) {
       const rand = Math.random() * totalWeight;
@@ -157,7 +161,9 @@ export const BulkPatterns = {
         }
       }
 
-      configs.push({ ...GenerationPresets[`${selectedType.toUpperCase()}_DEFAULT`] });
+      configs.push({
+        ...GenerationPresets[`${selectedType.toUpperCase()}_DEFAULT`],
+      });
     }
 
     return configs;
@@ -172,10 +178,10 @@ export const BulkPatterns = {
    */
   varyingLengths(count, lengths = [12, 16, 20, 24]) {
     return Array.from({ length: count }, (_, i) => ({
-      type: 'strong',
+      type: "strong",
       length: lengths[i % lengths.length],
       iteration: 1,
-      separator: '-',
+      separator: "-",
     }));
   },
 
