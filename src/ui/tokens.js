@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -22,13 +22,11 @@ export const palette = {
   hotPink: "#FF4785",
   purple: "#9D4EDD",
   violet: "#7B2CBF",
-
   // Accent colors
   cyan: "#00D9FF",
   mint: "#3DFFA3",
   peach: "#FFB86C",
   coral: "#FF6B6B",
-
   // Neutrals - Updated gray for better contrast (#9CA3AF instead of #6B7280)
   white: "#FAFAFA",
   gray: {
@@ -43,7 +41,6 @@ export const palette = {
     800: "#374151", // darkGray
     900: "#18181B",
   },
-
   // Light theme variants (inverted for light backgrounds)
   light: {
     pink: "#D14671",

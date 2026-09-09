@@ -1,5 +1,5 @@
 // Type definitions for crypto utilities module
-// Project: https://github.com/sebastienrousseau/password-generator
+// Project: https://github.com/sebastienrousseau/jspassgen
 
 /**
  * Validates that a value is a positive integer, throwing a RangeError if not.

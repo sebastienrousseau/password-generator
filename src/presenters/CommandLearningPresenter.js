@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -45,14 +45,20 @@ export class CommandLearningPresenter {
     } else {
       breakdown.push({ flag: `--type ${config.type}`, desc: "password type" });
       if (config.length) {
-        breakdown.push({ flag: `--length ${config.length}`, desc: "chunk length" });
+        breakdown.push({
+          flag: `--length ${config.length}`,
+          desc: "chunk length",
+        });
       }
       breakdown.push({
         flag: `--iteration ${config.iteration}`,
         desc: `${config.type === "memorable" ? "words" : "chunks"}`,
       });
       if (config.separator && config.separator !== "-") {
-        breakdown.push({ flag: `--separator "${config.separator}"`, desc: "separator" });
+        breakdown.push({
+          flag: `--separator "${config.separator}"`,
+          desc: "separator",
+        });
       }
     }
 
@@ -81,7 +87,7 @@ export class CommandLearningPresenter {
       console.log("");
       for (const { flag, desc } of breakdown) {
         console.log(
-          `  ${colors.muted(icons.pointer)} ${colors.command(flag.padEnd(24))} ${colors.dim(desc)}`
+          `  ${colors.muted(icons.pointer)} ${colors.command(flag.padEnd(24))} ${colors.dim(desc)}`,
         );
       }
       console.log("");
@@ -96,19 +102,19 @@ export class CommandLearningPresenter {
     console.log("");
     console.log(
       `  ${colors.muted(icons.pointer)} ${colors.dim("use")} ${colors.command(
-        "--help"
-      )} ${colors.dim("for all options")}`
+        "--help",
+      )} ${colors.dim("for all options")}`,
     );
     console.log(
       `  ${colors.muted(icons.pointer)} ${colors.dim("use")} ${colors.command(
-        "--audit"
-      )} ${colors.dim("for security details")}`
+        "--audit",
+      )} ${colors.dim("for security details")}`,
     );
     if (preset) {
       console.log(
         `  ${colors.muted(icons.pointer)} ${colors.dim("use")} ${colors.command(
-          `-p ${preset}`
-        )} ${colors.dim("for quick access")}`
+          `-p ${preset}`,
+        )} ${colors.dim("for quick access")}`,
       );
     }
     console.log("");

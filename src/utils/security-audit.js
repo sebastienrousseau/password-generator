@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -83,7 +83,12 @@ export const setAuditMode = (enabled) => {
  * @param {number} entropyBits - Estimated entropy bits generated
  * @param {Object} details - Additional details about the entropy generation
  */
-export const recordEntropyUsage = (source, calls, entropyBits, details = {}) => {
+export const recordEntropyUsage = (
+  source,
+  calls,
+  entropyBits,
+  details = {},
+) => {
   if (!auditEnabled) {
     return;
   }
@@ -184,9 +189,14 @@ export const generateAuditReport = () => {
     };
   }
 
-  const totalEntropyBits = entropyLog.reduce((sum, entry) => sum + entry.entropyBits, 0);
-  const totalGenerationTime = performanceMetrics.generationEnd - performanceMetrics.generationStart;
-  const auditOverheadPercent = (performanceMetrics.auditOverhead / totalGenerationTime) * 100;
+  const totalEntropyBits = entropyLog.reduce(
+    (sum, entry) => sum + entry.entropyBits,
+    0,
+  );
+  const totalGenerationTime =
+    performanceMetrics.generationEnd - performanceMetrics.generationStart;
+  const auditOverheadPercent =
+    (performanceMetrics.auditOverhead / totalGenerationTime) * 100;
 
   return {
     auditEnabled: true,
@@ -212,8 +222,10 @@ export const generateAuditReport = () => {
       auditOverheadPercent: Math.round(auditOverheadPercent * 100) / 100,
     },
     compliance: {
-      cryptographicStandard: "Uses Node.js crypto module (OpenSSL-based CSPRNG)",
-      entropySource: "OS-provided cryptographically secure random number generator",
+      cryptographicStandard:
+        "Uses Node.js crypto module (OpenSSL-based CSPRNG)",
+      entropySource:
+        "OS-provided cryptographically secure random number generator",
       recommendation: getSecurityRecommendation(totalEntropyBits),
     },
   };

@@ -1,5 +1,5 @@
 // Type definitions for string utilities module
-// Project: https://github.com/sebastienrousseau/password-generator
+// Project: https://github.com/sebastienrousseau/jspassgen
 
 /**
  * Converts a given string to camel case.

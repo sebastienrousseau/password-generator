@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -183,7 +183,10 @@ export const supportsUnicode = () => {
 
   // Check LANG/LC_ALL for UTF-8
   const lang = process.env.LANG || process.env.LC_ALL || "";
-  if (lang.toLowerCase().includes("utf-8") || lang.toLowerCase().includes("utf8")) {
+  if (
+    lang.toLowerCase().includes("utf-8") ||
+    lang.toLowerCase().includes("utf8")
+  ) {
     return true;
   }
 

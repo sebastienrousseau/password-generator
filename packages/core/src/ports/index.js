@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -10,77 +10,77 @@
  * @module ports
  */
 
-import { PORT_ERRORS } from "../errors.js";
+import { PORT_ERRORS } from '../errors.js';
 
 // Import default implementations for use in createPortsWithDefaults
-import { NoOpLogger } from "./LoggerPort.js";
-import { MemoryStorage } from "./StoragePort.js";
-import { FixedClock } from "./ClockPort.js";
-import { MemoryDictionary, DEFAULT_WORD_LIST } from "./DictionaryPort.js";
+import { NoOpLogger } from './LoggerPort.js';
+import { MemoryStorage } from './StoragePort.js';
+import { FixedClock } from './ClockPort.js';
+import { MemoryDictionary, DEFAULT_WORD_LIST } from './DictionaryPort.js';
 
 // Port interfaces
 export {
   RandomGeneratorPort,
   RANDOM_GENERATOR_REQUIRED_METHODS,
   RANDOM_GENERATOR_OPTIONAL_METHODS,
-} from "./RandomGeneratorPort.js";
+} from './RandomGeneratorPort.js';
 
 export {
   LoggerPort,
   LOGGER_REQUIRED_METHODS,
   LOGGER_OPTIONAL_METHODS,
   NoOpLogger,
-} from "./LoggerPort.js";
+} from './LoggerPort.js';
 
 export {
   StoragePort,
   STORAGE_REQUIRED_METHODS,
   STORAGE_OPTIONAL_METHODS,
   MemoryStorage,
-} from "./StoragePort.js";
+} from './StoragePort.js';
 
 export {
   ClockPort,
   CLOCK_REQUIRED_METHODS,
   CLOCK_OPTIONAL_METHODS,
   FixedClock,
-} from "./ClockPort.js";
+} from './ClockPort.js';
 
 export {
   DictionaryPort,
   DICTIONARY_REQUIRED_METHODS,
   MemoryDictionary,
   DEFAULT_WORD_LIST,
-} from "./DictionaryPort.js";
+} from './DictionaryPort.js';
 
 /**
  * Port configuration schema for dependency injection.
  */
 export const PORT_SCHEMA = {
   randomGenerator: {
-    portClass: "RandomGeneratorPort",
+    portClass: 'RandomGeneratorPort',
     required: true,
-    requiredMethods: ["generateRandomBytes", "generateRandomInt"],
+    requiredMethods: ['generateRandomBytes', 'generateRandomInt'],
   },
   logger: {
-    portClass: "LoggerPort",
+    portClass: 'LoggerPort',
     required: false,
-    requiredMethods: ["info", "error"],
+    requiredMethods: ['info', 'error'],
   },
   storage: {
-    portClass: "StoragePort",
+    portClass: 'StoragePort',
     required: false,
-    requiredMethods: ["read", "write"],
+    requiredMethods: ['read', 'write'],
   },
   clock: {
-    portClass: "ClockPort",
+    portClass: 'ClockPort',
     required: false,
-    requiredMethods: ["now", "performanceNow"],
+    requiredMethods: ['now', 'performanceNow'],
   },
   dictionary: {
-    portClass: "DictionaryPort",
+    portClass: 'DictionaryPort',
     required: false,
-    requiredMethods: ["loadDictionary", "getWordCount", "selectRandomWord"],
+    requiredMethods: ['loadDictionary', 'getWordCount', 'selectRandomWord'],
   },
 };
 
@@ -92,7 +92,7 @@ export const PORT_SCHEMA = {
  * @returns {boolean} True if all required methods are present.
  */
 const hasRequiredMethods = (port, requiredMethods) => {
-  return requiredMethods.every((method) => typeof port[method] === "function");
+  return requiredMethods.every((method) => typeof port[method] === 'function');
 };
 
 /**
@@ -109,10 +109,10 @@ const hasRequiredMethods = (port, requiredMethods) => {
 export const validatePorts = (ports) => {
   const errors = [];
 
-  if (!ports || typeof ports !== "object") {
+  if (!ports || typeof ports !== 'object') {
     return {
       isValid: false,
-      errors: ["Ports configuration must be an object"],
+      errors: ['Ports configuration must be an object'],
     };
   }
 

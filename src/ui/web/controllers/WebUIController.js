@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -14,14 +14,14 @@
  * NO business rules or validation logic beyond basic type coercion.
  */
 
-import { createService } from "../../../../packages/core/src/index.js";
-import { BrowserCryptoRandom } from "../adapters/BrowserCryptoRandom.js";
-import { BrowserStorage } from "../adapters/BrowserStorage.js";
-import { BrowserClock } from "../adapters/BrowserClock.js";
-import { StateToCoreMapper } from "../state/StateToCoreMapper.js";
-import { PasswordViewModel } from "../view-models/PasswordViewModel.js";
-import { ValidationViewModel } from "../view-models/ValidationViewModel.js";
-import { EntropyViewModel } from "../view-models/EntropyViewModel.js";
+import { createService } from '../../../../packages/core/src/index.js';
+import { BrowserCryptoRandom } from '../adapters/BrowserCryptoRandom.js';
+import { BrowserStorage } from '../adapters/BrowserStorage.js';
+import { BrowserClock } from '../adapters/BrowserClock.js';
+import { StateToCoreMapper } from '../state/StateToCoreMapper.js';
+import { PasswordViewModel } from '../view-models/PasswordViewModel.js';
+import { ValidationViewModel } from '../view-models/ValidationViewModel.js';
+import { EntropyViewModel } from '../view-models/EntropyViewModel.js';
 
 /**
  * Web UI controller implementing the thin adapter pattern.
@@ -37,11 +37,14 @@ export class WebUIController {
    */
   constructor(options = {}) {
     // Wire browser adapters to core service
-    this.service = createService({}, {
-      randomGenerator: options.randomGenerator ?? new BrowserCryptoRandom(),
-      storage: options.storage ?? new BrowserStorage(),
-      clock: options.clock ?? new BrowserClock(),
-    });
+    this.service = createService(
+      {},
+      {
+        randomGenerator: options.randomGenerator ?? new BrowserCryptoRandom(),
+        storage: options.storage ?? new BrowserStorage(),
+        clock: options.clock ?? new BrowserClock(),
+      }
+    );
 
     this.stateToCoreMapper = new StateToCoreMapper();
   }
@@ -74,17 +77,23 @@ export class WebUIController {
     // Step 1: Validate first (fail fast)
     const validation = this.validate(formState);
     if (!validation.isValid) {
-      throw new Error(validation.errors.join("; "));
+      throw new Error(validation.errors.join('; '));
     }
 
     // Step 2: Map UI state to core config
     const config = this.stateToCoreMapper.toConfig(formState);
 
-    // Step 3: Delegate generation to core service
-    const password = await this.service.generate(config);
+    // Step 3: Delegate generation to core service (with entropy info for Web UI)
+    const result = await this.service.generate({ ...config, includeEntropy: true });
 
-    // Step 4: Get entropy info from core service
-    const entropyInfo = this.service.calculateEntropy(config);
+    // Step 4: Extract password and entropy info from result
+    // Core service returns an object with { password, entropy, securityLevel, metadata }
+    const password = result.password;
+    const entropyInfo = {
+      totalBits: result.entropy,
+      securityLevel: result.securityLevel,
+      recommendation: result.metadata?.recommendation || '',
+    };
 
     // Step 5: Transform to view model
     return PasswordViewModel.fromGenerationResult({

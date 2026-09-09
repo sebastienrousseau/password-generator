@@ -1,6 +1,6 @@
 # API Documentation
 
-This document covers the `@password-generator/core` package API.
+This document covers the `@jspassgen/core` package API.
 
 ## Table of Contents
 
@@ -20,7 +20,7 @@ This document covers the `@password-generator/core` package API.
 Creates a password generation service with full configuration.
 
 ```javascript
-import { createService } from '@password-generator/core';
+import { createService } from '@jspassgen/core';
 
 const service = createService(config, ports);
 ```
@@ -40,7 +40,7 @@ const service = createService(config, ports);
 
 **Returns:** Service object with password generation methods.
 
-**Throws:** `Error` if required ports are missing or invalid.
+**Throws:** `Error` when required ports are missing or invalid.
 
 ---
 
@@ -49,7 +49,7 @@ const service = createService(config, ports);
 Creates a service with minimal configuration. Uses defaults for all optional ports.
 
 ```javascript
-import { createQuickService } from '@password-generator/core';
+import { createQuickService } from '@jspassgen/core';
 
 const service = createQuickService(randomGenerator);
 ```
@@ -83,14 +83,14 @@ const password = await service.generate({
 
 | Name | Type | Required | Default | Description |
 |------|------|----------|---------|-------------|
-| `type` | `string` | Yes | - | Password type: `'strong'`, `'base64'`, `'memorable'` |
+| `type` | `string` | Yes | - | Password type: `'strong'`, `'base64'`, `'memorable'`, `'quantum-resistant'`, `'diceware'`, `'honeyword'`, `'pronounceable'`, `'custom'` |
 | `length` | `number` | No | `16` | Characters per chunk (not used for memorable) |
 | `iteration` | `number` | No | `1` | Number of chunks or words |
 | `separator` | `string` | No | `'-'` | Separator between chunks/words |
 
 **Returns:** `Promise<string>` - The generated password.
 
-**Throws:** `Error` if type is invalid or configuration is invalid.
+**Throws:** `Error` when type or configuration is invalid.
 
 ---
 
@@ -185,7 +185,7 @@ Returns the list of supported password types.
 
 ```javascript
 const types = service.getSupportedTypes();
-// ['strong', 'base64', 'memorable']
+// ['strong', 'base64', 'memorable', 'quantum-resistant', 'diceware', 'honeyword', 'pronounceable', 'custom']
 ```
 
 **Returns:** `string[]` - Array of supported type names.
@@ -201,7 +201,7 @@ const generator = service.getGenerator('strong');
 // { generate: Function, calculateEntropy: Function }
 ```
 
-**Returns:** Generator object or `null` if not found.
+**Returns:** Generator object, or `null` when the type does not exist.
 
 ---
 
@@ -309,7 +309,7 @@ class DictionaryPort {
 ### Character Sets
 
 ```javascript
-import { BASE64_CHARSET, VOWELS, CONSONANTS } from '@password-generator/core';
+import { BASE64_CHARSET, VOWELS, CONSONANTS } from '@jspassgen/core';
 ```
 
 | Export | Description |
@@ -328,13 +328,13 @@ import {
   VALID_PASSWORD_TYPES,
   isValidPasswordType,
   validatePasswordTypeConfig
-} from '@password-generator/core';
+} from '@jspassgen/core';
 ```
 
 | Export | Type | Description |
 |--------|------|-------------|
-| `PASSWORD_TYPES` | `Object` | Enum: `{ STRONG, BASE64, MEMORABLE }` |
-| `VALID_PASSWORD_TYPES` | `string[]` | `['strong', 'base64', 'memorable']` |
+| `PASSWORD_TYPES` | `Object` | Enum: `{ STRONG, BASE64, MEMORABLE, QUANTUM_RESISTANT, DICEWARE, HONEYWORD, PRONOUNCEABLE, CUSTOM }` |
+| `VALID_PASSWORD_TYPES` | `string[]` | `['strong', 'base64', 'memorable', 'quantum-resistant', 'diceware', 'honeyword', 'pronounceable', 'custom']` |
 | `isValidPasswordType(type)` | `Function` | Returns boolean |
 | `validatePasswordTypeConfig(type, config)` | `Function` | Returns validation result |
 
@@ -350,7 +350,7 @@ import {
   calculateBase64Entropy,
   calculateDictionaryEntropy,
   calculateCharsetEntropy
-} from '@password-generator/core';
+} from '@jspassgen/core';
 ```
 
 | Function | Description |
@@ -373,8 +373,12 @@ import {
   generateStrongPassword,
   generateBase64Password,
   generateMemorablePassword,
-  generatePassphrase
-} from '@password-generator/core';
+  generatePassphrase,
+  generateQuantumResistantPassword,
+  generateDicewarePassword,
+  generateHoneywordPassword,
+  generatePronounceablePassword
+} from '@jspassgen/core';
 ```
 
 | Function | Description |
@@ -383,13 +387,17 @@ import {
 | `generateBase64Password(config, randomGenerator)` | Generate base64 password |
 | `generateMemorablePassword(config, randomGenerator, dictionary)` | Generate memorable password |
 | `generatePassphrase(config, randomGenerator, dictionary)` | Alias for memorable |
+| `generateQuantumResistantPassword(config, randomGenerator)` | Generate quantum-resistant password |
+| `generateDicewarePassword(config, randomGenerator, dictionary)` | Generate diceware passphrase |
+| `generateHoneywordPassword(config, randomGenerator, dictionary)` | Generate honeyword decoy password |
+| `generatePronounceablePassword(config, randomGenerator)` | Generate pronounceable password |
 
 ---
 
 ## Error Constants
 
 ```javascript
-import { CRYPTO_ERRORS, PASSWORD_ERRORS, PORT_ERRORS } from '@password-generator/core';
+import { CRYPTO_ERRORS, PASSWORD_ERRORS, PORT_ERRORS } from '@jspassgen/core';
 ```
 
 ### CRYPTO_ERRORS
@@ -415,3 +423,9 @@ import { CRYPTO_ERRORS, PASSWORD_ERRORS, PORT_ERRORS } from '@password-generator
 |-----|-------------|
 | `MISSING_PORTS(missing, required)` | Required ports not provided |
 | `INVALID_PORT(name, expected)` | Port missing required methods |
+
+---
+
+🎨 Designed by Sebastien Rousseau — https://sebastienrousseau.com/
+
+🚀 Engineered with Euxis — Enterprise Unified eXecution Intelligence System — https://euxis.co/

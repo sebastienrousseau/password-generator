@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -18,7 +18,7 @@ export class LoggerPort {
    * @abstract
    */
   debug(_message, _metadata = {}) {
-    throw new Error("LoggerPort.debug() must be implemented");
+    throw new Error('LoggerPort.debug() must be implemented');
   }
 
   /**
@@ -29,7 +29,7 @@ export class LoggerPort {
    * @abstract
    */
   info(_message, _metadata = {}) {
-    throw new Error("LoggerPort.info() must be implemented");
+    throw new Error('LoggerPort.info() must be implemented');
   }
 
   /**
@@ -40,7 +40,7 @@ export class LoggerPort {
    * @abstract
    */
   warn(_message, _metadata = {}) {
-    throw new Error("LoggerPort.warn() must be implemented");
+    throw new Error('LoggerPort.warn() must be implemented');
   }
 
   /**
@@ -51,19 +51,19 @@ export class LoggerPort {
    * @abstract
    */
   error(_message, _error = null) {
-    throw new Error("LoggerPort.error() must be implemented");
+    throw new Error('LoggerPort.error() must be implemented');
   }
 }
 
 /**
  * Required methods for LoggerPort implementations.
  */
-export const LOGGER_REQUIRED_METHODS = ["info", "error"];
+export const LOGGER_REQUIRED_METHODS = ['info', 'error'];
 
 /**
  * Optional methods for LoggerPort implementations.
  */
-export const LOGGER_OPTIONAL_METHODS = ["debug", "warn"];
+export const LOGGER_OPTIONAL_METHODS = ['debug', 'warn'];
 
 /**
  * No-op logger implementation for when logging is disabled.

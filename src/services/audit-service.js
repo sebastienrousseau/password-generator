@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -56,7 +56,7 @@ export const executeWithAudit = async (operation) => {
     // Complete audit session even if operation fails
     const auditReport = completeAuditSession();
     throw new Error(
-      `Operation failed: ${error.message}. Audit Report: ${JSON.stringify(auditReport)}`
+      `Operation failed: ${error.message}. Audit Report: ${JSON.stringify(auditReport)}`,
     );
   }
 };

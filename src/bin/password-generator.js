@@ -1,10 +1,11 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 import { resolve } from "path";
 import { createCLIController } from "../cli/CLIController.js";
 import { createService } from "../../packages/core/src/index.js";
 import { NodeCryptoRandom } from "../adapters/node/crypto-random.js";
+import { EFFDicewareDictionary } from "../adapters/node/eff-diceware-dictionary.js";
 
 // Re-export services for programmatic use (backward compatibility)
 export {
@@ -17,7 +18,10 @@ export {
   mergePresetWithOptions,
   validateFinalConfig,
 } from "../services/config-service.js";
-export { generateEquivalentCommand, displayCommandLearningPanel } from "../services/cli-service.js";
+export {
+  generateEquivalentCommand,
+  displayCommandLearningPanel,
+} from "../services/cli-service.js";
 export {
   startAuditSession,
   completeAuditSession,
@@ -34,13 +38,15 @@ export { createService } from "../../packages/core/src/index.js";
  */
 function createCoreService() {
   const randomGenerator = new NodeCryptoRandom();
+  const dictionary = new EFFDicewareDictionary();
 
   return createService(
     {},
     {
       randomGenerator,
-      // Optional ports use defaults from core
-    }
+      dictionary,
+      // Optional ports use defaults from core (logger, storage, clock)
+    },
   );
 }
 

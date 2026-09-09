@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -45,7 +45,9 @@ export class WebConsoleLogger {
    * @returns {string} Formatted timestamp.
    */
   _formatTimestamp() {
-    if (!this.config.timestamp) {return "";}
+    if (!this.config.timestamp) {
+      return "";
+    }
     return `[${new Date().toISOString()}] `;
   }
 
@@ -76,7 +78,9 @@ export class WebConsoleLogger {
    * @param {...any} args Additional arguments to pass to console.
    */
   debug(message, ...args) {
-    if (!this._shouldLog(LogLevel.DEBUG)) {return;}
+    if (!this._shouldLog(LogLevel.DEBUG)) {
+      return;
+    }
 
     if (this.config.colors && typeof console !== "undefined" && console.debug) {
       console.debug(`%c${this._formatMessage("DEBUG", message)}`, "color: gray", ...args);
@@ -91,7 +95,9 @@ export class WebConsoleLogger {
    * @param {...any} args Additional arguments to pass to console.
    */
   info(message, ...args) {
-    if (!this._shouldLog(LogLevel.INFO)) {return;}
+    if (!this._shouldLog(LogLevel.INFO)) {
+      return;
+    }
 
     if (this.config.colors && typeof console !== "undefined" && console.info) {
       console.info(`%c${this._formatMessage("INFO", message)}`, "color: blue", ...args);
@@ -106,7 +112,9 @@ export class WebConsoleLogger {
    * @param {...any} args Additional arguments to pass to console.
    */
   warn(message, ...args) {
-    if (!this._shouldLog(LogLevel.WARN)) {return;}
+    if (!this._shouldLog(LogLevel.WARN)) {
+      return;
+    }
 
     if (typeof console !== "undefined" && console.warn) {
       if (this.config.colors) {
@@ -125,11 +133,17 @@ export class WebConsoleLogger {
    * @param {...any} args Additional arguments to pass to console.
    */
   error(message, ...args) {
-    if (!this._shouldLog(LogLevel.ERROR)) {return;}
+    if (!this._shouldLog(LogLevel.ERROR)) {
+      return;
+    }
 
     if (typeof console !== "undefined" && console.error) {
       if (this.config.colors) {
-        console.error(`%c${this._formatMessage("ERROR", message)}`, "color: red; font-weight: bold", ...args);
+        console.error(
+          `%c${this._formatMessage("ERROR", message)}`,
+          "color: red; font-weight: bold",
+          ...args
+        );
       } else {
         console.error(this._formatMessage("ERROR", message), ...args);
       }

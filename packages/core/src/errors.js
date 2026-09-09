@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -23,13 +23,13 @@ export const CRYPTO_ERRORS = {
    * Error message for empty character set.
    * @returns {string} The error message.
    */
-  EMPTY_CHARSET: "Character set must not be empty",
+  EMPTY_CHARSET: 'Character set must not be empty',
 
   /**
    * Error message for invalid byte length.
    * @returns {string} The error message.
    */
-  INVALID_BYTE_LENGTH: "Byte length must be a positive integer",
+  INVALID_BYTE_LENGTH: 'Byte length must be a positive integer',
 };
 
 /**
@@ -39,7 +39,7 @@ export const PASSWORD_ERRORS = {
   /**
    * Error message when password type is not provided.
    */
-  TYPE_REQUIRED: "Password type is required",
+  TYPE_REQUIRED: 'Password type is required',
 
   /**
    * Error message for unknown password type.
@@ -47,18 +47,18 @@ export const PASSWORD_ERRORS = {
    * @param {string[]} validTypes - Array of valid password types.
    * @returns {string} The error message.
    */
-  UNKNOWN_TYPE: (type, validTypes = ["strong", "base64", "memorable"]) =>
-    `Unknown password type: "${type}". Valid types: ${validTypes.join(", ")}`,
+  UNKNOWN_TYPE: (type, validTypes = ['strong', 'base64', 'memorable']) =>
+    `Unknown password type: "${type}". Valid types: ${validTypes.join(', ')}`,
 
   /**
    * Error message for invalid iteration count.
    * @returns {string} The error message.
    */
-  INVALID_ITERATION: "Iteration must be a positive integer",
+  INVALID_ITERATION: 'Iteration must be a positive integer',
   /** Error message for invalid length. */
-  INVALID_LENGTH: "Length must be a positive integer",
+  INVALID_LENGTH: 'Length must be a positive integer',
   /** Error message for missing separator. */
-  SEPARATOR_REQUIRED: "Separator is required",
+  SEPARATOR_REQUIRED: 'Separator is required',
 };
 
 /**
@@ -72,7 +72,9 @@ export const PORT_ERRORS = {
    * @returns {string} The error message.
    */
   MISSING_PORTS: (missingPorts, requiredPorts) =>
-    `Missing required ports: ${missingPorts.join(", ")}. Required ports: ${requiredPorts.join(", ")}`,
+    `Missing required ports: ${missingPorts.join(', ')}. Required ports: ${requiredPorts.join(
+      ', '
+    )}`,
   /** Error message for invalid port implementation. */
   INVALID_PORT: (portName, expectedClass) =>
     `${portName}: Missing required methods for ${expectedClass}`,

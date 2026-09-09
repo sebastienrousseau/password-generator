@@ -7,7 +7,10 @@
   "scripts": {
     "bench": "node password-generation.bench.js && node entropy-calculation.bench.js",
     "bench:generation": "node password-generation.bench.js",
-    "bench:entropy": "node entropy-calculation.bench.js"
+    "bench:entropy": "node entropy-calculation.bench.js",
+    "bench:bulk": "node bulk-generation.bench.js",
+    "bench:crypto": "node crypto-vs-mathrand.bench.js",
+    "bench:all": "node run-all.js"
   },
   "devDependencies": {}
 }

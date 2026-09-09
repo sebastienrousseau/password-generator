@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -24,8 +24,8 @@ export class EntropyViewModel {
   constructor(entropyInfo) {
     this.totalBits = entropyInfo.totalBits ?? 0;
     this.perUnit = entropyInfo.perUnit ?? 0;
-    this.securityLevel = entropyInfo.securityLevel ?? "unknown";
-    this.recommendation = entropyInfo.recommendation ?? "";
+    this.securityLevel = entropyInfo.securityLevel ?? 'unknown';
+    this.recommendation = entropyInfo.recommendation ?? '';
 
     // UI-specific computed values
     this.displayBits = Math.round(this.totalBits);
@@ -55,12 +55,22 @@ export class EntropyViewModel {
    * @private
    */
   _getStrengthLabel(bits) {
-    if (bits >= 256) {return "Excellent";}
-    if (bits >= 128) {return "Strong";}
-    if (bits >= 80) {return "Good";}
-    if (bits >= 64) {return "Moderate";}
-    if (bits >= 40) {return "Weak";}
-    return "Very Weak";
+    if (bits >= 256) {
+      return 'Excellent';
+    }
+    if (bits >= 128) {
+      return 'Strong';
+    }
+    if (bits >= 80) {
+      return 'Good';
+    }
+    if (bits >= 64) {
+      return 'Moderate';
+    }
+    if (bits >= 40) {
+      return 'Weak';
+    }
+    return 'Very Weak';
   }
 
   /**
@@ -71,11 +81,19 @@ export class EntropyViewModel {
    * @private
    */
   _getStrengthColor(bits) {
-    if (bits >= 128) {return "green";}
-    if (bits >= 80) {return "blue";}
-    if (bits >= 64) {return "yellow";}
-    if (bits >= 40) {return "orange";}
-    return "red";
+    if (bits >= 128) {
+      return 'green';
+    }
+    if (bits >= 80) {
+      return 'blue';
+    }
+    if (bits >= 64) {
+      return 'yellow';
+    }
+    if (bits >= 40) {
+      return 'orange';
+    }
+    return 'red';
   }
 
   /**

@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -8,7 +8,7 @@
  * @module base64-generation
  */
 
-import { CRYPTO_ERRORS } from "../errors.js";
+import { CRYPTO_ERRORS } from '../errors.js';
 
 /**
  * Validates that a value is a positive integer, throwing a RangeError if not.
@@ -29,7 +29,7 @@ export const validatePositiveInteger = (value, name) => {
  * @returns {boolean} True if the string is valid base64
  */
 export const isValidBase64 = (str) => {
-  if (typeof str !== "string") return false;
+  if (typeof str !== 'string') return false;
 
   // Base64 pattern: alphanumeric + / + = for padding (max 2 = at end)
   // This regex validates:
@@ -50,8 +50,8 @@ export const isValidBase64 = (str) => {
  * @throws {RangeError} If length is not a positive integer.
  */
 export const splitString = (str, length) => {
-  validatePositiveInteger(length, "length");
-  const substrings = str.match(new RegExp(`.{1,${length}}`, "g"));
+  validatePositiveInteger(length, 'length');
+  const substrings = str.match(new RegExp(`.{1,${length}}`, 'g'));
   return substrings || [];
 };
 
@@ -61,7 +61,7 @@ export const splitString = (str, length) => {
  * @returns {number} Expected base64 string length (with padding)
  */
 export const calculateBase64Length = (byteLength) => {
-  validatePositiveInteger(byteLength, "byteLength");
+  validatePositiveInteger(byteLength, 'byteLength');
 
   // Base64 encoding: 3 bytes -> 4 characters
   // Padding is added to make the output length a multiple of 4
@@ -74,7 +74,7 @@ export const calculateBase64Length = (byteLength) => {
  * @returns {number} Required byte length
  */
 export const calculateRequiredByteLength = (base64Length) => {
-  validatePositiveInteger(base64Length, "base64Length");
+  validatePositiveInteger(base64Length, 'base64Length');
 
   // Base64 encoding: 4 characters -> 3 bytes
   // Account for padding by taking the ceiling

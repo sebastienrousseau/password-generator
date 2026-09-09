@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -8,6 +8,6 @@
  * They contain no business logic, only data transformation.
  */
 
-export { PasswordViewModel } from "./PasswordViewModel.js";
-export { ValidationViewModel } from "./ValidationViewModel.js";
-export { EntropyViewModel } from "./EntropyViewModel.js";
+export { PasswordViewModel } from './PasswordViewModel.js';
+export { ValidationViewModel } from './ValidationViewModel.js';
+export { EntropyViewModel } from './EntropyViewModel.js';

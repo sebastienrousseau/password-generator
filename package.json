@@ -154,7 +154,7 @@
     "copy:src": "cp -R ./src dist/src",
     "coverage": "npm run clean && c8 mocha \"test/*.js\" \"./test/**/*.js\" && exit",
     "create:directory": "mkdirp ./dist",
-    "create:docs": "jsdoc -c ./jsdoc.json",
+    "create:docs": "jsdoc",
     "filesize:distribution": "filesizes dist/ > dist/Report.txt",
     "format": "prettier --write src/**/*.js",
     "lint": "eslint \"./*.js\" \"./src/**/*.js\"",
@@ -179,10 +179,15 @@
     "web:preview": "npm run web:build && npx serve dist/web -l ${PORT:-4173}",
     "web:deploy": "node scripts/deploy-gh-pages.js",
     "check:core-isolation": "npm run verify:core",
-    "benchmark": "node benchmarks/password-generation.bench.js && node benchmarks/entropy-calculation.bench.js"
+    "benchmark": "node benchmarks/password-generation.bench.js && node benchmarks/entropy-calculation.bench.js",
+    "benchmark:all": "node benchmarks/run-all.js",
+    "benchmark:bulk": "node benchmarks/bulk-generation.bench.js",
+    "benchmark:crypto": "node benchmarks/crypto-vs-mathrand.bench.js",
+    "benchmark:entropy": "node benchmarks/entropy-calculation.bench.js",
+    "benchmark:generation": "node benchmarks/password-generation.bench.js"
   },
   "type": "module",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "overrides": {
     "lodash": "^4.18.1",
     "jshint": {
@@ -190,6 +195,83 @@
     },
     "mocha": {
       "serialize-javascript": "^7.0.7"
+    }
+  },
+  "mocha": {
+    "diff": true,
+    "exit": true,
+    "extension": [
+      "js"
+    ],
+    "spec": [
+      "./test/*.js",
+      "./test/**/*.js"
+    ],
+    "ignore": [
+      "./test/**/coverage/**/*"
+    ],
+    "slow": "75",
+    "timeout": "60000"
+  },
+  "c8": {
+    "exclude": [
+      "node_modules/**",
+      "test/**",
+      "dist/**",
+      "packages/core/test/**",
+      "src/ui/web/demo/scripts/main.js",
+      "src/adapters/web/webcrypto-random.js",
+      "src/**/test/**",
+      "src/**/*.test.js",
+      "**/*.d.ts",
+      "scripts/**",
+      "benchmarks/**",
+      "src/workers/**",
+      "src/ui/web/hooks/**",
+      "src/services/output-formatter.js",
+      "packages/core/src/domain/strength-analyzer.js",
+      "packages/core/src/domain/template.js",
+      "packages/core/src/api/PasswordBuilder.js",
+      "packages/core/src/generators/template.js",
+      "packages/core/src/generators/custom.js",
+      "packages/core/src/generators/diceware.js",
+      "packages/core/src/generators/honeyword.js",
+      "packages/core/src/generators/pronounceable.js"
+    ],
+    "include": [
+      "src/**",
+      "packages/core/src/**",
+      "index.js"
+    ],
+    "reporter": [
+      "text",
+      "lcov",
+      "json-summary"
+    ],
+    "all": true,
+    "check-coverage": false,
+    "lines": 90,
+    "functions": 90,
+    "branches": 95,
+    "statements": 90
+  },
+  "jsdoc": {
+    "source": {
+      "includePattern": ".+\\.js(doc|x)?$",
+      "include": [
+        "."
+      ],
+      "exclude": [
+        "node_modules",
+        "dist",
+        "coverage",
+        "test"
+      ]
+    },
+    "recurseDepth": 10,
+    "opts": {
+      "destination": "./docs/",
+      "recurse": true
     }
   }
 }

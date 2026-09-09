@@ -67,7 +67,7 @@ describe('CLIController', () => {
 
       // Test with valid preset
       const result = controller.resolveConfiguration('quick', {
-        type: 'strong'
+        type: 'strong',
       });
 
       // Should return a valid configuration object with user override
@@ -98,7 +98,7 @@ describe('CLIController', () => {
         preset: 'quick',
         clipboard: false,
         audit: false,
-        learn: false
+        learn: false,
       };
 
       await controller.handleCliAction(opts);
@@ -112,7 +112,7 @@ describe('CLIController', () => {
         type: 'strong',
         iteration: 3,
         separator: '-',
-        learn: true
+        learn: true,
       };
 
       await controller.handleCliAction(opts);
@@ -126,7 +126,7 @@ describe('CLIController', () => {
       const opts = {
         type: 'strong',
         iteration: 3,
-        separator: '-'
+        separator: '-',
       };
 
       await controller.handleCliAction(opts);
@@ -138,13 +138,13 @@ describe('CLIController', () => {
     it('should handle validation errors from service', async () => {
       mockService.validateConfig.returns({
         isValid: false,
-        errors: ['Invalid type']
+        errors: ['Invalid type'],
       });
 
       const opts = {
         type: 'invalid',
         iteration: 3,
-        separator: '-'
+        separator: '-',
       };
 
       await controller.handleCliAction(opts);

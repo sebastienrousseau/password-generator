@@ -31,7 +31,29 @@ describe('randomVowel', () => {
   });
 
   it('should never return consonants', () => {
-    const consonants = ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z'];
+    const consonants = [
+      'b',
+      'c',
+      'd',
+      'f',
+      'g',
+      'h',
+      'j',
+      'k',
+      'l',
+      'm',
+      'n',
+      'p',
+      'q',
+      'r',
+      's',
+      't',
+      'v',
+      'w',
+      'x',
+      'y',
+      'z',
+    ];
     for (let i = 0; i < 10; i++) {
       const vowel = randomVowel();
       expect(consonants).to.not.include(vowel);

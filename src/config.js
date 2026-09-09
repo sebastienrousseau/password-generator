@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -13,12 +13,35 @@
 /**
  * Valid password types supported by the generator.
  */
-export const VALID_PASSWORD_TYPES = ["strong", "base64", "memorable", "quantum-resistant"];
+export const VALID_PASSWORD_TYPES = [
+  "strong",
+  "base64",
+  "memorable",
+  "quantum-resistant",
+  "diceware",
+  "honeyword",
+  "pronounceable",
+  "custom",
+];
+
+/**
+ * Valid output formats for bulk operations.
+ */
+export const VALID_OUTPUT_FORMATS = ["text", "json", "yaml", "csv"];
 
 /**
  * Valid preset profile names.
+ * Note: 'honeyword' is available via -t flag but not as a preset
+ * since it returns multiple passwords (decoys) with special metadata.
  */
-export const VALID_PRESETS = ["quick", "secure", "memorable", "quantum"];
+export const VALID_PRESETS = [
+  "quick",
+  "secure",
+  "memorable",
+  "quantum",
+  "diceware",
+  "pronounceable",
+];
 
 /**
  * Preset profile configurations for zero-config CLI usage.
@@ -46,6 +69,17 @@ export const PRESET_PROFILES = {
     length: 43,
     iteration: 1,
     separator: "",
+  },
+  diceware: {
+    type: "diceware",
+    iteration: 6,
+    separator: "-",
+  },
+  pronounceable: {
+    type: "pronounceable",
+    length: 12,
+    iteration: 3,
+    separator: "-",
   },
 };
 
@@ -87,7 +121,8 @@ export const CLI_DEFAULTS = {
  */
 export const CLI_OPTIONS = {
   name: "password-generator",
-  description: "A fast, simple and powerful utility for generating strong, unique and quantum-resistant passwords",
+  description:
+    "A fast, simple and powerful utility for generating strong, unique and quantum-resistant passwords",
   options: {
     preset: {
       flags: "-p, --preset <preset>",
@@ -129,6 +164,17 @@ export const CLI_OPTIONS = {
       flags: "--learn",
       description: "show equivalent CLI command to help graduate from guided mode",
       defaultValue: false,
+    },
+    format: {
+      flags: "-f, --format <format>",
+      description: "output format for bulk operations (json, yaml, csv, text)",
+      defaultValue: "text",
+    },
+    count: {
+      flags: "-n, --count <number>",
+      description: "number of passwords to generate for bulk operations",
+      parser: (val) => parseInt(val, 10),
+      defaultValue: 1,
     },
     interactive: {
       flags: "--interactive",

@@ -15,9 +15,9 @@
  * - main.js logic: All code paths tested through simulation
  */
 
-import { expect } from "chai";
-import { describe, it, beforeEach, afterEach } from "mocha";
-import sinon from "sinon";
+import { expect } from 'chai';
+import { describe, it, beforeEach, afterEach } from 'mocha';
+import sinon from 'sinon';
 
 // =============================================================================
 // DOM Mocking Infrastructure (for theme.js tests)
@@ -26,7 +26,7 @@ import sinon from "sinon";
 /**
  * Creates a mock DOM element with common properties and methods.
  */
-function createMockElement(tagName = "div", options = {}) {
+function createMockElement(tagName = 'div', options = {}) {
   const classList = new Set(options.classList || []);
   const attributes = new Map(Object.entries(options.attributes || {}));
   const eventListeners = new Map();
@@ -34,10 +34,10 @@ function createMockElement(tagName = "div", options = {}) {
 
   const element = {
     tagName: tagName.toUpperCase(),
-    id: options.id || "",
-    value: options.value ?? "",
-    textContent: options.textContent || "",
-    innerHTML: options.innerHTML || "",
+    id: options.id || '',
+    value: options.value ?? '',
+    textContent: options.textContent || '',
+    innerHTML: options.innerHTML || '',
     checked: options.checked || false,
     disabled: options.disabled || false,
     style: options.style || {},
@@ -103,7 +103,7 @@ function createMockElement(tagName = "div", options = {}) {
     _getEventListeners: (event) => eventListeners.get(event) || [],
 
     closest: (selector) => {
-      if (selector === ".form-group--inline") {
+      if (selector === '.form-group--inline') {
         return options.closestFormGroup || null;
       }
       return null;
@@ -183,10 +183,10 @@ function createMockDocument(elementMap = {}, options = {}) {
     children: bodyChildren,
   };
 
-  const documentElement = createMockElement("html");
+  const documentElement = createMockElement('html');
 
   return {
-    readyState: options.readyState || "complete",
+    readyState: options.readyState || 'complete',
     body,
     documentElement,
 
@@ -211,7 +211,7 @@ function createMockDocument(elementMap = {}, options = {}) {
       if (selector === 'input[name="type"]') {
         return options.typeInputs || [];
       }
-      if (selector === ".preset-btn") {
+      if (selector === '.preset-btn') {
         return options.presetBtns || [];
       }
       return [];
@@ -247,7 +247,7 @@ function createMockDocument(elementMap = {}, options = {}) {
     _getEventListeners: (event) => eventListeners.get(event) || [],
 
     execCommand: (command) => {
-      if (command === "copy") {
+      if (command === 'copy') {
         return options.execCommandSupported !== false;
       }
       return false;
@@ -264,15 +264,15 @@ function createMockWindow(options = {}) {
   const mediaQueryList = {
     matches: options.prefersLightColorScheme ?? false,
     addEventListener: (event, handler) => {
-      if (!eventListeners.has("mediaQuery")) {
-        eventListeners.set("mediaQuery", []);
+      if (!eventListeners.has('mediaQuery')) {
+        eventListeners.set('mediaQuery', []);
       }
-      eventListeners.get("mediaQuery").push(handler);
+      eventListeners.get('mediaQuery').push(handler);
     },
     removeEventListener: () => {},
     _triggerChange: (matches) => {
-      if (eventListeners.has("mediaQuery")) {
-        eventListeners.get("mediaQuery").forEach((handler) => {
+      if (eventListeners.has('mediaQuery')) {
+        eventListeners.get('mediaQuery').forEach((handler) => {
           handler({ matches });
         });
       }
@@ -280,16 +280,17 @@ function createMockWindow(options = {}) {
   };
 
   return {
-    matchMedia: options.matchMediaSupported !== false
-      ? (query) => {
-          if (query === "(prefers-color-scheme: light)") {
-            return mediaQueryList;
+    matchMedia:
+      options.matchMediaSupported !== false
+        ? (query) => {
+            if (query === '(prefers-color-scheme: light)') {
+              return mediaQueryList;
+            }
+            return { matches: false, addEventListener: () => {}, removeEventListener: () => {} };
           }
-          return { matches: false, addEventListener: () => {}, removeEventListener: () => {} };
-        }
-      : undefined,
+        : undefined,
 
-    getSelection: () => options.selection || { toString: () => "" },
+    getSelection: () => options.selection || { toString: () => '' },
 
     _mediaQueryList: mediaQueryList,
   };
@@ -299,8 +300,8 @@ function createMockWindow(options = {}) {
 // Test Suite
 // =============================================================================
 
-describe("Demo Scripts", () => {
-  describe("theme.js", () => {
+describe('Demo Scripts', () => {
+  describe('theme.js', () => {
     let mockDocument;
     let mockWindow;
     let mockLocalStorage;
@@ -319,23 +320,20 @@ describe("Demo Scripts", () => {
       originalLocalStorage = global.localStorage;
 
       // Create mock elements
-      themeIcon = createMockElement("span", { classList: ["theme-toggle__icon"] });
-      themeToggle = createMockElement("button", {
-        id: "theme-toggle",
+      themeIcon = createMockElement('span', { classList: ['theme-toggle__icon'] });
+      themeToggle = createMockElement('button', {
+        id: 'theme-toggle',
         querySelector: (selector) => {
-          if (selector === ".theme-toggle__icon") return themeIcon;
+          if (selector === '.theme-toggle__icon') return themeIcon;
           return null;
         },
       });
-      themeColorMeta = createMockElement("meta");
-      documentElement = createMockElement("html");
+      themeColorMeta = createMockElement('meta');
+      documentElement = createMockElement('html');
 
       mockLocalStorage = createMockLocalStorage();
       mockWindow = createMockWindow({ prefersLightColorScheme: false });
-      mockDocument = createMockDocument(
-        { "theme-toggle": themeToggle },
-        { themeColorMeta }
-      );
+      mockDocument = createMockDocument({ 'theme-toggle': themeToggle }, { themeColorMeta });
       mockDocument.documentElement = documentElement;
 
       // Set up globals
@@ -351,293 +349,292 @@ describe("Demo Scripts", () => {
       global.localStorage = originalLocalStorage;
     });
 
-    describe("getSystemPreference", () => {
+    describe('getSystemPreference', () => {
       it("should return 'light' when system prefers light color scheme", async () => {
         mockWindow = createMockWindow({ prefersLightColorScheme: true });
         global.window = mockWindow;
 
-        const { getSystemPreference } = await import("../../../src/ui/web/demo/scripts/theme.js");
+        const { getSystemPreference } = await import('../../../src/ui/web/demo/scripts/theme.js');
         const result = getSystemPreference();
-        expect(result).to.equal("light");
+        expect(result).to.equal('light');
       });
 
       it("should return 'dark' when system prefers dark color scheme", async () => {
         mockWindow = createMockWindow({ prefersLightColorScheme: false });
         global.window = mockWindow;
 
-        const { getSystemPreference } = await import("../../../src/ui/web/demo/scripts/theme.js");
+        const { getSystemPreference } = await import('../../../src/ui/web/demo/scripts/theme.js');
         const result = getSystemPreference();
-        expect(result).to.equal("dark");
+        expect(result).to.equal('dark');
       });
 
       it("should return 'dark' when matchMedia is not available", async () => {
         mockWindow = createMockWindow({ matchMediaSupported: false });
         global.window = mockWindow;
 
-        const { getSystemPreference } = await import("../../../src/ui/web/demo/scripts/theme.js");
+        const { getSystemPreference } = await import('../../../src/ui/web/demo/scripts/theme.js');
         const result = getSystemPreference();
-        expect(result).to.equal("dark");
+        expect(result).to.equal('dark');
       });
     });
 
-    describe("getStoredTheme", () => {
-      it("should return null when no theme is stored", async () => {
-        const { getStoredTheme } = await import("../../../src/ui/web/demo/scripts/theme.js");
+    describe('getStoredTheme', () => {
+      it('should return null when no theme is stored', async () => {
+        const { getStoredTheme } = await import('../../../src/ui/web/demo/scripts/theme.js');
         const result = getStoredTheme();
         expect(result).to.be.null;
       });
 
-      it("should return stored theme when valid", async () => {
-        mockLocalStorage.setItem("pwdgen_theme", "dark");
+      it('should return stored theme when valid', async () => {
+        mockLocalStorage.setItem('pwdgen_theme', 'dark');
 
-        const { getStoredTheme } = await import("../../../src/ui/web/demo/scripts/theme.js");
+        const { getStoredTheme } = await import('../../../src/ui/web/demo/scripts/theme.js');
         const result = getStoredTheme();
-        expect(result).to.equal("dark");
+        expect(result).to.equal('dark');
       });
 
-      it("should return null when stored theme is invalid", async () => {
-        mockLocalStorage.setItem("pwdgen_theme", "invalid-theme");
+      it('should return null when stored theme is invalid', async () => {
+        mockLocalStorage.setItem('pwdgen_theme', 'invalid-theme');
 
-        const { getStoredTheme } = await import("../../../src/ui/web/demo/scripts/theme.js");
+        const { getStoredTheme } = await import('../../../src/ui/web/demo/scripts/theme.js');
         const result = getStoredTheme();
         expect(result).to.be.null;
       });
 
-      it("should return null when localStorage throws", async () => {
+      it('should return null when localStorage throws', async () => {
         global.localStorage = {
           getItem: () => {
-            throw new Error("Storage error");
+            throw new Error('Storage error');
           },
           setItem: () => {},
           removeItem: () => {},
         };
 
-        const { getStoredTheme } = await import("../../../src/ui/web/demo/scripts/theme.js");
+        const { getStoredTheme } = await import('../../../src/ui/web/demo/scripts/theme.js');
         const result = getStoredTheme();
         expect(result).to.be.null;
       });
     });
 
-    describe("applyTheme", () => {
-      it("should set data-theme attribute on documentElement", async () => {
-        const { applyTheme } = await import("../../../src/ui/web/demo/scripts/theme.js");
+    describe('applyTheme', () => {
+      it('should set data-theme attribute on documentElement', async () => {
+        const { applyTheme } = await import('../../../src/ui/web/demo/scripts/theme.js');
 
-        applyTheme("dark");
-        expect(documentElement.getAttribute("data-theme")).to.equal("dark");
+        applyTheme('dark');
+        expect(documentElement.getAttribute('data-theme')).to.equal('dark');
 
-        applyTheme("light");
-        expect(documentElement.getAttribute("data-theme")).to.equal("light");
+        applyTheme('light');
+        expect(documentElement.getAttribute('data-theme')).to.equal('light');
       });
 
-      it("should update theme-color meta tag for light theme", async () => {
-        const { applyTheme } = await import("../../../src/ui/web/demo/scripts/theme.js");
+      it('should update theme-color meta tag for light theme', async () => {
+        const { applyTheme } = await import('../../../src/ui/web/demo/scripts/theme.js');
 
-        applyTheme("light");
-        expect(themeColorMeta.getAttribute("content")).to.equal("#D14671");
+        applyTheme('light');
+        expect(themeColorMeta.getAttribute('content')).to.equal('#D14671');
       });
 
-      it("should update theme-color meta tag for dark theme", async () => {
-        const { applyTheme } = await import("../../../src/ui/web/demo/scripts/theme.js");
+      it('should update theme-color meta tag for dark theme', async () => {
+        const { applyTheme } = await import('../../../src/ui/web/demo/scripts/theme.js');
 
-        applyTheme("dark");
-        expect(themeColorMeta.getAttribute("content")).to.equal("#FF6B9D");
+        applyTheme('dark');
+        expect(themeColorMeta.getAttribute('content')).to.equal('#FF6B9D');
       });
 
-      it("should handle missing theme-color meta tag", async () => {
-        mockDocument = createMockDocument({ "theme-toggle": themeToggle }, {});
+      it('should handle missing theme-color meta tag', async () => {
+        mockDocument = createMockDocument({ 'theme-toggle': themeToggle }, {});
         mockDocument.documentElement = documentElement;
         global.document = mockDocument;
 
-        const { applyTheme } = await import("../../../src/ui/web/demo/scripts/theme.js");
-        expect(() => applyTheme("dark")).not.to.throw();
+        const { applyTheme } = await import('../../../src/ui/web/demo/scripts/theme.js');
+        expect(() => applyTheme('dark')).not.to.throw();
       });
     });
 
-    describe("initTheme", () => {
-      it("should apply system preference when no stored theme", async () => {
+    describe('initTheme', () => {
+      it('should apply system preference when no stored theme', async () => {
         mockWindow = createMockWindow({ prefersLightColorScheme: true });
         global.window = mockWindow;
 
-        const { initTheme } = await import("../../../src/ui/web/demo/scripts/theme.js");
+        const { initTheme } = await import('../../../src/ui/web/demo/scripts/theme.js');
         initTheme();
 
-        expect(documentElement.getAttribute("data-theme")).to.equal("light");
+        expect(documentElement.getAttribute('data-theme')).to.equal('light');
       });
 
-      it("should apply stored theme preference", async () => {
-        mockLocalStorage.setItem("pwdgen_theme", "dark");
+      it('should apply stored theme preference', async () => {
+        mockLocalStorage.setItem('pwdgen_theme', 'dark');
         mockWindow = createMockWindow({ prefersLightColorScheme: true });
         global.window = mockWindow;
 
-        const { initTheme } = await import("../../../src/ui/web/demo/scripts/theme.js");
+        const { initTheme } = await import('../../../src/ui/web/demo/scripts/theme.js');
         initTheme();
 
-        expect(documentElement.getAttribute("data-theme")).to.equal("dark");
+        expect(documentElement.getAttribute('data-theme')).to.equal('dark');
       });
 
       it("should resolve 'system' preference to actual theme", async () => {
-        mockLocalStorage.setItem("pwdgen_theme", "system");
+        mockLocalStorage.setItem('pwdgen_theme', 'system');
         mockWindow = createMockWindow({ prefersLightColorScheme: true });
         global.window = mockWindow;
 
-        const { initTheme } = await import("../../../src/ui/web/demo/scripts/theme.js");
+        const { initTheme } = await import('../../../src/ui/web/demo/scripts/theme.js');
         initTheme();
 
-        expect(documentElement.getAttribute("data-theme")).to.equal("light");
+        expect(documentElement.getAttribute('data-theme')).to.equal('light');
       });
 
-      it("should update toggle icon text for light theme", async () => {
-        mockLocalStorage.setItem("pwdgen_theme", "light");
+      it('should update toggle icon text for light theme', async () => {
+        mockLocalStorage.setItem('pwdgen_theme', 'light');
 
-        const { initTheme } = await import("../../../src/ui/web/demo/scripts/theme.js");
+        const { initTheme } = await import('../../../src/ui/web/demo/scripts/theme.js');
         initTheme();
 
-        expect(themeIcon.textContent).to.include("☀️");
+        expect(themeIcon.textContent).to.include('☀️');
       });
 
-      it("should update toggle icon text for dark theme", async () => {
-        mockLocalStorage.setItem("pwdgen_theme", "dark");
+      it('should update toggle icon text for dark theme', async () => {
+        mockLocalStorage.setItem('pwdgen_theme', 'dark');
 
-        const { initTheme } = await import("../../../src/ui/web/demo/scripts/theme.js");
+        const { initTheme } = await import('../../../src/ui/web/demo/scripts/theme.js');
         initTheme();
 
-        expect(themeIcon.textContent).to.include("🌙");
+        expect(themeIcon.textContent).to.include('🌙');
       });
 
-      it("should set up toggle button click handler", async () => {
-        mockLocalStorage.setItem("pwdgen_theme", "light");
+      it('should set up toggle button click handler', async () => {
+        mockLocalStorage.setItem('pwdgen_theme', 'light');
 
-        const { initTheme } = await import("../../../src/ui/web/demo/scripts/theme.js");
+        const { initTheme } = await import('../../../src/ui/web/demo/scripts/theme.js');
         initTheme();
 
-        const clickHandlers = themeToggle._getEventListeners("click");
+        const clickHandlers = themeToggle._getEventListeners('click');
         expect(clickHandlers.length).to.be.greaterThan(0);
 
-        documentElement.setAttribute("data-theme", "light");
+        documentElement.setAttribute('data-theme', 'light');
         clickHandlers[0]();
 
-        expect(documentElement.getAttribute("data-theme")).to.equal("dark");
-        expect(mockLocalStorage.getItem("pwdgen_theme")).to.equal("dark");
+        expect(documentElement.getAttribute('data-theme')).to.equal('dark');
+        expect(mockLocalStorage.getItem('pwdgen_theme')).to.equal('dark');
       });
 
-      it("should toggle from dark to light on click", async () => {
-        mockLocalStorage.setItem("pwdgen_theme", "dark");
+      it('should toggle from dark to light on click', async () => {
+        mockLocalStorage.setItem('pwdgen_theme', 'dark');
 
-        const { initTheme } = await import("../../../src/ui/web/demo/scripts/theme.js");
+        const { initTheme } = await import('../../../src/ui/web/demo/scripts/theme.js');
         initTheme();
 
-        const clickHandlers = themeToggle._getEventListeners("click");
-        documentElement.setAttribute("data-theme", "dark");
+        const clickHandlers = themeToggle._getEventListeners('click');
+        documentElement.setAttribute('data-theme', 'dark');
         clickHandlers[0]();
 
-        expect(documentElement.getAttribute("data-theme")).to.equal("light");
+        expect(documentElement.getAttribute('data-theme')).to.equal('light');
       });
 
-      it("should listen for system preference changes when matchMedia available", async () => {
-        mockLocalStorage.setItem("pwdgen_theme", "system");
+      it('should listen for system preference changes when matchMedia available', async () => {
+        mockLocalStorage.setItem('pwdgen_theme', 'system');
         mockWindow = createMockWindow({ prefersLightColorScheme: false });
         global.window = mockWindow;
 
-        const { initTheme } = await import("../../../src/ui/web/demo/scripts/theme.js");
+        const { initTheme } = await import('../../../src/ui/web/demo/scripts/theme.js');
         initTheme();
 
-        expect(documentElement.getAttribute("data-theme")).to.equal("dark");
+        expect(documentElement.getAttribute('data-theme')).to.equal('dark');
 
         mockWindow._mediaQueryList._triggerChange(true);
 
-        expect(documentElement.getAttribute("data-theme")).to.equal("light");
+        expect(documentElement.getAttribute('data-theme')).to.equal('light');
       });
 
       it("should not update theme on system change if stored preference is not 'system'", async () => {
-        mockLocalStorage.setItem("pwdgen_theme", "dark");
+        mockLocalStorage.setItem('pwdgen_theme', 'dark');
         mockWindow = createMockWindow({ prefersLightColorScheme: false });
         global.window = mockWindow;
 
-        const { initTheme } = await import("../../../src/ui/web/demo/scripts/theme.js");
+        const { initTheme } = await import('../../../src/ui/web/demo/scripts/theme.js');
         initTheme();
 
         mockWindow._mediaQueryList._triggerChange(true);
 
-        expect(documentElement.getAttribute("data-theme")).to.equal("dark");
+        expect(documentElement.getAttribute('data-theme')).to.equal('dark');
       });
 
-      it("should handle missing toggle button gracefully", async () => {
+      it('should handle missing toggle button gracefully', async () => {
         mockDocument = createMockDocument({}, { themeColorMeta });
         mockDocument.documentElement = documentElement;
         global.document = mockDocument;
 
-        const { initTheme } = await import("../../../src/ui/web/demo/scripts/theme.js");
+        const { initTheme } = await import('../../../src/ui/web/demo/scripts/theme.js');
         expect(() => initTheme()).not.to.throw();
       });
 
-      it("should handle missing toggle icon gracefully", async () => {
-        const toggleWithoutIcon = createMockElement("button", {
-          id: "theme-toggle",
+      it('should handle missing toggle icon gracefully', async () => {
+        const toggleWithoutIcon = createMockElement('button', {
+          id: 'theme-toggle',
           querySelector: () => null,
         });
         mockDocument = createMockDocument(
-          { "theme-toggle": toggleWithoutIcon },
+          { 'theme-toggle': toggleWithoutIcon },
           { themeColorMeta }
         );
         mockDocument.documentElement = documentElement;
         global.document = mockDocument;
 
-        const { initTheme } = await import("../../../src/ui/web/demo/scripts/theme.js");
+        const { initTheme } = await import('../../../src/ui/web/demo/scripts/theme.js');
         expect(() => initTheme()).not.to.throw();
       });
 
-      it("should handle localStorage setItem throwing", async () => {
+      it('should handle localStorage setItem throwing', async () => {
         global.localStorage = {
-          getItem: () => "light",
+          getItem: () => 'light',
           setItem: () => {
-            throw new Error("Storage error");
+            throw new Error('Storage error');
           },
           removeItem: () => {},
         };
 
-        const { initTheme } = await import("../../../src/ui/web/demo/scripts/theme.js");
+        const { initTheme } = await import('../../../src/ui/web/demo/scripts/theme.js');
         initTheme();
 
-        const clickHandlers = themeToggle._getEventListeners("click");
-        documentElement.setAttribute("data-theme", "light");
+        const clickHandlers = themeToggle._getEventListeners('click');
+        documentElement.setAttribute('data-theme', 'light');
 
         expect(() => clickHandlers[0]()).not.to.throw();
       });
 
-      it("should handle matchMedia not being available", async () => {
+      it('should handle matchMedia not being available', async () => {
         mockWindow = createMockWindow({ matchMediaSupported: false });
         global.window = mockWindow;
 
-        const { initTheme } = await import("../../../src/ui/web/demo/scripts/theme.js");
+        const { initTheme } = await import('../../../src/ui/web/demo/scripts/theme.js');
         expect(() => initTheme()).not.to.throw();
       });
 
-      it("should update toggle aria-label for light theme", async () => {
-        mockLocalStorage.setItem("pwdgen_theme", "light");
+      it('should update toggle aria-label for light theme', async () => {
+        mockLocalStorage.setItem('pwdgen_theme', 'light');
 
-        const { initTheme } = await import("../../../src/ui/web/demo/scripts/theme.js");
+        const { initTheme } = await import('../../../src/ui/web/demo/scripts/theme.js');
         initTheme();
 
-        expect(themeToggle.getAttribute("aria-label")).to.include("dark");
+        expect(themeToggle.getAttribute('aria-label')).to.include('dark');
       });
 
-      it("should update toggle aria-label for dark theme", async () => {
-        mockLocalStorage.setItem("pwdgen_theme", "dark");
+      it('should update toggle aria-label for dark theme', async () => {
+        mockLocalStorage.setItem('pwdgen_theme', 'dark');
 
-        const { initTheme } = await import("../../../src/ui/web/demo/scripts/theme.js");
+        const { initTheme } = await import('../../../src/ui/web/demo/scripts/theme.js');
         initTheme();
 
-        expect(themeToggle.getAttribute("aria-label")).to.include("light");
+        expect(themeToggle.getAttribute('aria-label')).to.include('light');
       });
     });
   });
-
 
   // =============================================================================
   // main.js Logic Simulation Tests
   // =============================================================================
 
-  describe("main.js - Logic Simulation", () => {
+  describe('main.js - Logic Simulation', () => {
     let clock;
 
     beforeEach(() => {
@@ -649,58 +646,60 @@ describe("Demo Scripts", () => {
       sinon.restore();
     });
 
-    describe("PRESETS constant", () => {
+    describe('PRESETS constant', () => {
       const PRESETS = {
-        quick: { type: "strong", length: 14, iteration: 4, separator: "-" },
-        secure: { type: "strong", length: 16, iteration: 4, separator: "" },
-        memorable: { type: "memorable", length: 4, iteration: 4, separator: "-" },
-        "quantum-resistant": { type: "quantum-resistant", length: 43, iteration: 1, separator: "" },
+        quick: { type: 'strong', length: 14, iteration: 4, separator: '-' },
+        secure: { type: 'strong', length: 16, iteration: 4, separator: '' },
+        memorable: { type: 'memorable', length: 4, iteration: 4, separator: '-' },
+        'quantum-resistant': { type: 'quantum-resistant', length: 43, iteration: 1, separator: '' },
       };
 
-      it("should have quick preset with correct values", () => {
-        expect(PRESETS.quick.type).to.equal("strong");
+      it('should have quick preset with correct values', () => {
+        expect(PRESETS.quick.type).to.equal('strong');
         expect(PRESETS.quick.length).to.equal(14);
         expect(PRESETS.quick.iteration).to.equal(4);
-        expect(PRESETS.quick.separator).to.equal("-");
+        expect(PRESETS.quick.separator).to.equal('-');
       });
 
-      it("should have secure preset with correct values", () => {
-        expect(PRESETS.secure.type).to.equal("strong");
+      it('should have secure preset with correct values', () => {
+        expect(PRESETS.secure.type).to.equal('strong');
         expect(PRESETS.secure.length).to.equal(16);
-        expect(PRESETS.secure.separator).to.equal("");
+        expect(PRESETS.secure.separator).to.equal('');
       });
 
-      it("should have memorable preset with correct values", () => {
-        expect(PRESETS.memorable.type).to.equal("memorable");
+      it('should have memorable preset with correct values', () => {
+        expect(PRESETS.memorable.type).to.equal('memorable');
         expect(PRESETS.memorable.length).to.equal(4);
       });
 
-      it("should have quantum-resistant preset with correct values", () => {
-        expect(PRESETS["quantum-resistant"].type).to.equal("quantum-resistant");
-        expect(PRESETS["quantum-resistant"].length).to.equal(43);
-        expect(PRESETS["quantum-resistant"].iteration).to.equal(1);
+      it('should have quantum-resistant preset with correct values', () => {
+        expect(PRESETS['quantum-resistant'].type).to.equal('quantum-resistant');
+        expect(PRESETS['quantum-resistant'].length).to.equal(43);
+        expect(PRESETS['quantum-resistant'].iteration).to.equal(1);
       });
     });
 
-    describe("Password masking logic", () => {
-      it("should mask password correctly", () => {
-        const password = "test-password-123";
-        const masked = password.slice(0, 3) + "•".repeat(Math.max(0, password.length - 6)) + password.slice(-3);
+    describe('Password masking logic', () => {
+      it('should mask password correctly', () => {
+        const password = 'test-password-123';
+        const masked =
+          password.slice(0, 3) + '•'.repeat(Math.max(0, password.length - 6)) + password.slice(-3);
 
-        expect(masked.startsWith("tes")).to.be.true;
-        expect(masked.endsWith("123")).to.be.true;
-        expect(masked).to.include("•");
+        expect(masked.startsWith('tes')).to.be.true;
+        expect(masked.endsWith('123')).to.be.true;
+        expect(masked).to.include('•');
       });
 
-      it("should handle short passwords in masking", () => {
-        const password = "abc";
-        const masked = password.slice(0, 3) + "•".repeat(Math.max(0, password.length - 6)) + password.slice(-3);
-        expect(masked).to.equal("abcabc");
+      it('should handle short passwords in masking', () => {
+        const password = 'abc';
+        const masked =
+          password.slice(0, 3) + '•'.repeat(Math.max(0, password.length - 6)) + password.slice(-3);
+        expect(masked).to.equal('abcabc');
       });
     });
 
-    describe("Toast logic", () => {
-      it("should hide toast after 2500ms", () => {
+    describe('Toast logic', () => {
+      it('should hide toast after 2500ms', () => {
         let visible = true;
 
         setTimeout(() => {
@@ -713,83 +712,83 @@ describe("Demo Scripts", () => {
       });
     });
 
-    describe("Screen reader announcements", () => {
-      it("should clear previous announcement before new one", () => {
-        const srAnnouncements = { textContent: "old message" };
+    describe('Screen reader announcements', () => {
+      it('should clear previous announcement before new one', () => {
+        const srAnnouncements = { textContent: 'old message' };
 
-        srAnnouncements.textContent = "";
+        srAnnouncements.textContent = '';
 
         setTimeout(() => {
-          srAnnouncements.textContent = "new message";
+          srAnnouncements.textContent = 'new message';
         }, 50);
 
-        expect(srAnnouncements.textContent).to.equal("");
+        expect(srAnnouncements.textContent).to.equal('');
         clock.tick(50);
-        expect(srAnnouncements.textContent).to.equal("new message");
+        expect(srAnnouncements.textContent).to.equal('new message');
       });
     });
 
-    describe("Keyboard shortcuts", () => {
-      it("should detect Ctrl+Enter", () => {
-        const event = { ctrlKey: true, metaKey: false, key: "Enter" };
-        const isCtrlEnter = (event.ctrlKey || event.metaKey) && event.key === "Enter";
+    describe('Keyboard shortcuts', () => {
+      it('should detect Ctrl+Enter', () => {
+        const event = { ctrlKey: true, metaKey: false, key: 'Enter' };
+        const isCtrlEnter = (event.ctrlKey || event.metaKey) && event.key === 'Enter';
         expect(isCtrlEnter).to.be.true;
       });
 
-      it("should detect Cmd+Enter", () => {
-        const event = { ctrlKey: false, metaKey: true, key: "Enter" };
-        const isCtrlEnter = (event.ctrlKey || event.metaKey) && event.key === "Enter";
+      it('should detect Cmd+Enter', () => {
+        const event = { ctrlKey: false, metaKey: true, key: 'Enter' };
+        const isCtrlEnter = (event.ctrlKey || event.metaKey) && event.key === 'Enter';
         expect(isCtrlEnter).to.be.true;
       });
 
-      it("should detect Ctrl+C with no selection", () => {
-        const event = { ctrlKey: true, metaKey: false, key: "c" };
-        const selection = { toString: () => "" };
-        const currentPassword = "test";
+      it('should detect Ctrl+C with no selection', () => {
+        const event = { ctrlKey: true, metaKey: false, key: 'c' };
+        const selection = { toString: () => '' };
+        const currentPassword = 'test';
 
         const shouldCopy =
           (event.ctrlKey || event.metaKey) &&
-          event.key === "c" &&
+          event.key === 'c' &&
           currentPassword &&
-          selection.toString() === "";
+          selection.toString() === '';
 
         expect(shouldCopy).to.be.true;
       });
     });
 
-    describe("Form state", () => {
+    describe('Form state', () => {
       it("should default to 'strong' when no type is selected", () => {
         const selectedType = null;
-        const type = selectedType?.value || "strong";
-        expect(type).to.equal("strong");
+        const type = selectedType?.value || 'strong';
+        expect(type).to.equal('strong');
       });
     });
 
-    describe("UI type updates", () => {
-      it("should identify memorable type correctly", () => {
-        const type = "memorable";
-        const isMemorableType = type === "memorable";
+    describe('UI type updates', () => {
+      it('should identify memorable type correctly', () => {
+        const type = 'memorable';
+        const isMemorableType = type === 'memorable';
         expect(isMemorableType).to.be.true;
       });
 
-      it("should identify quantum-resistant type correctly", () => {
-        const type = "quantum-resistant";
-        const isQuantumType = type === "quantum-resistant";
+      it('should identify quantum-resistant type correctly', () => {
+        const type = 'quantum-resistant';
+        const isQuantumType = type === 'quantum-resistant';
         expect(isQuantumType).to.be.true;
       });
     });
 
-    describe("Strength indicator", () => {
-      it("should round entropy bits correctly", () => {
+    describe('Strength indicator', () => {
+      it('should round entropy bits correctly', () => {
         const entropyBits = 85.7;
         const roundedBits = Math.round(entropyBits);
         expect(roundedBits).to.equal(86);
       });
 
-      it("should format strength class correctly", () => {
-        const level = "strong";
+      it('should format strength class correctly', () => {
+        const level = 'strong';
         const className = `strength strength--${level}`;
-        expect(className).to.equal("strength strength--strong");
+        expect(className).to.equal('strength strength--strong');
       });
     });
   });

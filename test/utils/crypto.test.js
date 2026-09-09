@@ -1,67 +1,66 @@
-import { expect } from "chai";
-import assert from "assert";
+import { expect } from 'chai';
+import assert from 'assert';
 import {
   validatePositiveInteger,
   generateRandomBase64,
   generateBase64Chunk,
   splitString,
-} from "../../src/utils/crypto.js";
+} from '../../src/utils/crypto.js';
 
-describe("Crypto Utilities", () => {
-  describe("validatePositiveInteger", () => {
-    it("should not throw for a valid positive integer", () => {
-      assert.doesNotThrow(() => validatePositiveInteger(1, "test"));
-      assert.doesNotThrow(() => validatePositiveInteger(100, "test"));
+describe('Crypto Utilities', () => {
+  describe('validatePositiveInteger', () => {
+    it('should not throw for a valid positive integer', () => {
+      assert.doesNotThrow(() => validatePositiveInteger(1, 'test'));
+      assert.doesNotThrow(() => validatePositiveInteger(100, 'test'));
     });
 
-    it("should throw RangeError for zero", () => {
-      assert.throws(
-        () => validatePositiveInteger(0, "count"),
-        { name: "RangeError", message: "The count argument must be a positive integer" }
-      );
+    it('should throw RangeError for zero', () => {
+      assert.throws(() => validatePositiveInteger(0, 'count'), {
+        name: 'RangeError',
+        message: 'The count argument must be a positive integer',
+      });
     });
 
-    it("should throw RangeError for negative values", () => {
-      assert.throws(
-        () => validatePositiveInteger(-5, "size"),
-        { name: "RangeError", message: "The size argument must be a positive integer" }
-      );
+    it('should throw RangeError for negative values', () => {
+      assert.throws(() => validatePositiveInteger(-5, 'size'), {
+        name: 'RangeError',
+        message: 'The size argument must be a positive integer',
+      });
     });
 
-    it("should throw RangeError for non-integer values", () => {
-      assert.throws(
-        () => validatePositiveInteger(2.5, "length"),
-        { name: "RangeError", message: "The length argument must be a positive integer" }
-      );
+    it('should throw RangeError for non-integer values', () => {
+      assert.throws(() => validatePositiveInteger(2.5, 'length'), {
+        name: 'RangeError',
+        message: 'The length argument must be a positive integer',
+      });
     });
 
-    it("should throw RangeError for non-number values", () => {
-      assert.throws(
-        () => validatePositiveInteger("abc", "param"),
-        { name: "RangeError", message: "The param argument must be a positive integer" }
-      );
+    it('should throw RangeError for non-number values', () => {
+      assert.throws(() => validatePositiveInteger('abc', 'param'), {
+        name: 'RangeError',
+        message: 'The param argument must be a positive integer',
+      });
     });
 
-    it("should include the parameter name in the error message", () => {
-      assert.throws(
-        () => validatePositiveInteger(0, "myParam"),
-        { message: "The myParam argument must be a positive integer" }
-      );
+    it('should include the parameter name in the error message', () => {
+      assert.throws(() => validatePositiveInteger(0, 'myParam'), {
+        message: 'The myParam argument must be a positive integer',
+      });
     });
   });
 
-  describe("generateRandomBase64", () => {
-    it("should return a string", () => {
+  describe('generateRandomBase64', () => {
+    it('should return a string', () => {
       const result = generateRandomBase64(16);
-      expect(result).to.be.a("string");
+      expect(result).to.be.a('string');
     });
 
-    it("should contain only base64 characters", () => {
+    it('should contain only base64 characters', () => {
       const result = generateRandomBase64(32);
       expect(result).to.match(/^[A-Za-z0-9+/=]+$/);
     });
 
-    it("should generate different strings on each call", () => {
+    it('should generate different strings on each call', () => {
       const results = new Set();
       for (let i = 0; i < 10; i++) {
         results.add(generateRandomBase64(16));
@@ -69,46 +68,46 @@ describe("Crypto Utilities", () => {
       expect(results.size).to.be.greaterThan(1);
     });
 
-    it("should throw RangeError for zero byteLength", () => {
-      assert.throws(
-        () => generateRandomBase64(0),
-        { name: "RangeError", message: "The byteLength argument must be a positive integer" }
-      );
+    it('should throw RangeError for zero byteLength', () => {
+      assert.throws(() => generateRandomBase64(0), {
+        name: 'RangeError',
+        message: 'The byteLength argument must be a positive integer',
+      });
     });
 
-    it("should throw RangeError for negative byteLength", () => {
-      assert.throws(
-        () => generateRandomBase64(-5),
-        { name: "RangeError", message: "The byteLength argument must be a positive integer" }
-      );
+    it('should throw RangeError for negative byteLength', () => {
+      assert.throws(() => generateRandomBase64(-5), {
+        name: 'RangeError',
+        message: 'The byteLength argument must be a positive integer',
+      });
     });
 
-    it("should throw RangeError for non-integer byteLength", () => {
-      assert.throws(
-        () => generateRandomBase64(2.5),
-        { name: "RangeError", message: "The byteLength argument must be a positive integer" }
-      );
+    it('should throw RangeError for non-integer byteLength', () => {
+      assert.throws(() => generateRandomBase64(2.5), {
+        name: 'RangeError',
+        message: 'The byteLength argument must be a positive integer',
+      });
     });
   });
 
-  describe("generateBase64Chunk", () => {
-    it("should return a string of the exact specified length", () => {
+  describe('generateBase64Chunk', () => {
+    it('should return a string of the exact specified length', () => {
       const length = 24;
       const result = generateBase64Chunk(length);
       expect(result).to.have.lengthOf(length);
     });
 
-    it("should handle small lengths", () => {
+    it('should handle small lengths', () => {
       const result = generateBase64Chunk(1);
       expect(result).to.have.lengthOf(1);
     });
 
-    it("should contain only base64 characters (no padding)", () => {
+    it('should contain only base64 characters (no padding)', () => {
       const result = generateBase64Chunk(32);
       expect(result).to.match(/^[A-Za-z0-9+/]+$/);
     });
 
-    it("should generate different strings on each call", () => {
+    it('should generate different strings on each call', () => {
       const results = new Set();
       for (let i = 0; i < 10; i++) {
         results.add(generateBase64Chunk(16));
@@ -116,63 +115,63 @@ describe("Crypto Utilities", () => {
       expect(results.size).to.be.greaterThan(1);
     });
 
-    it("should throw RangeError for zero length", () => {
-      assert.throws(
-        () => generateBase64Chunk(0),
-        { name: "RangeError", message: "The length argument must be a positive integer" }
-      );
+    it('should throw RangeError for zero length', () => {
+      assert.throws(() => generateBase64Chunk(0), {
+        name: 'RangeError',
+        message: 'The length argument must be a positive integer',
+      });
     });
 
-    it("should throw RangeError for negative length", () => {
-      assert.throws(
-        () => generateBase64Chunk(-1),
-        { name: "RangeError", message: "The length argument must be a positive integer" }
-      );
+    it('should throw RangeError for negative length', () => {
+      assert.throws(() => generateBase64Chunk(-1), {
+        name: 'RangeError',
+        message: 'The length argument must be a positive integer',
+      });
     });
 
-    it("should throw RangeError for non-integer length", () => {
-      assert.throws(
-        () => generateBase64Chunk(3.14),
-        { name: "RangeError", message: "The length argument must be a positive integer" }
-      );
+    it('should throw RangeError for non-integer length', () => {
+      assert.throws(() => generateBase64Chunk(3.14), {
+        name: 'RangeError',
+        message: 'The length argument must be a positive integer',
+      });
     });
   });
 
-  describe("splitString", () => {
-    it("should split a string into chunks of the specified length", () => {
-      const result = splitString("abcdefghijkl", 4);
-      expect(result).to.deep.equal(["abcd", "efgh", "ijkl"]);
+  describe('splitString', () => {
+    it('should split a string into chunks of the specified length', () => {
+      const result = splitString('abcdefghijkl', 4);
+      expect(result).to.deep.equal(['abcd', 'efgh', 'ijkl']);
     });
 
-    it("should handle strings not evenly divisible", () => {
-      const result = splitString("abcde", 2);
-      expect(result).to.deep.equal(["ab", "cd", "e"]);
+    it('should handle strings not evenly divisible', () => {
+      const result = splitString('abcde', 2);
+      expect(result).to.deep.equal(['ab', 'cd', 'e']);
     });
 
-    it("should return an empty array for an empty string", () => {
-      const result = splitString("", 4);
+    it('should return an empty array for an empty string', () => {
+      const result = splitString('', 4);
       expect(result).to.deep.equal([]);
     });
 
-    it("should throw RangeError for zero length", () => {
-      assert.throws(
-        () => splitString("abc", 0),
-        { name: "RangeError", message: "The length argument must be a positive integer" }
-      );
+    it('should throw RangeError for zero length', () => {
+      assert.throws(() => splitString('abc', 0), {
+        name: 'RangeError',
+        message: 'The length argument must be a positive integer',
+      });
     });
 
-    it("should throw RangeError for negative length", () => {
-      assert.throws(
-        () => splitString("abc", -1),
-        { name: "RangeError", message: "The length argument must be a positive integer" }
-      );
+    it('should throw RangeError for negative length', () => {
+      assert.throws(() => splitString('abc', -1), {
+        name: 'RangeError',
+        message: 'The length argument must be a positive integer',
+      });
     });
 
-    it("should throw RangeError for non-integer length", () => {
-      assert.throws(
-        () => splitString("abc", 1.5),
-        { name: "RangeError", message: "The length argument must be a positive integer" }
-      );
+    it('should throw RangeError for non-integer length', () => {
+      assert.throws(() => splitString('abc', 1.5), {
+        name: 'RangeError',
+        message: 'The length argument must be a positive integer',
+      });
     });
   });
 });

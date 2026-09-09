@@ -6,19 +6,18 @@ import {
   generatePassword,
   generateMultiplePasswords,
   validatePasswordConfig,
-  safeGeneratePassword
+  safeGeneratePassword,
 } from '../../src/services/password-service.js';
 import { PASSWORD_ERRORS } from '../../src/errors.js';
 
 describe('PasswordService', () => {
-
   describe('generatePassword', () => {
     it('should generate password with valid strong config', async () => {
       const config = {
         type: 'strong',
         length: 12,
         iteration: 1,
-        separator: '-'
+        separator: '-',
       };
 
       const result = await generatePassword(config);
@@ -30,7 +29,7 @@ describe('PasswordService', () => {
       const config = {
         length: 12,
         iteration: 1,
-        separator: '-'
+        separator: '-',
       };
 
       try {
@@ -46,7 +45,7 @@ describe('PasswordService', () => {
         type: '',
         length: 12,
         iteration: 1,
-        separator: '-'
+        separator: '-',
       };
 
       try {
@@ -62,7 +61,7 @@ describe('PasswordService', () => {
         type: 'nonexistent',
         length: 12,
         iteration: 1,
-        separator: '-'
+        separator: '-',
       };
 
       try {
@@ -77,7 +76,7 @@ describe('PasswordService', () => {
       const config = {
         type: 'memorable',
         iteration: 3,
-        separator: ' '
+        separator: ' ',
       };
 
       const result = await generatePassword(config);
@@ -90,7 +89,7 @@ describe('PasswordService', () => {
         type: 'base64',
         length: 16,
         iteration: 2,
-        separator: '+'
+        separator: '+',
       };
 
       const result = await generatePassword(config);
@@ -103,7 +102,7 @@ describe('PasswordService', () => {
     it('should generate multiple passwords', async () => {
       const configs = [
         { type: 'strong', length: 12, iteration: 1, separator: '-' },
-        { type: 'memorable', iteration: 3, separator: ' ' }
+        { type: 'memorable', iteration: 3, separator: ' ' },
       ];
 
       const results = await generateMultiplePasswords(configs);
@@ -123,7 +122,7 @@ describe('PasswordService', () => {
     it('should propagate errors from individual password generation', async () => {
       const configs = [
         { type: 'strong', length: 12, iteration: 1, separator: '-' },
-        { type: '', length: 12, iteration: 1, separator: '-' } // Invalid config
+        { type: '', length: 12, iteration: 1, separator: '-' }, // Invalid config
       ];
 
       try {
@@ -141,7 +140,7 @@ describe('PasswordService', () => {
         type: 'strong',
         length: 12,
         iteration: 1,
-        separator: '-'
+        separator: '-',
       };
 
       expect(() => validatePasswordConfig(config)).not.to.throw();
@@ -158,7 +157,7 @@ describe('PasswordService', () => {
     it('should throw error when type is missing', () => {
       const config = {
         iteration: 1,
-        separator: '-'
+        separator: '-',
       };
 
       expect(() => validatePasswordConfig(config)).to.throw(PASSWORD_ERRORS.TYPE_REQUIRED);
@@ -168,7 +167,7 @@ describe('PasswordService', () => {
       const config = {
         type: '',
         iteration: 1,
-        separator: '-'
+        separator: '-',
       };
 
       expect(() => validatePasswordConfig(config)).to.throw(PASSWORD_ERRORS.TYPE_REQUIRED);
@@ -178,7 +177,7 @@ describe('PasswordService', () => {
       const config = {
         type: 'strong',
         iteration: 'invalid',
-        separator: '-'
+        separator: '-',
       };
 
       expect(() => validatePasswordConfig(config)).to.throw('Iteration must be a positive number');
@@ -188,7 +187,7 @@ describe('PasswordService', () => {
       const config = {
         type: 'strong',
         iteration: 0,
-        separator: '-'
+        separator: '-',
       };
 
       expect(() => validatePasswordConfig(config)).to.throw('Iteration must be a positive number');
@@ -198,7 +197,7 @@ describe('PasswordService', () => {
       const config = {
         type: 'strong',
         iteration: -1,
-        separator: '-'
+        separator: '-',
       };
 
       expect(() => validatePasswordConfig(config)).to.throw('Iteration must be a positive number');
@@ -207,7 +206,7 @@ describe('PasswordService', () => {
     it('should throw error when separator is undefined', () => {
       const config = {
         type: 'strong',
-        iteration: 1
+        iteration: 1,
       };
 
       expect(() => validatePasswordConfig(config)).to.throw('Separator is required');
@@ -217,7 +216,7 @@ describe('PasswordService', () => {
       const config = {
         type: 'memorable',
         iteration: 1,
-        separator: ''
+        separator: '',
       };
 
       expect(() => validatePasswordConfig(config)).not.to.throw();
@@ -227,7 +226,7 @@ describe('PasswordService', () => {
       const config = {
         type: 'memorable',
         iteration: 1,
-        separator: null
+        separator: null,
       };
 
       expect(() => validatePasswordConfig(config)).not.to.throw();
@@ -238,10 +237,12 @@ describe('PasswordService', () => {
         type: 'strong',
         length: 'invalid',
         iteration: 1,
-        separator: '-'
+        separator: '-',
       };
 
-      expect(() => validatePasswordConfig(config)).to.throw('Length must be a positive number for strong and base64 password types');
+      expect(() => validatePasswordConfig(config)).to.throw(
+        'Length must be a positive number for strong and base64 password types'
+      );
     });
 
     it('should allow length zero for strong password (validation bug)', () => {
@@ -249,7 +250,7 @@ describe('PasswordService', () => {
         type: 'strong',
         length: 0,
         iteration: 1,
-        separator: '-'
+        separator: '-',
       };
 
       // Note: This is actually a bug - length 0 should be invalid but the validation
@@ -262,10 +263,12 @@ describe('PasswordService', () => {
         type: 'strong',
         length: -5,
         iteration: 1,
-        separator: '-'
+        separator: '-',
       };
 
-      expect(() => validatePasswordConfig(config)).to.throw('Length must be a positive number for strong and base64 password types');
+      expect(() => validatePasswordConfig(config)).to.throw(
+        'Length must be a positive number for strong and base64 password types'
+      );
     });
 
     it('should throw error when length is invalid for base64 password', () => {
@@ -273,17 +276,19 @@ describe('PasswordService', () => {
         type: 'base64',
         length: 'invalid',
         iteration: 1,
-        separator: '-'
+        separator: '-',
       };
 
-      expect(() => validatePasswordConfig(config)).to.throw('Length must be a positive number for strong and base64 password types');
+      expect(() => validatePasswordConfig(config)).to.throw(
+        'Length must be a positive number for strong and base64 password types'
+      );
     });
 
     it('should allow missing length for memorable password', () => {
       const config = {
         type: 'memorable',
         iteration: 1,
-        separator: '-'
+        separator: '-',
       };
 
       expect(() => validatePasswordConfig(config)).not.to.throw();
@@ -294,7 +299,7 @@ describe('PasswordService', () => {
         type: 'strong',
         length: 12,
         iteration: 1,
-        separator: '-'
+        separator: '-',
       };
 
       expect(() => validatePasswordConfig(config)).not.to.throw();
@@ -305,7 +310,7 @@ describe('PasswordService', () => {
         type: 'base64',
         length: 16,
         iteration: 1,
-        separator: '+'
+        separator: '+',
       };
 
       expect(() => validatePasswordConfig(config)).not.to.throw();
@@ -318,7 +323,7 @@ describe('PasswordService', () => {
         type: 'strong',
         length: 12,
         iteration: 1,
-        separator: '-'
+        separator: '-',
       };
 
       const result = await safeGeneratePassword(config);
@@ -330,7 +335,7 @@ describe('PasswordService', () => {
       const config = {
         type: 'strong',
         iteration: 0, // Invalid
-        separator: '-'
+        separator: '-',
       };
 
       try {
@@ -345,7 +350,7 @@ describe('PasswordService', () => {
       const config = {
         type: 'memorable',
         iteration: 3,
-        separator: ' '
+        separator: ' ',
       };
 
       const result = await safeGeneratePassword(config);

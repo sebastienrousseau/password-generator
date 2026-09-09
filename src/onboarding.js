@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -12,11 +12,7 @@ import readline, { emitKeypressEvents } from "readline";
 import { createRequire } from "module";
 import { getPresetConfig } from "./config.js";
 import { CommandLearningPresenter } from "./presenters/CommandLearningPresenter.js";
-import {
-  colors,
-  gradient,
-  icons,
-} from "./ui/theme.js";
+import { colors, gradient, icons } from "./ui/theme.js";
 import { matchesBinding, defaultBindings } from "./ui/keyboard.js";
 import { getFocusManager } from "./ui/focus-manager.js";
 import { getCommandPalette, isCommandPaletteKey } from "./ui/command-palette.js";
@@ -31,8 +27,12 @@ const { version } = require("../package.json");
 
 const BRAND = `
   ${gradient.primary("╭─────────────────────────────────────╮")}
-  ${gradient.primary("│")}  ${colors.text("✦")} ${gradient.primary("p a s s w o r d")}                  ${gradient.primary("│")}
-  ${gradient.primary("│")}    ${gradient.primary("g e n e r a t o r")}  ${colors.dim(`v${version}`)}        ${gradient.primary("│")}
+  ${gradient.primary("│")}  ${colors.text("✦")} ${gradient.primary(
+  "p a s s w o r d"
+)}                  ${gradient.primary("│")}
+  ${gradient.primary("│")}    ${gradient.primary("g e n e r a t o r")}  ${colors.dim(
+  `v${version}`
+)}        ${gradient.primary("│")}
   ${gradient.primary("╰─────────────────────────────────────╯")}
 `;
 
@@ -52,7 +52,7 @@ const createReadlineInterface = () => {
 
   const rl = readline.createInterface({
     input: process.stdin,
-    output: process.stdout
+    output: process.stdout,
   });
 
   emitKeypressEvents(process.stdin);
@@ -118,7 +118,9 @@ const promptWithNavigation = (title, options, menuId = null) => {
     }
 
     function handleKeypress(str, key) {
-      if (!key) {return;}
+      if (!key) {
+        return;
+      }
 
       // Handle command palette if open
       if (commandPalette.isOpen) {
@@ -162,7 +164,10 @@ const promptWithNavigation = (title, options, menuId = null) => {
       } else if (matchesBinding(key, "select", defaultBindings)) {
         cleanup();
         resolve(options[selectedIndex]);
-      } else if (matchesBinding(key, "cancel", defaultBindings) || matchesBinding(key, "quit", defaultBindings)) {
+      } else if (
+        matchesBinding(key, "cancel", defaultBindings) ||
+        matchesBinding(key, "quit", defaultBindings)
+      ) {
         cleanup();
         console.clear();
         console.log("");
@@ -199,9 +204,15 @@ export const runOnboarding = async () => {
       { label: "secure", desc: "maximum protection", value: "secure" },
       { label: "memorable", desc: "easy to remember", value: "memorable" },
       { label: "quantum", desc: "256-bit entropy", value: "quantum" },
+      { label: "diceware", desc: "EFF word list passphrase", value: "diceware" },
+      { label: "pronounceable", desc: "easy to say", value: "pronounceable" },
     ];
 
-    const preset = await promptWithNavigation("choose a preset", presetOptions, "onboarding:preset");
+    const preset = await promptWithNavigation(
+      "choose a preset",
+      presetOptions,
+      "onboarding:preset"
+    );
     const config = getPresetConfig(preset.value);
 
     // STEP 2: Choose length (chunk size) - skip for quantum (fixed at 43 for 256-bit entropy)
@@ -225,7 +236,11 @@ export const runOnboarding = async () => {
       { label: "(none)", desc: "no separator", value: "" },
     ];
 
-    const separatorChoice = await promptWithNavigation("separator", separatorOptions, "onboarding:separator");
+    const separatorChoice = await promptWithNavigation(
+      "separator",
+      separatorOptions,
+      "onboarding:separator"
+    );
     config.separator = separatorChoice.value;
 
     // STEP 4: Clipboard option
@@ -234,7 +249,11 @@ export const runOnboarding = async () => {
       { label: "display only", desc: "more secure", value: false },
     ];
 
-    const clipboardChoice = await promptWithNavigation("clipboard", clipboardOptions, "onboarding:clipboard");
+    const clipboardChoice = await promptWithNavigation(
+      "clipboard",
+      clipboardOptions,
+      "onboarding:clipboard"
+    );
     const clipboard = clipboardChoice.value;
 
     // Show result
@@ -243,9 +262,19 @@ export const runOnboarding = async () => {
     console.log(`  ${colors.success(icons.success)} ${colors.dim("ready")}`);
     console.log("");
     console.log(`  ${colors.muted(icons.pointer)} preset      ${colors.command(preset.value)}`);
-    console.log(`  ${colors.muted(icons.pointer)} length      ${colors.text(String(config.length))}`);
-    console.log(`  ${colors.muted(icons.pointer)} separator   ${config.separator ? colors.text(`"${config.separator}"`) : colors.dim("none")}`);
-    console.log(`  ${colors.muted(icons.pointer)} clipboard   ${clipboard ? colors.success("yes") : colors.dim("no")}`);
+    console.log(
+      `  ${colors.muted(icons.pointer)} length      ${colors.text(String(config.length))}`
+    );
+    console.log(
+      `  ${colors.muted(icons.pointer)} separator   ${
+        config.separator ? colors.text(`"${config.separator}"`) : colors.dim("none")
+      }`
+    );
+    console.log(
+      `  ${colors.muted(icons.pointer)} clipboard   ${
+        clipboard ? colors.success("yes") : colors.dim("no")
+      }`
+    );
     console.log("");
 
     CommandLearningPresenter.displayCommandLearningPanel(config, clipboard, preset.value);
@@ -261,8 +290,8 @@ export const runOnboarding = async () => {
 /* c8 ignore stop */
 
 export const isFirstRun = (args) => {
-  const nonInteractiveArgs = args.filter(arg =>
-    arg !== "--interactive" && arg !== "password-generator"
+  const nonInteractiveArgs = args.filter(
+    (arg) => arg !== "--interactive" && arg !== "password-generator"
   );
   return nonInteractiveArgs.length === 0;
 };

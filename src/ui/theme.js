@@ -41,7 +41,8 @@ const caps = capabilities();
  * Brand mark for CLI output
  */
 export const brand = {
-  mini: () => `  ✦ ${chalk.hex("#FF6B9D")("password")} ${chalk.hex("#9D4EDD")("generator")} ${chalk.hex("#4B5563")(`v${version}`)}`,
+  mini: () =>
+    `  ✦ ${chalk.hex("#FF6B9D")("password")} ${chalk.hex("#9D4EDD")("generator")} ${chalk.hex("#4B5563")(`v${version}`)}`,
   inline: () => chalk.hex("#FF6B9D")("✦") + " " + chalk.hex("#9D4EDD")("pwgen"),
   version: () => version,
 };
@@ -73,7 +74,8 @@ const palette = {
  * Check if colors are enabled
  * @returns {boolean}
  */
-export const colorsEnabled = () => !caps.colorDisabled && caps.colorDepth > ColorDepth.NONE;
+export const colorsEnabled = () =>
+  !caps.colorDisabled && caps.colorDepth > ColorDepth.NONE;
 
 /**
  * Check if Unicode is supported
@@ -293,10 +295,12 @@ export const renderBox = (content, options = {}) => {
     lines.push(
       border(box.topLeft + box.horizontal.repeat(leftPad)) +
         titleDisplay +
-        border(box.horizontal.repeat(rightPad) + box.topRight)
+        border(box.horizontal.repeat(rightPad) + box.topRight),
     );
   } else {
-    lines.push(border(box.topLeft + box.horizontal.repeat(innerWidth) + box.topRight));
+    lines.push(
+      border(box.topLeft + box.horizontal.repeat(innerWidth) + box.topRight),
+    );
   }
 
   // Content
@@ -304,11 +308,21 @@ export const renderBox = (content, options = {}) => {
   for (const line of contentLines) {
     const lineLen = stripAnsi(line).length;
     const padding = Math.max(0, innerWidth - lineLen);
-    lines.push(border(box.vertical) + " " + line + " ".repeat(padding) + border(box.vertical));
+    lines.push(
+      border(box.vertical) +
+        " " +
+        line +
+        " ".repeat(padding) +
+        border(box.vertical),
+    );
   }
 
   // Bottom border
-  lines.push(border(box.bottomLeft + box.horizontal.repeat(innerWidth) + box.bottomRight));
+  lines.push(
+    border(
+      box.bottomLeft + box.horizontal.repeat(innerWidth) + box.bottomRight,
+    ),
+  );
 
   return lines.join("\n");
 };
@@ -335,7 +349,11 @@ export const renderPassword = (password, options = {}) => {
   const borderColor = chalk.hex(palette.dimGray);
 
   // Top
-  lines.push(borderColor(`  ${box.topLeft}${box.horizontal.repeat(innerWidth)}${box.topRight}`));
+  lines.push(
+    borderColor(
+      `  ${box.topLeft}${box.horizontal.repeat(innerWidth)}${box.topRight}`,
+    ),
+  );
 
   // Password line (centered)
   const pwDisplay = colors.password(password);
@@ -348,11 +366,15 @@ export const renderPassword = (password, options = {}) => {
       " ".repeat(leftPad) +
       pwDisplay +
       " ".repeat(rightPad) +
-      borderColor(box.vertical)
+      borderColor(box.vertical),
   );
 
   // Bottom
-  lines.push(borderColor(`  ${box.bottomLeft}${box.horizontal.repeat(innerWidth)}${box.bottomRight}`));
+  lines.push(
+    borderColor(
+      `  ${box.bottomLeft}${box.horizontal.repeat(innerWidth)}${box.bottomRight}`,
+    ),
+  );
 
   // Status line (minimal, below the box)
   lines.push("");
@@ -360,7 +382,9 @@ export const renderPassword = (password, options = {}) => {
   const statusParts = [];
 
   // Strength indicator with text label for accessibility
-  statusParts.push(`  ${renderStrengthIndicator(strength, { showLabel: true })}`);
+  statusParts.push(
+    `  ${renderStrengthIndicator(strength, { showLabel: true })}`,
+  );
 
   if (entropy > 0) {
     statusParts.push(colors.dim(`${entropy}-bit`));
@@ -392,7 +416,9 @@ export const renderCommandPanel = (command, shortcuts = []) => {
     lines.push(`  ${colors.dim("shortcuts")}`);
     lines.push("");
     for (const { flag, desc } of shortcuts) {
-      lines.push(`  ${colors.muted(icons.pointer)} ${colors.command(flag.padEnd(14))} ${colors.dim(desc)}`);
+      lines.push(
+        `  ${colors.muted(icons.pointer)} ${colors.command(flag.padEnd(14))} ${colors.dim(desc)}`,
+      );
     }
     lines.push("");
   }
@@ -428,7 +454,9 @@ export const renderMenu = (title, options, selectedIndex) => {
   for (let i = 0; i < options.length; i++) {
     const isSelected = i === selectedIndex;
     const pointer = isSelected ? colors.primary(icons.pointer) : " ";
-    const option = isSelected ? colors.text(options[i]) : colors.muted(options[i]);
+    const option = isSelected ?
+      colors.text(options[i]) :
+      colors.muted(options[i]);
     lines.push(`  ${pointer} ${option}`);
   }
 

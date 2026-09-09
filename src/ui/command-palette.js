@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -168,8 +168,12 @@ export const searchCommands = (commands, query) => {
   const results = commands
     .map((cmd) => {
       const nameScore = fuzzyMatch(query, cmd.name);
-      const descScore = cmd.description ? fuzzyMatch(query, cmd.description) * 0.5 : 0;
-      const categoryScore = cmd.category ? fuzzyMatch(query, cmd.category) * 0.3 : 0;
+      const descScore = cmd.description ?
+        fuzzyMatch(query, cmd.description) * 0.5 :
+        0;
+      const categoryScore = cmd.category ?
+        fuzzyMatch(query, cmd.category) * 0.3 :
+        0;
       const totalScore = Math.max(nameScore, descScore, categoryScore);
       return { cmd, score: totalScore };
     })
@@ -261,7 +265,9 @@ export class CommandPalette {
   moveUp() {
     if (this.filteredCommands.length > 0) {
       this.selectedIndex =
-        this.selectedIndex > 0 ? this.selectedIndex - 1 : this.filteredCommands.length - 1;
+        this.selectedIndex > 0 ?
+          this.selectedIndex - 1 :
+          this.filteredCommands.length - 1;
     }
   }
 
@@ -271,7 +277,9 @@ export class CommandPalette {
   moveDown() {
     if (this.filteredCommands.length > 0) {
       this.selectedIndex =
-        this.selectedIndex < this.filteredCommands.length - 1 ? this.selectedIndex + 1 : 0;
+        this.selectedIndex < this.filteredCommands.length - 1 ?
+          this.selectedIndex + 1 :
+          0;
     }
   }
 
@@ -280,7 +288,10 @@ export class CommandPalette {
    * @returns {Object | null} Result from command action
    */
   select() {
-    if (this.filteredCommands.length > 0 && this.selectedIndex < this.filteredCommands.length) {
+    if (
+      this.filteredCommands.length > 0 &&
+      this.selectedIndex < this.filteredCommands.length
+    ) {
       const command = this.filteredCommands[this.selectedIndex];
       const result = command.action();
       this.close();
@@ -359,8 +370,8 @@ export class CommandPalette {
     lines.push("");
     lines.push(
       `  ${borderColor(box.topLeft)}${borderColor(box.horizontal.repeat(innerWidth))}${borderColor(
-        box.topRight
-      )}`
+        box.topRight,
+      )}`,
     );
 
     // Search input line
@@ -370,14 +381,14 @@ export class CommandPalette {
     lines.push(
       `  ${borderColor(box.vertical)} ${searchIcon} ${queryDisplay}${
         this.query ? cursor : ""
-      } `.padEnd(innerWidth + 3) + `${borderColor(box.vertical)}`
+      } `.padEnd(innerWidth + 3) + `${borderColor(box.vertical)}`,
     );
 
     // Divider
     lines.push(
       `  ${borderColor(box.vertical)}${colors.dim(box.horizontal.repeat(innerWidth))}${borderColor(
-        box.vertical
-      )}`
+        box.vertical,
+      )}`,
     );
 
     // Commands list
@@ -387,7 +398,7 @@ export class CommandPalette {
       const noResults = colors.dim("No commands found");
       lines.push(
         `  ${borderColor(box.vertical)} ${noResults}`.padEnd(innerWidth + 3) +
-          ` ${borderColor(box.vertical)}`
+          ` ${borderColor(box.vertical)}`,
       );
     } else {
       for (let i = 0; i < displayCount; i++) {
@@ -395,13 +406,17 @@ export class CommandPalette {
         const isSelected = i === this.selectedIndex;
 
         const pointer = isSelected ? colors.primary(icons.pointer) : " ";
-        const name = isSelected ? colors.text(cmd.name) : colors.muted(cmd.name);
+        const name = isSelected ?
+          colors.text(cmd.name) :
+          colors.muted(cmd.name);
         const shortcut = cmd.shortcut ? colors.dim(` [${cmd.shortcut}]`) : "";
 
         const lineContent = `${pointer} ${name}${shortcut}`;
         const paddedLine = lineContent.padEnd(innerWidth + 2);
 
-        lines.push(`  ${borderColor(box.vertical)} ${paddedLine}${borderColor(box.vertical)}`);
+        lines.push(
+          `  ${borderColor(box.vertical)} ${paddedLine}${borderColor(box.vertical)}`,
+        );
       }
 
       // Show count if more commands than displayed
@@ -410,7 +425,7 @@ export class CommandPalette {
         const moreText = colors.dim(`+${moreCount} more`);
         lines.push(
           `  ${borderColor(box.vertical)} ${moreText}`.padEnd(innerWidth + 3) +
-            ` ${borderColor(box.vertical)}`
+            ` ${borderColor(box.vertical)}`,
         );
       }
     }
@@ -418,8 +433,8 @@ export class CommandPalette {
     // Footer
     lines.push(
       `  ${borderColor(box.bottomLeft)}${borderColor(
-        box.horizontal.repeat(innerWidth)
-      )}${borderColor(box.bottomRight)}`
+        box.horizontal.repeat(innerWidth),
+      )}${borderColor(box.bottomRight)}`,
     );
 
     // Help text

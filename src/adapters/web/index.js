@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -12,24 +12,15 @@
 
 export {
   WebCryptoRandom,
+  WebCryptoRandomAdapter,
   randomBytes,
   randomInt,
   bytesToBase64,
 } from "./WebCryptoRandom.js";
 
-export {
-  WebConsoleLogger,
-  LogLevel,
-  logger,
-  webConsole,
-} from "./WebConsoleLogger.js";
+export { WebConsoleLogger, LogLevel, logger, webConsole } from "./WebConsoleLogger.js";
 
-export {
-  WebLocalStorage,
-  StorageKeys,
-  storage,
-  webStorage,
-} from "./WebLocalStorage.js";
+export { WebLocalStorage, StorageKeys, storage, webStorage } from "./WebLocalStorage.js";
 
 /**
  * Complete web adapter suite for drop-in Node.js replacement.

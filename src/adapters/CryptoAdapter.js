@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 import { randomBytes, randomInt } from "crypto";
@@ -68,11 +68,16 @@ export class DefaultCryptoAdapter {
     const result = this.generateRandomBytes(byteLength).toString("base64");
 
     // Record entropy usage for audit
-    recordEntropyUsage("crypto.randomBytes", 1, calculateBase64Entropy(byteLength), {
-      byteLength,
-      outputLength: result.length,
-      method: "base64-encoding",
-    });
+    recordEntropyUsage(
+      "crypto.randomBytes",
+      1,
+      calculateBase64Entropy(byteLength),
+      {
+        byteLength,
+        outputLength: result.length,
+        method: "base64-encoding",
+      },
+    );
     recordAlgorithmUsage("base64-password-generation", {
       byteLength,
       encoding: "base64",
@@ -95,15 +100,21 @@ export class DefaultCryptoAdapter {
     validatePositiveInteger(length, "length");
     let result = "";
     for (let i = 0; i < length; i++) {
-      result += BASE64_CHARSET[this.generateRandomInt(0, BASE64_CHARSET.length)];
+      result +=
+        BASE64_CHARSET[this.generateRandomInt(0, BASE64_CHARSET.length)];
     }
 
     // Record entropy usage for audit
-    recordEntropyUsage("crypto.randomInt", length, calculateBase64ChunkEntropy(length), {
-      charsetSize: BASE64_CHARSET.length,
-      outputLength: length,
-      method: "character-by-character",
-    });
+    recordEntropyUsage(
+      "crypto.randomInt",
+      length,
+      calculateBase64ChunkEntropy(length),
+      {
+        charsetSize: BASE64_CHARSET.length,
+        outputLength: length,
+        method: "character-by-character",
+      },
+    );
     recordAlgorithmUsage("base64-chunk-generation", {
       charsetSize: BASE64_CHARSET.length,
       outputLength: length,
@@ -201,7 +212,8 @@ export class MockCryptoAdapter {
     validatePositiveInteger(length, "length");
     let result = "";
     for (let i = 0; i < length; i++) {
-      result += BASE64_CHARSET[this.generateRandomInt(0, BASE64_CHARSET.length)];
+      result +=
+        BASE64_CHARSET[this.generateRandomInt(0, BASE64_CHARSET.length)];
     }
     return result;
   }

@@ -1,4 +1,4 @@
-// Copyright © 2022-2024 Password Generator. All rights reserved.
+// Copyright © 2022-2024 JavaScript Password Generator (jspassgen). All rights reserved.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /**
@@ -8,7 +8,7 @@
  */
 
 // Character sets
-export { BASE64_CHARSET, VOWELS, CONSONANTS, CHARACTER_SET_METADATA } from "./charset.js";
+export { BASE64_CHARSET, VOWELS, CONSONANTS, CHARACTER_SET_METADATA } from './charset.js';
 
 // Entropy calculations
 export {
@@ -21,7 +21,7 @@ export {
   getSecurityLevel,
   getSecurityRecommendation,
   calculateTotalEntropy,
-} from "./entropy-calculator.js";
+} from './entropy-calculator.js';
 
 // Password types
 export {
@@ -32,7 +32,7 @@ export {
   PASSWORD_TYPE_METADATA,
   validatePasswordTypeConfig,
   getExpectedEntropy,
-} from "./password-types.js";
+} from './password-types.js';
 
 // Base64 generation utilities
 export {
@@ -42,4 +42,4 @@ export {
   calculateBase64Length,
   calculateRequiredByteLength,
   BASE64_DOMAIN_RULES,
-} from "./base64-generation.js";
+} from './base64-generation.js';

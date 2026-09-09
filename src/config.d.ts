@@ -1,10 +1,10 @@
-// Type definitions for password-generator configuration module
-// Project: https://github.com/sebastienrousseau/password-generator
+// Type definitions for jspassgen configuration module
+// Project: https://github.com/sebastienrousseau/jspassgen
 
 /**
  * Valid password types supported by the generator.
  */
-export type PasswordType = 'strong' | 'base64' | 'memorable';
+export type PasswordType = 'strong' | 'base64' | 'memorable' | 'quantum-resistant' | 'diceware' | 'honeyword' | 'pronounceable' | 'custom';
 
 /**
  * Valid password types array.
@@ -56,11 +56,20 @@ export interface CLIOptionsConfig {
   readonly description: string;
   /** Available CLI options */
   readonly options: {
+    readonly preset: CLIOption;
     readonly type: CLIOption;
     readonly length: CLIOption;
     readonly iteration: CLIOption;
     readonly separator: CLIOption;
     readonly clipboard: CLIOption;
+    readonly audit: CLIOption;
+    readonly learn: CLIOption;
+    readonly format: CLIOption;
+    readonly count: CLIOption;
+    readonly interactive: CLIOption;
+    readonly kdfMemory: CLIOption;
+    readonly kdfTime: CLIOption;
+    readonly kdfParallelism: CLIOption;
   };
 }
 

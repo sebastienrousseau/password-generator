@@ -1,5 +1,5 @@
-// Type definitions for password-generator CLI module
-// Project: https://github.com/sebastienrousseau/password-generator
+// Type definitions for jspassgen CLI module
+// Project: https://github.com/sebastienrousseau/jspassgen
 
 /**
  * Configuration options for password generation.

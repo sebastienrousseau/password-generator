@@ -1,4 +1,4 @@
-import { randomSyllable } from "../../src/utils/randomSyllable.js";
+import { randomSyllable } from '../../src/utils/randomSyllable.js';
 import { expect } from 'chai';
 
 // Mock the randomConsonant and randomVowel functions for testing
@@ -21,7 +21,7 @@ afterEach(() => {
 });
 
 // Test the randomSyllable() function
-describe("Running randomSyllable", () => {
+describe('Running randomSyllable', () => {
   it('should be a defined function', () => {
     expect(randomSyllable).to.be.a('function');
   });
@@ -31,5 +31,4 @@ describe("Running randomSyllable", () => {
     expect(syllable).to.be.a('string');
     expect(syllable).to.match(/^[bcdfhgjklmnpqrstvwxyz][aeiou][bcdfhgjklmnpqrstvwxyz]$/);
   });
-
 });
