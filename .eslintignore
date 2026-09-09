@@ -1,9 +1,0 @@
-!.*
-
-/build/**
-/coverage/**
-/src/docs/**
-/dist/**
-/test/**
-/node_modules/**
-!.eslintrc.json
