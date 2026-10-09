@@ -89,6 +89,10 @@ export const generateTemplatePassword = async (config, randomGenerator) => {
  * @returns {Promise<string>} A random string of the specified length.
  */
 const generateCustomChunk = async (length, charset, randomGenerator) => {
+  if (typeof randomGenerator.generateRandomString === 'function') {
+    return randomGenerator.generateRandomString(length, charset);
+  }
+
   let result = '';
   for (let i = 0; i < length; i++) {
     const index = await randomGenerator.generateRandomInt(charset.length);

@@ -181,23 +181,18 @@ export const CLI_OPTIONS = {
       description: "start interactive guided setup for password generation",
       defaultValue: false,
     },
-    kdfMemory: {
-      flags: "--kdf-memory <number>",
-      description: "Argon2id memory parameter in KB (default: 65536 KB = 64 MB)",
-      parser: (val) => parseInt(val, 10),
-      defaultValue: 65536,
+    allowedChars: {
+      flags: "--allowed-chars <chars>",
+      description: "character set specification for custom passwords (e.g., 'UPPERCASE,DIGITS,!@#')",
     },
-    kdfTime: {
-      flags: "--kdf-time <number>",
-      description: "Argon2id time cost parameter (default: 3 iterations)",
-      parser: (val) => parseInt(val, 10),
-      defaultValue: 3,
+    forbiddenChars: {
+      flags: "--forbidden-chars <chars>",
+      description: "characters to exclude from custom password generation",
     },
-    kdfParallelism: {
-      flags: "--kdf-parallelism <number>",
-      description: "Argon2id parallelism parameter (default: 4 threads)",
-      parser: (val) => parseInt(val, 10),
-      defaultValue: 4,
+    reveal: {
+      flags: "--reveal",
+      description: "reveal the real password index in honeyword output",
+      defaultValue: false,
     },
   },
 };

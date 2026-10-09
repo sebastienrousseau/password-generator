@@ -45,6 +45,10 @@ export const generateQuantumChunk = async (length, randomGenerator) => {
     );
   }
 
+  if (typeof randomGenerator.generateRandomString === 'function') {
+    return randomGenerator.generateRandomString(length, BASE64_CHARSET);
+  }
+
   let result = '';
   for (let i = 0; i < length; i++) {
     const index = await randomGenerator.generateRandomInt(BASE64_CHARSET.length);
