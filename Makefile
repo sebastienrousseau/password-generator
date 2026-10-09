@@ -6,9 +6,8 @@
 #
 # Password Generator
 # https://jspassgen.com/
-#
-# Copyright (c) Sebastien Rousseau 2022 - 2023. All rights reserved
-# Licensed under the MIT license
+# Copyright (c) Sebastien Rousseau 2022 - 2026. All rights reserved
+# Licensed under Apache-2.0 OR MIT
 #
 
 .DEFAULT_GOAL := help
