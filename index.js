@@ -17,7 +17,7 @@ import {
   startAuditSession,
   completeAuditSession,
   executeWithAudit,
-} from "./src/bin/password-generator.js";
+} from "./src/bin/jspassgen.js";
 
 // Export PasswordGenerator as the default export for backward compatibility
 export default PasswordGenerator;

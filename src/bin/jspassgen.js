@@ -73,9 +73,12 @@ export const PasswordGenerator = async (data) => {
 const resolvedArg = process.argv[1] ? resolve(process.argv[1]) : "";
 const isMainModule =
   resolvedArg &&
-  (resolvedArg.endsWith("password-generator.js") ||
+  (resolvedArg.endsWith("jspassgen.js") ||
+    resolvedArg.endsWith("password-generator.js") ||
     resolvedArg.endsWith("index.js") ||
+    resolvedArg.includes("bin/jspassgen") ||
     resolvedArg.includes("bin/password-generator") ||
+    resolvedArg.endsWith("jspassgen") ||
     resolvedArg.endsWith("password-generator")); // Handle `node .` from project root
 
 if (isMainModule) {

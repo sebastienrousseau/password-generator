@@ -11,7 +11,7 @@ import { expect } from 'chai';
 import { spawn } from 'child_process';
 import { join } from 'path';
 
-const CLI_PATH = join(process.cwd(), 'src', 'bin', 'password-generator.js');
+const CLI_PATH = join(process.cwd(), 'src', 'bin', 'jspassgen.js');
 const TIMEOUT = 5000;
 
 /**

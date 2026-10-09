@@ -1,5 +1,5 @@
 {
-  "name": "@password-generator/core",
+  "name": "@jspassgen/core",
   "version": "0.0.1",
   "description": "Platform-agnostic core logic for password generation",
   "type": "module",

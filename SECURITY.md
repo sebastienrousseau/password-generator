@@ -149,4 +149,4 @@ This architecture ensures:
 
 ## License
 
-This security policy is part of the Password Generator project, licensed under MIT.
+This security policy is part of the JavaScript Password Generator (jspassgen) project, dual-licensed under Apache-2.0 OR MIT.

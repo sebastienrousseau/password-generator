@@ -4,7 +4,7 @@
 // TypeScript Version: 4.0+
 
 /**
- * Centralized type definitions aggregating all password-generator modules.
+ * Centralized type definitions aggregating all jspassgen modules.
  *
  * This file consolidates TypeScript definitions from across the codebase
  * to provide a single import point for all types and interfaces.

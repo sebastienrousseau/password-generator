@@ -1,8 +1,8 @@
 {
-  "name": "password-generator-benchmarks",
+  "name": "jspassgen-benchmarks",
   "version": "1.0.0",
   "private": true,
-  "description": "Performance benchmarks for password-generator",
+  "description": "Performance benchmarks for jspassgen",
   "type": "module",
   "scripts": {
     "bench": "node password-generation.bench.js && node entropy-calculation.bench.js",

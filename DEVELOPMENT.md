@@ -2,7 +2,7 @@
 
 # Development Guide
 
-This guide describes how to set up the development environment, execute tests, verify package isolation, reproduce all CI gates locally, and understand the release lifecycle for `@sebastienrousseau/password-generator` (`jspassgen`).
+This guide describes how to set up the development environment, execute tests, verify package isolation, reproduce all CI gates locally, and understand the release lifecycle for `jspassgen` (JavaScript Password Generator).
 
 ---
 
@@ -27,8 +27,8 @@ git --version
 Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/sebastienrousseau/password-generator.git
-cd password-generator
+git clone https://github.com/sebastienrousseau/jspassgen.git
+cd jspassgen
 npm ci
 ```
 
@@ -39,7 +39,7 @@ npm ci
 The repository uses a hexagonal architecture separating the runtime-agnostic domain core from platform-specific adapters:
 
 ```text
-password-generator/
+jspassgen/
 ├── packages/
 │   └── core/                     # Runtime-agnostic core domain
 │       ├── src/

@@ -4,7 +4,7 @@
 # |  _/ _` (_-<_-< V  V / _ \ '_/ _` | | (_ / -_) ' \/ -_) '_/ _` |  _/ _ \ '_|
 # |_| \__,_/__/__/\_/\_/\___/_| \__,_|  \___\___|_||_\___|_| \__,_|\__\___/_|
 #
-# Password Generator
+# JavaScript Password Generator (jspassgen)
 # https://jspassgen.com/
 # Copyright (c) Sebastien Rousseau 2022 - 2026. All rights reserved
 # Licensed under Apache-2.0 OR MIT
@@ -44,7 +44,7 @@ build:
 # @HELP Publish.
 publish:
 	@echo
-	@echo "Publishing password-generator..."
+	@echo "Publishing jspassgen..."
 	npm publish
 
 

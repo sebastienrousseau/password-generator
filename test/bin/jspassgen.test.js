@@ -1,4 +1,4 @@
-import { PasswordGenerator } from '../../src/bin/password-generator.js';
+import { PasswordGenerator } from '../../src/bin/jspassgen.js';
 import { expect } from 'chai';
 import { exec } from 'child_process';
 import assert from 'assert';

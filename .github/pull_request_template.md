@@ -50,4 +50,4 @@ SHA-256 of the artifacts produced by `npm run build` on this branch:
 {{SHA256}}  dist/index.d.ts
 ```
 
-**Full Changelog**: https://github.com/sebastienrousseau/password-generator/compare/{{PREV_TAG}}...{{CURR_TAG}}
+**Full Changelog**: https://github.com/sebastienrousseau/jspassgen/compare/{{PREV_TAG}}...{{CURR_TAG}}

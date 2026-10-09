@@ -2,7 +2,7 @@
 
 # AGENTS.md
 
-Invariants and guidelines for AI-assisted contributors working in `@sebastienrousseau/password-generator` (jspassgen).
+Invariants and guidelines for AI-assisted contributors working in `jspassgen` (JavaScript Password Generator).
 
 This repository strictly conforms to the global standards defined in:
 - [`/Users/seb/Code/AGENTS.md`](/Users/seb/Code/AGENTS.md) (Code Repositories Standard)
@@ -16,7 +16,7 @@ Read this whole file before modifying any code.
 
 ## What this repository is and why it exists
 
-`@sebastienrousseau/password-generator` is a fast, simple, and powerful utility for generating strong, unique, cryptographically secure passwords and passphrases across Node.js, CLI, and Web environments.
+`jspassgen` (JavaScript Password Generator) is a fast, simple, and powerful utility for generating strong, unique, cryptographically secure passwords and passphrases across Node.js, CLI, and Web environments.
 
 Core principles:
 - **Cryptographic Security**: Exclusively powered by CSPRNG (`crypto.randomInt` in Node.js, `crypto.getRandomValues` in Web / Workers). No `Math.random()`.
@@ -41,8 +41,8 @@ Before starting any feature, fix, or release work:
 
 ## 1. Versioning and branch lifecycle
 
-- **Version increments**: Current version is `v0.0.11`. Every new iteration increments strictly by `0.0.1` (`v0.0.11` -> `v0.0.12`).
-- **Release branch**: Work for the next iteration belongs on `feat/v<next-version>` (e.g. `feat/v0.0.12`). Never leave release work on `master` or unrelated topic branches.
+- **Version increments**: Current version is `v0.0.14`. Every new iteration increments strictly by `0.0.1` (`v0.0.14` -> `v0.0.15`).
+- **Release branch**: Work for the next iteration belongs on `feat/v<next-version>` (e.g. `feat/v0.0.15`). Never leave release work on `master` or unrelated topic branches.
 - **Single active release PR**: At most ONE active pull request targeting `master` across this repository, which MUST be `feat/v<next-version>`.
 - **Branch funneling**: All Dependabot PRs, security fixes, and feature commits MUST be merged into the active `feat/v<next-version>` branch, never directly into `master`. Standalone PRs targeting `master` are closed with a comment linking the release PR.
 
@@ -81,7 +81,7 @@ Follow `/Users/seb/Code/PR-TEMPLATE.md` strictly:
   - `## What's Changed`
   - `## Validation` (commands and exact test counts / coverage numbers)
   - `## Checksums` (SHA-256 in fenced `text` block)
-  - `**Full Changelog**: https://github.com/sebastienrousseau/password-generator/compare/<prev>...<curr>`
+  - `**Full Changelog**: https://github.com/sebastienrousseau/jspassgen/compare/<prev>...<curr>`
 - Zero conversational filler, zero AI tells, no tool attribution footers.
 - Prohibited: Never use em dashes (`—`) anywhere in PR body or release notes.
 

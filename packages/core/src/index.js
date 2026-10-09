@@ -9,10 +9,10 @@
  *
  * All I/O is abstracted through ports (dependency injection).
  *
- * @module @password-generator/core
+ * @module @jspassgen/core
  *
  * @example
- * import { createService } from '@password-generator/core';
+ * import { createService } from '@jspassgen/core';
  * import { NodeCryptoRandom } from './adapters/node/crypto-random.js';
  *
  * const service = createService({}, {
