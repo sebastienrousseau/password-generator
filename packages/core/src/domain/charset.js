@@ -67,8 +67,8 @@ export const CHARACTER_SET_METADATA = {
   },
   SPECIAL: {
     charset: SPECIAL,
-    size: 25,
-    bitsPerCharacter: Math.log2(25), // ~4.64 bits
+    size: 26,
+    bitsPerCharacter: Math.log2(26), // ~4.70 bits
     description: 'Special characters and symbols',
   },
   HEX_UPPERCASE: {
@@ -92,7 +92,14 @@ export const CHARACTER_SET_METADATA = {
  * @param {string} [forbiddenChars] - Characters to exclude
  * @returns {Object} Custom character set metadata with charset string and metadata
  */
-export const createCustomCharset = (allowedChars, forbiddenChars = '') => {
+export const createCustomCharset = (
+  allowedChars = 'UPPERCASE,LOWERCASE,DIGITS,SPECIAL',
+  forbiddenChars = ''
+) => {
+  if (typeof allowedChars !== 'string') {
+    throw new Error('allowedChars must be a string');
+  }
+
   let charset = '';
 
   // Parse allowed characters - can be predefined sets or literal characters

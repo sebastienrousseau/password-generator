@@ -25,13 +25,12 @@
   },
   "description": "A fast, simple and powerful open-source utility tool for generating strong, unique and random passwords.",
   "devDependencies": {
-    "@babel/cli": "^8.0.4",
-    "@babel/core": "^8.0.1",
-    "@babel/eslint-parser": "^8.0.1",
-    "@babel/preset-env": "^8.0.2",
+    "@babel/cli": "^8.0.6",
+    "@babel/core": "^8.0.6",
+    "@babel/eslint-parser": "^8.0.6",
+    "@babel/preset-env": "^8.0.6",
     "@babel/preset-typescript": "^8.0.1",
-    "@babel/register": "^8.0.1",
-    "babel-plugin-istanbul": "^8.0.0",
+    "@babel/register": "^8.0.6",
     "c8": "^12.0.0",
     "chai": "^6.2.2",
     "chai-as-promised": "8.0.2",
@@ -41,14 +40,13 @@
     "eslint-plugin-prettier": "^5.0.1",
     "esmock": "2.7.6",
     "filesizes": "^0.1.2",
-    "jest": "^30.2.0",
     "jsdoc": "^4.0.2",
-    "jsdom": "30.0.1",
+    "jsdom": "30.1.0",
     "jshint": "^2.13.6",
     "mkdirp": "^3.0.1",
-    "mocha": "12.0.0",
-    "prettier": "3.9.6",
-    "react": "19.2.8",
+    "mocha": "12.0.2",
+    "prettier": "3.9.8",
+    "react": "19.3.0",
     "remark-cli": "^12.0.0",
     "remark-footnotes": "^5.0.0",
     "remark-preset-lint-consistent": "^6.0.1",
@@ -143,15 +141,17 @@
   },
   "scripts": {
     "build": "npm run format && npm run lint:fix && npm run lint:markdown && npm run build:password:generator && cat ./package.json | grep -v '\"private\":' > dist/package.json && npm pack ./dist",
-    "build:password:generator": "npm run clean:dist && npm run create:directory && npm run create:docs && npm run copy:index && npm run copy:src && npm run copy:readme && npm run copy:license && npm run copy:makefile && npm run copy:copyright && npm run filesize:distribution",
+    "build:password:generator": "npm run clean:dist && npm run create:directory && npm run create:docs && npm run copy:index && npm run copy:src && npm run copy:packages && npm run copy:types && npm run copy:readme && npm run copy:license && npm run copy:makefile && npm run copy:copyright && npm run filesize:distribution",
     "clean": "rimraf .nyc_output coverage",
     "clean:dist": "rimraf \"dist/\"",
     "copy:copyright": "cp COPYRIGHT dist/",
     "copy:index": "cp index.js dist/",
     "copy:license": "cp LICENSE dist/",
     "copy:makefile": "cp Makefile dist/",
+    "copy:packages": "mkdirp dist/packages/core && cp -R ./packages/core/src dist/packages/core/src && cp packages/core/package.json dist/packages/core/",
     "copy:readme": "cp README.md dist/",
     "copy:src": "cp -R ./src dist/src",
+    "copy:types": "cp index.d.ts dist/ && cp -R ./types dist/types",
     "coverage": "npm run clean && c8 mocha \"test/*.js\" \"./test/**/*.js\" && exit",
     "create:directory": "mkdirp ./dist",
     "create:docs": "jsdoc",
@@ -187,15 +187,19 @@
     "benchmark:generation": "node benchmarks/password-generation.bench.js"
   },
   "type": "module",
-  "version": "1.1.5",
+  "version": "0.0.11",
   "overrides": {
     "lodash": "^4.18.1",
     "jshint": {
       "minimatch": "^3.1.4"
     },
     "mocha": {
-      "serialize-javascript": "^7.0.7"
-    }
+      "serialize-javascript": "^7.1.2"
+    },
+    "serialize-javascript": "^7.1.2",
+    "brace-expansion": "^1.1.21",
+    "chokidar": "^4.0.3",
+    "source-map-js": "^1.2.2"
   },
   "mocha": {
     "diff": true,

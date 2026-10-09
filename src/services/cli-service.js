@@ -25,6 +25,7 @@ import {
 } from "../ui/theme.js";
 
 import { formatOutput, preparePasswordData } from "./output-formatter.js";
+import { normalizeEntropy } from "../../packages/core/src/domain/entropy-normalizer.js";
 
 /**
  * Generates the equivalent CLI command string based on the configuration used.
@@ -115,7 +116,62 @@ export const displayPasswordOutput = (
   copiedToClipboard = false,
   config = {},
 ) => {
-  const { strength, entropy } = calculateStrength(password);
+  // Handle honeyword decoy set
+  if (
+    typeof password === "object" &&
+    password !== null &&
+    Array.isArray(password.passwords)
+  ) {
+    console.log("");
+    console.log(`  ${gradient.primary("honeyword decoy set")}`);
+    console.log(
+      `  ${colors.dim(`total: ${password.metadata.totalCount} (1 real, ${password.metadata.decoyCount} decoys)`)}`,
+    );
+    console.log("");
+    password.passwords.forEach((pwd, idx) => {
+      const isReal = idx === password.metadata.realPasswordIndex;
+      const marker = config.reveal ?
+        isReal ?
+          ` ${colors.success("[REAL]")}` :
+          ` ${colors.dim("[DECOY]")}` :
+        "";
+      console.log(
+        `  ${colors.muted(String(idx + 1).padStart(2, " "))}. ${colors.text(pwd)}${marker}`,
+      );
+    });
+    console.log("");
+    return;
+  }
+
+  // Determine true theoretical entropy when config is available
+  let strength;
+  let entropy;
+  try {
+    if (config.type && typeof password === "string") {
+      const normalizedEntropy = normalizeEntropy(password, config.type, config);
+      if (normalizedEntropy > 0) {
+        entropy = Math.round(normalizedEntropy);
+        if (entropy >= 128) {
+          strength = "maximum";
+        } else if (entropy >= 80) {
+          strength = "strong";
+        } else if (entropy >= 50) {
+          strength = "medium";
+        } else {
+          strength = "weak";
+        }
+      }
+    }
+  } catch {}
+
+  // Fallback to post-hoc character pool strength analyzer if uncalculated
+  if (entropy === undefined) {
+    const analyzed = calculateStrength(
+      typeof password === "string" ? password : "",
+    );
+    strength = analyzed.strength;
+    entropy = analyzed.entropy;
+  }
 
   console.log(
     renderPassword(password, {

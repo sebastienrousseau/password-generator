@@ -24,18 +24,60 @@ import {
   completeAuditSession,
 } from "../services/audit-service.js";
 
+let clipboardTimer = null;
+
 /**
- * Dynamically imports and uses clipboardy with graceful fallback.
+ * Extracts a secret string to copy from a password result (handles both string and honeyword objects).
+ *
+ * @param {string|Object} password - Password string or honeyword set object
+ * @returns {string} The text to copy
+ */
+function extractSecretToCopy(password) {
+  if (typeof password === "string") {
+    return password;
+  }
+  if (
+    typeof password === "object" &&
+    password !== null &&
+    Array.isArray(password.passwords)
+  ) {
+    const realIndex = password.metadata?.realPasswordIndex ?? 0;
+    return password.passwords[realIndex] || "";
+  }
+  return "";
+}
+
+/**
+ * Dynamically imports and uses clipboardy with graceful fallback and automated TTL purging.
  * Returns true if clipboard copy was successful, false otherwise.
  *
  * @param {string} text - The text to copy to clipboard
+ * @param {number} [ttlMs=45000] - Time to live before clipboard is wiped (default: 45s)
  * @returns {Promise<boolean>} Whether the copy operation succeeded
  */
-async function copyToClipboard(text) {
+async function copyToClipboard(text, ttlMs = 45000) {
   try {
     // Dynamic import of clipboardy to handle optional dependency
     const { default: clipboardy } = await import("clipboardy");
     await clipboardy.write(text);
+
+    // Schedule unref'd timer to clear clipboard after TTL
+    if (clipboardTimer) {
+      clearTimeout(clipboardTimer);
+    }
+    clipboardTimer = setTimeout(async () => {
+      try {
+        const current = await clipboardy.read();
+        if (current === text) {
+          await clipboardy.write("");
+        }
+      } catch {}
+    }, ttlMs);
+
+    if (clipboardTimer.unref) {
+      clipboardTimer.unref();
+    }
+
     return true;
   } catch (error) {
     // Clipboard functionality is not available - this is not a fatal error
@@ -126,19 +168,16 @@ export class CLIController {
         CLI_OPTIONS.options.interactive.description,
       )
       .option(
-        CLI_OPTIONS.options.kdfMemory.flags,
-        CLI_OPTIONS.options.kdfMemory.description,
-        CLI_OPTIONS.options.kdfMemory.parser,
+        CLI_OPTIONS.options.allowedChars.flags,
+        CLI_OPTIONS.options.allowedChars.description,
       )
       .option(
-        CLI_OPTIONS.options.kdfTime.flags,
-        CLI_OPTIONS.options.kdfTime.description,
-        CLI_OPTIONS.options.kdfTime.parser,
+        CLI_OPTIONS.options.forbiddenChars.flags,
+        CLI_OPTIONS.options.forbiddenChars.description,
       )
       .option(
-        CLI_OPTIONS.options.kdfParallelism.flags,
-        CLI_OPTIONS.options.kdfParallelism.description,
-        CLI_OPTIONS.options.kdfParallelism.parser,
+        CLI_OPTIONS.options.reveal.flags,
+        CLI_OPTIONS.options.reveal.description,
       )
       .action(this.handleCliAction.bind(this));
   }
@@ -171,14 +210,14 @@ export class CLIController {
     if (userOptions.separator !== undefined) {
       config.separator = userOptions.separator;
     }
-    if (userOptions.kdfMemory !== undefined) {
-      config.kdfMemory = userOptions.kdfMemory;
+    if (userOptions.allowedChars !== undefined) {
+      config.allowedChars = userOptions.allowedChars;
     }
-    if (userOptions.kdfTime !== undefined) {
-      config.kdfTime = userOptions.kdfTime;
+    if (userOptions.forbiddenChars !== undefined) {
+      config.forbiddenChars = userOptions.forbiddenChars;
     }
-    if (userOptions.kdfParallelism !== undefined) {
-      config.kdfParallelism = userOptions.kdfParallelism;
+    if (userOptions.reveal !== undefined) {
+      config.reveal = userOptions.reveal;
     }
 
     // If preset provided, use as base and override with user options
@@ -235,9 +274,9 @@ export class CLIController {
         length: opts.length,
         iteration: opts.iteration,
         separator: opts.separator,
-        kdfMemory: opts.kdfMemory,
-        kdfTime: opts.kdfTime,
-        kdfParallelism: opts.kdfParallelism,
+        allowedChars: opts.allowedChars,
+        forbiddenChars: opts.forbiddenChars,
+        reveal: opts.reveal,
       });
 
       // Step 2: Validate configuration via core service
@@ -267,7 +306,9 @@ export class CLIController {
         // Handle clipboard for bulk operations (copy first password only)
         let clipboardSuccess = false;
         if (opts.clipboard && passwords.length > 0) {
-          clipboardSuccess = await copyToClipboard(passwords[0]);
+          clipboardSuccess = await copyToClipboard(
+            extractSecretToCopy(passwords[0]),
+          );
         }
 
         // Display formatted output
@@ -285,7 +326,9 @@ export class CLIController {
         // Step 4: Handle clipboard copy (CLI-specific I/O)
         let clipboardSuccess = false;
         if (opts.clipboard) {
-          clipboardSuccess = await copyToClipboard(password);
+          clipboardSuccess = await copyToClipboard(
+            extractSecretToCopy(password),
+          );
         }
 
         // Step 5: Render output (CLI-specific presentation)

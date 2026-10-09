@@ -231,11 +231,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Build distribution package
+        run: npm run build
+
       - name: Verify package structure
         run: |
           # Check that main entry points exist (using ESM)
           node --input-type=module -e "import './index.js'"
           node --input-type=module -e "import './packages/core/src/index.js'"
+          # Verify built dist execution
+          node dist/index.js -p quick
+          node dist/index.js -t honeyword -l 16 -i 3
           echo "Package structure valid"
 
   # ============================================

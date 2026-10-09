@@ -76,9 +76,35 @@ export class NodeCryptoRandom extends RandomGeneratorPort {
       throw new RangeError("charset must not be empty");
     }
 
+    const charsetLen = charset.length;
+    if (charsetLen === 64) {
+      const bytes = randomBytes(length);
+      let result = "";
+      for (let i = 0; i < length; i++) {
+        result += charset[bytes[i] & 63];
+      }
+      return result;
+    }
+
+    if (charsetLen < 256) {
+      const limit = Math.floor(256 / charsetLen) * charsetLen;
+      let result = "";
+      while (result.length < length) {
+        const needed = length - result.length;
+        const bytes = randomBytes(Math.max(needed * 2, 16));
+        for (let i = 0; i < bytes.length && result.length < length; i++) {
+          const val = bytes[i];
+          if (val < limit) {
+            result += charset[val % charsetLen];
+          }
+        }
+      }
+      return result;
+    }
+
     let result = "";
     for (let i = 0; i < length; i++) {
-      const index = randomInt(charset.length);
+      const index = randomInt(charsetLen);
       result += charset[index];
     }
     return result;

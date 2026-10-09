@@ -182,6 +182,13 @@ export const validatePasswordTypeConfig = (type, config) => {
     }
   }
 
+  // Validate custom type requirements
+  if (type === PASSWORD_TYPES.CUSTOM) {
+    if (config.allowedChars !== undefined && typeof config.allowedChars !== 'string') {
+      errors.push('allowedChars must be a string for custom password generation');
+    }
+  }
+
   return {
     isValid: errors.length === 0,
     errors,

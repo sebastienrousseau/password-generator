@@ -173,12 +173,15 @@ describe('Onboarding - OnboardingFlow Class', function () {
         throw new Error('Process exited');
       };
 
-      // The runFlow method will fail because stdin is not TTY in test environment
-      // This tests the error handling path (lines 294-297)
+      // Ensure stdin is not TTY to test the error handling path (lines 294-297)
+      const origIsTTY = process.stdin.isTTY;
+      process.stdin.isTTY = false;
       try {
         await flow.runFlow();
       } catch (err) {
         // Expected - process.exit throws our mock error
+      } finally {
+        process.stdin.isTTY = origIsTTY;
       }
 
       // Verify error was logged and process.exit(1) was called
@@ -197,10 +200,14 @@ describe('Onboarding - OnboardingFlow Class', function () {
         throw new Error('Process exited with code ' + code);
       };
 
+      const origIsTTY = process.stdin.isTTY;
+      process.stdin.isTTY = false;
       try {
         await flow.runFlow();
       } catch (err) {
         // Expected - process.exit throws
+      } finally {
+        process.stdin.isTTY = origIsTTY;
       }
 
       // Error should have been logged and exit should have been called

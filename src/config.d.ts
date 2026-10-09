@@ -67,9 +67,9 @@ export interface CLIOptionsConfig {
     readonly format: CLIOption;
     readonly count: CLIOption;
     readonly interactive: CLIOption;
-    readonly kdfMemory: CLIOption;
-    readonly kdfTime: CLIOption;
-    readonly kdfParallelism: CLIOption;
+    readonly allowedChars: CLIOption;
+    readonly forbiddenChars: CLIOption;
+    readonly reveal: CLIOption;
   };
 }
 

@@ -99,7 +99,11 @@ export function createService(config = {}, ports) {
       }
 
       // Validate configuration
-      const validation = validatePasswordTypeConfig(type, { length, iteration });
+      const validation = validatePasswordTypeConfig(type, {
+        length,
+        iteration,
+        ...restOptions,
+      });
       if (!validation.isValid) {
         throw new Error(validation.errors.join('; '));
       }
