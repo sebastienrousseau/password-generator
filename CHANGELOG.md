@@ -7,6 +7,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.12] - 2026-10-09
+
+### Added
+
+- **Packaging & Distribution**: Bundled `packages/core` and TypeScript declarations (`types/` and `index.d.ts`) into distribution artifacts.
+- **Custom Character Set Flags**: Added `--allowed-chars` and `--forbidden-chars` options to configure character sets directly from the CLI.
+- **Honeyword Reveal Flag**: Added `--reveal` option to identify real vs decoy honeywords in the output table.
+- **Clipboard Scrubbing**: Implemented automated clipboard clearing with a 45-second time-to-live and signal handling.
+
+### Fixed
+
+- **Core Packaging**: Resolved module resolution errors (`ERR_MODULE_NOT_FOUND`) for package consumers by copying runtime-agnostic core into `dist/`.
+- **Special Character Set Size**: Corrected `SPECIAL.size` to 26 and bit calculations in character set metadata.
+- **Shannon Entropy Calculation**: Unified CLI entropy reporting with core theoretical entropy calculation.
+- **Dependency Vulnerabilities**: Pruned unused runners and applied overrides for `chokidar`, `serialize-javascript`, and `brace-expansion`.
+
+### Changed
+
+- **Vectorized CSPRNG Sampling**: Optimized `NodeCryptoRandom` with batch random byte generation and rejection sampling for higher throughput.
+- **Modernized Dependencies**: Upgraded `@babel` suite to 8.0.6, `jsdom` to 30.1.0, `mocha` to 12.0.2, `prettier` to 3.9.8, `react` to 19.3.0, and `undici` to 8.11.2.
+
 ## [0.0.11] - 2026-09-09
 
 ### Added
