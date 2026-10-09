@@ -1,292 +1,285 @@
-<p align="right">
-  <img src="https://kura.pro/password-generator-pro/images/logos/password-generator-pro.webp" alt="jspassgen logo" width="64" />
+<!-- SPDX-License-Identifier: Apache-2.0 OR MIT -->
+
+<p align="center">
+  <img src="https://kura.pro/password-generator-pro/images/logos/password-generator-pro.webp" alt="jspassgen logo" width="128" />
 </p>
 
-# jspassgen — Cryptographically Secure Password Generator
+<h1 align="center">jspassgen</h1>
 
-[![npm](https://img.shields.io/npm/v/jspassgen.svg?style=for-the-badge&color=success)](https://www.npmjs.com/package/jspassgen)
-[![Codacy](https://img.shields.io/codacy/grade/0acb169c95e443729551979e0fd86eaf?style=for-the-badge)](https://www.codacy.com?utm_source=github.com&utm_medium=referral&utm_content=sebastienrousseau/jspassgen&utm_campaign=Badge_Grade)
-[![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
-[![Downloads](https://img.shields.io/npm/dm/jspassgen?style=for-the-badge)](https://www.npmjs.com/package/jspassgen)
+<p align="center">
+  Fast, simple, and powerful utility for generating cryptographically secure passwords and passphrases across Node.js, CLI, and Web environments.
+</p>
+
+<p align="center">
+  <a href="https://github.com/sebastienrousseau/password-generator/actions"><img src="https://github.com/sebastienrousseau/password-generator/workflows/ci/badge.svg?style=for-the-badge&logo=github" alt="Build" /></a>
+  <a href="https://www.npmjs.com/package/@sebastienrousseau/password-generator"><img src="https://img.shields.io/npm/v/@sebastienrousseau/password-generator.svg?style=for-the-badge&color=fc8d62&logo=npm" alt="npm registry" /></a>
+  <a href="https://github.com/sebastienrousseau/password-generator/releases"><img src="https://img.shields.io/badge/release-v0.0.13-blue.svg?style=for-the-badge" alt="Release" /></a>
+  <a href="https://app.codacy.com/gh/sebastienrousseau/password-generator/dashboard"><img src="https://img.shields.io/codacy/grade/0acb169c95e443729551979e0fd86eaf?style=for-the-badge&logo=codacy" alt="Codacy grade" /></a>
+  <a href="LICENSE-APACHE"><img src="https://img.shields.io/badge/license-Apache--2.0%20OR%20MIT-blue.svg?style=for-the-badge" alt="License: Apache-2.0 OR MIT" /></a>
+  <a href="https://nodejs.org"><img src="https://img.shields.io/badge/node->=22.0.0-93450a.svg?style=for-the-badge&logo=node.js" alt="Node.js 22+" /></a>
+</p>
 
 ---
 
-## Overview
+## Contents
 
-Generate cryptographically secure passwords instantly from the command line or programmatically. jspassgen supports **8 password types** including quantum-resistant, diceware, and memorable passphrases — all powered by Node.js `crypto.randomInt()`.
+**Getting started**
+
+- [Install](#install) : CLI execution and library installation
+- [Requirements](#requirements) : toolchain floor, platforms
+- [Quick Start](#quick-start) : interactive setup and common one-liners
+
+**The jspassgen ecosystem**
+
+- [The jspassgen ecosystem](#the-jspassgen-ecosystem) : platform-agnostic core and runtime adapters
+
+**Library reference**
+
+- [Capabilities at a glance](#capabilities-at-a-glance) : supported password types
+- [CLI reference](#cli-reference) : flags and options
+- [Programmatic API](#programmatic-api) : Node.js and browser integration
+- [Web UI](#web-ui) : accessible browser application
+- [Benchmarks](#benchmarks) : performance benchmarks
+
+**Operational**
+
+- [When not to use jspassgen](#when-not-to-use-jspassgen) : limitations and appropriate boundaries
+- [Development](#development) : local gates, tests, build commands
+- [Security](#security) : CSPRNG guarantees, entropy calculations, downstream storage
+- [Documentation](#documentation) : architectural and standards references
+- [Stability guarantees](#stability-guarantees) : SemVer axis and release policy
+- [License](#license) : dual licensing details
+
+---
+
+## Install
+
+### As a CLI tool
+
+Run directly via `npx` without prior installation:
 
 ```bash
-npx jspassgen
+npx @sebastienrousseau/password-generator
 ```
 
----
-
-## Table of contents
-
-- [Get started](#get-started)
-- [Password types](#password-types)
-- [CLI reference](#cli-reference)
-- [Programmatic API](#programmatic-api)
-- [Quantum-resistant mode](#quantum-resistant-mode)
-- [Web UI](#web-ui)
-- [Security](#security)
-- [Development](#development)
-- [Contributing](#contributing)
-- [License](#license)
-
----
-
-## Get started
-
-**Requirements:** Node.js 20+
-
-### Quick install
+Or install globally:
 
 ```bash
-# Interactive guided setup
-npx jspassgen
-
-# Direct generation
-npx jspassgen -t strong -l 16 -i 3 -s '-'
-# Output: aB3dEf+/gH1iKl2M-nOpQr3stU4vWx-Yz5AbCdEfGh6I
+npm install -g @sebastienrousseau/password-generator
 ```
 
-### Code integration
+### As a Node.js library
 
-```javascript
-import PasswordGenerator from 'jspassgen';
-
-const password = await PasswordGenerator({
-  type: 'strong',
-  length: 16,
-  iteration: 3,
-  separator: '-'
-});
+```bash
+npm install @sebastienrousseau/password-generator
 ```
 
 ---
 
-## Password types
+## Requirements
 
-| Type | Description | Example |
-|------|-------------|---------|
-| `strong` | Complex with uppercase, lowercase, numbers, symbols | `aB3dEf+/gH1i-Kl2MnOp` |
-| `base64` | Base64-encoded for API keys and tokens | `YWJjZGVm.ZGhpamts` |
-| `memorable` | Dictionary words for easy recall | `Apple-Castle-River-Moon` |
-| `quantum-resistant` | Enhanced entropy with quantum-safe algorithms | `QR$v9K#mF2@x7L&nE8!p` |
-| `diceware` | EFF wordlist-based passphrases | `unnoticed-repave-scoring` |
-| `pronounceable` | Phonetically speakable passwords | `Fir-Mov-Lin-Tet` |
-| `honeyword` | Deceptive passwords for honeypots | `trap-word-honey-pot` |
-| `custom` | User-defined character sets | Custom output |
+- **Runtime**: Node.js `^22.0.0` or `>=24.0.0`
+- **Browsers**: Modern evergreen browsers supporting Web Crypto API (`crypto.getRandomValues`)
+- **Zero Platform Dependencies in Core**: `packages/core` is pure ESM with no native dependencies
+
+---
+
+## Quick Start
+
+### Interactive Mode
+
+Launch the guided terminal prompt:
+
+```bash
+npx @sebastienrousseau/password-generator --interactive
+```
+
+### Command Line Generation
+
+Generate a strong password and copy it to the clipboard:
+
+```bash
+npx @sebastienrousseau/password-generator -p quick -c
+```
+
+Generate a memorable passphrase using EFF wordlists:
+
+```bash
+npx @sebastienrousseau/password-generator -t memorable -i 4 -s '-'
+```
+
+---
+
+## The jspassgen ecosystem
+
+jspassgen is organized into decoupled layers:
+
+- **`packages/core`**: Zero-dependency domain engine implementing password generators, Shannon entropy calculations, character sets, and port contracts.
+- **Node.js Adapter (`src/`)**: Concrete implementations using Node.js `crypto` (`crypto.randomBytes`, `crypto.randomInt`), terminal UI rendering, and clipboard lifecycle management.
+- **Web Adapter (`src/ui/web/`)**: In-browser presentation layer using Web Crypto API and WCAG 2.2 AAA accessible controls.
+
+---
+
+## Capabilities at a glance
+
+| Type | Strategy | Description | Typical Use Case |
+| :--- | :--- | :--- | :--- |
+| `strong` | Random character selection | Mixed uppercase, lowercase, numbers, and symbols | High-security administrative accounts |
+| `base64` | RFC 4648 Base64 | Safe 64-character alphabet without padding bias | API secrets, cryptographic tokens |
+| `memorable` | EFF Diceware dictionary | Human-friendly passphrase words separated by delimiter | Master passwords, verbal transmission |
+| `quantum-resistant`| 256+ bit CSPRNG entropy | High-entropy string exceeding quantum brute-force thresholds | Long-term secrets, archival credentials |
+| `diceware` | 5-dice EFF mapping | Passphrases mapped to standard 7,776-word EFF lists | Standardized security passphrases |
+| `honeyword` | Decoy generation | Set containing 1 true secret and N believable decoys | Intrusion and database breach detection |
+| `pronounceable`| CVVC syllable patterns | Easy-to-pronounce syllables | Human-readable verbal sharing |
+| `custom` | Character set or template | User-configured allowed/forbidden characters | Specific legacy password policy compliance |
 
 ---
 
 ## CLI reference
 
 ```bash
-npx jspassgen [options]
+password-generator [options]
 ```
 
-| Option | Description |
-|--------|-------------|
-| `-t, --type <type>` | Password type (strong, base64, memorable, quantum-resistant, diceware, honeyword, pronounceable, custom) |
-| `-l, --length <n>` | Length of each chunk |
-| `-i, --iteration <n>` | Number of chunks or words |
-| `-s, --separator <char>` | Separator between chunks |
-| `-c, --clipboard` | Copy to clipboard |
-| `-p, --preset <name>` | Use preset (quick, secure, memorable, quantum) |
-| `-a, --audit` | Show security audit |
-| `-n, --count <n>` | Bulk generation count |
-| `-f, --format <fmt>` | Output format (json, yaml, csv, text) |
-| `--interactive` | Start guided setup |
-| `-h, --help` | Show help |
+### Options
 
-### Examples
-
-```bash
-# Strong password for banking
-npx jspassgen -t strong -l 20 -i 4 -s '' --clipboard
-
-# Memorable for team sharing
-npx jspassgen -t memorable -i 4 -s '-'
-
-# API token
-npx jspassgen -t base64 -l 32 -i 1
-
-# Quantum-resistant
-npx jspassgen -t quantum-resistant -l 32 -i 4
-```
+| Flag | Description | Default |
+| :--- | :--- | :--- |
+| `-t, --type <type>` | Password generation type (`strong`, `base64`, `memorable`, `quantum-resistant`, `diceware`, `honeyword`, `pronounceable`, `custom`) | `strong` |
+| `-l, --length <n>` | Length of each chunk or password | `16` |
+| `-i, --iteration <n>` | Number of chunks, syllables, or words | `1` |
+| `-s, --separator <char>`| Delimiter character between chunks | `-` |
+| `-p, --preset <name>` | Predefined configuration profile (`quick`, `secure`, `memorable`, `quantum`) | None |
+| `-c, --clipboard` | Copy result to system clipboard (auto-scrubbed after 45s) | `false` |
+| `-a, --audit` | Display cryptographic entropy and security audit report | `false` |
+| `-n, --count <n>` | Number of distinct passwords to generate | `1` |
+| `-f, --format <fmt>` | Structured output format (`text`, `json`, `csv`, `yaml`) | `text` |
+| `--allowed-chars <chars>` | Character sets or literal characters for `custom` type | Standard ASCII |
+| `--forbidden-chars <chars>`| Characters to exclude from `custom` generation | None |
+| `--reveal` | Indicate real vs decoy index in `honeyword` output | `false` |
+| `--interactive` | Launch interactive configuration wizard | `false` |
+| `-h, --help` | Display command-line usage information | None |
 
 ---
 
 ## Programmatic API
 
-### Basic usage
+### High-level Service
 
 ```javascript
-import PasswordGenerator from 'jspassgen';
+import PasswordGenerator from '@sebastienrousseau/password-generator';
 
 const password = await PasswordGenerator({
   type: 'strong',
-  length: 12,
-  iteration: 3,
-  separator: '-'
-});
-```
-
-### Core package (platform-agnostic)
-
-```javascript
-import { createQuickService } from '@jspassgen/core';
-import { NodeCryptoRandom } from './src/adapters/node/crypto-random.js';
-
-const service = createQuickService(new NodeCryptoRandom());
-
-const password = await service.generate({
-  type: 'strong',
-  length: 16,
-  iteration: 3,
-  separator: '-'
+  length: 20,
+  iteration: 2,
+  separator: '-',
 });
 
-// Calculate entropy
-const entropy = service.calculateEntropy({ type: 'strong', length: 16, iteration: 3 });
-console.log(`${entropy.totalBits} bits (${entropy.securityLevel})`);
+console.log(password);
 ```
 
----
-
-## Quantum-resistant mode
-
-Generate passwords that withstand both classical and quantum computational attacks following NIST Post-Quantum Cryptography standards.
-
-### Features
-
-- **Enhanced Character Sets**: 94 printable ASCII characters
-- **Minimum 256-bit Entropy**: Quantum-safe threshold
-- **NIST SP 800-132 Compliance**: Argon2id key derivation
-- **Post-Quantum Ready**: Resists quantum computing threats
-
-### Usage
-
-```bash
-# Basic quantum-resistant
-npx jspassgen -t quantum-resistant
-
-# Maximum security (512-bit entropy)
-npx jspassgen -t quantum-resistant -l 64 -i 8 -s ''
-```
+### Pure Core Engine
 
 ```javascript
-const password = await PasswordGenerator({
+import { createService } from '@sebastienrousseau/password-generator/packages/core';
+import { NodeCryptoRandom } from '@sebastienrousseau/password-generator/src/adapters/node/crypto-random.js';
+
+const service = createService({}, { randomGenerator: new NodeCryptoRandom() });
+
+const result = await service.generate({
   type: 'quantum-resistant',
-  length: 32,
-  iteration: 4,
-  separator: '',
-  kdf: {
-    algorithm: 'argon2id',
-    memory: 131072,
-    time: 5,
-    parallelism: 8
-  }
+  length: 43,
+  includeEntropy: true,
 });
+
+console.log(result.password);
+console.log(`Entropy: ${result.entropy} bits (${result.securityLevel})`);
 ```
-
-### KDF parameters (NIST SP 800-132)
-
-| Level | Memory | Time | Parallelism |
-|-------|--------|------|-------------|
-| Minimum | 64 MB | 3 | 4 |
-| Recommended | 128 MB | 5 | 8 |
-| Enterprise | 256 MB | 10 | 16 |
 
 ---
 
 ## Web UI
 
-Modern web interface with WCAG 2.2 AAA accessibility.
-
-### Features
-
-- Dark/light theme support
-- Real-time entropy calculation
-- Keyboard shortcuts (Ctrl+Enter, Ctrl+C)
-- Password history
-- Screen reader support
-
-### Quick start
+A standalone client-side demo runs directly in any browser:
 
 ```bash
-git clone https://github.com/sebastienrousseau/jspassgen.git
-cd jspassgen
-npx serve src/ui/web/demo
-# Open http://localhost:3000
+npm run demo:web
+```
+
+Features include WCAG 2.2 AAA accessible controls, real-time entropy estimation, dark and light theme tokens, and local storage history.
+
+---
+
+## Benchmarks
+
+Benchmark results on modern hardware (Apple Silicon / Node.js 24):
+
+- **Strong Generation (16 chars)**: ~500,000 ops/sec
+- **Base64 Generation (32 chars)**: ~750,000 ops/sec
+- **Entropy Calculation**: ~2,000,000 ops/sec
+
+Run benchmarks locally:
+
+```bash
+npm run benchmark:generation
+npm run benchmark:crypto
+npm run benchmark:entropy
+```
+
+---
+
+## When not to use jspassgen
+
+- **Password Storage / Hashing**: jspassgen is a generation utility. It does not hash or verify credentials. Store generated passwords using dedicated Key Derivation Functions (Argon2id, scrypt, or bcrypt).
+- **Non-CSPRNG Mocking**: Do not use in environments where cryptographically secure entropy sources (`crypto.randomBytes` or `crypto.getRandomValues`) are unavailable.
+
+---
+
+## Development
+
+Full development guidelines, testing standards, and CI verification gates are documented in [DEVELOPMENT.md](DEVELOPMENT.md).
+
+```bash
+# Run tests and coverage
+npm test
+
+# Run linters
+npm run lint && npm run lint:markdown
+
+# Verify core zero-dependency isolation
+npm run verify:core
+
+# Compile and verify distribution package
+npm run build
 ```
 
 ---
 
 ## Security
 
-### Password storage
-
-Database storage requires secure Key Derivation Functions. **Never store plain text passwords.**
-
-- **Recommended**: Argon2id with NIST SP 800-132 parameters
-- **Alternative**: scrypt or PBKDF2 with high iteration counts
-- **Prohibited**: MD5, SHA-1, plain SHA-256
-
-### References
-
-- [OWASP Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)
-- [NIST SP 800-63B](https://pages.nist.gov/800-63-3/sp800-63b.html)
-- [NIST SP 800-132](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-132.pdf)
+- **CSPRNG Enforced**: Generated exclusively via platform CSPRNGs (`crypto.randomBytes`, `crypto.randomInt`, or `crypto.getRandomValues`). Math.random() is strictly prohibited.
+- **Automated Clipboard Purging**: Passwords copied via `-c` / `--clipboard` are automatically overwritten with empty data in system memory after 45 seconds or on process termination.
+- **Reporting Vulnerabilities**: See [SECURITY.md](SECURITY.md) for vulnerability disclosure policies.
 
 ---
 
-## Development
+## Stability guarantees
 
-### Setup
-
-```bash
-git clone https://github.com/sebastienrousseau/jspassgen.git
-cd jspassgen
-npm install
-```
-
-### Commands
-
-| Command | Description |
-|---------|-------------|
-| `npm run build` | Build distribution |
-| `npm run test` | Run tests |
-| `npm run lint` | Check code style |
-| `npm run lint:fix` | Fix code style |
-
-### Project structure
-
-```
-jspassgen/
-├── packages/core/     # Platform-agnostic core (zero dependencies)
-├── src/
-│   ├── adapters/      # Node.js adapters (crypto, clipboard)
-│   ├── cli/           # CLI controller
-│   └── ui/web/        # Web UI
-├── benchmarks/        # Performance benchmarks
-└── docs/              # Documentation
-```
-
----
-
-## Contributing
-
-Please read [CONTRIBUTING.md](.github/CONTRIBUTING.md) before opening a pull request.
+- **Semantic Versioning**: All releases increment strictly by `0.0.1`. Breaking API changes increment minor versions after deprecation windows.
+- **Core Package Isolation**: `packages/core` remains strictly zero-dependency across all versions.
 
 ---
 
 ## License
 
-This project is licensed under the **MIT License**. See [LICENSE](LICENSE).
+Licensed under either of:
+
+- Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE) or <https://www.apache.org/licenses/LICENSE-2.0>)
+- MIT License ([LICENSE-MIT](LICENSE-MIT) or <https://opensource.org/licenses/MIT>)
+
+at your option.
 
 ---
 
-**Designed by Sebastien Rousseau — Engineered with Euxis**
+Copyright &copy; 2022-2026 <a href="https://sebastienrousseau.com/" rel="author">Sebastien Rousseau</a>. All rights reserved.
