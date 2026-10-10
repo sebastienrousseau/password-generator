@@ -2,7 +2,7 @@
 # Copyright © 2022-2026 JavaScript Password Generator (jspassgen). All rights reserved.
 # SPDX-License-Identifier: Apache-2.0 OR MIT
 
-# Publish historical tags and current version to npmjs registry
+# Publish historical tags and current version to npmjs registry under jspassgen
 set -euo pipefail
 
 VERSIONS=(
@@ -23,30 +23,57 @@ VERSIONS=(
   "0.0.15"
 )
 
-echo "Publishing all versions of jspassgen to https://registry.npmjs.org/..."
-
-# Check npm authentication
+echo "==> Checking npm registry authentication..."
 npm whoami --registry https://registry.npmjs.org/
 
-ORIGINAL_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-TMP_PUBLISH_DIR=$(mktemp -d)
-trap 'rm -rf "${TMP_PUBLISH_DIR}"; git checkout "${ORIGINAL_BRANCH}"' EXIT
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+WORK_DIR=$(mktemp -d)
+trap 'rm -rf "${WORK_DIR}"' EXIT
 
 for VER in "${VERSIONS[@]}"; do
-  echo "=== Preparing jspassgen@${VER} ==="
-  git checkout "v${VER}"
+  echo "--------------------------------------------------------"
+  echo "==> Preparing jspassgen@${VER} for npmjs..."
+  echo "--------------------------------------------------------"
 
-  # Build the package distribution
-  npm run build
+  STAGE_DIR="${WORK_DIR}/${VER}"
+  mkdir -p "${STAGE_DIR}"
 
-  # If this is the latest version, tag as latest, otherwise publish with version tag
+  # Archive git tree at tag v${VER}
+  git archive "v${VER}" | tar -x -C "${STAGE_DIR}"
+
+  cd "${STAGE_DIR}"
+
+  # Update package.json to ensure package name is jspassgen and version matches tag
+  node -e "
+    const fs = require('fs');
+    const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+    pkg.name = 'jspassgen';
+    pkg.version = '${VER}';
+    pkg.publishConfig = { access: 'public', registry: 'https://registry.npmjs.org/' };
+    if (pkg.repository && typeof pkg.repository === 'object') {
+      pkg.repository.url = 'git+https://github.com/sebastienrousseau/jspassgen.git';
+    }
+    fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
+  "
+
+  # Build the distribution if build script exists, otherwise package the root
+  if [ -f "Makefile" ] && grep -q "build:" Makefile; then
+    npm run build || true
+  fi
+
+  TARGET_DIR="dist"
+  if [ ! -d "dist" ]; then
+    TARGET_DIR="."
+  fi
+
   if [ "${VER}" = "0.0.15" ]; then
     echo "Publishing jspassgen@${VER} as latest..."
-    npm publish dist/ --access public --tag latest
+    npm publish "${TARGET_DIR}" --access public --tag latest --registry https://registry.npmjs.org/
   else
     echo "Publishing historical jspassgen@${VER}..."
-    npm publish dist/ --access public --tag "legacy-${VER}"
+    npm publish "${TARGET_DIR}" --access public --tag "release-${VER}" --registry https://registry.npmjs.org/
   fi
+  cd "${REPO_ROOT}"
 done
 
-echo "Successfully published all versions to npmjs!"
+echo "==> Successfully published all versions of jspassgen to https://registry.npmjs.org/!"
