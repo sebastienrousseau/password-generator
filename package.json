@@ -1,5 +1,5 @@
 {
-  "author": "Sebastien Rousseau <hello@password-generator.pro> (https://github.com/sebastienrousseau/password-generator)",
+  "author": "Sebastien Rousseau <hello@sebastienrousseau.com> (https://github.com/sebastienrousseau/jspassgen)",
   "autoupdate": {
     "fileMap": [
       {
@@ -10,13 +10,14 @@
       }
     ],
     "source": "git",
-    "target": "git://github.com/sebastienrousseau/password-generator.git"
+    "target": "git://github.com/sebastienrousseau/jspassgen.git"
   },
   "bin": {
+    "jspassgen": "index.js",
     "password-generator": "index.js"
   },
   "bugs": {
-    "url": "https://github.com/sebastienrousseau/password-generator/issues"
+    "url": "https://github.com/sebastienrousseau/jspassgen/issues"
   },
   "dependencies": {
     "chalk": "6.0.1",
@@ -112,14 +113,14 @@
   "lockfileVersion": 1,
   "main": "index.js",
   "types": "types/index.d.ts",
-  "name": "@sebastienrousseau/password-generator",
+  "name": "jspassgen",
   "publishConfig": {
     "access": "public",
     "registry": "https://npm.pkg.github.com"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sebastienrousseau/password-generator.git"
+    "url": "git+https://github.com/sebastienrousseau/jspassgen.git"
   },
   "rules": {
     "node/no-unpublished-import": [
@@ -140,8 +141,8 @@
     ]
   },
   "scripts": {
-    "build": "npm run format && npm run lint:fix && npm run lint:markdown && npm run build:password:generator && cat ./package.json | grep -v '\"private\":' > dist/package.json && npm pack ./dist",
-    "build:password:generator": "npm run clean:dist && npm run create:directory && npm run create:docs && npm run copy:index && npm run copy:src && npm run copy:packages && npm run copy:types && npm run copy:readme && npm run copy:license && npm run copy:makefile && npm run copy:copyright && npm run filesize:distribution",
+    "build": "npm run format && npm run lint:fix && npm run lint:markdown && npm run build:jspassgen && cat ./package.json | grep -v '\"private\":' > dist/package.json && npm pack ./dist",
+    "build:jspassgen": "npm run clean:dist && npm run create:directory && npm run create:docs && npm run copy:index && npm run copy:src && npm run copy:packages && npm run copy:types && npm run copy:readme && npm run copy:license && npm run copy:makefile && npm run copy:copyright && npm run filesize:distribution",
     "clean": "rimraf .nyc_output coverage",
     "clean:dist": "rimraf \"dist/\"",
     "copy:copyright": "cp COPYRIGHT dist/",
@@ -187,7 +188,7 @@
     "benchmark:generation": "node benchmarks/password-generation.bench.js"
   },
   "type": "module",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "overrides": {
     "lodash": "^4.18.1",
     "jshint": {

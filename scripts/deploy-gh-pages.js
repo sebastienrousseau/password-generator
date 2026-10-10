@@ -80,7 +80,7 @@ try {
     execSync(`git commit -m "${commitMsg}"`, { cwd: tmpDir, stdio: "inherit" });
     execSync("git push origin gh-pages --force", { cwd: tmpDir, stdio: "inherit" });
     console.log("\n✅ Deployed successfully!");
-    console.log("   URL: https://<username>.github.io/password-generator/");
+    console.log("   URL: https://<username>.github.io/jspassgen/");
   } catch (e) {
     if (e.message?.includes("nothing to commit")) {
       console.log("\n✅ No changes to deploy.");

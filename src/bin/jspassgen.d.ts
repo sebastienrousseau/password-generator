@@ -23,7 +23,7 @@ export interface PasswordGeneratorOptions {
  *
  * @example
  * ```typescript
- * import { PasswordGenerator } from './src/bin/password-generator.js';
+ * import { PasswordGenerator } from './src/bin/jspassgen.js';
  *
  * // Generate a strong password
  * const password = await PasswordGenerator({

@@ -1,7 +1,7 @@
 <!-- SPDX-License-Identifier: Apache-2.0 OR MIT -->
 
 <p align="center">
-  <img src="https://kura.pro/password-generator-pro/images/logos/password-generator-pro.webp" alt="jspassgen logo" width="128" />
+  <img src=".github/assets/logo.svg" alt="jspassgen logo" width="128" />
 </p>
 
 <h1 align="center">jspassgen</h1>
@@ -11,10 +11,10 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/sebastienrousseau/password-generator/actions"><img src="https://github.com/sebastienrousseau/password-generator/workflows/ci/badge.svg?style=for-the-badge&logo=github" alt="Build" /></a>
-  <a href="https://www.npmjs.com/package/@sebastienrousseau/password-generator"><img src="https://img.shields.io/npm/v/@sebastienrousseau/password-generator.svg?style=for-the-badge&color=fc8d62&logo=npm" alt="npm registry" /></a>
-  <a href="https://github.com/sebastienrousseau/password-generator/releases"><img src="https://img.shields.io/badge/release-v0.0.13-blue.svg?style=for-the-badge" alt="Release" /></a>
-  <a href="https://app.codacy.com/gh/sebastienrousseau/password-generator/dashboard"><img src="https://img.shields.io/codacy/grade/0acb169c95e443729551979e0fd86eaf?style=for-the-badge&logo=codacy" alt="Codacy grade" /></a>
+  <a href="https://github.com/sebastienrousseau/jspassgen/actions/workflows/quality-gates.yml"><img src="https://img.shields.io/github/actions/workflow/status/sebastienrousseau/jspassgen/quality-gates.yml?branch=master&style=for-the-badge&logo=github&label=Build" alt="Build" /></a>
+  <a href="https://www.npmjs.com/package/jspassgen"><img src="https://img.shields.io/npm/v/jspassgen.svg?style=for-the-badge&color=fc8d62&logo=npm" alt="npm registry" /></a>
+  <a href="https://github.com/sebastienrousseau/jspassgen/releases"><img src="https://img.shields.io/badge/release-v0.0.14-blue.svg?style=for-the-badge" alt="Release" /></a>
+  <a href="https://app.codacy.com/gh/sebastienrousseau/jspassgen/dashboard"><img src="https://app.codacy.com/project/badge/Grade/0acb169c95e443729551979e0fd86eaf?style=for-the-badge" alt="Codacy grade" /></a>
   <a href="LICENSE-APACHE"><img src="https://img.shields.io/badge/license-Apache--2.0%20OR%20MIT-blue.svg?style=for-the-badge" alt="License: Apache-2.0 OR MIT" /></a>
   <a href="https://nodejs.org"><img src="https://img.shields.io/badge/node->=22.0.0-93450a.svg?style=for-the-badge&logo=node.js" alt="Node.js 22+" /></a>
 </p>
@@ -59,19 +59,19 @@
 Run directly via `npx` without prior installation:
 
 ```bash
-npx @sebastienrousseau/password-generator
+npx jspassgen
 ```
 
 Or install globally:
 
 ```bash
-npm install -g @sebastienrousseau/password-generator
+npm install -g jspassgen
 ```
 
 ### As a Node.js library
 
 ```bash
-npm install @sebastienrousseau/password-generator
+npm install jspassgen
 ```
 
 ---
@@ -91,7 +91,7 @@ npm install @sebastienrousseau/password-generator
 Launch the guided terminal prompt:
 
 ```bash
-npx @sebastienrousseau/password-generator --interactive
+npx jspassgen --interactive
 ```
 
 ### Command Line Generation
@@ -99,13 +99,13 @@ npx @sebastienrousseau/password-generator --interactive
 Generate a strong password and copy it to the clipboard:
 
 ```bash
-npx @sebastienrousseau/password-generator -p quick -c
+npx jspassgen -p quick -c
 ```
 
 Generate a memorable passphrase using EFF wordlists:
 
 ```bash
-npx @sebastienrousseau/password-generator -t memorable -i 4 -s '-'
+npx jspassgen -t memorable -i 4 -s '-'
 ```
 
 ---
@@ -138,7 +138,7 @@ jspassgen is organized into decoupled layers:
 ## CLI reference
 
 ```bash
-password-generator [options]
+jspassgen [options]
 ```
 
 ### Options
@@ -167,7 +167,7 @@ password-generator [options]
 ### High-level Service
 
 ```javascript
-import PasswordGenerator from '@sebastienrousseau/password-generator';
+import PasswordGenerator from 'jspassgen';
 
 const password = await PasswordGenerator({
   type: 'strong',
@@ -182,8 +182,8 @@ console.log(password);
 ### Pure Core Engine
 
 ```javascript
-import { createService } from '@sebastienrousseau/password-generator/packages/core';
-import { NodeCryptoRandom } from '@sebastienrousseau/password-generator/src/adapters/node/crypto-random.js';
+import { createService } from '@jspassgen/core';
+import { NodeCryptoRandom } from 'jspassgen/adapters/node';
 
 const service = createService({}, { randomGenerator: new NodeCryptoRandom() });
 

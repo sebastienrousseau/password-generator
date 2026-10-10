@@ -1,6 +1,6 @@
-# Contributing to Password Generator
+# Contributing to JavaScript Password Generator
 
-Password Generator welcomes community contributions.
+JavaScript Password Generator welcomes community contributions.
 
 ## Ways to Contribute
 
@@ -36,8 +36,8 @@ Found a bug? [Create an issue](https://github.com/sebastienrousseau/jspassgen/is
 ```bash
 # 1. Fork the repository on GitHub
 # 2. Clone your fork
-git clone https://github.com/YOUR-USERNAME/password-generator.git
-cd password-generator
+git clone https://github.com/YOUR-USERNAME/jspassgen.git
+cd jspassgen
 
 # 3. Install dependencies
 npm install
@@ -98,7 +98,7 @@ npm run build
 ## Project Structure
 
 ```
-password-generator/
+jspassgen/
 ├── src/
 │   ├── bin/              # CLI implementation
 │   ├── lib/              # Core password generators
@@ -140,8 +140,8 @@ Contributors are recognized in:
 - 🐛 [GitHub Issues](https://github.com/sebastienrousseau/jspassgen/issues) for bugs
 - 📧 Contact: hello@jspassgen.com
 
-Thank you for contributing to making Password Generator better!
+Thank you for contributing to making JavaScript Password Generator better!
 
 ---
 
-**Designed by Sebastien Rousseau — Engineered with Euxis**
+**Designed by Sebastien Rousseau - Engineered with Euxis**

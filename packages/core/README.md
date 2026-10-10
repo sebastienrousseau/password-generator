@@ -1,4 +1,4 @@
-# @password-generator/core
+# @jspassgen/core
 
 Platform-agnostic password generation core with zero runtime dependencies.
 
@@ -13,13 +13,13 @@ Platform-agnostic password generation core with zero runtime dependencies.
 ## Installation
 
 ```bash
-npm install @password-generator/core
+npm install @jspassgen/core
 ```
 
 ## Quick Start
 
 ```javascript
-import { createQuickService } from '@password-generator/core';
+import { createQuickService } from '@jspassgen/core';
 
 // Provide your own RandomGeneratorPort implementation
 const service = createQuickService(myRandomGenerator);
