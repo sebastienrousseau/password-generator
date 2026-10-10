@@ -25,9 +25,15 @@ VERSIONS=(
   "0.0.17"
   "0.0.18"
   "0.0.19"
+  "0.0.20"
 )
 
-LATEST_VER="${VERSIONS[${#VERSIONS[@]}-1]}"
+LATEST_VER=""
+for VER in "${VERSIONS[@]}"; do
+  if git rev-parse "v${VER}" >/dev/null 2>&1; then
+    LATEST_VER="${VER}"
+  fi
+done
 
 TOKEN="${NODE_AUTH_TOKEN:-$(gh auth token 2>/dev/null || true)}"
 if [ -z "${TOKEN}" ]; then
@@ -56,6 +62,11 @@ for VER in "${VERSIONS[@]}"; do
 
   if curl -sf -H "Authorization: Bearer ${TOKEN}" "https://npm.pkg.github.com/@sebastienrousseau/jspassgen/${VER}" >/dev/null 2>&1; then
     echo "==> @sebastienrousseau/jspassgen@${VER} is already published on GitHub Packages, skipping..."
+    continue
+  fi
+
+  if ! git rev-parse "v${VER}" >/dev/null 2>&1; then
+    echo "==> Tag v${VER} not found, skipping..."
     continue
   fi
 
