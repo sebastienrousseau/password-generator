@@ -1,7 +1,7 @@
 <!-- SPDX-License-Identifier: Apache-2.0 OR MIT -->
 
 <p align="center">
-  <img src=".github/assets/logo.svg" alt="jspassgen logo" width="128" />
+  <img src="https://raw.githubusercontent.com/sebastienrousseau/jspassgen/master/.github/assets/logo.svg" alt="jspassgen logo" width="128" />
 </p>
 
 <h1 align="center">jspassgen</h1>
