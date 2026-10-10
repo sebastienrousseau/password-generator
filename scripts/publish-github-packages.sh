@@ -88,7 +88,7 @@ for VER in "${VERSIONS[@]}"; do
 
     if (fs.existsSync('README.md')) {
       let readme = fs.readFileSync('README.md', 'utf8');
-      readme = readme.replace(/\.github\/assets\/logo\.svg/g, 'https://raw.githubusercontent.com/sebastienrousseau/jspassgen/master/.github/assets/logo.svg');
+      readme = readme.replace(/src=["'](?:\.\/)?\.github\/assets\/logo\.svg["']/g, 'src="https://raw.githubusercontent.com/sebastienrousseau/jspassgen/master/.github/assets/logo.svg"');
       fs.writeFileSync('README.md', readme);
     }
   "
