@@ -7,6 +7,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.18] - 2026-10-10
+
+### Fixed
+
+- **Release Workflow**: Configured explicit relative directory target (`./dist`) for `npm publish` in the release workflow to prevent registry lookup errors during dual publishing to npmjs and GitHub Packages.
+
+### Changed
+
+- **Publishing Scripts**: Added version iterations through `0.0.18` to automated publishing scripts (`publish-github-packages.sh` and `publish-all-versions.sh`).
+
 ## [0.0.12] - 2026-10-09
 
 ### Added

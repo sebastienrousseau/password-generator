@@ -57,7 +57,7 @@ jobs:
         run: npm run build
 
       - name: Publish to npmjs with Trusted Publishing
-        run: npm publish dist --access public --tag latest --provenance
+        run: npm publish ./dist --access public --tag latest --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -95,6 +95,6 @@ jobs:
           "
 
       - name: Publish to GitHub Packages
-        run: npm publish dist --access public --registry https://npm.pkg.github.com/
+        run: npm publish ./dist --access public --registry https://npm.pkg.github.com/
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
