@@ -32,9 +32,15 @@ trap 'rm -rf "${WORK_DIR}"' EXIT
 
 for VER in "${VERSIONS[@]}"; do
   echo "--------------------------------------------------------"
-  echo "==> Preparing jspassgen@${VER} for npmjs..."
+  echo "==> Checking jspassgen@${VER}..."
   echo "--------------------------------------------------------"
 
+  if curl -sf "https://registry.npmjs.org/jspassgen/${VER}" >/dev/null 2>&1; then
+    echo "==> jspassgen@${VER} is already published on npmjs, skipping..."
+    continue
+  fi
+
+  echo "==> Preparing jspassgen@${VER} for npmjs..."
   STAGE_DIR="${WORK_DIR}/${VER}"
   mkdir -p "${STAGE_DIR}"
 
@@ -43,7 +49,8 @@ for VER in "${VERSIONS[@]}"; do
 
   cd "${STAGE_DIR}"
 
-  # Update package.json to ensure package name is jspassgen and version matches tag
+  # Update package.json to ensure package name is jspassgen and version matches tag,
+  # and strip lifecycle scripts to avoid recursive or unwanted publish hooks.
   node -e "
     const fs = require('fs');
     const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
@@ -53,27 +60,21 @@ for VER in "${VERSIONS[@]}"; do
     if (pkg.repository && typeof pkg.repository === 'object') {
       pkg.repository.url = 'git+https://github.com/sebastienrousseau/jspassgen.git';
     }
+    delete pkg.scripts;
     fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
   "
 
-  # Build the distribution if build script exists, otherwise package the root
-  if [ -f "Makefile" ] && grep -q "build:" Makefile; then
-    npm run build || true
-  fi
-
-  TARGET_DIR="dist"
-  if [ ! -d "dist" ]; then
-    TARGET_DIR="."
-  fi
-
   if [ "${VER}" = "0.0.15" ]; then
     echo "Publishing jspassgen@${VER} as latest..."
-    npm publish "${TARGET_DIR}" --access public --tag latest --registry https://registry.npmjs.org/
+    npm publish . --access public --tag latest --registry https://registry.npmjs.org/ --ignore-scripts
   else
     echo "Publishing historical jspassgen@${VER}..."
-    npm publish "${TARGET_DIR}" --access public --tag "release-${VER}" --registry https://registry.npmjs.org/
+    npm publish . --access public --tag "release-${VER}" --registry https://registry.npmjs.org/ --ignore-scripts
   fi
   cd "${REPO_ROOT}"
 done
 
-echo "==> Successfully published all versions of jspassgen to https://registry.npmjs.org/!"
+echo "==> Ensuring latest tag points to 0.0.15..."
+npm dist-tag add jspassgen@0.0.15 latest --registry https://registry.npmjs.org/ || true
+
+echo "==> Successfully processed all versions of jspassgen to https://registry.npmjs.org/!"
