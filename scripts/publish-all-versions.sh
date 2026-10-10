@@ -35,6 +35,13 @@ REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 WORK_DIR=$(mktemp -d)
 trap 'rm -rf "${WORK_DIR}"' EXIT
 
+LATEST_VER=""
+for VER in "${VERSIONS[@]}"; do
+  if git rev-parse "v${VER}" >/dev/null 2>&1; then
+    LATEST_VER="${VER}"
+  fi
+done
+
 for VER in "${VERSIONS[@]}"; do
   echo "--------------------------------------------------------"
   echo "==> Checking jspassgen@${VER}..."
@@ -42,6 +49,11 @@ for VER in "${VERSIONS[@]}"; do
 
   if curl -sf "https://registry.npmjs.org/jspassgen/${VER}" >/dev/null 2>&1; then
     echo "==> jspassgen@${VER} is already published on npmjs, skipping..."
+    continue
+  fi
+
+  if ! git rev-parse "v${VER}" >/dev/null 2>&1; then
+    echo "==> Tag v${VER} not found, skipping..."
     continue
   fi
 
@@ -69,7 +81,7 @@ for VER in "${VERSIONS[@]}"; do
     fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
   "
 
-  if [ "${VER}" = "0.0.15" ]; then
+  if [ "${VER}" = "${LATEST_VER}" ]; then
     echo "Publishing jspassgen@${VER} as latest..."
     npm publish . --access public --tag latest --registry https://registry.npmjs.org/ --ignore-scripts
   else
@@ -79,7 +91,9 @@ for VER in "${VERSIONS[@]}"; do
   cd "${REPO_ROOT}"
 done
 
-echo "==> Ensuring latest tag points to 0.0.15..."
-npm dist-tag add jspassgen@0.0.15 latest --registry https://registry.npmjs.org/ || true
+if [ -n "${LATEST_VER}" ]; then
+  echo "==> Ensuring latest tag points to ${LATEST_VER}..."
+  npm dist-tag add "jspassgen@${LATEST_VER}" latest --registry https://registry.npmjs.org/ || true
+fi
 
 echo "==> Successfully processed all versions of jspassgen to https://registry.npmjs.org/!"
