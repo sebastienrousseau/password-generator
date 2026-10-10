@@ -7,6 +7,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.19] - 2026-10-10
+
+### Fixed
+
+- **Registry Resolution**: Removed scoped registry override from `.npmrc` to allow GitHub Packages publishing without registry collision.
+- **Workflow Authentication**: Configured Node.js 24 with tokenless Trusted Publishing for npmjs and dedicated scoped registry targeting for GitHub Packages.
+
+### Changed
+
+- **Publishing Scripts**: Added version iterations through `0.0.19` across automated multi-version scripts.
+
 ## [0.0.18] - 2026-10-10
 
 ### Fixed
