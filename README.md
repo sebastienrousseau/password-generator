@@ -1,7 +1,7 @@
 <!-- SPDX-License-Identifier: Apache-2.0 OR MIT -->
 
 <p align="center">
-  <img src="https://kura.pro/password-generator-pro/images/logos/password-generator-pro.webp" alt="jspassgen logo" width="128" />
+  <img src=".github/assets/logo.svg" alt="jspassgen logo" width="128" />
 </p>
 
 <h1 align="center">jspassgen</h1>
@@ -11,10 +11,10 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/sebastienrousseau/jspassgen/actions"><img src="https://github.com/sebastienrousseau/jspassgen/workflows/ci/badge.svg?style=for-the-badge&logo=github" alt="Build" /></a>
+  <a href="https://github.com/sebastienrousseau/jspassgen/actions/workflows/quality-gates.yml"><img src="https://img.shields.io/github/actions/workflow/status/sebastienrousseau/jspassgen/quality-gates.yml?branch=master&style=for-the-badge&logo=github&label=Build" alt="Build" /></a>
   <a href="https://www.npmjs.com/package/jspassgen"><img src="https://img.shields.io/npm/v/jspassgen.svg?style=for-the-badge&color=fc8d62&logo=npm" alt="npm registry" /></a>
   <a href="https://github.com/sebastienrousseau/jspassgen/releases"><img src="https://img.shields.io/badge/release-v0.0.14-blue.svg?style=for-the-badge" alt="Release" /></a>
-  <a href="https://app.codacy.com/gh/sebastienrousseau/jspassgen/dashboard"><img src="https://img.shields.io/codacy/grade/0acb169c95e443729551979e0fd86eaf?style=for-the-badge&logo=codacy" alt="Codacy grade" /></a>
+  <a href="https://app.codacy.com/gh/sebastienrousseau/jspassgen/dashboard"><img src="https://app.codacy.com/project/badge/Grade/0acb169c95e443729551979e0fd86eaf?style=for-the-badge" alt="Codacy grade" /></a>
   <a href="LICENSE-APACHE"><img src="https://img.shields.io/badge/license-Apache--2.0%20OR%20MIT-blue.svg?style=for-the-badge" alt="License: Apache-2.0 OR MIT" /></a>
   <a href="https://nodejs.org"><img src="https://img.shields.io/badge/node->=22.0.0-93450a.svg?style=for-the-badge&logo=node.js" alt="Node.js 22+" /></a>
 </p>

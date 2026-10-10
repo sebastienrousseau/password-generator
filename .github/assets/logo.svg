@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="128" height="128">
+  <defs>
+    <linearGradient id="primaryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF6B9D"/>
+      <stop offset="100%" stop-color="#9D4EDD"/>
+    </linearGradient>
+    <linearGradient id="keyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+    <filter id="subtleShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0F172A" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Background rounded squircle / icon container -->
+  <rect x="32" y="32" width="448" height="448" rx="104" fill="url(#primaryGrad)" filter="url(#subtleShadow)"/>
+
+  <!-- Terminal / Matrix Dots or Corner Sparkle -->
+  <path d="M120 120 L132 120 M126 114 L126 126" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
+  <path d="M392 120 L400 120 M396 116 L396 124" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+
+  <!-- Shield / Lock Housing -->
+  <g transform="translate(136, 120)" fill="none" stroke="#FFFFFF" stroke-width="24" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Shackle / Arc -->
+    <path d="M 60 120 V 76 A 60 60 0 0 1 180 76 V 120" stroke="url(#keyGrad)" stroke-width="26"/>
+    <!-- Lock Body -->
+    <rect x="24" y="120" width="192" height="152" rx="36" fill="#0F172A" stroke="#FFFFFF" stroke-width="16"/>
+    <!-- Keyhole -->
+    <circle cx="120" cy="180" r="16" fill="#FF6B9D" stroke="none"/>
+    <polygon points="113,184 127,184 130,218 110,218" fill="#FF6B9D" stroke="none"/>
+  </g>
+
+  <!-- Decorative Sparkles / Cryptographic Bits -->
+  <g fill="#FFFFFF" opacity="0.9">
+    <!-- 4-point star / sparkle -->
+    <path d="M 374 350 C 374 362 384 372 396 372 C 384 372 374 382 374 394 C 374 382 364 372 352 372 C 364 372 374 362 374 350 Z"/>
+    <circle cx="120" cy="380" r="6" opacity="0.7"/>
+    <circle cx="380" cy="200" r="5" opacity="0.5"/>
+  </g>
+</svg>
