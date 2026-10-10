@@ -22,7 +22,10 @@ VERSIONS=(
   "0.0.14"
   "0.0.15"
   "0.0.16"
+  "0.0.17"
 )
+
+LATEST_VER="${VERSIONS[${#VERSIONS[@]}-1]}"
 
 TOKEN="${NODE_AUTH_TOKEN:-$(gh auth token 2>/dev/null || true)}"
 if [ -z "${TOKEN}" ]; then
@@ -69,7 +72,7 @@ for VER in "${VERSIONS[@]}"; do
   # Remove any archived .npmrc to prevent overriding GitHub Packages registry
   rm -f .npmrc
 
-  # Set scoped package name for GitHub Packages and strip scripts to prevent side effects
+  # Set scoped package name for GitHub Packages, ensure absolute logo URL, and strip scripts
   node -e "
     const fs = require('fs');
     const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
@@ -82,9 +85,15 @@ for VER in "${VERSIONS[@]}"; do
     };
     delete pkg.scripts;
     fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
+
+    if (fs.existsSync('README.md')) {
+      let readme = fs.readFileSync('README.md', 'utf8');
+      readme = readme.replace(/\.github\/assets\/logo\.svg/g, 'https://raw.githubusercontent.com/sebastienrousseau/jspassgen/master/.github/assets/logo.svg');
+      fs.writeFileSync('README.md', readme);
+    }
   "
 
-  if [ "${VER}" = "0.0.16" ]; then
+  if [ "${VER}" = "${LATEST_VER}" ]; then
     echo "Publishing @sebastienrousseau/jspassgen@${VER} as latest..."
     npm publish . --access public --tag latest --registry https://npm.pkg.github.com/ --ignore-scripts --userconfig "${WORK_DIR}/.npmrc" || true
   else
