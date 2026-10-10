@@ -41,8 +41,8 @@ Before starting any feature, fix, or release work:
 
 ## 1. Versioning and branch lifecycle
 
-- **Version increments**: Current version is `v0.0.14`. Every new iteration increments strictly by `0.0.1` (`v0.0.14` -> `v0.0.15`).
-- **Release branch**: Work for the next iteration belongs on `feat/v<next-version>` (e.g. `feat/v0.0.15`). Never leave release work on `master` or unrelated topic branches.
+- **Version increments**: Current version is `v0.0.15`. Every new iteration increments strictly by `0.0.1` (`v0.0.15` -> `v0.0.16`).
+- **Release branch**: Work for the next iteration belongs on `feat/v<next-version>` (e.g. `feat/v0.0.16`). Never leave release work on `master` or unrelated topic branches.
 - **Single active release PR**: At most ONE active pull request targeting `master` across this repository, which MUST be `feat/v<next-version>`.
 - **Branch funneling**: All Dependabot PRs, security fixes, and feature commits MUST be merged into the active `feat/v<next-version>` branch, never directly into `master`. Standalone PRs targeting `master` are closed with a comment linking the release PR.
 

@@ -116,7 +116,7 @@
   "name": "jspassgen",
   "publishConfig": {
     "access": "public",
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://registry.npmjs.org/"
   },
   "repository": {
     "type": "git",
@@ -188,7 +188,7 @@
     "benchmark:generation": "node benchmarks/password-generation.bench.js"
   },
   "type": "module",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "overrides": {
     "lodash": "^4.18.1",
     "jshint": {
